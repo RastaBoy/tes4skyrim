@@ -184,6 +184,42 @@ TES5 NPC_ DNAM stores skills as arrays. The correct xEdit paths are:
 - `DNAM\Skill Values\TwoHanded`, `Marksman`, `Block`, `Smithing`, `HeavyArmor`, `LightArmor`, `Pickpocket`, `Lockpicking`, `Sneak`, `Alchemy`, `Speechcraft`, `Alteration`, `Conjuration`, `Destruction`, `Illusion`, `Restoration`, `Enchanting`
 - Plus `DNAM\Health`, `DNAM\Magicka`, `DNAM\Stamina` (U16 each)
 
+### Binary facts for authoring an override plugin (measured 2026-08-27)
+
+Established while building `tools/plugin_patch.py` (see
+[python_tools_reference.md](python_tools_reference.md)); all measured against
+this repo's converted `Oblivion.esm`, the real `Skyrim.esm`, and three
+third-party plugins.
+
+- **HEDR "number of records" = every record OUTSIDE the file header + every
+  GRUP, nested groups included.** Exact on MyCosmeticTamrielPatch.esp (52),
+  Apachii_DivineEleganceStore.esm (4,498), KS Hairdo's.esp (2,702) and
+  ElsweyrAnequina.esp (182,404).
+- **Top-level GRUP order is the xEdit/CK canonical list**, e.g.
+  `... WEAP AMMO NPC_ ... NAVI CELL WRLD ... ARMA LCTN ... OTFT ...` — NPC_
+  before CELL, OTFT near the end. Apachii's ESM matches it exactly.
+- **Canonical NPC_ field order around the fields these tools write:**
+  `... DNAM, PNAM(x), HCLF, ZNAM, GNAM, NAM5, NAM6, NAM7, NAM8,
+  CSDT/CSDI/CSDC, CSCR, DOFT, SOFT, DPLT, CRIF, FTST, QNAM, NAM9, NAMA,
+  tint layers`. DOFT comes AFTER the sound block, not straight after NAM8 —
+  reconstructing the position from this rule reproduces the real index in all
+  2,463 converted NPC_ records that already carry a DOFT, and PNAM lands
+  immediately after DNAM in all 2,597 rewritten records.
+- **`RACE.DATA` flags live at offset 32** of the 164-byte struct, and bit
+  `0x02` is **FaceGen Head** — the engine's own humanoid marker. Set on the 10
+  playable races + Dremora (+ vampire/child variants) and clear on every
+  creature race: Skeleton, Draugr, Wisp, Wolf, Horse, Chaurus, Dragon. All 223
+  TES4-converted races have it clear. Use it, not a race-name list, to tell an
+  actor that wears head parts from a creature.
+- **HDPT `DATA` flags**: `0x01` Playable, `0x02` Male, `0x04` Female, `0x08`
+  Is Extra Part; `PNAM` is the type (0 Misc, 1 Face, 2 Eyes, 3 Hair,
+  4 Facial Hair, 5 Scar, 6 Eyebrows). KS Hairdo's ships each hair as type 3
+  with its `<name>HL` hairline as type 0 + Is-Extra-Part.
+- **NPC_ VMAD** in the converted plugin is version 5 / object format 2 and
+  carries only Object properties; a full property walk consumes every one of
+  the 460 blobs exactly, so FormID remapping inside VMAD is exact rather than
+  a byte scan.
+
 ### LVLN shell NPC_ DNAM must not be zero (fixed 2026-07-30)
 
 **Symptom:** most animals in converted Nehrim (river crabs, boar, deer,

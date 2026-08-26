@@ -438,3 +438,4 @@ relevant doc when working in that area.
 | `oblivion-dialog-system` | Vanilla TES4 dialogue/voice/quest records |
 | `skyrim-dialog-system` | Vanilla TES5 dialogue/voice/quest records |
 | `oblivion-to-skyrim-dialog` | TES4→TES5 dialogue/quest/voice mapping |
+| `cosmetic-npc-patch` | `patch_folder/` — authoring NPC_ overrides in a binary ESP |
