@@ -27,6 +27,8 @@ Checks:
   9. hair         PNAM starts with a Hair-type part from --hair-plugin followed
                   by an Is-Extra-Part companion, gender flags agree with ACBS,
                   and no other head part comes from the hair plugin
+ 10. skintone     QNAM agrees with the record's own skin-tone tint layer, so the
+                  face is not lit differently from the body
 """
 
 import argparse
@@ -289,6 +291,39 @@ def check_hair(patch, hair_plugin, rep):
               'every head-part run' if not bad else dict(bad))
 
 
+def check_skintone(patch, rep):
+    """QNAM must be what skin_tone_qnam() derives from the record's own layer."""
+    from tes5_import.npc_face_mapper import skin_tone_qnam
+    from tools.assign_skin_tone import npc_tint_layers
+
+    bad = Counter()
+    checked = 0
+    worst = 0.0
+    for _pfid, (_hdr, subs) in patch.npcs.items():
+        tints = npc_tint_layers(subs)
+        qnam = first(subs, 'QNAM')
+        if not tints or not qnam or len(qnam) != 12:
+            continue
+        # One layer is unambiguous; with several, the check needs the race's
+        # Skin Tone mask, which the pass resolved -- accept any layer matching.
+        cur = struct.unpack('<3f', qnam)
+        checked += 1
+        deltas = [max(abs(a - b) * 255
+                      for a, b in zip(cur, skin_tone_qnam(l['c'], l['v'])))
+                  for l in tints]
+        d = min(deltas)
+        worst = max(worst, d)
+        if d >= 0.51:
+            bad['QNAM disagrees with the tint layer'] += 1
+    if not checked:
+        rep.ok('skintone', 'no NPC carries both QNAM and a tint layer')
+        return
+    rep.check('skintone', not bad,
+              f'{checked} NPCs, QNAM derived from the tint layer '
+              f'(worst deviation {worst:.1f}/255)' if not bad
+              else f'{dict(bad)} of {checked}; worst {worst:.1f}/255')
+
+
 def main():
     ap = argparse.ArgumentParser(
         description='Verify a built NPC-override patch plugin.')
@@ -299,7 +334,7 @@ def main():
                     help='the patch before any pass ran, to prove untouched '
                          'groups are byte-identical')
     ap.add_argument('--hair-plugin', help='enables the head-part checks')
-    ap.add_argument('--owns', default='DOFT,PNAM',
+    ap.add_argument('--owns', default='DOFT,PNAM,QNAM',
                     help='comma-separated subrecords the passes are allowed to '
                          'change (default DOFT,PNAM)')
     args = ap.parse_args()
@@ -324,6 +359,7 @@ def main():
     check_carried(patch, args.original, rep)
     check_outfits(patch, src_otft, rep)
     check_hair(patch, args.hair_plugin, rep)
+    check_skintone(patch, rep)
 
     print()
     if rep.failed:

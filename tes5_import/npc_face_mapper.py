@@ -178,6 +178,42 @@ _RACE_SKIN_TONES: dict[tuple, tuple] = {
 }
 
 
+# Blending the skin-tone tint toward MID-GREY, not toward white.
+#
+# Measured from Skyrim.esm (tools/census_npc_skin.py --qnam): every one of the
+# 15,354 vanilla QNAM channel values is exactly N/255 for an integer N, and for
+# an NPC carrying a skin-tone tint layer that N is
+#
+#     floor(127 * (1 - TINV/100) + TINC_channel * TINV/100)
+#
+# — exact for 3,142 of 3,213 channels, the rest off by a single unit of 255.
+# The base is pinned by the 9 vanilla NPCs whose layer has TINV=0: their QNAM
+# is 127/255 in every channel no matter what colour the layer carries.
+#
+# Blending toward WHITE (255) instead — which is what this module used to do —
+# leaves QNAM lighter than the tint the engine paints on the face, by
+# (255-127)*(1-TINV/100) per channel. At the TINV=80 the converter writes that
+# is 25.6/255 in every channel: the body reads visibly paler than the face.
+# 995 of 1,071 vanilla NPCs sidestep the whole question by writing TINV=100,
+# where the base cancels out.
+_QNAM_BLEND_BASE = 127.0
+
+
+def skin_tone_qnam(rgb, tinv: int) -> tuple:
+    """The QNAM (texture lighting) that belongs with a skin-tone tint layer.
+
+    rgb  — the layer's TINC colour, 0-255 per channel
+    tinv — the layer's TINV interpolation, 0-100
+
+    Returns three 0-1 floats. QNAM MUST be derived this way from the layer the
+    record actually carries: the two are the same colour expressed twice, and
+    when they disagree the face is lit differently from the body.
+    """
+    v = min(100.0, max(0.0, float(tinv))) / 100.0
+    return tuple(
+        int(_QNAM_BLEND_BASE * (1.0 - v) + float(c) * v) / 255.0 for c in rgb)
+
+
 def _pick_skin_tone(race_edid: str, gender: str, fid: int):
     """Return (tini_index, (r, g, b), tinv) for this NPC's skin-tone layer.
 
@@ -392,11 +428,8 @@ def build_face_tail_subs(rec: dict, race_edid: str, gender: str) -> bytes:
     fid = get_formid(rec, 'FormID')
     tini, (r, g, b), tinv = _pick_skin_tone(race_edid, gender, fid)
 
-    # QNAM — texture lighting (stored as three 0–1 floats; xEdit × 255 → 0–255)
-    # Effective color = lerp(white, tint color, interpolation).
-    v = tinv / 100.0
-    qnam = tuple((255.0 * (1.0 - v) + c * v) / 255.0 for c in (r, g, b))
-    subs += pack_subrecord('QNAM', struct.pack('<3f', *qnam))
+    # QNAM — texture lighting, kept in agreement with the skin-tone layer.
+    subs += pack_subrecord('QNAM', struct.pack('<3f', *skin_tone_qnam((r, g, b), tinv)))
 
     # NAM9 — face morphs: map from FGGS PCA coefficients when available
     fggs = _parse_fggs(rec)

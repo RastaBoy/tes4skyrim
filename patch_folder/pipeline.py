@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the cosmetic patch plugin: outfits + hair, in one pass.
+"""Build the cosmetic patch plugin: outfits, hair and skin tone, in one pass.
 
 Reads the untouched plugin from `sources/`, applies every cosmetic pass in
 order, and writes the result to `output/`. The build always restarts from
@@ -8,7 +8,7 @@ byte-identical plugin, and a bad run is fixed by re-running, never by undoing.
 
     python patch_folder/pipeline.py                 # full build
     python patch_folder/pipeline.py --dry-run       # report only, write nothing
-    python patch_folder/pipeline.py --only outfits  # one pass
+    python patch_folder/pipeline.py --only skin     # one pass
     python patch_folder/pipeline.py --seed 7        # different random draw
 
 Each pass is `tools/assign_*.py`, which can also be run on its own; this script
@@ -67,7 +67,7 @@ def run(step, argv, dry_run):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--only', choices=['outfits', 'hair'], action='append',
+    ap.add_argument('--only', choices=['outfits', 'hair', 'skin'], action='append',
                     default=[], help='run just this pass (repeatable)')
     ap.add_argument('--seed', type=int, default=0,
                     help='RNG seed shared by every pass (default 0)')
@@ -77,7 +77,7 @@ def main():
                     help=f'plugin the NPCs come from (default {NPC_SOURCE})')
     args = ap.parse_args()
 
-    passes = args.only or ['outfits', 'hair']
+    passes = args.only or ['outfits', 'hair', 'skin']
     src_plugin = SOURCES / PLUGIN
     out_plugin = OUTPUT / PLUGIN
     npc_source = Path(args.source)
@@ -139,6 +139,22 @@ def main():
         if args.dry_run:
             argv.append('--dry-run')
         run('hair: humanoid NPCs get a random hair + its HL part', argv,
+            args.dry_run)
+        if not args.dry_run:
+            current = out_plugin
+
+    if 'skin' in passes:
+        argv = [REPO / 'tools' / 'assign_skin_tone.py',
+                '--source', npc_source,
+                '--patch', current,
+                '--out', out_plugin,
+                '--report', REPORTS / 'skin_tone.tsv']
+        skyrim = find_skyrim_esm()
+        if skyrim:
+            argv += ['--race-plugin', skyrim]
+        if args.dry_run:
+            argv.append('--dry-run')
+        run("skin tone: QNAM re-derived from each NPC's own tint layer", argv,
             args.dry_run)
         if not args.dry_run:
             current = out_plugin

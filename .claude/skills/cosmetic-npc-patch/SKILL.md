@@ -37,6 +37,8 @@ tools/
   plugin_patch.py             shared library (read, override, remap, write)
   assign_female_outfits.py    pass: DOFT
   assign_npc_hair.py          pass: PNAM head parts
+  assign_skin_tone.py         pass: QNAM texture lighting
+  verify_npc_patch.py         the ship gate
 ```
 
 Run it:
@@ -45,6 +47,7 @@ Run it:
 python patch_folder/pipeline.py                # full build
 python patch_folder/pipeline.py --dry-run      # report only
 python patch_folder/pipeline.py --only hair    # one pass, keeps the others' work
+python patch_folder/pipeline.py --only skin    # outfits | hair | skin
 python patch_folder/pipeline.py --seed 7       # a different random draw
 ```
 
@@ -71,8 +74,9 @@ override"), remaps FormID master indexes into the patch's load order, and
 substitutes only the subrecords it owns. A field a pass never touches cannot
 drift, so there is no class of "our pass re-derived it differently" bug.
 
-Concretely: the outfit pass owns `DOFT`. The hair pass owns `PNAM`. Neither
-knows the other exists, and running both leaves both edits intact.
+Concretely: the outfit pass owns `DOFT`, the hair pass `PNAM`, the skin-tone
+pass `QNAM`. None of them knows the others exist, and running all three leaves
+every edit intact.
 
 ### 2. Passes compose, and every pass is idempotent
 
@@ -150,6 +154,20 @@ The head-part run is rebuilt as `[hair, hairHL, ...everything that was not
 hair]`, which in practice means the eyes survive and the converted Oblivion hair
 is dropped.
 
+### Skin tone — `assign_skin_tone.py`
+
+`QNAM` (texture lighting) and the skin-tone tint layer are the same colour
+written twice; the engine lights the body from one and paints the face from the
+other. The converter derived QNAM by blending the tint toward **white**, but the
+engine's base is **mid-grey 127**, so every converted NPC's body came out a flat
+26/255 paler than its face. This pass re-derives QNAM from the layer the record
+already carries, via `tes5_import.npc_face_mapper.skin_tone_qnam()` — shared with
+the converter so the two cannot drift.
+
+Which layer is the skin tone is authored too: the RACE record's tint masks carry
+`TINP == 6` for Skin Tone, in a male set and a female set. See
+`references/binary-facts.md`.
+
 **Humanoid-vs-creature is decided by the engine's own flag**, not a race-name
 list: `RACE.DATA` flags word at offset 32, bit `0x02` = *FaceGen Head*. See
 `references/binary-facts.md`. Race-name lists and "does it have head parts"
@@ -177,6 +195,16 @@ the user's to run.
 
 Track anything unresolved here so the next session does not rediscover it.
 
+- **The converter still ships the old QNAM formula on the branch that actually
+  builds `output/Oblivion.esm`.** That plugin comes from `upstream/master`
+  (commit `e3779f8`), which this branch does not contain; the fix here is on
+  `self-patches`' older copy of the same formula. The patch pass corrects the
+  built plugin either way, so nothing is blocked — but the one-line change wants
+  porting, and until it is, a fresh import re-introduces the mismatch.
+- **`_SKIN_TINV = 80` is now a coherent knob.** It pulls the skin 20% toward
+  mid-grey — face and body together, since the fix. 995 of 1,071 vanilla NPCs
+  write `TINV=100` instead, which would give the raw reconstructed Oblivion
+  colour. Worth trying if the tone still reads wrong.
 - **Dremora (115 NPCs) currently get KS hairdos.** They carry a FaceGen head so
   they pass the humanoid test, and they are not creatures — but the look may be
   wrong. Excluded with `--exclude-race 000131F0`, or by adding that FormID to

@@ -8,7 +8,10 @@ complete of the two — and change the middle.
 Name the exact subrecord signatures. If two passes would write the same field,
 they are one pass, not two.
 
-Already owned: `DOFT` (outfits), `PNAM` (hair).
+Already owned: `DOFT` (outfits), `PNAM` (hair), `QNAM` (skin tone).
+
+Add the new signature to `verify_npc_patch.py`'s `--owns` default too, or the
+`fidelity` check will correctly fail.
 
 ## 2. Find the AUTHORED indicator, not a heuristic
 

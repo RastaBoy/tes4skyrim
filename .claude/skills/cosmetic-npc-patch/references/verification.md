@@ -10,7 +10,7 @@ python tools/verify_npc_patch.py \
     --hair-plugin "patch_folder/sources/KS Hairdo's.esp"
 ```
 
-Non-zero exit if anything fails. Nine checks:
+Non-zero exit if anything fails. Ten checks:
 
 | check | what it proves |
 |---|---|
@@ -23,8 +23,9 @@ Non-zero exit if anything fails. Nine checks:
 | `carried` | groups no pass touches are byte-identical to `--original` |
 | `outfits` | every `DOFT` names a real OTFT — this patch's own (assigned) or the source's (carried) |
 | `hair` | `PNAM` starts with a Hair-type part from the hair plugin followed by its Is-Extra-Part companion, gender flags agree with `ACBS`, no stray hair-plugin parts later in the run |
+| `skintone` | `QNAM` is what `skin_tone_qnam()` derives from the record's own skin-tone tint layer, so the face is not lit differently from the body |
 
-`--owns DOFT,PNAM` lists the fields the passes are allowed to change; extend it
+`--owns DOFT,PNAM,QNAM` lists the fields the passes are allowed to change; extend it
 when a new pass claims a field, or `fidelity` will (correctly) fail.
 
 Current baseline, for comparison after a change:
@@ -35,11 +36,12 @@ PASS hedr       2650
 PASS groups     NPC_ CELL WRLD OTFT
 PASS masters    00=Skyrim.esm:8484  03=Oblivion.esm:38862
                 04=KS Hairdo's.esp:5194  06=MyCosmeticTamrielPatch.esp:778
-PASS fidelity   91345/91345 subrecords identical to the source after remap
+PASS fidelity   88748/88748 subrecords identical to the source after remap
 PASS order      DOFT and PNAM canonical in all 2597 records
 PASS carried    3 untouched groups byte-identical (CELL WRLD OTFT)
 PASS outfits    2418 with an outfit: 778 assigned here (11 distinct), 1640 carried
 PASS hair       2597 NPCs, 9 distinct styles, hair+HL leading every run
+PASS skintone   2482 NPCs, QNAM derived from the tint layer (worst 0.0/255)
 ```
 
 ## Reproducibility and idempotence

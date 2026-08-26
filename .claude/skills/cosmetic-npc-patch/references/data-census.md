@@ -95,6 +95,17 @@ Curated lists in `patch_folder/sources/constants.py`:
 
 ---
 
+## Skin tone
+
+2,482 NPCs carry a skin-tone tint layer; all 2,482 resolve through their RACE's
+`TINP == 6` mask (no single-layer fallback needed). Before the fix **all 2,482**
+had a QNAM off by exactly **26/255 in every channel** — `(255-127) x (1-0.80)`,
+the signature of blending toward white at `TINV=80`. The other 1,356 NPCs have no
+tint layer at all (creatures and template shells).
+
+Only 31 of the 322 races the patch can see define a Skin Tone mask; all 223
+TES4-converted races define none.
+
 ## The patch, as built
 
 | | original | after outfits | after hair |
@@ -104,6 +115,9 @@ Curated lists in `patch_folder/sources/constants.py`:
 | groups | 26 | 27 | 27 |
 | HEDR | 52 | 831 | 2,650 |
 | `NPC_` | 0 | 778 | 2,597 |
+
+The skin-tone pass adds no records — it updates 2,482 of the 2,597 in place, so
+the file size is unchanged.
 
 Unchanged throughout: 15 `OTFT`, 10 `CELL`, 1 `WRLD` — byte-identical to the
 source patch.

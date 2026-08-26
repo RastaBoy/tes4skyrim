@@ -184,6 +184,52 @@ TES5 NPC_ DNAM stores skills as arrays. The correct xEdit paths are:
 - `DNAM\Skill Values\TwoHanded`, `Marksman`, `Block`, `Smithing`, `HeavyArmor`, `LightArmor`, `Pickpocket`, `Lockpicking`, `Sneak`, `Alchemy`, `Speechcraft`, `Alteration`, `Conjuration`, `Destruction`, `Illusion`, `Restoration`, `Enchanting`
 - Plus `DNAM\Health`, `DNAM\Magicka`, `DNAM\Stamina` (U16 each)
 
+### NPC_ QNAM blends the skin tone toward MID-GREY, not white (fixed 2026-08-27)
+
+**Symptom:** every converted humanoid's face was a different colour from its
+body — the body read about 10% paler.
+
+**Cause:** `npc_face_mapper.build_face_tail_subs` derived `QNAM`
+(texture lighting) from the skin-tone tint layer as
+`lerp(255, TINC, TINV/100)`. The engine's base is **127**, not 255. With the
+`_SKIN_TINV = 80` the converter writes, that put QNAM a flat **26/255 above**
+the colour the tint layer paints, in every channel, on all 2,482 NPCs that
+carry a tint layer.
+
+**The engine's rule**, measured over Skyrim.esm's 5,118 NPC_ records:
+
+```
+QNAM_channel = floor(127 * (1 - TINV/100) + TINC_channel * TINV/100) / 255
+```
+
+- Every one of the **15,354** vanilla QNAM channel values is exactly `N/255`
+  for an integer N — QNAM is a quantized byte, not a free float.
+- The base is pinned by the **9** vanilla NPCs whose skin layer has `TINV=0`:
+  their QNAM is `127/255` in all three channels regardless of the layer colour
+  (which varies — `(255,255,255)`, `(135,192,243)`).
+- `floor` reproduces **3,142 of 3,213** channels exactly; 65 more are off by a
+  single unit of 255 (`round`/`round-half-up` score slightly worse).
+- **995 of 1,071** vanilla NPCs write `TINV=100`, where the base cancels — which
+  is why a converter that only ever tested TINV=100 could not see the bug, and
+  why the existing unit test passed through it.
+
+Now `npc_face_mapper.skin_tone_qnam()`, the single source of truth shared with
+`tools/assign_skin_tone.py`. Guarded by
+`tests/test_import.py::test_skin_tone_qnam_blends_toward_mid_grey`.
+
+**Which tint layer is the skin tone** is authored, not guessed: the RACE record
+lists its tint masks as `TINI` (index) + `TINP` (mask type), and **`TINP == 6`
+is Skin Tone**. The masks appear twice per RACE — the male set after
+`RPRM/AHCM/FTSM/DFTM`, the female set after `RPRF/AHCF/FTSF/DFTF`. Reading it
+that way reproduces the converter's hand-built per-race index table exactly
+(Nord M=1/F=24, Redguard M=1/F=23, Imperial M=1/F=13, Argonian M=38/F=16,
+Khajiit M=1/F=4, Dremora M=1/F=24).
+
+**Note:** `output/Oblivion.esm` is built from `upstream/master` (commit
+`e3779f8`, which reconstructs skin tones from Oblivion race data and introduced
+`_SKIN_TINV = 80`); that branch needs the same one-line change. The fix here is
+on the older formula, which has the identical `255.0` base.
+
 ### Binary facts for authoring an override plugin (measured 2026-08-27)
 
 Established while building `tools/plugin_patch.py` (see

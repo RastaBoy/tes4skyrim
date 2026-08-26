@@ -504,6 +504,42 @@ class TestConverters:
         assert (self._get_subrecord_data(result_f, 'TINC')
                 == self._get_subrecord_data(convert_NPC_(rec_f), 'TINC'))
 
+    def test_skin_tone_qnam_blends_toward_mid_grey(self):
+        """QNAM blends the tint toward 127, not toward white.
+
+        Measured from Skyrim.esm: the 9 vanilla NPCs whose skin-tone layer has
+        TINV=0 carry QNAM = 127/255 in every channel whatever colour the layer
+        holds, and floor(127*(1-v) + c*v) reproduces 3,142 of 3,213 vanilla
+        channel values exactly (the rest are off by one unit of 255).
+
+        Blending toward white instead leaves the body lighter than the face by
+        (255-127)*(1-v) per channel — at the TINV=80 the converter writes, a
+        flat 26/255 on every NPC.
+        """
+        from tes5_import.npc_face_mapper import skin_tone_qnam
+
+        # TINV=0: the layer colour drops out entirely and the base is exposed.
+        for colour in ((255, 255, 255), (135, 192, 243), (0, 0, 0)):
+            assert skin_tone_qnam(colour, 0) == (127 / 255.0,) * 3
+
+        # TINV=100: the base cancels, QNAM is the raw colour.
+        assert skin_tone_qnam((187, 117, 75), 100) == (187 / 255.0,
+                                                       117 / 255.0,
+                                                       75 / 255.0)
+
+        # TINV=80: the case the converter actually writes.
+        assert skin_tone_qnam((187, 117, 75), 80) == (175 / 255.0,
+                                                      119 / 255.0,
+                                                      85 / 255.0)
+        # ... which is NOT the blend-toward-white answer.
+        assert skin_tone_qnam((187, 117, 75), 80) != (201 / 255.0,
+                                                      145 / 255.0,
+                                                      111 / 255.0)
+
+        # Out-of-range interpolation is clamped, never extrapolated.
+        assert skin_tone_qnam((10, 20, 30), 250) == skin_tone_qnam((10, 20, 30), 100)
+        assert skin_tone_qnam((10, 20, 30), -5) == skin_tone_qnam((10, 20, 30), 0)
+
     def test_crea_becomes_npc(self):
         rec = {'Signature': 'CREA', 'FormID': '00000600', 'RecordFlags': '0',
                'EditorID': 'TestDeer', 'FULL': 'Deer',

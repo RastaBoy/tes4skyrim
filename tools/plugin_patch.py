@@ -83,6 +83,7 @@ AFTER_PNAM = ('HCLF', 'ZNAM', 'GNAM', 'NAM5', 'NAM6', 'NAM7', 'NAM8',
               'TINI', 'TINC', 'TINV', 'TIAS')
 AFTER_DOFT = ('SOFT', 'DPLT', 'CRIF', 'FTST', 'QNAM', 'NAM9', 'NAMA',
               'TINI', 'TINC', 'TINV', 'TIAS')
+AFTER_QNAM = ('NAM9', 'NAMA', 'TINI', 'TINC', 'TINV', 'TIAS')
 
 
 # ---------------------------------------------------------------------------

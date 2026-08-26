@@ -90,7 +90,7 @@ FULL SHRT DATA DNAM PNAM(x) HCLF ZNAM GNAM NAM5 NAM6 NAM7 NAM8
 CSDT/CSDI/CSDC CSCR DOFT SOFT DPLT CRIF FTST QNAM NAM9 NAMA TINI/TINC/TINV/TIAS
 ```
 
-Two positions this patch depends on, both verified:
+Three positions this patch depends on, all verified:
 
 - **`DOFT` comes AFTER the sound block (`CSDT/CSDI/CSDC`, `CSCR`), not straight
   after `NAM8`.** Vanilla Skyrim.esm never has both `DOFT` and `CSDT` on one
@@ -101,10 +101,13 @@ Two positions this patch depends on, both verified:
   2,463** converted NPC_ records that already carry a `DOFT`.
 - **`PNAM` sits immediately after `DNAM`** — true in all 2,597 records the hair
   pass rewrites.
+- **`QNAM` sits between `FTST` and `NAM9`**, i.e. after the outfit/faction block
+  and before the face-morph block.
 
 `insert_run()` implements this as "put the run where the first existing one was;
 failing that, immediately before the first successor field; failing that, at the
-end", which is why it needs the `AFTER_DOFT` / `AFTER_PNAM` successor tuples.
+end", which is why it needs the `AFTER_DOFT` / `AFTER_PNAM` / `AFTER_QNAM`
+successor tuples.
 
 ### ACBS
 
@@ -143,6 +146,28 @@ formID u32`.
 `plugin_patch.vmad_formid_offsets()`.
 
 ---
+
+## QNAM and the skin-tone tint layer
+
+`QNAM` (texture lighting, 3 floats) and the skin-tone tint layer
+(`TINI`/`TINC`/`TINV`/`TIAS`) are the same colour written twice. When they
+disagree the face is lit differently from the body. Vanilla derives one from the
+other:
+
+```
+QNAM_channel = floor(127 * (1 - TINV/100) + TINC_channel * TINV/100) / 255
+```
+
+Measured over Skyrim.esm's 5,118 NPC_ records:
+
+- all **15,354** vanilla QNAM channel values are exactly `N/255` for integer N;
+- the base **127** is pinned by the 9 NPCs whose layer has `TINV=0` — their QNAM
+  is `127/255` whatever colour the layer holds;
+- `floor` reproduces **3,142 / 3,213** channels exactly, 65 more within 1/255;
+- **995 / 1,071** vanilla NPCs write `TINV=100`, where the base cancels out —
+  so anything tested only at TINV=100 cannot see a wrong base.
+
+Implemented once, in `tes5_import.npc_face_mapper.skin_tone_qnam()`.
 
 ## RACE
 
