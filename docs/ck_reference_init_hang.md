@@ -76,6 +76,13 @@ the full record so the investigation doesn't restart from zero.
 Two things changed since the section below was written.
 
 0. 🛑 **The Creation Kit in use lives in the SkyrimVR folder.**
+   ⚠️ **STALE as of 2026-08-27** — the CK actually being run is now the
+   SSE copy, `D:\SteamLibrary\steamapps\common\Skyrim Special Edition\`
+   `CreationKit.exe` **1.6.1378.1**, launched through MO2. Re-derive every
+   RVA below before trusting it, and check the title bar or `ckpe.log`'s
+   `Creation Kit Skyrim Special Edition [vX]` line first. See
+   [ck_file_in_use_stall.md](ck_file_in_use_stall.md).
+   Historical note follows:
    `D:\SteamLibrary\steamapps\common\SkyrimVR\` — `CreationKit.exe`
    **1.5.73.0**, its CKPE, its `ckpe.log`, its
    `CreationKitPlatformExtended.toml`. There are at least five other

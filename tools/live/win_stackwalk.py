@@ -27,6 +27,9 @@ Usage:
     # process stops burning CPU for --idle-seconds it captures every stack.
     python tools/live/win_stackwalk.py --watch
 
+    # SLOW, not hung (CK grinding for minutes on a load): sampling profile
+    python tools/live/win_stackwalk.py --sample --duration 180
+
     # one-shot against something already hung
     python tools/live/win_stackwalk.py --name CreationKit
     python tools/live/win_stackwalk.py --pid 1234 --windows
@@ -186,6 +189,9 @@ k32.ResumeThread.argtypes = [wintypes.HANDLE]
 k32.GetProcessTimes.argtypes = [wintypes.HANDLE, ctypes.c_void_p,
                                 ctypes.c_void_p, ctypes.c_void_p,
                                 ctypes.c_void_p]
+k32.GetThreadTimes.argtypes = [wintypes.HANDLE, ctypes.c_void_p,
+                               ctypes.c_void_p, ctypes.c_void_p,
+                               ctypes.c_void_p]
 k32.Thread32First.argtypes = [wintypes.HANDLE, ctypes.c_void_p]
 k32.Thread32Next.argtypes = [wintypes.HANDLE, ctypes.c_void_p]
 k32.CloseHandle.argtypes = [wintypes.HANDLE]
@@ -381,6 +387,203 @@ def walk_thread(hproc, tid, mods, max_frames=96):
     return frames
 
 
+# ------------------------------------------------------------------ sampling
+
+
+def thread_cpu(tid):
+    """Kernel+user CPU seconds this thread has burned, or None."""
+    h = k32.OpenThread(THREAD_QUERY_INFORMATION, False, tid)
+    if not h:
+        return None
+    try:
+        ft = (wintypes.FILETIME * 4)()
+        if not k32.GetThreadTimes(h, ctypes.byref(ft[0]), ctypes.byref(ft[1]),
+                                  ctypes.byref(ft[2]), ctypes.byref(ft[3])):
+            return None
+        def as_int(f):
+            return (f.dwHighDateTime << 32) | f.dwLowDateTime
+        return (as_int(ft[2]) + as_int(ft[3])) / 1e7
+    finally:
+        k32.CloseHandle(h)
+
+
+class FuncFolder:
+    """Folds a return address to the START of its function.
+
+    x64 PE images carry a complete `.pdata` function table for SEH unwinding,
+    so a function's start is a recorded fact.  Without it a hot loop scatters
+    across dozens of distinct return addresses and no profile is legible;
+    with it every sample inside one routine lands in one bucket.
+    """
+
+    def __init__(self):
+        self._bins = {}
+
+    def _binary(self, path):
+        if path in self._bins:
+            return self._bins[path]
+        b = None
+        try:
+            sys.path.insert(0, os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+            from tools.disasm.skyrim_disasm import Binary
+            b = Binary(path)
+            b.runtime_functions()
+        except Exception:
+            b = None
+        self._bins[path] = b
+        return b
+
+    def fold(self, path, rva):
+        """(func_rva, offset_into_func) or (rva, None) when unknown."""
+        b = self._binary(path)
+        if b is None:
+            return rva, None
+        try:
+            bounds = b.func_bounds(rva)
+        except Exception:
+            return rva, None
+        if not bounds:
+            return rva, None
+        return bounds[0], rva - bounds[0]
+
+
+def sample(args):
+    """Periodically walk the busiest threads and report where time goes.
+
+    `--watch` cannot see this class of problem: it triggers on CPU going
+    FLAT, and a load that is merely slow is pegging a core the whole time.
+    The question there is not "what is it blocked on" but "what is it doing
+    over and over", which only a sampling profile answers.
+    """
+    import time
+    from collections import Counter, defaultdict
+
+    pid = args.pid
+    if not pid:
+        print(f'waiting for {args.name}... (Ctrl-C to stop)')
+        while not pid:
+            pid = find_pid(args.name, required=False)
+            if not pid:
+                time.sleep(1.0)
+    hproc = open_proc(pid)
+    print(f'attached to pid {pid}; sampling every {args.sample_interval}s '
+          f'for {args.duration}s (Ctrl-C to stop early)')
+
+    dbghelp.SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS |
+                          SYMOPT_NO_PROMPTS | SYMOPT_FAIL_CRITICAL_ERRORS)
+    dbghelp.SymInitialize(hproc, None, True)
+    mods = module_map(hproc)
+    modpath = {os.path.basename(p): p for _, _, p in mods}
+    folder = FuncFolder()
+
+    leaf = Counter()            # exclusive: innermost frame
+    incl = Counter()            # inclusive: any frame on the stack
+    stacks = Counter()          # whole folded stacks
+    per_thread = Counter()
+    phases = []                 # (wall seconds, phase text)
+    n = 0
+    last_phase = object()
+    hot = []
+    prev_cpu = {}
+    t0 = time.time()
+    next_refresh = 0.0
+
+    def key(pc):
+        m, rva = resolve(mods, pc)
+        if not m:
+            return f'{pc:#018x}'
+        f, off = folder.fold(modpath.get(m, ''), rva)
+        if off is None:
+            return f'{m}+{rva:#x}'
+        return f'{m}+{f:#x}'
+
+    try:
+        while True:
+            now = time.time() - t0
+            if now >= args.duration:
+                break
+            code = wintypes.DWORD()
+            k32.GetExitCodeProcess(hproc, ctypes.byref(code))
+            if code.value != 259:                      # STILL_ACTIVE
+                print('process exited')
+                break
+
+            if now >= next_refresh:
+                next_refresh = now + args.rescan
+                phase = loading_phase(pid)
+                if phase != last_phase:
+                    phases.append((now, phase))
+                    print(f'  [{now:6.1f}s] phase: {phase!r}  '
+                          f'({n} samples so far)')
+                    last_phase = phase
+                mods = module_map(hproc)
+                modpath = {os.path.basename(p): p for _, _, p in mods}
+                deltas = []
+                for tid in thread_ids(pid):
+                    c = thread_cpu(tid)
+                    if c is None:
+                        continue
+                    d = c - prev_cpu.get(tid, c)
+                    prev_cpu[tid] = c
+                    deltas.append((d, tid))
+                deltas.sort(reverse=True)
+                busy = [t for d, t in deltas if d > 0][:args.threads]
+                hot = busy or [t for _, t in deltas[:args.threads]]
+
+            for tid in hot:
+                frames = walk_thread(hproc, tid, mods, args.max_frames)
+                if not frames:
+                    continue
+                n += 1
+                per_thread[tid] += 1
+                names = [key(pc) for pc in frames]
+                leaf[names[0]] += 1
+                for k in dict.fromkeys(names):
+                    incl[k] += 1
+                stacks[tuple(names[:args.fold_depth])] += 1
+            time.sleep(args.sample_interval)
+    except KeyboardInterrupt:
+        print('\ninterrupted')
+
+    elapsed = time.time() - t0
+    lines = []
+    def emit(t=''):
+        print(t)
+        lines.append(t)
+
+    emit(f'\n=== sampling profile: pid {pid}, {n} samples over '
+         f'{elapsed:.0f}s ===')
+    emit('\nphase timeline:')
+    for t, ph in phases:
+        emit(f'  {t:7.1f}s  {ph!r}')
+    emit('\nsamples per thread:')
+    for tid, c in per_thread.most_common():
+        emit(f'  tid {tid:<8} {c:6}  {100.0 * c / max(n, 1):5.1f}%')
+
+    emit(f'\n--- SELF (innermost frame) ---')
+    for k, c in leaf.most_common(args.top):
+        emit(f'  {100.0 * c / max(n, 1):5.1f}%  {c:6}  {k}')
+
+    emit(f'\n--- INCLUSIVE (frame anywhere on the stack) ---')
+    for k, c in incl.most_common(args.top):
+        emit(f'  {100.0 * c / max(n, 1):5.1f}%  {c:6}  {k}')
+
+    emit(f'\n--- HOTTEST STACKS (top {args.top_stacks}) ---')
+    for st, c in stacks.most_common(args.top_stacks):
+        emit(f'\n  {100.0 * c / max(n, 1):5.1f}%  {c} samples')
+        for i, k in enumerate(st):
+            emit(f'    #{i:<3} {k}')
+
+    dbghelp.SymCleanup(hproc)
+    k32.CloseHandle(hproc)
+    out = args.out or os.path.join('temp', 'ck_profile.txt')
+    os.makedirs(os.path.dirname(out) or '.', exist_ok=True)
+    with open(out, 'w', encoding='utf-8') as fh:
+        fh.write('\n'.join(lines) + '\n')
+    print(f'\nwritten to {out}')
+
+
 # ------------------------------------------------------------------ windows
 
 
@@ -565,9 +768,32 @@ def main():
     ap.add_argument('--busy-threshold', type=float, default=0.02,
                     help='CPU-seconds per wall second still counted as idle')
     ap.add_argument('--out', help='file to write the capture to '
-                                  '(default temp/hang_stacks.txt)')
+                                  '(default temp/hang_stacks.txt, or '
+                                  'temp/ck_profile.txt for --sample)')
+    ap.add_argument('--sample', action='store_true',
+                    help='SAMPLING PROFILER: for a process that is SLOW '
+                         'rather than hung -- repeatedly walk the busiest '
+                         'threads and report where the time goes')
+    ap.add_argument('--duration', type=float, default=120.0,
+                    help='--sample: seconds to profile for')
+    ap.add_argument('--sample-interval', type=float, default=0.02,
+                    help='--sample: seconds between stack walks')
+    ap.add_argument('--rescan', type=float, default=2.0,
+                    help='--sample: seconds between re-picking the busiest '
+                         'threads and re-reading the loading phase')
+    ap.add_argument('--threads', type=int, default=2,
+                    help='--sample: how many of the busiest threads to walk')
+    ap.add_argument('--top', type=int, default=25,
+                    help='--sample: rows in the self/inclusive tables')
+    ap.add_argument('--top-stacks', type=int, default=5,
+                    help='--sample: how many hottest whole stacks to print')
+    ap.add_argument('--fold-depth', type=int, default=30,
+                    help='--sample: frames kept when grouping whole stacks')
     args = ap.parse_args()
 
+    if args.sample:
+        sample(args)
+        return
     if args.watch:
         watch(args)
         return

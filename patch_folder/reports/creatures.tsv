@@ -1,0 +1,915 @@
+plugin	formid	editorid	name	group	action	tier	target	coat	saddled	mount	note
+Oblivion.esm	07131B	MS06UndeadEtheralTemplate		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these
+Oblivion.esm	09407C	MS16OgreCreatureTemplate		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these
+Oblivion.esm	068BBB	MS18TemplateWave01		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these
+Oblivion.esm	068BBC	MS18TemplateWave02		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these
+Oblivion.esm	068BBD	MS18TemplateWave03		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these
+Oblivion.esm	078C49	SE09Baliwog01	Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	078C4B	SE09Baliwog02	Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	0698BF	SECreatureBaliwog1Dead	Young Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	011B6A	SECreatureBaliwog1Young	Young Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	011B6B	SECreatureBaliwog2	Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	03BAA1	SECreatureBaliwog3Venemous	Venemous Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	04530C	SEMiriliBaliwog2	Mirili's Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	045416	TRAPTestBaliwog	Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	0441B0	TestCreatureBaliwog	Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	04424C	TestCreatureBaliwogDorsal	Bull Baliwog	baliwog	keep	none					SI amphibian
+Oblivion.esm	097A15	CreatureBearBlack	Black Bear	bear/black	swap	exact	BearBlackRace				
+Oblivion.esm	0CA002	MS47BearBlack	Black Bear	bear/black	swap	exact	BearBlackRace				
+Oblivion.esm	18AE38	SQ06WestWealdBlackBear	West Weald Black Bear	bear/black	swap	exact	BearBlackRace				
+Oblivion.esm	18AE3A	SQ06WestWealdBlackBearCub	West Weald Black Bear Cub	bear/black	swap	exact	BearBlackRace				
+Oblivion.esm	18AE3D	SQ06WestWealdBlackBearDenHunter	West Weald Black Bear Den Hunter	bear/black	swap	exact	BearBlackRace				
+Oblivion.esm	0C8BCC	SummonBearBlack	Black Bear	bear/black	swap	exact	BearBlackRace				
+Oblivion.esm	00BCE0	TestBlackBear		bear/black	swap	exact	BearBlackRace				
+Oblivion.esm	097A16	CreatureBearBrown	Brown Bear	bear/brown	swap	exact	BearBrownRace				
+Oblivion.esm	03D799	ICArenaBear	Bear	bear/brown	swap	exact	BearBrownRace				
+Oblivion.esm	0CA003	MS47BearBrown	Brown Bear	bear/brown	swap	exact	BearBrownRace				
+Oblivion.esm	18AE39	SQ06WestWealdBrownBear	West Weald Brown Bear	bear/brown	swap	exact	BearBrownRace				
+Oblivion.esm	18AE3B	SQ06WestWealdBrownBearCub	West Weald Brown Bear Cub	bear/brown	swap	exact	BearBrownRace				
+Oblivion.esm	18AE3E	SQ06WestWealdBrownBearDenHunter	West Weald Brown Bear Den Hunter	bear/brown	swap	exact	BearBrownRace				
+Oblivion.esm	01D0B6	TestBear		bear/brown	swap	exact	BearBrownRace				
+Oblivion.esm	14683E	ArenaBoar	Porkchop	boar	swap	exact	DLC2BoarRace				
+Oblivion.esm	097A17	CreatureBoar	Boar	boar	swap	exact	DLC2BoarRace				
+Oblivion.esm	03D79A	ICArenaBoar	Boar	boar	swap	exact	DLC2BoarRace				
+Oblivion.esm	014F8C	SummonBoar	Boar	boar	swap	exact	DLC2BoarRace				
+Oblivion.esm	01E904	TestJuanBoar		boar	swap	exact	DLC2BoarRace				
+Oblivion.esm	034EA3	CreatureClannfear	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	03E9CC	CreatureClannfearRunt	Clannfear Runt	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	08ADC5	DAClannfearBrute	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	0613EA	DEADCreatureClannfear	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	098046	E3KvatchAttackCaptainClanfear01	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	09805E	E3KvatchAttackClanFear01	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	09808C	E3KvatchAttackClanFear02	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	03CD1C	MQ15CaveDaedraTemplate	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	097C7C	MS94Clannfear	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	0545E6	OGCreatureClannfearRunt	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	097C7D	OGCreatureClannfearRuntWeak	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	0C8BCD	SummonClannfear	Clannfear	clannfear	keep	none					raptor-lizard daedra; nothing matches
+Oblivion.esm	02B19A	CreatureDaedroth	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	097F9C	E3KvatchDaedroth01	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	09808B	E3KvatchDaedroth02	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	09C37B	MS13CreatureDaedroth	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	02AE02	MS48TestDaedroth	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	097C7E	OGCreatureDaedroth	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	0C8BCE	SummonDaedroth	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	002368	TestCreatureDaedroths	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	028F5D	TestCreatureGroveDaedroth	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	01C642	TestToddDaedroth	Daedroth	daedroth	swap	near	DLC2LurkerRace				
+Oblivion.esm	03154F	CreatureDeerBuck	Deer	deer/buck	swap	near	ElkRace				
+Oblivion.esm	06143F	LegionForesterBuck	Deer	deer/buck	swap	near	ElkRace				
+Oblivion.esm	000ADA	TestDeerBuck	Deer	deer/buck	swap	near	ElkRace				
+Oblivion.esm	031550	CreatureDeerDoe	Deer	deer/doe	swap	exact	DeerRace				
+Oblivion.esm	188785	DEADDeerDoe	Deer	deer/doe	swap	exact	DeerRace				
+Oblivion.esm	061440	LegionForesterDoe	Deer	deer/doe	swap	exact	DeerRace				
+Oblivion.esm	046699	MQ15DeerTemplate	Deer	deer/doe	swap	exact	DeerRace				
+Oblivion.esm	00C4B3	OblivionSiegeTarget	Deer	deer/doe	swap	exact	DeerRace				
+Oblivion.esm	000E35	TestDeerDoe	Deer	deer/doe	swap	exact	DeerRace				
+Oblivion.esm	08FF94	BlackWoodCompanyDog	Steel Fang	dog/dog	swap	exact	DogRace				
+Oblivion.esm	01E5F5	CreatureDog	Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	026B84	DASheogorathDog	Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	18AFCD	Dark17CrazedDog	Crazed Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	08592A	Dark17DogDead	Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	06C46C	DarkPerenniaDog	Jake	dog/dog	swap	exact	DogRace				
+Oblivion.esm	18AE17	DeadCreatureDog	Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	0A5526	DogAnvilFG	Mojo	dog/dog	swap	exact	DogRace				
+Oblivion.esm	0CA873	DogBlackBowBoss	Pumpkin	dog/dog	swap	exact	DogRace				
+Oblivion.esm	071F52	DogCheydinhalFG	Clancy	dog/dog	swap	exact	DogRace				
+Oblivion.esm	078564	DogCheydinhalGanredhels	Daisy	dog/dog	swap	exact	DogRace				
+Oblivion.esm	078566	DogCheydinhalGanredhels02	Luna	dog/dog	swap	exact	DogRace				
+Oblivion.esm	07329F	DogCheydinhalKnights	Duke	dog/dog	swap	exact	DogRace				
+Oblivion.esm	085739	DogICTempleDistrictSalomonsGeonette	Charlotte	dog/dog	swap	exact	DogRace				
+Oblivion.esm	0ACF9C	DogLeyawiinBlackwood	Steel Fang	dog/dog	swap	exact	DogRace				
+Oblivion.esm	03D79D	ICArenaDog	Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	0D399A	ImperialPetDog	Charlotte	dog/dog	swap	exact	DogRace				
+Oblivion.esm	1771FB	RenaDog01	Kezune	dog/dog	swap	exact	DogRace				
+Oblivion.esm	1771FC	RenaDog02	Bailey	dog/dog	swap	exact	DogRace				
+Oblivion.esm	019CEE	SE09SpookDog	Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	071FC5	SEUshnarDog	Ushnar's Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	185413	SakeepaDog	Sakeepa's Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	04A98D	TG01RohssansDog	Rohssan's Dog	dog/dog	swap	exact	DogRace				
+Oblivion.esm	037669	TestCreaturesDogSkeleton	Mut	dog/dog	swap	exact	DogRace				
+Oblivion.esm	04408A	SE09DeadHound01	Relmyna's Skinned Hound	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	078C38	SE09SkeletalHound01	Skinned Hound	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	078C54	SE09SkeletalHound02	Skinned Hound	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	072DA4	SE43SkeletalHound	Ushnar's Skinned Hound	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	03B818	SECreatureSkinnedHound	Skinned Hound	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	07929A	SECreatureSkinnedHoundGreater	Greater Skinned Hound	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	078238	SEDeadHound	Hound Corpse	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	05A26D	SEEbroccaHound	Skinned Hound	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	05DAD2	TestCreatureSkeletalHound	Skippy	dog/skinned_hound	swap	near	DLC1DeathHoundRace				
+Oblivion.esm	06E912	CreatureWolf	Wolf	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	01E5F6	CreatureWolfTimber	Timber Wolf	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	066A0C	Dark15WolfPet	Redmaw	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	02C332	ICArenaWolfTimber	Timber Wolf	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	0CA000	MS47Wolf	Wolf	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	0CA001	MS47WolfTimber	Timber Wolf	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	03E44F	TestCreaturesWolfTImber	Timber Wolf	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	046EC6	TestSkeletalHound	Ghost Hound	dog/wolf	swap	exact	WolfRace				
+Oblivion.esm	01E417	SE04FelldewElytra1	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	045643	SE04FelldewElytra2	Elytra Drone	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	045644	SE04FelldewElytra3	Elytra Soldier	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	045645	SE04FelldewElytra4	Elytra Noble	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	045646	SE04FelldewElytra5	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	045647	SE04FelldewElytra5Boss	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	01E437	SE04FelldewElytraSPECIAL	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B6F	SECreatureElytraDementia1	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B70	SECreatureElytraDementia2	Elytra Drone	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B71	SECreatureElytraDementia3	Elytra Soldier	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B72	SECreatureElytraDementia4	Elytra Noble	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B73	SECreatureElytraDementia5	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	03BA9A	SECreatureElytraDementia5Boss	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B5B	SECreatureElytraMania1	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B5C	SECreatureElytraMania2	Elytra Drone	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B5D	SECreatureElytraMania3	Elytra Soldier	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B5E	SECreatureElytraMania4	Elytra Noble	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	011B5F	SECreatureElytraMania5	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	03BA9B	SECreatureElytraMania5Boss	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	07E9C2	SEMilchar02cPatrolTemplate	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	07E9C9	SEMilchar02cPatrolTemplate02	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	07E9CA	SEMilchar02cPatrolTemplate03	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	04565B	SEMiriliElytra2	Mirili's Elytra	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	040FE3	TestCreatureElytra	Elytra	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	043FB4	TestCreatureElytraMania	Elytra	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	046AC2	TestCreatureElytraManialevel2	Elytra	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	046AC1	TestCreatureElytraManialevel3	Elytra	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	045C74	TestCreatureElytralevel2	Elytra	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	045C75	TestCreatureElytralevel3	Elytra	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	08EFDA	XPKnotCustomSECreatureElytraMania1	Elytra Hatchling	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	08EFD9	XPKnotCustomSECreatureElytraMania2	Elytra Drone	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	08EFD8	XPKnotCustomSECreatureElytraMania3	Elytra Soldier	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	08EFD7	XPKnotCustomSECreatureElytraMania4	Elytra Noble	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	08EFD6	XPKnotCustomSECreatureElytraMania5	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	08EFD5	XPKnotCustomSECreatureElytraMania5Boss	Elytra Matron	elytra	swap	exact	ccBGSSSE025_ElytraRace				
+Oblivion.esm	01E5EF	CreatureAtronachFlame	Flame Atronach	flameatronach	swap	exact	AtronachFlameRace				
+Oblivion.esm	0C8BC9	SummonAtronachFlame	Flame Atronach	flameatronach	swap	exact	AtronachFlameRace				
+Oblivion.esm	03C267	TestCreatureFlameAtronach	FlameAtronach	flameatronach	swap	exact	AtronachFlameRace				
+Oblivion.esm	0442E2	SE09BattleAtronachFlesh01	Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	079C9A	SE09BattleAtronachFlesh02	Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	044275	SE09DeadFailedExperiment02	Failed Experiment	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	014AE5	SE09SummonFleshAtronach	Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	011B60	SECreatureAtronachFlesh1	Mangled Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	07E0B1	SECreatureAtronachFlesh1Boss	Mangled Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	011B61	SECreatureAtronachFlesh2	Torn Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	011B62	SECreatureAtronachFlesh3	Stitched Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	011B63	SECreatureAtronachFlesh4	Sewn Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	011B64	SECreatureAtronachFlesh5	Mended Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	094C2B	SECreatureAtronachFlesh5Boss	Mended Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	07FDC2	SESummonAtronachFlesh1	Mangled Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	07FDC0	SESummonAtronachFlesh2	Torn Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	07FDC1	SESummonAtronachFlesh3	Stitched Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	07FDC3	SESummonAtronachFlesh4	Sewn Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	0411AF	TestCreaturesFleshAtronach	Flesh Atronach	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	06D31E	TestCreaturesFleshAtronachAmethyst	Flesh Atronach Amethyst	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	06D31C	TestCreaturesFleshAtronachCitrine	Flesh Atronach Citrine	fleshatronach	swap	near	dlc2AshGuardianRace				
+Oblivion.esm	01FF22	CreatureAtronachFrost	Frost Atronach	frostatronach	swap	exact	AtronachFrostRace				
+Oblivion.esm	07BE5D	MS37CreatureFrostAtronach01Ling	Frostfire Atronach Gladeling	frostatronach	swap	exact	AtronachFrostRace				
+Oblivion.esm	07BE64	MS37CreatureFrostAtronach02Guard	Frostfire Atronach Gladeguard	frostatronach	swap	exact	AtronachFrostRace				
+Oblivion.esm	07BE5C	MS37CreatureFrostAtronach03Warden	Frostfire Atronach Gladewarden	frostatronach	swap	exact	AtronachFrostRace				
+Oblivion.esm	07BE5E	MS37CreatureFrostAtronach04Lord	Frostfire Atronach Gladelord	frostatronach	swap	exact	AtronachFrostRace				
+Oblivion.esm	0C8BCA	SummonAtronachFrost	Frost Atronach	frostatronach	swap	exact	AtronachFrostRace				
+Oblivion.esm	0904E4	TestCreatureFrostAtronach	FrostAtronachHugh01	frostatronach	swap	exact	AtronachFrostRace				
+Oblivion.esm	0435A4	SE02Gatekeeper1	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435A5	SE02Gatekeeper2	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435AC	SE02Gatekeeper3	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435AD	SE02Gatekeeper4	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435AE	SE02Gatekeeper5	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435AF	SE02Gatekeeper6	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435A2	SE02Gatekeeper7	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435A3	SE02Gatekeeper8	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435A7	SE09GatekeeperHeadAxe	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435A8	SE09GatekeeperHeadMace	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435A6	SE09GatekeeperHeadSword	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435AA	SE09GatekeeperHelmAxe	GateKeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435AB	SE09GatekeeperHelmMace	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	0435A9	SE09GatekeeperHelmSword	Gatekeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	030FDF	TestCreaturesGateKeeperAxe	GateKeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	030FE2	TestCreaturesGateKeeperBare	GateKeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	030FBC	TestCreaturesGateKeeperFist	GateKeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	030FE0	TestCreaturesGateKeeperMace	GateKeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	030FE1	TestCreaturesGateKeeperSword	GateKeeper	gatekeeper	swap	near	GiantRace				
+Oblivion.esm	033E70	CreatureGhost	Ghost	ghost	swap	near	WispShadeRace				
+Oblivion.esm	05D2BC	CreatureGhostAncient	Ancient Ghost	ghost	swap	near	WispShadeRace				
+Oblivion.esm	06AAA2	DarkGhostPerennia	Ghost of Perennia Draconis	ghost	swap	near	WispShadeRace				
+Oblivion.esm	175F5F	DarkGhostRufioSummoned	Summoned Ghost of Rufio	ghost	swap	near	WispShadeRace				
+Oblivion.esm	0855A2	MS02FirstGhost	Benirus Manor Ghost	ghost	swap	near	WispShadeRace				
+Oblivion.esm	0855A3	MS02HouseGhost	Benirus Manor Ghost	ghost	swap	near	WispShadeRace				
+Oblivion.esm	0C509E	NightChildGhost	Dark Broodling	ghost	swap	near	WispShadeRace				
+Oblivion.esm	019FAD	SE05Ghost	Ghost	ghost	swap	near	WispShadeRace				
+Oblivion.esm	0C6573	SummonAncestorGuardian	Ancestor Guardian	ghost	swap	near	WispShadeRace				
+Oblivion.esm	0C8CA3	SummonGhost	Ghost	ghost	swap	near	WispShadeRace				
+Oblivion.esm	00AA02	TG03LlathasaGhost	Llathasa's Spirit	ghost	swap	near	WispShadeRace				
+Oblivion.esm	00AA03	TG03LlathasaGhostAncient	Llathasa's Spirit	ghost	swap	near	WispShadeRace				
+Oblivion.esm	051DB3	TestCreatureGhost08	TestCreatureGhostHugh07Array	ghost	swap	near	WispShadeRace				
+Oblivion.esm	07091A	UndercroftGhost	Sanctified Dead	ghost	swap	near	WispShadeRace				
+Oblivion.esm	070913	UndercroftGhostAncient	Ancient Sanctified Dead	ghost	swap	near	WispShadeRace				
+Oblivion.esm	05F1BC	SE03CreatureGnarlDementia1	Mania Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	072C85	SE03MiniGnarl	Mania Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019D76	SE12Gnarl01	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019CC3	SE12Gnarl01Follower	Gnarl Cultivator	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019D75	SE12Gnarl01Ordered	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019EE5	SE12Gnarl02	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019F09	SE12Gnarl02Follower	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019EE7	SE12Gnarl02Ordered	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019EE6	SE12Gnarl03	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019F0A	SE12Gnarl03Follower	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	019EE8	SE12Gnarl03Ordered	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01A188	SE12Gnarl04	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01A18F	SE12Gnarl04Follower	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01A18C	SE12Gnarl04Ordered	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	081992	SE12GnarlFollowerDementiaTemplate	Gnarl Cultivator	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	081993	SE12GnarlFollowerManiaTemplate	Gnarl Cultivator	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04682E	SE14GnarlTemplate	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	046925	SEBlackrootLairGnarlPrisoner01TEMPLATE	Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04A0CD	SEBlackrootLairGnarlPrisoner02TEMPLATE	Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04A0DB	SEBlackrootLairGnarlPrisoner03TEMPLATE	Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04A1C4	SEBlackrootLairGnarlPrisoner04TEMPLATE	Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04A1EE	SEBlackrootLairGnarlPrisoner05TEMPLATE	Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04A1F2	SEBlackrootLairGnarlPrisoner06TEMPLATE	Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04691E	SEBlackrootLairGnarlPrisoner1	Germinal Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	04691F	SEBlackrootLairGnarlPrisoner2	Gnarl Prisoner Sapling	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	046920	SEBlackrootLairGnarlPrisoner3	Gnarl Prisoner Rootbender	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	046921	SEBlackrootLairGnarlPrisoner4	Verdant Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	046922	SEBlackrootLairGnarlPrisoner5	Elder Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	07CF30	SEBlackrootLairGnarlPrisonerGENERICTEMPLATE	Gnarl Prisoner	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01200C	SECreatureGnarlDementia1	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	03BA9C	SECreatureGnarlDementia1Boss	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01200D	SECreatureGnarlDementia2	Gnarl Sapling	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01200E	SECreatureGnarlDementia3	Gnarl Rootbender	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01200F	SECreatureGnarlDementia4	Verdant Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	012010	SECreatureGnarlDementia5	Elder Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	03BA9D	SECreatureGnarlDementia5Boss	Elder Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	012002	SECreatureGnarlMania1	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	03BA9E	SECreatureGnarlMania1Boss	Germinal Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	012003	SECreatureGnarlMania2	Gnarl Sapling	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	012004	SECreatureGnarlMania3	Gnarl Rootbender	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	012005	SECreatureGnarlMania4	Verdant Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	012006	SECreatureGnarlMania5	Elder Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	03BA9F	SECreatureGnarlMania5Boss	Elder Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	045659	SEMiriliGnarl2	Mirili's Gnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	01B60D	TestCreatureGnarlDementia	TestCreatureGnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	046ED4	TestCreatureGnarlDementiaLevel1	TestCreatureGnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	046ED2	TestCreaturesGnarlManiaLevel1	TestCreatureGnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	043FB3	TestCreaturesGnarlManiaSkeleton	TestCreatureGnarl	gnarl	swap	near	DLC2SprigganBurntRace				
+Oblivion.esm	03B542	CGGoblinBerserkerPATROL01	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03B533	CGGoblinBerserkerWANDER	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03B51D	CGGoblinLogRunner01	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C9FFC	CGGoblinLogRunner02	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03B517	CGGoblinNOWANDER	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03B525	CGGoblinPATROL01	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03B52D	CGGoblinShamanNOWANDER	Goblin Witch	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	159859	CGGoblinThiefShaman	Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03B512	CGGoblinTrapRun	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03B531	CGGoblinWANDER	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	01FCB1	CreatureGoblin1	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	084B29	CreatureGoblin1Archer	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	01FCB2	CreatureGoblin2Skirmisher	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	084B2A	CreatureGoblin2SkirmisherArcher	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	01FCB3	CreatureGoblin3Berserker	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	084B2B	CreatureGoblin3BerserkerArcher	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	01FCB4	CreatureGoblin4Shaman	Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	00AB71	CreatureGoblin5Warlord	Goblin Warlord	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	00ABD1	CreatureGoblin5WarlordArcher	Goblin Warlord	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	018103	DeadGoblin	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02888E	FGC06Goblin	Savage Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0027D7	FGC06GoblinBoss	Savage Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0356F7	FGD08Goblin	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	065093	GoblinCook	Goblin Chef	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0662F6	GoblinCookA	Bloody Hand Chef	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	00CB67	GoblinCookG	Sharp Tooth Chef	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	064BD3	GoblinRatFarmer	Goblin Rat Farmer	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0662F8	GoblinTribeFarmerA	Bloody Hand Rat Farmer	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	030514	GoblinTribeGuardA	Bloody Hand Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	030516	GoblinTribeGuardB	Rock Biter Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02FEA4	GoblinTribeGuardC	Skull Breaker Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	031319	GoblinTribeGuardD	White Skin Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA633	GoblinTribeGuardE	Dust Eater Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA634	GoblinTribeGuardF	Three Feather Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA635	GoblinTribeGuardG	Sharp Tooth Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02D6D3	GoblinTribeLeaderA	Bloody Hand Goblin War Chief	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02D737	GoblinTribeLeaderB	Rock Biter Goblin War Chief	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02FE7F	GoblinTribeLeaderC	Skull Breaker Goblin War Chief	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	031318	GoblinTribeLeaderD	White Skin Goblin War Chief	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA623	GoblinTribeLeaderE	Dust Eater Goblin War Chief	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA624	GoblinTribeLeaderF	Three Feather Goblin War Chief	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA625	GoblinTribeLeaderG	Sharp Tooth Goblin War Chief	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02D686	GoblinTribePatrolA	Bloody Hand Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02D738	GoblinTribePatrolB	Rock Biter Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02FEA3	GoblinTribePatrolC	Skull Breaker Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03131B	GoblinTribePatrolD	White Skin Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA637	GoblinTribePatrolE	Dust Eater Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA643	GoblinTribePatrolF	Three Feather Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA644	GoblinTribePatrolG	Sharp Tooth Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	031534	GoblinTribeShamanA	Bloody Hand Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	031531	GoblinTribeShamanB	Rock Biter Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	031532	GoblinTribeShamanC	Skull Breaker Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA290	GoblinTribeShamanE	Dust Eater Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA621	GoblinTribeShamanF	Three Feathers Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA622	GoblinTribeShamanG	Sharp Tooth Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	007714	GoblinTribeSoldierA	Bloody Hand Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02D6D4	GoblinTribeSoldierB	Rock Biter Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02FE93	GoblinTribeSoldierC	Skull Breaker Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03131A	GoblinTribeSoldierD	White Skin Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA645	GoblinTribeSoldierE	Dust Eater Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA646	GoblinTribeSoldierF	Three Feather Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0AA647	GoblinTribeSoldierG	Sharp Tooth Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03D795	ICArenaGoblin	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03D796	ICArenaGoblinBerserker	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03D797	ICArenaGoblinShaman	Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	03D798	ICArenaGoblinSkirmisher	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E6	MQ12Goblin1	Bitterfish Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E5	MQ12Goblin1Archer	Bitterfish Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E4	MQ12Goblin2Skirmisher	Bitterfish Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E3	MQ12Goblin2SkirmisherArcher	Bitterfish Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E2	MQ12Goblin3Berserker	Bitterfish Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E1	MQ12Goblin3BerserkerArcher	Bitterfish Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E0	MQ12Goblin4Shaman	Bitterfish Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E7	MQ12GoblinAttackTEMPLATE	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C57E8	MQ12GoblinLazyTEMPLATE	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	068BF5	MS18CreatureGoblin1	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	068BF6	MS18CreatureGoblin2Skirmisher	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	068BF7	MS18CreatureGoblin3Berserker	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	068BF9	MS18CreatureGoblin4Ambusher	Goblin Ambusher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0343C1	MS46GoblinSoldierA	Bloody Hand Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	181C6C	SQ03CreatureGoblin2Skirmisher	Goblin Netherboss	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	181C6D	SQ03CreatureGoblin3Berserker	Goblin Netherboss	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	181C6E	SQ03CreatureGoblin4Shaman	Goblin Netherboss	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	02A81C	TestCreatureGoblin1handed	Goblin 1 handed	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	000AD8	TestCreatureGoblinBerserker	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	014A43	TestCreatureGoblinBerserker01	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	014A44	TestCreatureGoblinBerserker02	Goblin Berserker	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	032EF2	TestCreatureGoblinShaman	Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0371BD	TestCreatureGoblinShamanWithStaff	Goblin Shaman	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	000AD9	TestCreatureGoblinSkirmisher	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	014A42	TestCreatureGoblinSkirmisher01	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	028BD9	TestCreatureGoblinSkirmisherhorned	Goblin Skirmisher	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	000B81	TestCreatureGoblinhandtohand	Goblin (hand to hand)	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	0474FD	TestTrapGoblin01	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	027FF5	XXXCreatureGoblin	Goblin	goblin	swap	near	DLC2RieklingRace				
+Oblivion.esm	078C6F	SE03Grummite01TEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	07906A	SE03Grummite02DancerTEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	079121	SE03Grummite03DancerTEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0696BA	SE03GrummiteShamanDementia1	Grummite Shaman Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0696B4	SE03GrummiteShamanDementia2	Grummite Shaman Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0696B1	SE03GrummiteShamanDementia3	Grummite Shaman Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0696A8	SE03GrummiteShamanDementia4	Grummite Shaman Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0696A5	SE03GrummiteShamanDementia5	Grummite Shaman Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	079069	SE03GrummiteShamanResonatorTEMP	Grummite Shaman Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0696CF	SE03GrummiteShamanTEMP	Grummite Shaman Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05F33A	SEAichanGrummitePraiser01	Envious Grummite	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05F378	SEAichanGrummitePraiser02	Envious Grummite	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	077B48	SEBlackrootLairGrummite1TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0469B8	SEBlackrootLairPatrol01TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0469BE	SEBlackrootLairPatrol02TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A0B4	SEBlackrootLairPatrol03TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A3CC	SEBlackrootLairPatrol04TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A3FA	SEBlackrootLairPatrol05TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A401	SEBlackrootLairPatrol06TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A402	SEBlackrootLairPatrol07TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A908	SEBlackrootLairPatrol08TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A90A	SEBlackrootLairPatrol09TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A90B	SEBlackrootLairPatrol10TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04A9A2	SEBlackrootLairPatrol11TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04AA0F	SEBlackrootLairPatrol12TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	04AA9F	SEBlackrootLairPatrol13TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05A9E6	SECorpserotGrummite01TEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08DB12	SECorpserotGrummite02TEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05A9D4	SECorpserotGrummiteArenaGuard01TEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05A9F3	SECorpserotGrummiteBossTEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05A9F5	SECorpserotGrummiteDancer01	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05A9D9	SECorpserotNaturalArenaFoe01TEMP		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FBD	SECreatureGrummiteArcherDementia1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08F027	SECreatureGrummiteArcherDementia1Level1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FBE	SECreatureGrummiteArcherDementia2	Grummite Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FBF	SECreatureGrummiteArcherDementia3	Grummite Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FC0	SECreatureGrummiteArcherDementia4	Grummite Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FAD	SECreatureGrummiteArcherDementia5	Grummite Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FAE	SECreatureGrummiteArcherMania1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08F029	SECreatureGrummiteArcherMania1Level1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FAF	SECreatureGrummiteArcherMania2	Grummite Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB0	SECreatureGrummiteArcherMania3	Grummite Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB1	SECreatureGrummiteArcherMania4	Grummite Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB2	SECreatureGrummiteArcherMania5	Grummite Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055046	SECreatureGrummiteDeadMania	Dead Grummite	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B74	SECreatureGrummiteDementia1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	03BA92	SECreatureGrummiteDementia1Boss	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08F02A	SECreatureGrummiteDementia1Level1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B75	SECreatureGrummiteDementia2	Grummite Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B76	SECreatureGrummiteDementia3	Grummite Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B77	SECreatureGrummiteDementia4	Grummite Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B78	SECreatureGrummiteDementia5	Grummite Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	03BA93	SECreatureGrummiteDementia5Boss	Grummite Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB3	SECreatureGrummiteMagusDementia1	Grummite Magus Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08F02D	SECreatureGrummiteMagusDementia1Level1	Grummite Magus Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB4	SECreatureGrummiteMagusDementia2	Grummite Magus Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB5	SECreatureGrummiteMagusDementia3	Grummite Magus Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB6	SECreatureGrummiteMagusDementia4	Grummite Magus Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB7	SECreatureGrummiteMagusDementia5	Grummite Magus Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB8	SECreatureGrummiteMagusMania1	Grummite Magus Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08F02E	SECreatureGrummiteMagusMania1Level1	Grummite Magus Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FB9	SECreatureGrummiteMagusMania2	Grummite Magus Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FBA	SECreatureGrummiteMagusMania3	Grummite Magus Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FBB	SECreatureGrummiteMagusMania4	Grummite Magus Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055FBC	SECreatureGrummiteMagusMania5	Grummite Magus Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B65	SECreatureGrummiteMania1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	03BA94	SECreatureGrummiteMania1Boss	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08F02C	SECreatureGrummiteMania1Level1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B66	SECreatureGrummiteMania2	Grummite Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B67	SECreatureGrummiteMania3	Grummite Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B68	SECreatureGrummiteMania4	Grummite Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	011B69	SECreatureGrummiteMania5	Grummite Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	03BA99	SECreatureGrummiteMania5Boss	Grummite Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	077C72	SEDeadGrummiteDementia1	Dead Grummite	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	06132D	SEDeadGrummiteMania02	Grummite Prisoner	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0698A8	SEEntranceGrummite01TEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0503E6	SEFetidPatrol01TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0503F4	SEFetidPatrol01bTEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0503E7	SEFetidPatrol02TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0503E8	SEFetidPatrol03TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	0503EF	SEFetidPatrol04TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05040B	SEFetidPatrol05TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05040C	SEFetidPatrol06TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	050498	SEFetidPatrol07TEMPLATE	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	081C56	SEKnottyBramGrummiteEggDefenseTEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	082364	SEKnottyBramGrummitePatrolATEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	082365	SEKnottyBramGrummitePatrolBTEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	082363	SEKnottyBramGrummiteSentryTEMP	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055033	SEXedGrumPatrol01	Grummite Lookout	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055035	SEXedGrumPatrol02	Grummite Lookout	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	046ABF	TestCreaturesGrummiteD		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	046AC0	TestCreaturesGrummiteDFull		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05244A	TestCreaturesGrummiteDFullAxeShield		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	074E87	TestCreaturesGrummiteDFullStaff		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055505	TestCreaturesGrummiteDance1		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055506	TestCreaturesGrummiteDance2		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055507	TestCreaturesGrummiteDance3		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055508	TestCreaturesGrummiteDance4		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	055509	TestCreaturesGrummiteDance5		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05550A	TestCreaturesGrummiteDance6		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	046ABD	TestCreaturesGrummiteM		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	046ABE	TestCreaturesGrummiteMFull		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	05244B	TestCreaturesGrummiteMFullBow		grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFDF	XPKnotCustomSECreatureGrummiteDementia1	Grummite Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFDE	XPKnotCustomSECreatureGrummiteDementia2	Grummite Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFDD	XPKnotCustomSECreatureGrummiteDementia3	Grummite Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFDC	XPKnotCustomSECreatureGrummiteDementia4	Grummite Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFDB	XPKnotCustomSECreatureGrummiteDementia5	Grummite Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFE4	XPKnotCustomSECreatureGrummiteMagusDementia1	Grummite Magus Whelp	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFE3	XPKnotCustomSECreatureGrummiteMagusDementia2	Grummite Magus Beater	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFE2	XPKnotCustomSECreatureGrummiteMagusDementia3	Grummite Magus Torturer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFE1	XPKnotCustomSECreatureGrummiteMagusDementia4	Grummite Magus Painbringer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	08EFE0	XPKnotCustomSECreatureGrummiteMagusDementia5	Grummite Magus Deathdealer	grummite	swap	near	DLC2RieklingRace				
+Oblivion.esm	01EC58	DAHircineUnicorn	Unicorn	horse/mount	swap	exact	HorseRace	SkinHorseGreyHide		yes	
+Oblivion.esm	18D4CD	DEADHorseBlack	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	032BF4	Dark10Horse	Shadowmere	horse/mount	swap	exact	HorseRace	SkinHorseShadowmere	yes	yes	
+Oblivion.esm	097FC8	E3Horse	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	01F11D	HorseBay	Bay Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0A55ED	HorseBay0StayCurrent	Bay Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0538A5	HorseBay0StayPut	Bay Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	00CF22	HorseBayClaudeMaric	Bay Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	01F11A	HorseBlack	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	0538A6	HorseBlack0StayPut	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	0BE331	HorseBlackCourier1	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	0BE547	HorseBlackCourier2	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	0BE54F	HorseBlackCourier3	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	0BE556	HorseBlackCourier4	Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	015B92	HorseChestnut	Chestnut Horse	horse/mount	swap	exact	HorseRace	SkinHorsePalominoHide	yes	yes	
+Oblivion.esm	0538A7	HorseChestnut0StayPut	Chestnut Horse	horse/mount	swap	exact	HorseRace	SkinHorsePalominoHide	yes	yes	
+Oblivion.esm	04DE8E	HorsePCBayBravil	My Bay Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	04E28B	HorsePCBaySkingrad	My Bay Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	04DE8F	HorsePCBlackCheydinhal	My Black Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+Oblivion.esm	04DE90	HorsePCChestnutChorrol	My Chestnut Horse	horse/mount	swap	exact	HorseRace	SkinHorsePalominoHide	yes	yes	
+Oblivion.esm	04DE91	HorsePCPaintBruma	My Paint Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	05322D	HorsePCPaintLeyawiin	My Paint Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	04DE8D	HorsePCWhiteAnvil	My White Horse	horse/mount	swap	exact	HorseRace	SkinHorseGreyHide	yes	yes	
+Oblivion.esm	01F11E	HorsePaint	Paint Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	0914D3	HorsePaint0StayCurrent	Paint Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	0538A8	HorsePaint0StayPut	Paint Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	01F11B	HorseWhite	White Horse	horse/mount	swap	exact	HorseRace	SkinHorseGreyHide	yes	yes	
+Oblivion.esm	115E38	HorseWhite0StayCurrent	White Horse	horse/mount	swap	exact	HorseRace	SkinHorseGreyHide	yes	yes	
+Oblivion.esm	0538A9	HorseWhite0StayPut	White Horse	horse/mount	swap	exact	HorseRace	SkinHorseGreyHide	yes	yes	
+Oblivion.esm	0700D5	ImpLegionHorseAleswell	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D1	ImpLegionHorseAnvil	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	18BA8B	ImpLegionHorseChey	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	18BA8A	ImpLegionHorseChorrol	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D4	ImpLegionHorseCrossroads	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D7	ImpLegionHorseFalls	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D8	ImpLegionHorseGottshaw	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	18BA8C	ImpLegionHorseLey	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D6	ImpLegionHorseNikel	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700CE	ImpLegionHorseRidge	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700DB	ImpLegionHorseRock	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D0	ImpLegionHorseRoxey	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700CF	ImpLegionHorseSardavar	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D2	ImpLegionHorseSlope	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D9	ImpLegionHorseVirtue	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700DA	ImpLegionHorseWell	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0700D3	ImpLegionHorseWellspring	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	0C01AD	MQHorseJauffre	Weynon Priory Horse	horse/mount	swap	exact	HorseRace	SkinHorsePalominoHide	yes	yes	
+Oblivion.esm	0C01AC	MQHorseMartin	Weynon Priory Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+Oblivion.esm	05DCC9	MQHorsePaint0WeynonPlayer	Prior Maborel's Paint Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	07B78E	MS45HorseBlossom	Blossom	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	02D6DE	TestHorseSkeleton	Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide	yes	yes	
+Oblivion.esm	015B90	CreatureHorseBay	Wild Bay Horse	horse/wild	swap	exact	HorseRace	SkinHorse			
+Oblivion.esm	01F11C	CreatureHorseChestnut	Wild Chestnut Horse	horse/wild	swap	exact	HorseRace	SkinHorsePalominoHide			
+Oblivion.esm	015B93	CreatureHorsePaint	Wild Paint Horse	horse/wild	swap	exact	HorseRace	SkinHorseBlacknWhiteHide			
+Oblivion.esm	18AD8A	DEADCreatureHorsePaint	Paint Horse	horse/wild	swap	exact	HorseRace	SkinHorseBlacknWhiteHide			
+Oblivion.esm	078C58	SE09Hunger01	Ravenous Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	06D610	SECreatureHunger1	Starved Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	06D60B	SECreatureHunger2	Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	012016	SECreatureHunger3	Gluttonous Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	012017	SECreatureHunger4	Ravenous Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	012018	SECreatureHunger5	Voracious Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	07E0B0	SESummonHunger2	Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	0459A2	SESummonHunger3	Gluttonous Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	0459A3	SESummonHunger4	Ravenous Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	0459A4	SESummonHunger5	Voracious Hunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	06773D	TestCreaturesHungerDark	TestCreatureHunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	07320B	TestCreaturesHungerDarkLevel2	TestCreatureHunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	07320C	TestCreaturesHungerDarkLevel3	TestCreatureHunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	06773E	TestCreaturesHungerLight	TestCreatureHunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	07320D	TestCreaturesHungerLightLevel3	TestCreatureHunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	019303	TestCreaturesHungerSkeleton	TestCreatureHunger	hunger	keep	none					SI unique; long-tongued quadruped
+Oblivion.esm	014F94	AnvilMGPetImp	Sparky	imp	keep	none					no small flying daedra in Skyrim
+Oblivion.esm	01E649	CreatureImp	Imp	imp	keep	none					no small flying daedra in Skyrim
+Oblivion.esm	0549BF	FG0xxxImp	Juicy Imp	imp	keep	none					no small flying daedra in Skyrim
+Oblivion.esm	046698	MQ15EternalGardenTemplate	Imp	imp	keep	none					no small flying daedra in Skyrim
+Oblivion.esm	0825BF	SECreatureJyggalag1	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0825C0	SECreatureJyggalag2	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0825C1	SECreatureJyggalag3	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0825C2	SECreatureJyggalag4	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0825C3	SECreatureJyggalag5	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0825C4	SECreatureJyggalag6	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0825C5	SECreatureJyggalag7	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0825C6	SECreatureJyggalag8	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	0558B8	TestCreaturesJyggalag	Jyggalag	jyggylag	keep	none					unique SI boss
+Oblivion.esm	01FF25	CreatureLandDreugh	Land Dreugh	landdreugh	swap	near	DLC2LurkerRace				
+Oblivion.esm	03D79F	ICArenaLandDreugh	Land Dreugh	landdreugh	swap	near	DLC2LurkerRace				
+Oblivion.esm	03352E	TestLandDreugh	LandDreugh	landdreugh	swap	near	DLC2LurkerRace				
+Oblivion.esm	01E5EC	CreatureLich	Lich	lich	swap	near	DragonPriestRace				
+Oblivion.esm	0343AA	CreatureLichNether	Nether Lich	lich	swap	near	DragonPriestRace				
+Oblivion.esm	064C18	LichErandurVangaril	Erandur-Vangaril	lich	swap	near	DragonPriestRace				
+Oblivion.esm	09589E	MQ12LichKing	King of Miscarcand	lich	swap	near	DragonPriestRace				
+Oblivion.esm	0855A4	MS02LorgrentheLich	Lorgren Benirus	lich	swap	near	DragonPriestRace				
+Oblivion.esm	18BA28	SummonLich	Lich	lich	swap	near	DragonPriestRace				
+Oblivion.esm	01E64E	CreatureMehrunesDagon	Mehrunes Dagon	mehrunesdagon	keep	none					unique boss
+Oblivion.esm	09074E	TestMehrunesDagonSkeleton	Mehrunes Dagon	mehrunesdagon	keep	none					unique boss
+Oblivion.esm	03F148	CreatureMinotaur1	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	009D6D	CreatureMinotaur1Weapon	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	00B9ED	CreatureMinotaur2	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	009D6E	CreatureMinotaur2Weapon	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	009D6B	CreatureMinotaur3	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	01E647	CreatureMinotaur3Weapon	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	009D6C	CreatureMinotaur4	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	009D6F	CreatureMinotaur4Weapon	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	03F14B	CreatureMinotaurLord	Minotaur Lord	minotaur	swap	near	GiantRace				
+Oblivion.esm	01E648	CreatureMinotaurLordWeapon	Minotaur Lord	minotaur	swap	near	GiantRace				
+Oblivion.esm	00A3B7	DAHircineMinotaurCompanion	Minotaur of the Grove	minotaur	swap	near	GiantRace				
+Oblivion.esm	00A3B9	DAHircineMinotaurLesser	Minotaur of the Grove	minotaur	swap	near	GiantRace				
+Oblivion.esm	00A3BB	DAHircineMinotaurLord	Minotaur of the Grove	minotaur	swap	near	GiantRace				
+Oblivion.esm	00A3BA	DAHircineMinotaurStandard	Minotaur of the Grove	minotaur	swap	near	GiantRace				
+Oblivion.esm	00A3B8	DAHircineMinotaurWeak	Minotaur of the Grove	minotaur	swap	near	GiantRace				
+Oblivion.esm	098286	DAMinotaurUnicornGuard	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	03D794	ICArenaMinotaur	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	03D79E	ICArenaMinotaurLord	Minotaur Lord	minotaur	swap	near	GiantRace				
+Oblivion.esm	0869A5	LVDCreatureMinotaur1Weapon	Savage Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	08C815	MS05DreamworldMinotaur	Dreamworld Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	028F4F	TestCreatureGroveMinotaur	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	024F75	TestCreatureMinotaur	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	025005	TestCreatureMinotaurB	MinotaurB	minotaur	swap	near	GiantRace				
+Oblivion.esm	02D93B	TestCreatureMinotaurCombat	MinotaurCombatTest	minotaur	swap	near	GiantRace				
+Oblivion.esm	025006	TestCreatureMinotaurLord	Hugh'sMinotaurLord	minotaur	swap	near	GiantRace				
+Oblivion.esm	02C4DE	TestDemoMinotaur	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	014838	TestKurtMinotaur	Minotaur	minotaur	swap	near	GiantRace				
+Oblivion.esm	01E5FA	CreatureMountainLion	Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	0872C3	DeadMountainLion	Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	036627	FGC01MountainLion	Starving Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	03662D	FGC01MountainLion2	Starving Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	036635	FGC01MountainLion3	Starving Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	03D79C	ICArenaMountainLion	Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	0CA004	MS47MountainLion	Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	00A2AF	TestJuanMuontainLion	MuontainLion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	014835	TestKurtMountainLion	MuontainLion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	00BC4E	TestMountainLion	Mountain Lion	mountainlion	swap	near	SabreCatRace				
+Oblivion.esm	000B7F	CreatureMudCrab	Mud Crab	mudcrab	swap	exact	MudcrabRace				
+Oblivion.esm	18B72E	DeadMudCrab	Mud Crab	mudcrab	swap	exact	MudcrabRace				
+Oblivion.esm	0BE345	MQ15ParadiseMudCrab	Spectral Mud Crab	mudcrab	swap	exact	MudcrabRace				
+Oblivion.esm	0BB9DB	TestCreatureMudCrab	Mud Crab	mudcrab	swap	exact	MudcrabRace				
+Oblivion.esm	091FC4	TestCreatureMudCrab12	Mud Crab	mudcrab	swap	exact	MudcrabRace				
+Oblivion.esm	04424D	SE09BattleScalon01	Diseased Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	04424E	SE09BattleScalon02	Scalon Brute	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	078C44	SE09Scalon01	Hulking Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	011B7E	SECreatureScalonDementia1	Diseased Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	011B7F	SECreatureScalonDementia2	Scalon Brute	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	011B80	SECreatureScalonDementia3	Hulking Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	011B79	SECreatureScalonMania1	Diseased Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	011B7A	SECreatureScalonMania2	Scalon Brute	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	011B7B	SECreatureScalonMania3	Hulking Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	08E537	SEDireWarrenScalonManiaDead01	Diseased Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	04FCA3	SEKnotboneScalonPatrol01	Lurking Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	04FCAB	SEKnotboneScalonPatrol02	Lurking Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	05290D	SEKnotboneScalonPatrol03	Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	053042	SEKnotboneScalonPatrol04	Lurking Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	04565D	SEMiriliScalon2	Mirili's Scalon	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	045D69	TestCreaturesScalonDementia	Scalon Dementia	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	01804C	TestCreaturesScalonMania	Scalon Mania	murkdweller	swap	near	FalmerRace				
+Oblivion.esm	00C20D	CreatureOgre	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	026B60	DAMalacathOgre01	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	09DB43	DAMalacathOgre02	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	09DB44	DAMalacathOgre03	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	09DB45	DAMalacathOgre04	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	09DB46	DAMalacathOgre05	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	09DB47	DAMalacathOgre06	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	09F98B	DAMalacathOgre07	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	09F98C	DAMalacathOgre08	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	00BE98	FGC09Ogre	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	03D7AE	ICArenaOgre	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	08699E	LVDCreatureOgre	Savage Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	07B7D7	MS12CreaturePalePassOgre01Ground	Pale Pass Ogre Groundling	ogre	swap	near	GiantRace				
+Oblivion.esm	07B7D5	MS12CreaturePalePassOgre02Stone	Pale Pass Ogre Stonewrecker	ogre	swap	near	GiantRace				
+Oblivion.esm	07B7D4	MS12CreaturePalePassOgre03Rock	Pale Pass Ogre Rocksmasher	ogre	swap	near	GiantRace				
+Oblivion.esm	07B7D6	MS12CreaturePalePassOgre04CBoss	Pale Pass Ogre Caveboss	ogre	swap	near	GiantRace				
+Oblivion.esm	02AABC	MS16BossOgre	Redguard Valley Ogre Chieftan	ogre	swap	near	GiantRace				
+Oblivion.esm	094076	MS16CreatureRGVOgre01Ground	Redguard Valley Ogre Groundling	ogre	swap	near	GiantRace				
+Oblivion.esm	094077	MS16CreatureRGVOgre02Stone	Redguard Valley Ogre Stonewrecker	ogre	swap	near	GiantRace				
+Oblivion.esm	094078	MS16CreatureRGVOgre03Rock	Redguard Valley Ogre Rocksmasher	ogre	swap	near	GiantRace				
+Oblivion.esm	094079	MS16CreatureRGVOgre04CBoss	Redguard Valley Ogre Caveboss	ogre	swap	near	GiantRace				
+Oblivion.esm	177A2E	SQ01Ogre	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	037C42	SerpentsTrailOgre	Ogre	ogre	swap	near	GiantRace				
+Oblivion.esm	047B64	CGDomesticRat01	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	02509B	CGRat01	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	04E870	CGRatAmbushA	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	0CD335	CGRatMagicTutorial	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	066A05	CGRatPassive	Sewer Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	0387D8	CGScaredyRat01	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	0521E3	CGScaredyRat02	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	025314	CreatureRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	08DFE8	DASheogorathRat1	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	08DFE9	DASheogorathRat2	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	026F5B	DarkRatSchemer	Schemer	rat	swap	near	SkeeverRace				
+Oblivion.esm	03571F	FGC01Rat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	03D793	ICArenaRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	03C9C3	MS10Rat	Llevana's Tunnel Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	185412	MS47Rat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	037331	RatDead	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	06D107	SE11SanctifiedRat	Sanctified Rat of Gibbering Dreams	rat	swap	near	SkeeverRace				
+Oblivion.esm	098303	TG08CreatureRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	02DEF2	TestBasementRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	028CA2	TestCreatureGroveRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	0023CF	TestCreatureRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	02ADD3	TestToddRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	0282F8	sewerHomingRat	Rat	rat	swap	near	SkeeverRace				
+Oblivion.esm	02D802	CreatureScamp	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	03E9CB	CreatureScampStunted	Stunted Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	03C952	DeadCreatureScamp	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	08DAAE	DeadCreatureScampStunted	Stunted Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	07BAD3	KvatchScampCastleCourtyard	Stunted Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	0CD4D4	KvatchScampCastleWall	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	09122A	KvatchScampExterior	Stunted Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	014C5A	KvatchScampStuntedPatrol	Stunted Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	03AB89	MQ13TemplateGate1	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	03AB8E	MQ13TemplateGate2	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	03AB9A	MQ13TemplateGate3	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	002967	MQ16PalaceScamp	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	048953	MQ16Scamp	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	04F9CD	MS43StaffScamp	Everscamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	090AB7	MS48KvatchScampSouthernPlazaFinalBattle	Stunted Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C891A	MS48ScampSouthernPlazaRespawning	Stunted Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	0C8924	SummonScamp	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	028F5B	TestCreatureGroveScamp	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	002366	TestCreatureScamp	Scamp	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	095028	TestScampDefaultCreature	ScampDefault	scamp	swap	near	DLC2RieklingRace				
+Oblivion.esm	078C36	SE09Shambles01	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	078C56	SE09Shambles02	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	078C5A	SE09Shambles03	Decrepit Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	0560E2	SE32TemplateShambles1	Decrepit Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	012011	SECreatureShambles1	Decrepit Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	0452ED	SECreatureShambles1a	Decrepit Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	012008	SECreatureShambles2	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	0452EE	SECreatureShambles2a	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	012009	SECreatureShambles3	Replete Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	03BAA0	SECreatureShambles3Boss	Complete Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	04DBFB	SESummonShambles1	Decrepit Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	04DBFC	SESummonShambles2	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	04DC00	SESummonShambles3	Replete Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	019F1C	TestCreaturesShamblesFull	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	01A14D	TestCreaturesShamblesHeadless	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	01A150	TestCreaturesShamblesNoArms	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	01A151	TestCreaturesShamblesNoHeadArms	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	01A14F	TestCreaturesShamblesNoLfArm	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	01A14E	TestCreaturesShamblesNoRtArm	Shambles	shambles	swap	near	SkeletonRace				
+Oblivion.esm	0151DD	CreatureSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	05D558	CreatureSheepRam	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	026AFB	DASheogorathSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	08592D	Dark17SheepDead	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	098178	FGD08Sheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	03001E	SakeepaSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	03001F	SakeepaSheepRam	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	07BABC	SanguineSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	094BCD	ShipSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	02500E	TestCreatureSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	025740	Testsheep	Tod	sheep	swap	near	GoatRace				
+Oblivion.esm	0294A5	UurasSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	0294A6	UurasSheepRam	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	026D68	WabbajackSheep	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	02738A	WeynonPriorySheep2	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	027388	WeynonPriorySheepRam	Sheep	sheep	swap	near	GoatRace				
+Oblivion.esm	159833	CGDeadSkeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	027338	CGThiefSkeletonDead	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	024DDB	CreatureSkeleton1	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	084B1A	CreatureSkeleton1Archer	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01E5F2	CreatureSkeleton2Guardian	Skeleton Guardian	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	084B19	CreatureSkeleton2GuardianArcher	Skeleton Guardian	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01E5F4	CreatureSkeleton3Hero	Skeleton Hero	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	084B1B	CreatureSkeleton3HeroArcher	Skeleton Hero	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01E5EA	CreatureSkeleton4Champion	Skeleton Champion	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	084B1C	CreatureSkeleton4ChampionArcher	Skeleton Champion	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	06AB4A	Dark09Skeleton01Missile	Dark Guardian	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	06AB45	Dark09Skeleton02Melee	Dark Guardian	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	088FA6	DarkGuardianSanctuary	Dark Guardian	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01E798	DeadSkeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01E58D	DeadSkeleton2	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	088BF2	EmilDBskeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0568AE	FortScinia01DeadSkeleton	Gran Struthe	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	03CD2C	MG07ManduinSkeleton	Manduin's Remains	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	014BB1	MG10UndeadBossTemplate	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	014BB2	MG10UndeadTemplate	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0364BA	MQ09BladeSkeleton01	Undead Blade	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0364BB	MQ09BladeSkeleton02	Undead Blade	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0364BC	MQ09BladeSkeleton03	Undead Blade	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	033CD6	MQ09BladeSkeleton04	Undead Blade	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	035DA9	MQ09WardenKastav	Warden Kastav	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01C176	MS12Skeleton	Undead Akaviri Soldier	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0980E1	MS12SkeletonDeadState	Dead Akaviri Soldier	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0A933F	MS27ThroneRoomTemplate	Template Creature	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	052638	MochomnachDeadCombatant01	Participant	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	08E329	MochomnachDeadCombatant02	Participant	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	08E32A	MochomnachDeadCombatant03	Participant	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	07836B	SEEbroccaDeadSkeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	05A1C7	SEEbroccaSkeleton	Skeleton Sentinel	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	019D33	SEMilchar02bSubMinion01	Genocide	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	019D34	SEMilchar02bSubMinion02	Deicide	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	07E9BB	SEMilchar02bSubMinion03	Androcide	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0C8BCF	SummonSkeleton1	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0C8BD0	SummonSkeleton2Guardian	Skeleton Guardian	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	0C8BD1	SummonSkeleton3Hero	Skeleton Hero	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	18BA29	SummonSkeleton4Champion	Skeleton Champion	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	02F473	TESThandtohandskeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	02F474	TESTonehandskeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	02F475	TESTtwohandskeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	028F60	TestCreatureGroveSkeleton	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	09077C	TestSkeletonIst	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	06C3A1	VilvarinSkeletonHeroAmbush	Skeleton Hero	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	080D25	XPEbroccaCremator01	Bregor the Cremator	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	080D28	XPEbroccaCremator02	Bregor the Cremator	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	080D27	XPEbroccaCremator03	Bregor the Cremator	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	080D26	XPEbroccaCremator04	Bregor the Cremator	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01F118	xxxxCreatureSkeletonHero	Skeleton	skeleton	swap	exact	SkeletonRace				
+Oblivion.esm	01FF21	CreatureSlaughterfish	Slaughterfish	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	18D31D	DeadSlaughterfish	Slaughterfish	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	068827	SQ09Slaughterfish	Rumare Slaughterfish	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	068828	SQ09SlaughterfishAdult	Adult Rumare Slaughterfish	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	068829	SQ09SlaughterfishBroodMother	Rumare Slaughterfish Brood Mother	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	068826	SQ09SlaughterfishSpawn	Rumare Slaughterfish Spawn	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	068825	SQ09SlaughterfishYoung	Young Rumare Slaughterfish	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	18BA1E	TG09CreatureSlaughterfish	Giant Slaughterfish	slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	04895F	TestCreatureSlaughterfish		slaughterfish	swap	exact	SlaughterfishRace				
+Oblivion.esm	01E64C	CreatureSpiderDaedra	Spider Daedra	spiderdaedra	swap	near	FrostbiteSpiderRace				
+Oblivion.esm	000FE0	CreatureSpiderDaedraNOSUMMON	Spider Daedra	spiderdaedra	swap	near	FrostbiteSpiderRace				
+Oblivion.esm	18BA22	SummonSpiderDaedra	Spider Daedra	spiderdaedra	swap	near	FrostbiteSpiderRace				
+Oblivion.esm	000EE7	SummonSpiderling	Spiderling	spiderdaedra	swap	near	FrostbiteSpiderRace				
+Oblivion.esm	09DB09	TestCreatureSpiderDaedra		spiderdaedra	swap	near	FrostbiteSpiderRace				
+Oblivion.esm	01E64B	CreatureSpriggan	Spriggan	spriggan	swap	exact	SprigganRace				
+Oblivion.esm	02C330	ICArenaSpriggan	Spriggan	spriggan	swap	exact	SprigganRace				
+Oblivion.esm	0AD371	MarkTestSpriggan	Spriggan	spriggan	swap	exact	SprigganRace				
+Oblivion.esm	054667	TestCreatureSpriggan	Spriggan	spriggan	swap	exact	SprigganRace				
+Oblivion.esm	01943A	TestJoelGnarlWeakling	Gnarl Sapling	spriggan	swap	exact	SprigganRace				
+Oblivion.esm	01FF23	CreatureAtronachStorm	Storm Atronach	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	009EF6	SQ07CreatureStormAtronach01	The Sunken One	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	009EF7	SQ07CreatureStormAtronach02	The Sunken One	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	009EF8	SQ07CreatureStormAtronach03	The Sunken One	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	009EF9	SQ07CreatureStormAtronach04	The Sunken One	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	0C8BCB	SummonAtronachStorm	Storm Atronach	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	047AEA	TestCreaturesStormAtronach	Storm Atronach	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	03C783	TestCreaturesStormAtronachX	Storm Atronach	stormatronach	swap	exact	AtronachStormRace				
+Oblivion.esm	002DBC	CreatureTroll	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	084A40	DANocturnalTrollEasy	Kalperklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	084A41	DANocturnalTrollHard	Kalperklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	084A42	DANocturnalTrollMedium	Kalperklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	084A43	DANocturnalTrollVeryHard	Kalperklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01E781	DeadTroll	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	0C45B6	DeadTroll02	Dead Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	0C55E6	DiveRockHorror	Uderfrykte Matron	troll	swap	exact	TrollRace				
+Oblivion.esm	00BED2	FGC10troll	Swamp Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	015B00	FGD06Troll01	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	03D792	ICArenaTroll	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	08699F	LVDCreatureTroll	Savage Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01C5A0	MS14PaintedTroll	Painted Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	065D65	TestBruceTroll	Troll Regen	troll	swap	exact	TrollRace				
+Oblivion.esm	005691	TestHughsTestTroll01	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	022F59	TestHughsTestTroll02	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	022F5A	TestHughsTestTroll03	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	02ADD2	TestToddTroll	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	014849	TestTrollKurt	Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01BF4D	TrollEasy	Azhklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01BF4F	TrollHard	Azhklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01BF4E	TrollMedium	Azhklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01CEC2	TrollMediumNoWander	Azhklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01BF50	TrollVeryHard	Azhklan Troll	troll	swap	exact	TrollRace				
+Oblivion.esm	01E64A	CreatureWillotheWisp	Will-o-the-Wisp	willothewisp	swap	exact	WitchlightRace				
+Oblivion.esm	037568	FGC10WillOTheWisp	Will-o-the-Wisp	willothewisp	swap	exact	WitchlightRace				
+Oblivion.esm	0C5401	MQ08WillotheWisp	Will-o-the-Wisp	willothewisp	swap	exact	WitchlightRace				
+Oblivion.esm	0C509D	NightChildWisp	Dark Broodling	willothewisp	swap	exact	WitchlightRace				
+Oblivion.esm	0934D1	TestWillOTheWisp	Will-o-the-Wisp	willothewisp	swap	exact	WitchlightRace				
+Oblivion.esm	032657	CreatureWraith2Gloom	Gloom Wraith	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	01E5EB	CreatureWraith2GloomWeapon	Gloom Wraith	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	0C8CA2	SummonWraith2Gloom	Gloom Wraith	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	00AA06	TG03LlathasaWraith2Gloom	Llathasa's Spirit	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	039303	TestCreatureWraithLord01	WraithGloomTest	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	070918	UndercroftWraith2Gloom	Sanctified Ancient Spectre	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	06D683	WrathofSithis1	Wrath of Sithis	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	06D684	WrathofSithis2	Wrath of Sithis	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	06D682	WrathofSithis3	Wrath of Sithis	wraith/gloom	swap	near	WispShadeRace				
+Oblivion.esm	01E5F3	CreatureWraith0Faded	Faded Wraith	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	032656	CreatureWraith0FadedWeapon	Faded Wraith	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	098301	CreatureWraith1	Wraith	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	098304	CreatureWraith1Weapon	Wraith	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	0366BA	MS06ShipSpiritCaptain	Gable the Traitor	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	0055AC	MSWraithSpectralSailor	Spectral Sailor	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	0C8C97	SummonWraith0Faded	Faded Wraith	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	0C8BD2	SummonWraith1	Wraith	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	00AA04	TG03LlathasaWraith0Faded	Llathasa's Spirit	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	00AA05	TG03LlathasaWraith1	Llathasa's Spirit	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	01E779	TestCreatureWraith01	TestWraith01	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	01E77A	TestCreatureWraith02	TestWraith02	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	070914	UndercroftWraith0Faded	Sanctified Ancient Spectre	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	070916	UndercroftWraith1	Sanctified Ancient Spectre	wraith/wraith	swap	near	WispShadeRace				
+Oblivion.esm	032655	CreatureXivilai	Xivilai	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	000FE2	CreatureXivilaiNOSUMMON	Xivilai	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	01E64D	CreatureXivilaiWeapon	Xivilai	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	000FE3	CreatureXivilaiWeaponNOSUMMON	Xivilai	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	03484A	MQ07TestXivilaiAmorah	Xivilai Amorah	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	05E1DC	MQ15XivilaiAnaxes	Anaxes	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	0878B1	MQ15XivilaiMedrike	Medrike	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	18BA25	SummonXivilai	Xivilai	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	08553D	TestCreatureXivilai01	TestCreatureXivilaiHugh01	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	0866DD	TestCreatureXivilai02	TestCreatureXivilaiHugh02	xivilai	keep	none					DECIDED 2026-08-27: leave converted. DremoraRace is the only candidate and it is
+Oblivion.esm	026076	ARTESTZombie01	ZombieMixnMatch01	zombie	swap	near	DraugrRace				
+Oblivion.esm	02FBCF	ARZombie01	ZombieMixnMatch01	zombie	swap	near	DraugrRace				
+Oblivion.esm	051445	CGZombie	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E6E	CreatureZombie1	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E5E	CreatureZombie2	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E55	CreatureZombie3	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E4F	CreatureZombie4	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	09851B	CreatureZombieDread1	Dread Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	09F955	CreatureZombieDread2	Dread Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	09F956	CreatureZombieDread3	Dread Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	09F957	CreatureZombieDread4	Dread Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E4E	CreatureZombieHeadless1	Headless Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E6F	CreatureZombieHeadless2	Headless Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E4D	CreatureZombieHeadless3	Headless Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	025E4C	CreatureZombieHeadless4	Headless Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	071B98	Dark05Zombie1	Motierre Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	071B99	Dark05Zombie2	Motierre Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	071B9A	Dark05Zombie3	Motierre Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C654F	DeadLoverFortNikel	Nath Dyer	zombie	swap	near	DraugrRace				
+Oblivion.esm	01B79E	DeadZombie	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	04FEEB	DeadZombieCorpse	Decomposed Corpse	zombie	swap	near	DraugrRace				
+Oblivion.esm	086787	DeadZombieHeadless	Headless Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	03F138	MG01Zombie2	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	03F136	MG01Zombie4	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	0474FF	MG01Zombie6	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	047501	MG01ZombieHeadless10	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	047502	MG01ZombieHeadless12	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	047503	MG01ZombieHeadless14	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	047500	MG01ZombieHeadless8	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	099925	MG01ZombieTemplate	Deranged Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	091AA9	MG12MucianusZombie	Mucianus Allias	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C87E0	MG14ZombieTemplate	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C5B3E	MQ12KingsZombie01	Zombie Guardian	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C5B3F	MQ12KingsZombie02	Zombie Guardian	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C5B40	MQ12KingsZombie03	Zombie Guardian	zombie	swap	near	DraugrRace				
+Oblivion.esm	0180E1	MQ12UndeadAttackTEMPLATE	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C58AE	MQ12UndeadEndAttackTEMPLATE	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	014FF8	MQ12UndeadLazyTEMPLATE	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	04FEEA	SE03ZombieRiser01DONTBALANCE	Rotting Corpse	zombie	swap	near	DraugrRace				
+Oblivion.esm	07DEA8	SE09DeadFailedExperiment03	Failed Experiment	zombie	swap	near	DraugrRace				
+Oblivion.esm	019CEF	SE09SpookZombie01	Failed Experiment	zombie	swap	near	DraugrRace				
+Oblivion.esm	04375D	SE09SpookZombie02	Failed Experiment	zombie	swap	near	DraugrRace				
+Oblivion.esm	019CED	SE09SpookZombieTEMPLATE	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	08E9E6	SEDeadZombieCorpse	Decomposed Corpse	zombie	swap	near	DraugrRace				
+Oblivion.esm	09661A	SEUncleLeo	Uncle Leo	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C8BD3	SummonZombie1	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	0C8C2C	SummonZombieHeadless1	Headless Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	02C7EC	TestCombatZombie02	ZombieCombatTest	zombie	swap	near	DraugrRace				
+Oblivion.esm	02CF35	TestCreatureGroveZombie01	ZombieMixnMatch01	zombie	swap	near	DraugrRace				
+Oblivion.esm	0327D9	TestCreatureZombieBurning1	Burning Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	097A36	TestIstZombie01	Zombie	zombie	swap	near	DraugrRace				
+Oblivion.esm	02B81B	TestZombie01	ZombieMixnMatch01	zombie	swap	near	DraugrRace				
+Oblivion.esm	02B81C	TestZombie02	ZombieMixnMatch02	zombie	swap	near	DraugrRace				
+Oblivion.esm	02AAC3	TestZombie03	ZombieMixnMatch03	zombie	swap	near	DraugrRace				
+Oblivion.esm	02AAC4	TestZombie04	ZombieMixnMatch04	zombie	swap	near	DraugrRace				
+Oblivion.esm	02AAC5	TestZombie05	ZombieMixnMatch05	zombie	swap	near	DraugrRace				
+Oblivion.esm	02AAC6	TestZombie06	ZombieMixnMatch06	zombie	swap	near	DraugrRace				
+Oblivion.esm	02CD02	TestZombieGrant	ZombieMixnMatch03	zombie	swap	near	DraugrRace				
+Oblivion.esm	08238C	XPEbroccaWife	Rotten Corpse	zombie	swap	near	DraugrRace				
+Oblivion.esm	01E5EE	xxxCreatureZombie	Zombie	zombie	swap	near	DraugrRace				

@@ -1,55 +1,89 @@
 ---
 name: cosmetic-npc-patch
 description: >-
-  Build and extend MyCosmeticTamrielPatch.esp — the hand-authored ESP in
-  patch_folder/ that restyles the converted Oblivion NPCs (outfits, hair, and
-  whatever comes next) by writing NPC_ override records straight into a binary
-  TES5 plugin. Covers the patch's architecture (tools/patch/plugin_patch.py plus one
-  assign_*.py pass per feature, driven by patch_folder/pipeline.py), the
+  Build and extend the MyOwnTamriel* patch plugins — the ESPs built from
+  patch_folder/ that restyle the converted Oblivion NPCs (outfits, hair, skin
+  tone) and swap their creatures and horses for vanilla Skyrim ones, by writing
+  override records straight into a binary TES5 plugin. Covers the patches'
+  architecture (tools/patch/plugin_patch.py and patch_builder.py plus one
+  assign_*.py pass per feature, all driven by tools/patch/build_patch.py and
+  the GUI's Patches section), the
   measured binary facts an override plugin must respect (HEDR record count,
   top-level GRUP order, canonical NPC_ field order, the NPC_ FormID field map,
   VMAD property walking, the RACE FaceGen-head flag, HDPT type/flag layout), the
   census of this project's actual data, the recipe for adding a new pass, and
   the verification suite that must pass before shipping. Use when asked to
-  change what NPCs in the converted plugin wear or look like, to add a pass to
-  the cosmetic patch, to debug a record the patch writes, or to author any
-  Skyrim ESP that overrides master records from Python.
+  change what NPCs in the converted plugins wear or look like, to add a pass to
+  the cosmetic patch, to build or change the creature/horse patches, to debug a
+  record a patch writes, or to author any Skyrim ESP that overrides master
+  records from Python.
 ---
 
 # The cosmetic NPC patch
 
-`patch_folder/` builds **MyCosmeticTamrielPatch.esp**: an ESP that restyles the
-NPCs of the converted `output/Oblivion.esm/Oblivion.esm` by overriding their
-`NPC_` records. It is authored in Python, directly on the binary — no Creation
-Kit, no xEdit scripting.
+`patch_folder/` builds **MyOwnTamrielCosmeticPatch.esp**: an ESP that restyles
+the NPCs of the converted plugins by overriding their `NPC_` records. It is
+authored in Python, directly on the binary — no Creation Kit, no xEdit
+scripting.
+
+Its sibling patches (creatures, horses) share the same library and driver but
+not this document's passes; see `docs/python_tools_reference.md` and
+`patch_folder/sources/creature_changes.py`.
 
 ```
 patch_folder/
-  pipeline.py         one command, all passes, reproducible from sources/
+  pipeline.py         shim over tools/patch/build_patch.py --patch cosmetic
   sources/            INPUTS, never written to
-    MyCosmeticTamrielPatch.esp   the hand-made ESP: OTFT + CELL/WRLD, no NPCs
+    MyCosmeticTamrielPatch.esp   the hand-made template; only its OTFT records
+                                 are carried, its master list is discarded
+    creature_changes.py          the creature/mount swap decisions
     KS Hairdo's.esp              2,701 HDPT records
     Apachii_DivineEleganceStore.esm
     constants.py                 the curated EditorID lists
   output/             the built plugin
   reports/            per-pass TSV of every decision
-tools/
+tools/patch/
   plugin_patch.py             shared library (read, override, remap, write)
+  patch_builder.py            build an ESP from scratch: computed masters,
+                              flat groups, cell-nested ACHR overrides, ONAM
+  build_patch.py              the driver for all three patches, and the zip
   assign_female_outfits.py    pass: DOFT
   assign_npc_hair.py          pass: PNAM head parts
   assign_skin_tone.py         pass: QNAM texture lighting
+  assign_creatures.py         the creature/mount patch (not a cosmetic pass)
+  merge_plugins.py            fold several plugins into one; --drop-master
+                              cuts a master loose with everything that needs it
   verify_npc_patch.py         the ship gate
 ```
 
-Run it:
+Run it — through the GUI's **Patches** section, or on the command line:
 
 ```bash
-python patch_folder/pipeline.py                # full build
-python patch_folder/pipeline.py --dry-run      # report only
-python patch_folder/pipeline.py --only hair    # one pass, keeps the others' work
-python patch_folder/pipeline.py --only skin    # outfits | hair | skin
-python patch_folder/pipeline.py --seed 7       # a different random draw
+python tools/patch/build_patch.py --patch cosmetic --plugins Oblivion.esm ElsweyrAnequina.esp
+python tools/patch/build_patch.py --list          # every patch this app builds
+python patch_folder/pipeline.py                   # shim: cosmetic, all plugins
+python patch_folder/pipeline.py --dry-run
 ```
+
+**The build moved (2026-08-27).** `tools/patch/build_patch.py` now drives all
+three patches -- `cosmetic`, `creatures`, `horses` -- through one pipeline, and
+`patch_folder/pipeline.py` is a thin shim over its cosmetic half. Two things
+changed that this document's older model got wrong:
+
+* **The master list is computed, not fixed.** The patch no longer starts from
+  `sources/MyCosmeticTamrielPatch.esp` with its six baked-in masters; a seed is
+  built from scratch carrying only that file's own `OTFT` records, mastering
+  exactly what the chosen plugins need. The load-order table further down is
+  therefore an EXAMPLE, not a constant -- `make_remap()` still derives the
+  remap, which is what makes that safe.
+* **A build can cover several source plugins.** Each pass runs once per plugin,
+  which is what finally reaches ElsweyrAnequina's own NPCs (215 women, routed to
+  `ELSW_OUTFITS_TO_CHOOSE` by `SOURCE_OUTFITS`). Measured 2026-08-27 over
+  Oblivion.esm + ElsweyrAnequina.esp: **3,192 NPC_ overrides**, every check in
+  `verify_npc_patch.py` passing.
+
+The output plugin is now `MyOwnTamrielCosmeticPatch.esp`, and the driver zips it
+into `output/Finished Mods/` like any converted mod.
 
 Reference files — open the one you need:
 
@@ -216,8 +250,6 @@ Track anything unresolved here so the next session does not rediscover it.
   list**, which already references it. That is what NPC-replacer mods do and it
   was explicitly requested, but it is a duplicate reference if a rendering
   oddity ever points here.
-- **ElsweyrAnequina.esp's own 882 NPCs get nothing.** It overrides zero
-  Oblivion.esm NPCs (measured), so there is no conflict — but its NPCs are
-  outside every pass's source. `ELSW_OUTFITS_TO_CHOOSE` exists in
-  `constants.py` unused; wiring it up is `--source .../ElsweyrAnequina.esp
-  --default-outfits ELSW_OUTFITS_TO_CHOOSE`.
+- ~~**ElsweyrAnequina.esp's own 882 NPCs get nothing.**~~ **FIXED
+  2026-08-27.** `build_patch.py` runs every pass once per selected plugin, and
+  `SOURCE_OUTFITS` routes Elsweyr's 215 women to `ELSW_OUTFITS_TO_CHOOSE`.

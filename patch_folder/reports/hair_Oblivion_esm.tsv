@@ -1,0 +1,2598 @@
+SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
+01000007	03000007	Player	Bendu Olo	M	0TheTruth	0TheTruthHL
+01000882	03000882	TestKKWoman02		F	0Laurell	0LaurellHL
+0100089A	0300089A	TestToddMan	Todd's Tester Man	M	0Theo	0TheoHL
+01000FC8	03000FC8	Dremora6ValkynazMeleeNOSUMMON	Dremora Valkynaz	M	0Theo	0TheoHL
+01000FC9	03000FC9	Dremora6ValkynazMissileNOSUMMON	Dremora Valkynaz	M	0Theo	0TheoHL
+01000FCB	03000FCB	Dremora0ChurlMageNOSUMMON	Dremora Churl	M	0Theo	0TheoHL
+01000FCC	03000FCC	Dremora0ChurlMeleeNOSUMMON	Dremora Churl	M	0TheTruth	0TheTruthHL
+01000FCD	03000FCD	Dremora0ChurlMissileNOSUMMON	Dremora Churl	M	0RedRobin	0RedRobinHL
+01000FCE	03000FCE	Dremora1CaitiffMageNOSUMMON	Dremora Caitiff	M	0Victor	0VictorHL
+01000FCF	03000FCF	Dremora1CaitiffMeleeNOSUMMON	Dremora Caitiff	M	0RedRobin	0RedRobinHL
+01000FD0	03000FD0	Dremora1CaitiffMissileNOSUMMON	Dremora Caitiff	M	0Victor	0VictorHL
+01000FD1	03000FD1	Dremora2KynvalMageNOSUMMON	Dremora Kynval	M	0TheTruth	0TheTruthHL
+01000FD3	03000FD3	Dremora2KynvalMeleeNOSUMMON	Dremora Kynval	M	0TheTruth	0TheTruthHL
+01000FD4	03000FD4	Dremora2KynvalMissileNOSUMMON	Dremora Kynval	M	0Victor	0VictorHL
+01000FD5	03000FD5	Dremora3KynreeveMageNOSUMMON	Dremora Kynreeve	M	0Victor	0VictorHL
+01000FD6	03000FD6	Dremora3KynreeveMeleeNOSUMMON	Dremora Kynreeve	M	0Victor	0VictorHL
+01000FD7	03000FD7	Dremora3KynreeveMissileNOSUMMON	Dremora Kynreeve	M	0Theo	0TheoHL
+01000FD8	03000FD8	Dremora4KynmarcherMageNOSUMMON	Dremora Kynmarcher	M	0TheTruth	0TheTruthHL
+01000FD9	03000FD9	Dremora4KynmarcherMeleeNOSUMMON	Dremora Kynmarcher	M	0Theo	0TheoHL
+01000FDA	03000FDA	Dremora4KynmarcherMissileNOSUMMON	Dremora Kynmarcher	M	0Theo	0TheoHL
+01000FDB	03000FDB	Dremora5MarkynazMageNOSUMMON	Dremora Markynaz	M	0Victor	0VictorHL
+01000FDC	03000FDC	Dremora5MarkynazMeleeNOSUMMON	Dremora Markynaz	M	0Victor	0VictorHL
+01000FDD	03000FDD	Dremora5MarkynazMissileNOSUMMON	Dremora Markynaz	M	0Victor	0VictorHL
+01000FDF	03000FDF	Dremora6ValkynazMageNOSUMMON	Dremora Valkynaz	M	0Victor	0VictorHL
+01001144	03001144	MQ16ImperialSoldier02	Imperial Legion Soldier	M	0Victor	0VictorHL
+01001145	03001145	MQ16ImperialArcher02	Imperial Legion Archer	M	0Theo	0TheoHL
+01001734	03001734	BWCWatersEdge1	Blackwood Company Guard	M	0Victor	0VictorHL
+010025FA	030025FA	FGC06DeadMiner1	Miner	M	0Theo	0TheoHL
+010025FD	030025FD	FGC06DeadMiner2	Miner	M	0TheTruth	0TheTruthHL
+0100296A	0300296A	MQ16PalaceDremoraKynval	Dremora Kynval	M	0Theo	0TheoHL
+01002E94	03002E94	Thiirchel	Thiirchel	F	0Lamb	0LambHL
+01002E95	03002E95	Cingaer	Cingaer	M	0Theo	0TheoHL
+01002E96	03002E96	Niraegaer	Niraegaer	M	0TheTruth	0TheTruthHL
+01002E97	03002E97	Nedhelfin	Nedhelfin	M	0Victor	0VictorHL
+01002E98	03002E98	Thrangirfin	Thrangirfin	M	0RedRobin	0RedRobinHL
+01002E99	03002E99	Githriian	Githriian	F	0Lamb	0LambHL
+01002E9A	03002E9A	Idrolian	Idrolian	F	0Lamb	0LambHL
+01002E9B	03002E9B	Dennilwen	Dennilwen	F	0Lenore	0LenoreHL
+01003435	03003435	ElanteofAlinor	Elante of Alinor	F	0Leona	0LeonaHL
+010034AF	030034AF	LucienLachanceHunted	Lucien Lachance	M	0RedRobin	0RedRobinHL
+010034C0	030034C0	DerveraRomalen	Dervera Romalen	F	0Lenore	0LenoreHL
+010034C2	030034C2	MarianaAncharia	Mariana Ancharia	F	0Koala	0KoalaHL
+010034C3	030034C3	Shelley	Shelley	F	0Koala	0KoalaHL
+010034C4	030034C4	BorbagraUzgash	Borba gra-Uzgash	F	0Koala	0KoalaHL
+010034C5	030034C5	TertiaViducia	Tertia Viducia	F	0Leona	0LeonaHL
+010034C6	030034C6	HiltheTall	Hil the Tall	M	0RedRobin	0RedRobinHL
+010034C7	030034C7	Ohtesse	Ohtesse	F	0Laurell	0LaurellHL
+010034C8	030034C8	Errandil	Errandil	M	0Theo	0TheoHL
+010034C9	030034C9	GruiandGarrana	Gruiand Garrana	F	0Koala	0KoalaHL
+010034CA	030034CA	AndelIndarys	Count Andel Indarys	M	0TheTruth	0TheTruthHL
+010034CB	030034CB	NaspiaCosma	Naspia Cosma	F	0Laurell	0LaurellHL
+010034CC	030034CC	UlrichLeland	Ulrich Leland	M	0Theo	0TheoHL
+010034CD	030034CD	UleneHlervu	Ulene Hlervu	F	0Lamb	0LambHL
+010034CE	030034CE	Raqanar	Ra'qanar	M	0TheTruth	0TheTruthHL
+010034CF	030034CF	KeldoftheIsles	Keld of the Isles	M	0RedRobin	0RedRobinHL
+010034D0	030034D0	Ohtimbar	Ohtimbar	M	0TheTruth	0TheTruthHL
+010034D2	030034D2	RytheLythandas	Rythe Lythandas	M	0RedRobin	0RedRobinHL
+010034D3	030034D3	TivelaLythandas	Tivela Lythandas	F	0Lamb	0LambHL
+010034D4	030034D4	DulfishgroOrum	Dulfish gro-Orum	M	0RedRobin	0RedRobinHL
+010034D5	030034D5	MagubgraOrum	Magub gro-Orum	M	0TheTruth	0TheTruthHL
+010034D6	030034D6	Voranil	Voranil	M	0TheTruth	0TheTruthHL
+010034D7	030034D7	TolisiGirith	Tolisi Girith	F	0Lamb	0LambHL
+010034D8	030034D8	TanasaArano	Tanasa Arano	F	0Lenore	0LenoreHL
+010034D9	030034D9	RogmeshgraCoblug	Rogmesh gra-Coblug	F	0Laurell	0LaurellHL
+010034DA	030034DA	MaknokgroCoblug	Maknok gro-Coblug	M	0Victor	0VictorHL
+010034DB	030034DB	Ganredhel	Ganredhel	F	0Lamb	0LambHL
+010034DC	030034DC	OghashgraMagul	Oghash gra-Magul	F	0Koala	0KoalaHL
+010034DD	030034DD	BazurgroGharz	Bazur gro-Gharz	M	0Theo	0TheoHL
+010034DE	030034DE	AldosOthran	Aldos Othran	M	0RedRobin	0RedRobinHL
+010034DF	030034DF	LlevanaNedaren	Llevana Nedaren	F	0Lenore	0LenoreHL
+010034E0	030034E0	TovasSelvani	Tovas Selvani	M	0Victor	0VictorHL
+010038B3	030038B3	MarietteRielle	Mariette Rielle	F	0Lenore	0LenoreHL
+010038B5	030038B5	CamillaLollia	Camilla Lollia	F	0Koala	0KoalaHL
+010038CA	030038CA	LaytheWavrick	Laythe Wavrick	M	0Victor	0VictorHL
+01003946	03003946	Ksharr	K'Sharr	M	0RedRobin	0RedRobinHL
+0100398A	0300398A	MathieuBellamont	Mathieu Bellamont	M	0RedRobin	0RedRobinHL
+010039A6	030039A6	Eridor	Eridor	M	0RedRobin	0RedRobinHL
+010039AB	030039AB	Shamar	Shamar	M	0RedRobin	0RedRobinHL
+010039AE	030039AE	Carsten	Carsten	M	0RedRobin	0RedRobinHL
+010039B1	030039B1	VontusIdolus	Vontus Idolus	M	0RedRobin	0RedRobinHL
+01003A8A	03003A8A	TestVampireNPC	Vampire	M	0RedRobin	0RedRobinHL
+01005254	03005254	TestBruceSpells	Bruce	M	0Theo	0TheoHL
+01005560	03005560	VeyondArgMale4Monk	Argonian Tribesman	M	0Theo	0TheoHL
+01005561	03005561	VeyondArgMale3Nightblade	Argonian Tribesman	M	0RedRobin	0RedRobinHL
+01005562	03005562	VeyondArgMale3Scout	Argonian Tribesman	M	0TheTruth	0TheTruthHL
+01005563	03005563	VeyondArgMale2Blademaster	Argonian Tribesman	M	0RedRobin	0RedRobinHL
+01005564	03005564	VeyondArgFemale2Blademaster	Argonian Tribesman	F	0Laurell	0LaurellHL
+01005565	03005565	VeyondArgFemale3Assassin	Argonian Tribesman	F	0Koala	0KoalaHL
+01005566	03005566	VeyondArgFemale3Monk	Argonian Tribesman	F	0Koala	0KoalaHL
+01005567	03005567	VeyondArgFemale4Nightblade	Argonian Tribesman	F	0Koala	0KoalaHL
+01005568	03005568	VeyondArgFemale4Scout	Argonian Tribesman	F	0Leona	0LeonaHL
+01005569	03005569	VeyondArgShamanMale3B	Argonian Shaman	M	0Victor	0VictorHL
+0100556A	0300556A	VeyondArgShamanMale2	Argonian Shaman	M	0TheTruth	0TheTruthHL
+0100556B	0300556B	VeyondArgShamanFemale4A	Argonian Shaman	F	0Lenore	0LenoreHL
+0100556C	0300556C	VeyondArgShamanFemale3A	Argonian Shaman	F	0Leona	0LeonaHL
+0100556D	0300556D	VeyondArgBossMale1	Argonian Chieftain	M	0TheTruth	0TheTruthHL
+0100556E	0300556E	VeyondArgBossMale2	Argonian Chieftain	M	0Victor	0VictorHL
+0100556F	0300556F	VeyondArgBossFemale1	Argonian Chieftain	F	0Koala	0KoalaHL
+01005570	03005570	VeyondArgBossFemale2	Argonian Chieftain	F	0Lamb	0LambHL
+01005571	03005571	VeyondArgMale4Assassin	Argonian Tribesman	M	0TheTruth	0TheTruthHL
+010055BD	030055BD	TESTDetection	Bandit	M	0RedRobin	0RedRobinHL
+010055C2	030055C2	CheydinhalGuardCastlePostDay01	Cheydinhal Guard	M	0Victor	0VictorHL
+010055C3	030055C3	CheydinhalGuardCastlePostDay02	Cheydinhal Guard	M	0RedRobin	0RedRobinHL
+010055C4	030055C4	CheydinhalGuardCastlePostNight01	Cheydinhal Guard	M	0Victor	0VictorHL
+010055C5	030055C5	CheydinhalGuardCastlePostNight02	Cheydinhal Guard	M	0RedRobin	0RedRobinHL
+010055C6	030055C6	CheydinhalGuardCityPatrolDay01	Cheydinhal Guard	M	0Victor	0VictorHL
+010055C7	030055C7	CheydinhalGuardCityPatrolDay02	Cheydinhal Guard	M	0TheTruth	0TheTruthHL
+010055C8	030055C8	CheydinhalGuardCityPatrolNight01	Cheydinhal Guard	M	0Victor	0VictorHL
+010055C9	030055C9	CheydinhalGuardCityPatrolNight02	Cheydinhal Guard	M	0Victor	0VictorHL
+010055CA	030055CA	CheydinhalGuardCityPostDay01	Cheydinhal Guard	M	0TheTruth	0TheTruthHL
+010055CB	030055CB	CheydinhalGuardCityPostDay02	Cheydinhal Guard	M	0Victor	0VictorHL
+010055CC	030055CC	CheydinhalGuardCityPostNight01	Cheydinhal Guard	M	0RedRobin	0RedRobinHL
+010055CD	030055CD	CheydinhalGuardCityPostNight02	Cheydinhal Guard	M	0Victor	0VictorHL
+010055D2	030055D2	CheydinhalGuardCastlePatrolDay01	Cheydinhal Guard	M	0Theo	0TheoHL
+010055D3	030055D3	CheydinhalGuardCastlePatrolNight01	Cheydinhal Guard	M	0RedRobin	0RedRobinHL
+010055D4	030055D4	CheydinhalGuardCountEscort	Count's Bodyguard	M	0TheTruth	0TheTruthHL
+010055D5	030055D5	CheydinhalGuardJailorDay	Cheydinhal Jailor	M	0Victor	0VictorHL
+010055D6	030055D6	CheydinhalGuardJailorNight	Cheydinhal Jailor	M	0Victor	0VictorHL
+01008B0D	03008B0D	TestJPD02	Heavy Armor 50	M	0RedRobin	0RedRobinHL
+01008B0E	03008B0E	TestJPD03	Heavy Armor 100	M	0TheTruth	0TheTruthHL
+01008B0F	03008B0F	TestJPD01	Heavy Armor 1	M	0TheTruth	0TheTruthHL
+010091F5	030091F5	BieneAmelion	Biene Amelion	F	0Koala	0KoalaHL
+0100922B	0300922B	TheNightMother	The Night Mother	F	0Lenore	0LenoreHL
+01009235	03009235	OrumGangCourier1	Camonna Tong Thug	M	0Victor	0VictorHL
+01009236	03009236	OrumGangCourier2	Camonna Tong Thug	M	0Theo	0TheoHL
+010092A8	030092A8	TG03ChapelUnderCroftGuard	Chapel Guard	F	0Laurell	0LaurellHL
+0100950D	0300950D	TestBruceNoMagic	Bruce	M	0TheTruth	0TheTruthHL
+010097A5	030097A5	AmantiusAllectus	Amantius Allectus	M	0TheTruth	0TheTruthHL
+01009ABE	03009ABE	TESTBandit	Bandit Ringleader	F	0Laurell	0LaurellHL
+01009ABF	03009ABF	TESTMarauder	Marauder Warlord	M	0RedRobin	0RedRobinHL
+01009AC0	03009AC0	TESTConjurer	Conjurer Adept	M	0Theo	0TheoHL
+01009AC1	03009AC1	TESTNecromancer	Necromancer Adept	F	0Leona	0LeonaHL
+01009AD3	03009AD3	TESTBandit14	Bandit Ringleader	F	0Koala	0KoalaHL
+01009AD5	03009AD5	TESTBandit7	Bandit Ringleader	F	0Lamb	0LambHL
+01009AD6	03009AD6	TESTBandit21	Bandit Ringleader	F	0Lamb	0LambHL
+01009AD7	03009AD7	TESTConjurer7	Conjurer Adept	M	0RedRobin	0RedRobinHL
+01009AD8	03009AD8	TESTConjurer14	Conjurer Adept	M	0TheTruth	0TheTruthHL
+01009AD9	03009AD9	TESTConjurer21	Conjurer Adept	M	0Victor	0VictorHL
+01009ADA	03009ADA	TESTMarauder7	Marauder Warlord	M	0Victor	0VictorHL
+01009ADB	03009ADB	TESTMarauder14	Marauder Warlord	M	0Theo	0TheoHL
+01009ADC	03009ADC	TESTMarauder21	Marauder Warlord	M	0Theo	0TheoHL
+01009ADD	03009ADD	TESTNecromancer7	Necromancer Adept	F	0Lenore	0LenoreHL
+01009ADE	03009ADE	TESTNecromancer14	Necromancer Adept	F	0Koala	0KoalaHL
+01009ADF	03009ADF	TESTNecromancer21	Necromancer Adept	F	0Leona	0LeonaHL
+01009C38	03009C38	Hlofgar	Hlofgar	M	0TheTruth	0TheTruthHL
+01009C39	03009C39	Ashanta	Ashanta	F	0Leona	0LeonaHL
+01009C3A	03009C3A	DreetLai	Dreet-Lai	M	0Theo	0TheoHL
+01009C3B	03009C3B	Enrion	Enrion	M	0TheTruth	0TheTruthHL
+01009C5A	03009C5A	ICWaterfrontGuardDay01	Imperial Watch	M	0RedRobin	0RedRobinHL
+0100A082	0300A082	BogrumGroGalash	Bogrum Gro-Galash	M	0RedRobin	0RedRobinHL
+0100A083	0300A083	Ranaline	Ranaline	F	0Lenore	0LenoreHL
+0100A084	0300A084	Gilgondorin	Gilgondorin	M	0RedRobin	0RedRobinHL
+0100A085	0300A085	BrokilgroShatur	Brokil gro-Shatur	M	0Theo	0TheoHL
+0100A086	0300A086	JeanPierreLemonds	Jean-Pierre Lemonds	M	0Victor	0VictorHL
+0100A087	0300A087	Nilawen	Nilawen	F	0Leona	0LeonaHL
+0100A088	0300A088	Ungarion	Ungarion	M	0Victor	0VictorHL
+0100A089	0300A089	Daenlin	Daenlin	M	0RedRobin	0RedRobinHL
+0100A08A	0300A08A	UravasaOthrelas	Uravasa Othrelas	F	0Lenore	0LenoreHL
+0100A08B	0300A08B	Marz	Marz	F	0Lenore	0LenoreHL
+0100A08C	0300A08C	ChanaMona	Chana Mona	F	0Koala	0KoalaHL
+0100A08D	0300A08D	OlavatheFair	Olava the Fair	F	0Leona	0LeonaHL
+0100A08E	0300A08E	RegulusTerentius	Count Regulus Terentius	M	0Theo	0TheoHL
+0100A08F	0300A08F	DroNahrah	Dro'Nahrahe	F	0Lamb	0LambHL
+0100A090	0300A090	FathisAren	Fathis Aren	M	0Theo	0TheoHL
+0100A091	0300A091	HansBlackNail	Hans Black-Nail	M	0RedRobin	0RedRobinHL
+0100A092	0300A092	GelliusTerentius	Gellius Terentius	M	0Victor	0VictorHL
+0100A093	0300A093	DrelsTheran	Drels Theran	M	0TheTruth	0TheTruthHL
+0100A094	0300A094	VincentGalien	Vincent Galien	M	0Theo	0TheoHL
+0100A095	0300A095	Nahsi	Nahsi	F	0Koala	0KoalaHL
+0100A096	0300A096	TadroseHelas	Tadrose Helas	F	0Lamb	0LambHL
+0100A099	0300A099	SelenaOraniaDead	Selena Orania	F	0Koala	0KoalaHL
+0100A09A	0300A09A	VolanaroDead	Volanaro	M	0Victor	0VictorHL
+0100A0AE	0300A0AE	AnvilGuardCityPostStablesDay	Anvil Guard	M	0Theo	0TheoHL
+0100A0AF	0300A0AF	AnvilGuardCityPostStablesNight	Anvil Guard	M	0Theo	0TheoHL
+0100A0B0	0300A0B0	BravilGuardCityPostStablesDay	Bravil Guard	M	0Theo	0TheoHL
+0100A0B1	0300A0B1	BravilGuardCityPostStablesNight	Bravil Guard	M	0Theo	0TheoHL
+0100A0B2	0300A0B2	BrumaGuardCityPostStablesDay	Bruma Guard	M	0TheTruth	0TheTruthHL
+0100A0B3	0300A0B3	BrumaGuardCityPostStablesNight	Bruma Guard	M	0Theo	0TheoHL
+0100A0B4	0300A0B4	CheydinhalGuardCityPostStablesDay	Cheydinhal Guard	M	0Victor	0VictorHL
+0100A0B5	0300A0B5	CheydinhalGuardCityPostStablesNight	Cheydinhal Guard	M	0TheTruth	0TheTruthHL
+0100A0B6	0300A0B6	ChorrolGuardPostStablesDay	Chorrol Guard	M	0RedRobin	0RedRobinHL
+0100A0B7	0300A0B7	ChorrolGuardPostStablesNight	Chorrol Guard	M	0RedRobin	0RedRobinHL
+0100A0B8	0300A0B8	LeyawiinGuardCityStablesPostDay	Leyawiin City Watch	M	0TheTruth	0TheTruthHL
+0100A0B9	0300A0B9	LeyawiinGuardCityPostStablesNight	Leyawiin City Watch	M	0TheTruth	0TheTruthHL
+0100A0BA	0300A0BA	SkingradGuardPostStablesDay	Skingrad Guard	M	0Theo	0TheoHL
+0100A0BB	0300A0BB	SkingradGuardPostStablesNight	Skingrad Guard	M	0RedRobin	0RedRobinHL
+0100A108	0300A108	Carandial	Carandial	M	0RedRobin	0RedRobinHL
+0100A109	0300A109	CitySwimmer	City-Swimmer	F	0Laurell	0LaurellHL
+0100A10A	0300A10A	LucianaGalena	Luciana Galena	F	0Lamb	0LambHL
+0100A10B	0300A10B	Andragil	Andragil	F	0Laurell	0LaurellHL
+0100A10C	0300A10C	JzinDar	J'zin-Dar	M	0TheTruth	0TheTruthHL
+0100A10D	0300A10D	Rvanni	R'vanni	M	0Theo	0TheoHL
+0100A10E	0300A10E	ReistrtheRotted	Reistr the Rotted	M	0TheTruth	0TheTruthHL
+0100A10F	0300A10F	RoxanneBrigette	Roxanne Brigette	F	0Laurell	0LaurellHL
+0100A110	0300A110	AleronLoche	Aleron Loche	M	0Theo	0TheoHL
+0100A111	0300A111	UrsanneLoche	Ursanne Loche	F	0Leona	0LeonaHL
+0100A112	0300A112	Reenum	Reenum	M	0Victor	0VictorHL
+0100A137	0300A137	BravilGuardCastlePostDay01	Bravil Guard	M	0Victor	0VictorHL
+0100A13A	0300A13A	BravilGuardCastlePostDay02	Bravil Guard	M	0Victor	0VictorHL
+0100A13F	0300A13F	BravilGuardCastlePostNight01	Bravil Guard	M	0Victor	0VictorHL
+0100A140	0300A140	BravilGuardCastlePostNight02	Bravil Guard	M	0Theo	0TheoHL
+0100A143	0300A143	BravilGuardCityPatrolDay01	Bravil Guard	M	0Victor	0VictorHL
+0100A152	0300A152	BravilGuardCityPostDay02	Bravil Guard	M	0Theo	0TheoHL
+0100A156	0300A156	BravilGuardCityPostDay03	Bravil Guard	M	0RedRobin	0RedRobinHL
+0100A15B	0300A15B	BravilGuardCityPatrolNight01	Bravil Guard	M	0Theo	0TheoHL
+0100A15D	0300A15D	BravilGuardCityPostNight02	Bravil Guard	M	0RedRobin	0RedRobinHL
+0100A15E	0300A15E	BravilGuardCityPostNight03	Bravil Guard	M	0TheTruth	0TheTruthHL
+0100A168	0300A168	BravilGuardCityPostDay01	Bravil Guard	M	0RedRobin	0RedRobinHL
+0100A169	0300A169	BravilGuardCityPostNight01	Bravil Guard	M	0Victor	0VictorHL
+0100A17D	0300A17D	BravilGuardJailorDay	Bravil Jailor	M	0TheTruth	0TheTruthHL
+0100A17E	0300A17E	BravilGuardJailorNight	Bravil Jailor	M	0RedRobin	0RedRobinHL
+0100A188	0300A188	BravilGuardEscortCount	Count's Bodyguard	M	0TheTruth	0TheTruthHL
+0100A25C	0300A25C	VieraLerus	Viera Lerus	F	0Leona	0LeonaHL
+0100A27B	0300A27B	UlfgarFogEye	Ulfgar Fog-Eye	M	0Victor	0VictorHL
+0100A27C	0300A27C	Maenlorn	Maenlorn	M	0RedRobin	0RedRobinHL
+0100A27D	0300A27D	Caenlorn	Caenlorn	M	0TheTruth	0TheTruthHL
+0100A27E	0300A27E	Wilbur	Wilbur	M	0Theo	0TheoHL
+0100A280	0300A280	Sshani	S'shani	M	0Victor	0VictorHL
+0100A281	0300A281	DidierAumilie	Didier Aumilie	M	0TheTruth	0TheTruthHL
+0100A282	0300A282	WilhelmtheWorm	Wilhelm the Worm	M	0TheTruth	0TheTruthHL
+0100A283	0300A283	VarelMorvayn	Varel Morvayn	M	0Theo	0TheoHL
+0100A285	0300A285	Trevaia	Trevaia	F	0Lamb	0LambHL
+0100A286	0300A286	Laralthir	Laralthir	F	0Lamb	0LambHL
+0100A287	0300A287	DumaniaJirich	Dumania Jirich	F	0Laurell	0LaurellHL
+0100A288	0300A288	MillonaUmbranox	Countess Millona Umbranox	F	0Koala	0KoalaHL
+0100A289	0300A289	Dairihill	Dairihill	F	0Laurell	0LaurellHL
+0100A28B	0300A28B	Langley	Langley	M	0RedRobin	0RedRobinHL
+0100A28C	0300A28C	Baeralorn	Baeralorn	M	0Theo	0TheoHL
+0100A28F	0300A28F	Vigdis	Vigdis	F	0Koala	0KoalaHL
+0100A290	0300A290	Rhano	Rhano	M	0Theo	0TheoHL
+0100A291	0300A291	RufriusVinicius	Rufrius Vinicius	M	0TheTruth	0TheTruthHL
+0100A292	0300A292	StentheUgly	Sten the Ugly	M	0Theo	0TheoHL
+0100A293	0300A293	LlensiLlaram	Llensi Llaram	F	0Laurell	0LaurellHL
+0100A294	0300A294	Huurwen	Huurwen	F	0Lamb	0LambHL
+0100A295	0300A295	MirabelleMonet	Mirabelle Monet	F	0Koala	0KoalaHL
+0100A296	0300A296	KrognakgroBrok	Krognak gro-Brok	M	0TheTruth	0TheTruthHL
+0100A297	0300A297	HaulsRopesFaster	Hauls-Ropes-Faster	M	0Victor	0VictorHL
+0100A298	0300A298	Isolde	Isolde	F	0Lenore	0LenoreHL
+0100A299	0300A299	Anguilon	Anguilon	M	0RedRobin	0RedRobinHL
+0100A29A	0300A29A	Thurindil	Thurindil	M	0RedRobin	0RedRobinHL
+0100A29B	0300A29B	HeinrichOakenHull	Heinrich Oaken-Hull	M	0Theo	0TheoHL
+0100A29C	0300A29C	Hasathil	Hasathil	F	0Koala	0KoalaHL
+0100A29D	0300A29D	PinarusInventius	Pinarus Inventius	M	0Victor	0VictorHL
+0100A29E	0300A29E	AstiaInventius	Astia Inventius	F	0Lamb	0LambHL
+0100A29F	0300A29F	RusiaBradus	Rusia Bradus	F	0Lenore	0LenoreHL
+0100A2A0	0300A2A0	QuillWeave	Quill-Weave	F	0Lamb	0LambHL
+0100A2A1	0300A2A1	Orrin	Orrin	M	0TheTruth	0TheTruthHL
+0100A2A2	0300A2A2	Maelona	Maelona	F	0Lenore	0LenoreHL
+0100A2A3	0300A2A3	JesanSextius	Jesan Sextius	M	0TheTruth	0TheTruthHL
+0100A2A4	0300A2A4	GorgogroShura	Gorgo gro-Shura	M	0RedRobin	0RedRobinHL
+0100A2A5	0300A2A5	GrayFoxStranger	A Stranger	M	0TheTruth	0TheTruthHL
+0100A2A7	0300A2A7	AnvilGuardCastlePostDay01	Anvil Guard	M	0RedRobin	0RedRobinHL
+0100A2AA	0300A2AA	AnvilGuardCastlePostDay02	Anvil Guard	M	0RedRobin	0RedRobinHL
+0100A2AB	0300A2AB	AnvilGuardCastlePostNight01	Anvil Guard	M	0Victor	0VictorHL
+0100A2AE	0300A2AE	AnvilGuardCastlePostNight02	Anvil Guard	M	0Victor	0VictorHL
+0100ABB5	0300ABB5	RavenCamoran	Raven Camoran	M	0Theo	0TheoHL
+0100B508	0300B508	TESTVampireArcher	Vampire Matriarch	F	0Koala	0KoalaHL
+0100B509	0300B509	TESTVampireMelee	Vampire Patriarch	M	0Theo	0TheoHL
+0100B50A	0300B50A	TESTVampireMage	Vampire Patriarch	M	0Theo	0TheoHL
+0100B50B	0300B50B	TESTVampireArcher7	Vampire Matriarch	F	0Lenore	0LenoreHL
+0100B50C	0300B50C	TESTVampireArcher14	Vampire Matriarch	F	0Leona	0LeonaHL
+0100B50D	0300B50D	TESTVampireArcher21	Vampire Matriarch	F	0Koala	0KoalaHL
+0100B50E	0300B50E	TESTVampireMage7	Vampire Patriarch	M	0Victor	0VictorHL
+0100B50F	0300B50F	TESTVampireMage14	Vampire Patriarch	M	0Theo	0TheoHL
+0100B510	0300B510	TESTVampireMage21	Vampire Patriarch	M	0RedRobin	0RedRobinHL
+0100B511	0300B511	TESTVampireMelee7	Vampire Patriarch	M	0TheTruth	0TheTruthHL
+0100B512	0300B512	TESTVampireMelee14	Vampire Patriarch	M	0RedRobin	0RedRobinHL
+0100B513	0300B513	TESTVampireMelee21	Vampire Patriarch	M	0Theo	0TheoHL
+0100BD60	0300BD60	Larthjar	Larthjar the Laggard	M	0TheTruth	0TheTruthHL
+0100BE50	0300BE50	AnvilGuardJailorDay	Anvil Jailor	M	0Victor	0VictorHL
+0100BE55	0300BE55	AnvilGuardJailorNight	Anvil Jailor	M	0Theo	0TheoHL
+0100BE7F	0300BE7F	LordRugdumph	Lord Rugdumph gro-Shurgak	M	0Theo	0TheoHL
+0100BE80	0300BE80	LadyRogbut	Lady Rogbut gra-Shurgak	F	0Lamb	0LambHL
+0100BEA7	0300BEA7	DraranaThelis	Drarana Thelis	F	0Laurell	0LaurellHL
+0100BEE6	0300BEE6	Fithragaer	Fithragaer	M	0TheTruth	0TheTruthHL
+0100BFD7	0300BFD7	AnvilGuardCastlePatrolDay01	Anvil Guard	M	0Theo	0TheoHL
+0100BFD9	0300BFD9	AnvilGuardCastlePatrolNight01	Anvil Guard	M	0TheTruth	0TheTruthHL
+0100BFDB	0300BFDB	AnvilGuardCastlePostDay03	Anvil Guard	M	0Theo	0TheoHL
+0100BFDC	0300BFDC	AnvilGuardCastlePostNight03	Anvil Guard	M	0Theo	0TheoHL
+0100BFDF	0300BFDF	AnvilGuardCityPatrolDay01	Anvil Guard	M	0RedRobin	0RedRobinHL
+0100BFE9	0300BFE9	AnvilGuardCityPatrolNight01	Anvil Guard	M	0TheTruth	0TheTruthHL
+0100BFED	0300BFED	AnvilGuardCityPatrolDay02	Anvil Guard	M	0Victor	0VictorHL
+0100BFEE	0300BFEE	AnvilGuardCityPatrolNight02	Anvil Guard	M	0RedRobin	0RedRobinHL
+0100BFF7	0300BFF7	AnvilGuardCityPostDay01	Anvil Guard	M	0RedRobin	0RedRobinHL
+0100BFF8	0300BFF8	AnvilGuardCityPostNight01	Anvil Guard	M	0Victor	0VictorHL
+0100BFFB	0300BFFB	AnvilGuardCityPostDay02	Anvil Guard	M	0RedRobin	0RedRobinHL
+0100BFFC	0300BFFC	AnvilGuardCityPostNight02	Anvil Guard	M	0Victor	0VictorHL
+0100C03D	0300C03D	SkingradCastleGuardPatrolDay02	Skingrad Guard	M	0RedRobin	0RedRobinHL
+0100C03E	0300C03E	SkingradCastleGuardPatrolNight02	Skingrad Guard	M	0Theo	0TheoHL
+0100C0F3	0300C0F3	AnvilGuardEscortCountess	Countess's Bodyguard	M	0RedRobin	0RedRobinHL
+0100C1D4	0300C1D4	Ormil	Ormil	M	0Theo	0TheoHL
+0100C1D5	0300C1D5	GramangroMarad	Graman gro-Marad	M	0Victor	0VictorHL
+0100C1D7	0300C1D7	Selene	Selene	F	0Laurell	0LaurellHL
+0100C1D8	0300C1D8	Lynch	Lynch	M	0TheTruth	0TheTruthHL
+0100C1D9	0300C1D9	Minx	Minx	F	0Koala	0KoalaHL
+0100C1DA	0300C1DA	Wrath	Wrath	M	0RedRobin	0RedRobinHL
+0100C22D	0300C22D	GrayFoxCorvus	Corvus Umbranox	M	0Victor	0VictorHL
+0100C23E	0300C23E	TestBruceItems	Bruce	M	0Theo	0TheoHL
+0100C51A	0300C51A	TG08MothPriestMaleGuard01	Blind Moth Priest	M	0Victor	0VictorHL
+0100C57C	0300C57C	MQ14DremoraMelee1	Dremora Feydnaz	M	0TheTruth	0TheTruthHL
+010105E4	030105E4	TestToddWoman15	Woman 15	F	0Lamb	0LambHL
+01011F9E	03011F9E	SE02OrcCaptain	Orc Adventurer Captain	M	0Theo	0TheoHL
+01011F9F	03011F9F	SEDredhwen	Dredhwen	F	0Leona	0LeonaHL
+01011FA0	03011FA0	SEFelasSarandas	Felas Sarandas	M	0Victor	0VictorHL
+01011FA1	03011FA1	SEJayredIceVeins	Jayred Ice-Veins	M	0Victor	0VictorHL
+01011FA2	03011FA2	SERelmynaVerenim	Relmyna Verenim	F	0Lamb	0LambHL
+01011FA3	03011FA3	SEShelden	Shelden	M	0Victor	0VictorHL
+01011FC5	03011FC5	SEGoldenSaintFemaleMelee	Golden Saint	F	0Lenore	0LenoreHL
+01011FCC	03011FCC	SEGoldenSaintFemaleMissile	Golden Saint Archer	F	0Koala	0KoalaHL
+01011FD3	03011FD3	SEDarkSeducerFemaleMelee	Dark Seducer	F	0Laurell	0LaurellHL
+01011FD4	03011FD4	SEDarkSeducerFemaleMissile	Dark Seducer Archer	F	0Laurell	0LaurellHL
+0101207A	0301207A	SEAmiableFanriene	Amiable Fanriene	M	0RedRobin	0RedRobinHL
+0101207B	0301207B	SE32Althel	Althel's Ghost	F	0Laurell	0LaurellHL
+0101207C	0301207C	SEAtrabhiMania	Atrabhi	F	0Lenore	0LenoreHL
+0101207D	0301207D	SEBigHead	Big Head	M	0Theo	0TheoHL
+0101207E	0301207E	SECutter	Cutter	F	0Lenore	0LenoreHL
+0101207F	0301207F	SE32DesideratusAnnius	Desideratus Annius' Ghost	M	0Victor	0VictorHL
+01012080	03012080	SEHalion	Halion	M	0Theo	0TheoHL
+01012081	03012081	SE32HlovalDreth	Hloval Dreth's Ghost	M	0TheTruth	0TheTruthHL
+01012082	03012082	SEJzidzoMania	J'zidzo	M	0Victor	0VictorHL
+01012083	03012083	SEJastiraNanusMania	Jastira Nanus	F	0Lamb	0LambHL
+01012084	03012084	SEOrinthal	Orinthal	M	0TheTruth	0TheTruthHL
+01012086	03012086	SERavenBiter	Raven Biter	M	0RedRobin	0RedRobinHL
+01012087	03012087	SERendilDrarara	Rendil Drarara	M	0RedRobin	0RedRobinHL
+01012088	03012088	SESheerMeedish	Sheer Meedish	F	0Koala	0KoalaHL
+01012089	03012089	SETallTreesFalling	Tall-Trees-Falling	F	0Koala	0KoalaHL
+0101208A	0301208A	SETilseAreleth	Tilse Areleth	F	0Lenore	0LenoreHL
+0101208B	0301208B	SEToveTheUnrestful	Tove the Unrestful	M	0Victor	0VictorHL
+0101208C	0301208C	SEUrulGoAgamphMania	Urul gro-Agamph	M	0TheTruth	0TheTruthHL
+0101208D	0301208D	SEZoeMalene	Zoe Malene	F	0Leona	0LeonaHL
+01012092	03012092	SEUlfri	Grakedrig Ulfri	F	0Leona	0LeonaHL
+010120D6	030120D6	SE32CountCirion	Count Cirion's Ghost	M	0TheTruth	0TheTruthHL
+010120DB	030120DB	SE32BatGroOrkul	Bat gro-Orkul's Ghost	M	0Victor	0VictorHL
+010120E0	030120E0	SE32Fanatic1	Ghost Fanatic	M	0Theo	0TheoHL
+010120E1	030120E1	SE32Fanatic2	Ghost Fanatic	M	0RedRobin	0RedRobinHL
+010120E2	030120E2	SE32Fanatic3	Ghost Fanatic	M	0Victor	0VictorHL
+010120E4	030120E4	SE32Fanatic4Boss	Devoted Ghost Fanatic	M	0RedRobin	0RedRobinHL
+010120EC	030120EC	SEKaneh	Aurmazl Kaneh	F	0Lenore	0LenoreHL
+010120ED	030120ED	SEMirel	Mirel	M	0RedRobin	0RedRobinHL
+010120F2	030120F2	SE06GoldenSaint01	Golden Saint	F	0Laurell	0LaurellHL
+010120FD	030120FD	SE32VitharnSoldier01	Vitharn Ghost Soldier	M	0TheTruth	0TheTruthHL
+01012106	03012106	SEThadon	Thadon	M	0RedRobin	0RedRobinHL
+01012107	03012107	SESyl	Syl	F	0Lamb	0LambHL
+01012108	03012108	SEKithlan	Kithlan	M	0TheTruth	0TheTruthHL
+01012109	03012109	SEWideEye	Wide-Eye	F	0Lenore	0LenoreHL
+01012D41	03012D41	SENanetteDon	Nanette Don	F	0Laurell	0LaurellHL
+010133BE	030133BE	SE01GaiusPrentus	Gaius Prentus	M	0RedRobin	0RedRobinHL
+010133C0	030133C0	SEHaskill	Haskill	M	0Victor	0VictorHL
+010134DD	030134DD	SEOrderPriest1	Priest of Order	M	0Theo	0TheoHL
+0101358C	0301358C	SEOrderPriest2	Priest of Order	M	0TheTruth	0TheTruthHL
+0101359D	0301359D	SEHerdir	Herdir	M	0RedRobin	0RedRobinHL
+010135B6	030135B6	SEDyus	Dyus	M	0RedRobin	0RedRobinHL
+010135B7	030135B7	SE11Ciirta	Ciirta	F	0Koala	0KoalaHL
+01013623	03013623	SEBrevi	Brevi	F	0Lamb	0LambHL
+0101362C	0301362C	SEAnyaHerrick	Anya Herrick	F	0Laurell	0LaurellHL
+0101362D	0301362D	SEArctus	Arctus	M	0RedRobin	0RedRobinHL
+0101362E	0301362E	SEDervenin	Dervenin	M	0RedRobin	0RedRobinHL
+0101362F	0301362F	SEGundlar	Gundlar	M	0RedRobin	0RedRobinHL
+01013640	03013640	SESheogorath	Sheogorath	M	0RedRobin	0RedRobinHL
+01013BC5	03013BC5	SEMuurine	Muurine	F	0Lamb	0LambHL
+01013BC7	03013BC7	SENelrene	Nelrene	F	0Koala	0KoalaHL
+0101445A	0301445A	SEKnightOfOrder4	Knight of Order	M	0Theo	0TheoHL
+0101445B	0301445B	SEKnightOfOrder3	Knight of Order	M	0RedRobin	0RedRobinHL
+0101445C	0301445C	SEKnightOfOrder2	Knight of Order	M	0Theo	0TheoHL
+01014653	03014653	GrayFox	The Gray Fox	M	0Victor	0VictorHL
+0101466D	0301466D	KvatchCastleWallDremoraArcher	Dremora Archer	M	0Victor	0VictorHL
+01014674	03014674	IrlavJarolDead	Irlav Jarol	M	0Victor	0VictorHL
+01014686	03014686	KvatchCastleWallDremoraArcherDead	Dremora Archer	M	0RedRobin	0RedRobinHL
+01014692	03014692	Dremora0ChurlMissile1	Dremora Churl	M	0Victor	0VictorHL
+01014693	03014693	Dremora0ChurlMissile2	Dremora Churl	M	0Victor	0VictorHL
+01014694	03014694	Dremora0ChurlMissile3	Dremora Churl	M	0Theo	0TheoHL
+01014696	03014696	Dremora1CaitiffMissile1	Dremora Caitiff	M	0TheTruth	0TheTruthHL
+01014697	03014697	Dremora1CaitiffMissile2	Dremora Caitiff	M	0Victor	0VictorHL
+01014698	03014698	Dremora1CaitiffMissile3	Dremora Caitiff	M	0TheTruth	0TheTruthHL
+01014699	03014699	Ocato	High Chancellor Ocato	M	0RedRobin	0RedRobinHL
+010146B5	030146B5	Dremora2KynvalMissile1	Dremora Kynval	M	0TheTruth	0TheTruthHL
+010146B6	030146B6	Dremora2KynvalMissile2	Dremora Kynval	M	0TheTruth	0TheTruthHL
+010146B7	030146B7	Dremora2KynvalMissile3	Dremora Kynval	M	0TheTruth	0TheTruthHL
+010146B8	030146B8	Dremora3KynreeveMissile1	Dremora Kynreeve	M	0Victor	0VictorHL
+010146B9	030146B9	Dremora3KynreeveMissile2	Dremora Kynreeve	M	0Victor	0VictorHL
+010146BC	030146BC	Dremora3KynreeveMissile3	Dremora Kynreeve	M	0Theo	0TheoHL
+010146BD	030146BD	Dremora4KynmarcherMissile1	Dremora Kynmarcher	M	0TheTruth	0TheTruthHL
+010146BE	030146BE	Dremora4KynmarcherMissile2	Dremora Kynmarcher	M	0Victor	0VictorHL
+010146BF	030146BF	Dremora4KynmarcherMissile3	Dremora Kynmarcher	M	0Victor	0VictorHL
+010146C0	030146C0	Dremora5MarkynazMissile1	Dremora Markynaz	M	0RedRobin	0RedRobinHL
+010146C1	030146C1	Dremora5MarkynazMissile2	Dremora Markynaz	M	0RedRobin	0RedRobinHL
+010146C5	030146C5	Dremora5MarkynazMissile3	Dremora Markynaz	F	0Koala	0KoalaHL
+010146C9	030146C9	Dremora6ValkynazMissile1	Dremora Valkynaz	M	0RedRobin	0RedRobinHL
+010146CB	030146CB	Dremora6ValkynazMissile2	Dremora Valkynaz	M	0TheTruth	0TheTruthHL
+010146CC	030146CC	Dremora6ValkynazMissile3	Dremora Valkynaz	M	0Victor	0VictorHL
+010146EA	030146EA	MQ16Messenger	Imperial Legion Messenger	M	0TheTruth	0TheTruthHL
+010148D5	030148D5	JakbenImbel	Jakben, Earl of Imbel	M	0TheTruth	0TheTruthHL
+01014A27	03014A27	CGMythicDawnAssassin01	Assassin	M	0TheTruth	0TheTruthHL
+01014A28	03014A28	CGMythicDawnAssassin02	Assassin	M	0Victor	0VictorHL
+01014C56	03014C56	SE11Apostle01	Apostle	M	0Theo	0TheoHL
+01014C59	03014C59	MS48OblivionDremoraPatroller	Dremora Scout	M	0TheTruth	0TheTruthHL
+01014C73	03014C73	SE11Apostle02	Apostle	M	0TheTruth	0TheTruthHL
+01014CBE	03014CBE	SE11ApostleTraitor01	Apostle	M	0Victor	0VictorHL
+01014D5F	03014D5F	DremoraBossHatredKeeper01	Dremora Hatred Keeper	M	0Victor	0VictorHL
+01014D61	03014D61	DremoraBossHatredKeeper02	Dremora Hatred Keeper	M	0TheTruth	0TheTruthHL
+01014F16	03014F16	TG11ElvenStatue01	Ayleid Guardian	F	0Leona	0LeonaHL
+01014F17	03014F17	TG11ElvenStatue02	Ayleid Guardian	M	0RedRobin	0RedRobinHL
+010151FA	030151FA	Thalfin	Thalfin	F	0Laurell	0LaurellHL
+010151FC	030151FC	Iver	Iver	M	0TheTruth	0TheTruthHL
+010151FE	030151FE	Merete	Merete	F	0Koala	0KoalaHL
+010153B9	030153B9	Tandilwe	Tandilwe	F	0Leona	0LeonaHL
+01015588	03015588	SECindanwe	Cindanwe	F	0Leona	0LeonaHL
+0101558C	0301558C	SEDulphumphGroUrgash	Dulphumph gro-Urgash	M	0RedRobin	0RedRobinHL
+0101558D	0301558D	SEErverDevani	Erver Devani	M	0Theo	0TheoHL
+0101558F	0301558F	SEHorkvirBearArmMania	Horkvir Bear-Arm	M	0Victor	0VictorHL
+01015590	03015590	SEKishashi	Kishashi	F	0Koala	0KoalaHL
+01015591	03015591	SEMiriliUlven	Mirili Ulven	F	0Laurell	0LaurellHL
+01015592	03015592	SERanarrJo	Ranarr-Jo	M	0TheTruth	0TheTruthHL
+01015594	03015594	SEBruscusDannus	Bruscus Dannus	M	0Victor	0VictorHL
+01015595	03015595	SEBeelei	Beelei	F	0Laurell	0LaurellHL
+01015598	03015598	SERelan	Relan	M	0TheTruth	0TheTruthHL
+01015599	03015599	SERunsInCircles	Runs-in-Circles	F	0Laurell	0LaurellHL
+0101559A	0301559A	SESontaire	Sontaire	F	0Leona	0LeonaHL
+0101559B	0301559B	SEUshnarGroShadborgob	Ushnar gro-Shadborgob	M	0Victor	0VictorHL
+0101559C	0301559C	SECaldanaMonrius	Caldana Monrius	F	0Lamb	0LambHL
+0101559D	0301559D	SEDumagGraBonk	Dumag gro-Bonk	M	0TheTruth	0TheTruthHL
+0101559E	0301559E	SEUnaArmina	Una Armina	F	0Koala	0KoalaHL
+0101559F	0301559F	SEEaril	Earil	M	0Theo	0TheoHL
+010155A0	030155A0	SEAhjazda	Ahjazda	F	0Koala	0KoalaHL
+010155A1	030155A1	SESicklyBernice	Sickly Bernice	F	0Laurell	0LaurellHL
+010155A2	030155A2	SEMazaddha	Ma'zaddha	M	0Victor	0VictorHL
+010155A3	030155A3	SEHirrusClutumnus	Hirrus Clutumnus	M	0Theo	0TheoHL
+010155A4	030155A4	SEBrithaur	Brithaur	M	0RedRobin	0RedRobinHL
+01015662	03015662	SEKnightOfOrderRespawn	Knight of Order	M	0Victor	0VictorHL
+0101584C	0301584C	TestJoelPawn01	Pawn One	M	0Theo	0TheoHL
+01015867	03015867	SEAtrabhiDementia	Atrabhi	F	0Leona	0LeonaHL
+010158A0	030158A0	SEOrderPriest3	Priest of Order	M	0TheTruth	0TheTruthHL
+010158A1	030158A1	SEOrderPriest4	Priest of Order	M	0Victor	0VictorHL
+010158A2	030158A2	SEOrderPriest5	Priest of Order	M	0Victor	0VictorHL
+01015D7F	03015D7F	BeggarAnvilPennilessOlvus	Penniless Olvus	M	0TheTruth	0TheTruthHL
+01015D80	03015D80	BeggarBravilWretchedAia	Wretched Aia	F	0Leona	0LeonaHL
+01015D81	03015D81	BeggarBravilCosmusTheCheat	Cosmus the Cheat	M	0RedRobin	0RedRobinHL
+01015D82	03015D82	BeggarAnvilImusTheDull	Imus the Dull	M	0Theo	0TheoHL
+01015D83	03015D83	BeggarBrumaJorckTheOutcast	Jorck the Outcast	M	0RedRobin	0RedRobinHL
+01015D84	03015D84	BeggarBrumaFetidJofnhild	Fetid Jofnhild	M	0TheTruth	0TheTruthHL
+01015D85	03015D85	BeggarCheydinhalBrucciusTheOrphan	Bruccius the Orphan	M	0RedRobin	0RedRobinHL
+01015D86	03015D86	BeggarCheydinhalLucklessLucina	Luckless Lucina	F	0Leona	0LeonaHL
+01015D87	03015D87	BeggarChorrolLazyKaslowyn	Lazy Kaslowyn	M	0TheTruth	0TheTruthHL
+01015D88	03015D88	BeggarChorrolNermusTheMooch	Nermus the Mooch	M	0RedRobin	0RedRobinHL
+01015D89	03015D89	BeggarLeyawiinDeehTheScalawag	Deeh the Scalawag	M	0RedRobin	0RedRobinHL
+01015D8A	03015D8A	BeggarLeyawiinRancidRadirsha	Rancid Ra'dirsha	F	0Leona	0LeonaHL
+01015D8B	03015D8B	BeggarSkingradFoulFagus	Foul Fagus	M	0TheTruth	0TheTruthHL
+01015D8C	03015D8C	BeggarSkingradNigidiusTheNeedy	Nigidius the Needy	M	0Victor	0VictorHL
+01015E9A	03015E9A	OgierGeorick	Ogier Georick	M	0Theo	0TheoHL
+01015E9B	03015E9B	Phintias	Phintias	M	0Theo	0TheoHL
+01015E9C	03015E9C	Rindir	Rindir	M	0TheTruth	0TheTruthHL
+01015E9D	03015E9D	EdgarVautrine	Edgar Vautrine	M	0TheTruth	0TheTruthHL
+01015E9E	03015E9E	Thoronir	Thoronir	M	0TheTruth	0TheTruthHL
+01015E9F	03015E9F	ViatorAccius	Viator Accius	M	0Theo	0TheoHL
+01015EA0	03015EA0	HamlofRedTooth	Hamlof Red-Tooth	M	0TheTruth	0TheTruthHL
+01015EA1	03015EA1	RisFralmoton	Ris Fralmoton	M	0Theo	0TheoHL
+01015EA2	03015EA2	DelosFandas	Delos Fandas	M	0Victor	0VictorHL
+01015EA3	03015EA3	Gelephor	Gelephor	M	0RedRobin	0RedRobinHL
+01015EA4	03015EA4	Jensine	Jensine	F	0Leona	0LeonaHL
+01015EA5	03015EA5	TertullianVerus	Tertullian Verus	M	0TheTruth	0TheTruthHL
+01015EA6	03015EA6	SergiusVerus	Sergius Verus	M	0Victor	0VictorHL
+01015EA7	03015EA7	CiceroVerus	Cicero Verus	M	0Theo	0TheoHL
+01015EA8	03015EA8	Palonirya	Palonirya	F	0Lamb	0LambHL
+01015EA9	03015EA9	Calindil	Calindil	M	0RedRobin	0RedRobinHL
+01015EAA	03015EAA	UrbulgroOrkulg	Urbul gro-Orkulg	M	0TheTruth	0TheTruthHL
+01015EAB	03015EAB	ClaudettePerrick	Claudette Perrick	F	0Lenore	0LenoreHL
+01015EAC	03015EAC	MaroRufus	Maro Rufus	M	0RedRobin	0RedRobinHL
+01015EAD	03015EAD	Varnado	Varnado	M	0Victor	0VictorHL
+01015EAE	03015EAE	VelusHosidius	Velus Hosidius	M	0Victor	0VictorHL
+01016053	03016053	LeyMarillin	Ley Marillin	M	0Theo	0TheoHL
+01016054	03016054	PistaMarillin	Pista Marillin	F	0Lamb	0LambHL
+01016055	03016055	InielSintav	Iniel Sintav	M	0Victor	0VictorHL
+01016056	03016056	DulgroShug	Dul gro-Shug	M	0Victor	0VictorHL
+01016057	03016057	AdrianDecanius	Adrian Decanius	M	0Theo	0TheoHL
+01016058	03016058	IreneMetrick	Irene Metrick	F	0Lenore	0LenoreHL
+01016059	03016059	CyroninSintav	Cyronin Sintav	M	0Theo	0TheoHL
+0101605A	0301605A	CarmanaSintav	Carmana Sintav	F	0Lamb	0LambHL
+0101605B	0301605B	Winson	Winson	M	0TheTruth	0TheTruthHL
+0101605C	0301605C	DovynAren	Dovyn Aren	M	0Victor	0VictorHL
+0101605D	0301605D	IdaVlinorman	Ida Vlinorman	F	0Lamb	0LambHL
+0101605E	0301605E	MarinusCatiotus	Marinus Catiotus	M	0RedRobin	0RedRobinHL
+0101605F	0301605F	Othrelos	Othrelos	M	0Victor	0VictorHL
+01016060	03016060	Mandil	Mandil	F	0Laurell	0LaurellHL
+01016061	03016061	TertiusFavonius	Tertius Favonius	M	0Theo	0TheoHL
+01016062	03016062	RomanaFaleria	Romana Faleria	F	0Lamb	0LambHL
+01016063	03016063	ElisaPierrane	Elisa Pierrane	F	0Leona	0LeonaHL
+01016064	03016064	KastusSintav	Kastus Sintav	M	0Victor	0VictorHL
+01016065	03016065	BeranSintav	Beran Sintav	M	0Victor	0VictorHL
+01016066	03016066	VontanSintav	Vontan Sintav	M	0RedRobin	0RedRobinHL
+01016067	03016067	JastiaSintav	Jastia Sintav	F	0Koala	0KoalaHL
+01016068	03016068	JenaSintav	Jena Sintav	F	0Lamb	0LambHL
+0101623A	0301623A	RodericPierrane	Roderic Pierrane	M	0Victor	0VictorHL
+0101624C	0301624C	TheranisDeadBody	Theranis	M	0RedRobin	0RedRobinHL
+0101632B	0301632B	ICTalosGuardPatrolDay01	Imperial Watch	M	0Theo	0TheoHL
+0101632C	0301632C	ICTalosGuardPatrolDay02	Imperial Watch	M	0TheTruth	0TheTruthHL
+0101632D	0301632D	ICTalosGuardPostDay05	Imperial Watch	M	0RedRobin	0RedRobinHL
+0101632E	0301632E	ICTalosGuardPostDay04	Imperial Watch	M	0RedRobin	0RedRobinHL
+0101632F	0301632F	ICTalosGuardPatrolNight01	Imperial Watch	M	0Theo	0TheoHL
+01016330	03016330	ICTalosGuardPatrolNight02	Imperial Watch	M	0Victor	0VictorHL
+01016331	03016331	ICTalosGuardPostNight05	Imperial Watch	M	0Victor	0VictorHL
+01016332	03016332	ICTalosGuardPostNight04	Imperial Watch	M	0Theo	0TheoHL
+01016333	03016333	ICTalosGuardPostDay01	Imperial Watch	M	0Theo	0TheoHL
+01016334	03016334	ICTalosGuardPostDay02	Imperial Watch	M	0RedRobin	0RedRobinHL
+01016335	03016335	ICTalosGuardPostDay03	Imperial Watch	M	0Victor	0VictorHL
+01016336	03016336	ICTalosGuardPostNight01	Imperial Watch	M	0TheTruth	0TheTruthHL
+01016337	03016337	ICTalosGuardPostNight02	Imperial Watch	M	0RedRobin	0RedRobinHL
+01016338	03016338	ICTalosGuardPostNight03	Imperial Watch	M	0Theo	0TheoHL
+0101633B	0301633B	ICElvenGuardPostDay01	Imperial Watch	M	0RedRobin	0RedRobinHL
+0101633C	0301633C	ICElvenGuardPostDay02	Imperial Watch	M	0Victor	0VictorHL
+0101633D	0301633D	ICElvenGuardPostDay03	Imperial Watch	M	0TheTruth	0TheTruthHL
+0101633E	0301633E	ICElvenGuardPostNight01	Imperial Watch	M	0Victor	0VictorHL
+0101633F	0301633F	ICElvenGuardPostNight02	Imperial Watch	M	0Theo	0TheoHL
+01016340	03016340	ICElvenGuardPostNight03	Imperial Watch	M	0Victor	0VictorHL
+01016341	03016341	ICElvenGuardPatrolDay01	Imperial Watch	M	0RedRobin	0RedRobinHL
+01016342	03016342	ICElvenGuardPatrolNight01	Imperial Watch	M	0TheTruth	0TheTruthHL
+01016343	03016343	ICElvenGuardPatrolDay02	Imperial Watch	M	0Theo	0TheoHL
+01016344	03016344	ICElvenGuardPatrolNight02	Imperial Watch	M	0TheTruth	0TheTruthHL
+01016345	03016345	ICElvenGuardPatrolDay03	Imperial Watch	M	0TheTruth	0TheTruthHL
+01016346	03016346	ICElvenGuardPatrolNight03	Imperial Watch	M	0TheTruth	0TheTruthHL
+01016347	03016347	ICElvenGuardPatrolDay04	Imperial Watch	M	0Victor	0VictorHL
+01016348	03016348	ICElvenGuardPatrolNight04	Imperial Watch	M	0Victor	0VictorHL
+01016349	03016349	ICElvenGuardPatrolDay05	Imperial Watch	M	0Victor	0VictorHL
+0101634A	0301634A	ICElvenGuardPatrolNight05	Imperial Watch	M	0TheTruth	0TheTruthHL
+01016483	03016483	BolorSavel	Bolor Savel	M	0RedRobin	0RedRobinHL
+01016487	03016487	Mannimarco	Mannimarco	M	0Victor	0VictorHL
+010164BF	030164BF	SE10Saint	Golden Saint Messenger	F	0Koala	0KoalaHL
+010164C1	030164C1	SE10Seducer	Dark Seducer Messenger	M	0RedRobin	0RedRobinHL
+01016569	03016569	SEHorkvirBearArmDementia	Horkvir Bear-Arm	M	0Victor	0VictorHL
+010165ED	030165ED	BeggarICWaterfrontAncus	Puny Ancus	M	0Victor	0VictorHL
+01016819	03016819	SEIssmi	Issmi	F	0Lenore	0LenoreHL
+0101681B	0301681B	SEAdeo	Adeo	F	0Lamb	0LambHL
+01016B75	03016B75	SE11Rakheran	Ra'kheran	M	0Theo	0TheoHL
+01016B8E	03016B8E	SEStaada	Staada	F	0Lenore	0LenoreHL
+01016FC1	03016FC1	SE12OrderPriestMania1	Priest of Order	M	0TheTruth	0TheTruthHL
+0101705F	0301705F	SE08c1PriestNPCunique	Priest of Order	M	0RedRobin	0RedRobinHL
+01017060	03017060	TestJoelPawnKnight01	Pawn One	M	0RedRobin	0RedRobinHL
+01017061	03017061	TestJoelKnight02	Pawn One	M	0RedRobin	0RedRobinHL
+01017062	03017062	TestJoelPawnKnight03	Pawn One	M	0Victor	0VictorHL
+0101719A	0301719A	SE08KnightBasicPackage	Knight of Order	M	0Theo	0TheoHL
+010171C0	030171C0	SE12OrderPriestMania3	Priest of Order	F	0Lenore	0LenoreHL
+010171C1	030171C1	SE12OrderPriestDementia1	Priest of Order	M	0Theo	0TheoHL
+010171C2	030171C2	SE12OrderPriestDementia2	Priest of Order	M	0TheTruth	0TheTruthHL
+010171C4	030171C4	SE12OrderPriestDementia3	Priest of Order	F	0Koala	0KoalaHL
+010171C5	030171C5	SE12OrderPriestMania2	Priest of Order	M	0TheTruth	0TheTruthHL
+010171DE	030171DE	SE08c1Priest02	Priest of Order	M	0Theo	0TheoHL
+0101723C	0301723C	SE07ADarkSeducerEliteBodyguard	Dark Seducer Royal Guard	F	0Lamb	0LambHL
+01017432	03017432	SE08GoldenSaintDeadFemale	Golden Saint	F	0Koala	0KoalaHL
+01017433	03017433	SE08DarkSeducerGrakendoUdico	Grakendo Udico	F	0Lamb	0LambHL
+01017434	03017434	SE08DarkSeducer01	Dark Seducer Soldier	M	0RedRobin	0RedRobinHL
+01017435	03017435	SE08DarkSeducer02	Dark Seducer Soldier	M	0Victor	0VictorHL
+01017436	03017436	SE08DarkSeducer03	Dark Seducer Soldier	M	0Theo	0TheoHL
+01017437	03017437	SE08DarkSeducer04	Dark Seducer Soldier	M	0Theo	0TheoHL
+01017438	03017438	SE08DarkSeducerDeadFemale	Dark Seducer	F	0Lamb	0LambHL
+01017439	03017439	SE08GoldenSaintAurigDesha	Aurig Desha	F	0Lenore	0LenoreHL
+0101743C	0301743C	SE08GoldenSaint01	Golden Saint Soldier	M	0Victor	0VictorHL
+0101743D	0301743D	SE08GoldenSaint02	Golden Saint Soldier	M	0TheTruth	0TheTruthHL
+0101743E	0301743E	SE08GoldenSaint03	Golden Saint Soldier	M	0RedRobin	0RedRobinHL
+0101743F	0301743F	SE08GoldenSaint04	Golden Saint Soldier	M	0Victor	0VictorHL
+0101745C	0301745C	SE10SaintWarrior1	Golden Saint Warrior	F	0Koala	0KoalaHL
+0101745F	0301745F	SE10SaintWarrior2	Golden Saint Warrior	F	0Koala	0KoalaHL
+0101746E	0301746E	SEDylora	Dylora	F	0Koala	0KoalaHL
+01017617	03017617	CGMythicDawnAssassin03	Assassin	M	0Theo	0TheoHL
+01017618	03017618	CGMythicDawnAssassin05	Assassin	M	0Theo	0TheoHL
+01017619	03017619	CGMythicDawnAssassin04	Assassin	M	0TheTruth	0TheTruthHL
+01017620	03017620	CGMythicDawnAssassin06	Assassin	M	0RedRobin	0RedRobinHL
+01017623	03017623	CGMythicDawnAssassinArcher	Assassin	M	0RedRobin	0RedRobinHL
+010176DB	030176DB	CGMythicDawnAssassinGeneric	Assassin	M	0Theo	0TheoHL
+0101783A	0301783A	SEJastiraNanusDementia	Jastira Nanus	F	0Lenore	0LenoreHL
+0101783D	0301783D	SEJzidzoDementia	J'zidzo	M	0TheTruth	0TheTruthHL
+01017854	03017854	SEUrulGoAgamphDementia	Urul gro-Agamph	M	0TheTruth	0TheTruthHL
+01017C6B	03017C6B	SE08c2Patrol	Knight of Order	M	0TheTruth	0TheTruthHL
+01017C82	03017C82	SE08c2PriestNPCunique	Priest of Order	M	0TheTruth	0TheTruthHL
+01017CFD	03017CFD	SE10SeducerWarrior1	Dark Seducer Warrior	F	0Leona	0LeonaHL
+01017D00	03017D00	SE10SeducerWarrior2	Dark Seducer Warrior	F	0Koala	0KoalaHL
+0101803E	0301803E	SE08KnightWave	Knight of Order	M	0RedRobin	0RedRobinHL
+01018C63	03018C63	SEKilibanNyrandil	Kiliban Nyrandil	M	0Victor	0VictorHL
+01018C65	03018C65	SEGrommokgroBarak	Grommok gro-Barak	M	0TheTruth	0TheTruthHL
+01018C66	03018C66	SESyndeliusGatharian	Syndelius Gatharian	M	0RedRobin	0RedRobinHL
+01018C68	03018C68	SELewinTilwald	Lewin Tilwald	M	0Theo	0TheoHL
+01018DBE	03018DBE	SE06GoldenSaintWarden	Chuna	F	0Lenore	0LenoreHL
+01018DBF	03018DBF	SE06DarkSeducerWarden	Vika	F	0Lamb	0LambHL
+01018F8F	03018F8F	SEStela	Stela	F	0Leona	0LeonaHL
+01018FD8	03018FD8	SE02OrcAdventurer4	Adventurer	M	0Theo	0TheoHL
+01018FD9	03018FD9	SE02OrcAdventurer3	Adventurer	M	0RedRobin	0RedRobinHL
+01018FDA	03018FDA	SE02OrcAdventurer2	Adventurer	F	0Lamb	0LambHL
+01018FDB	03018FDB	SE02OrcAdventurer1	Adventurer	M	0Victor	0VictorHL
+0101951C	0301951C	SE06DarkSeducerMissileHoldPosition02	Dark Seducer	F	0Lenore	0LenoreHL
+01019848	03019848	SE03KnightofOrderTemplate	Knight of Order	M	0RedRobin	0RedRobinHL
+01019CE0	03019CE0	TestJoelSE09Spook	Spook	M	0TheTruth	0TheTruthHL
+01019D74	03019D74	SE12OrderPriestGeneric1	Priest of Order	M	0Victor	0VictorHL
+0101A116	0301A116	SESfara	S'fara	F	0Lamb	0LambHL
+0101A117	0301A117	SEBelmyneDreleth	Belmyne Dreleth	M	0TheTruth	0TheTruthHL
+0101A13C	0301A13C	SE06DarkSeducerMeleeHoldPosition	Dark Seducer	F	0Lamb	0LambHL
+0101A13D	0301A13D	SE06DarkSeducerMeleeRedeploy01	Dark Seducer	F	0Lamb	0LambHL
+0101A13E	0301A13E	SE06DarkSeducerMissileRedeploy01	Dark Seducer	F	0Laurell	0LaurellHL
+0101A165	0301A165	SE06DarkSeducerUlfriBodyguard01	Dark Seducer	F	0Lamb	0LambHL
+0101A1B1	0301A1B1	SE06DarkSeducerMissileRedeploy02	Dark Seducer	F	0Lenore	0LenoreHL
+0101A1B2	0301A1B2	SE06DarkSeducerMissileRedeploy03	Dark Seducer	F	0Koala	0KoalaHL
+0101A388	0301A388	SE11ApostleTraitor02	Apostle	M	0TheTruth	0TheTruthHL
+0101A3AA	0301A3AA	SE32Fanatic5	Ghost Fanatic	M	0RedRobin	0RedRobinHL
+0101A763	0301A763	SE32Fanatic8	Ghost Fanatic	M	0Victor	0VictorHL
+0101A764	0301A764	SE32Defender1	Vitharn Ghost Soldier	M	0Victor	0VictorHL
+0101A765	0301A765	SE32Defender2	Vitharn Ghost Soldier	M	0Theo	0TheoHL
+0101A766	0301A766	SE32Defender3	Vitharn Ghost Soldier	M	0Theo	0TheoHL
+0101A767	0301A767	SE32Defender4	Vitharn Ghost Soldier	M	0Victor	0VictorHL
+0101A768	0301A768	SE32Fanatic6	Ghost Fanatic	M	0RedRobin	0RedRobinHL
+0101A769	0301A769	SE32Fanatic7	Ghost Fanatic	M	0Victor	0VictorHL
+0101A78E	0301A78E	SE13DarkSeducerCaptain	Autkendo Jansa	F	0Koala	0KoalaHL
+0101A790	0301A790	SE13GoldenSaintCaptain	Aurmazl Zudeh	F	0Lamb	0LambHL
+0101A792	0301A792	SE13DarkSeducerMessenger	Dark Seducer	F	0Leona	0LeonaHL
+0101A795	0301A795	SE13GoldenSaintMessenger	Golden Saint	F	0Koala	0KoalaHL
+0101A7A3	0301A7A3	SE13DarkSeducerPalace	Dark Seducer	F	0Lamb	0LambHL
+0101A7A7	0301A7A7	SE13GoldenSaintPalace	Golden Saint	F	0Lamb	0LambHL
+0101A7ED	0301A7ED	SE13KnightOfOrderRespawn	Knight of Order	M	0Theo	0TheoHL
+0101AC8C	0301AC8C	SE13DarkSeducerPlayer	Dark Seducer	F	0Lenore	0LenoreHL
+0101AC8D	0301AC8D	SE13DarkSeducerGeneric1	Dark Seducer	F	0Laurell	0LaurellHL
+0101AC8E	0301AC8E	SE13GoldenSaintGeneric1	Golden Saint	F	0Lenore	0LenoreHL
+0101AC8F	0301AC8F	SE13DarkSeducerGenericOfficer	Dark Seducer Grakedrig	F	0Lamb	0LambHL
+0101AC90	0301AC90	SE13GoldenSaintGenericOfficer	Golden Saint Auredel	F	0Lamb	0LambHL
+0101AC91	0301AC91	SE13GoldenSaintPlayer	Golden Saint	F	0Laurell	0LaurellHL
+0101AC94	0301AC94	SE13DarkSeducerGeneric2	Dark Seducer	F	0Laurell	0LaurellHL
+0101ACC5	0301ACC5	SE13GoldenSaintGeneric2	Golden Saint	F	0Leona	0LeonaHL
+0101B038	0301B038	SE10SaintWarriorDead1	Golden Saint Warrior	F	0Laurell	0LaurellHL
+0101B5B6	0301B5B6	SE10KnightTemplate	Knight of Order	M	0Victor	0VictorHL
+0101B658	0301B658	SE10SeducerWarriorDead1	Dark Seducer Warrior	F	0Lenore	0LenoreHL
+0101BC2A	0301BC2A	Senannala	Bosmer Thief	M	0TheTruth	0TheTruthHL
+0101C13D	0301C13D	Rijirr	Ri'Jirr	M	0TheTruth	0TheTruthHL
+0101C14C	0301C14C	Rohssan	Rohssan	F	0Lenore	0LenoreHL
+0101C150	0301C150	Engorm	Engorm	M	0Theo	0TheoHL
+0101C164	0301C164	LeyawiinGuardCastleSanguine	Leyawiin Guard	M	0Victor	0VictorHL
+0101C166	0301C166	BrittaInvel	Britta Invel	F	0Koala	0KoalaHL
+0101C168	0301C168	JarasInvel	Jaras Invel	M	0TheTruth	0TheTruthHL
+0101C16A	0301C16A	VlarimilOrius	Vlarimil Orius	M	0Victor	0VictorHL
+0101C16D	0301C16D	Termanwe	Termanwe	F	0Lamb	0LambHL
+0101C31F	0301C31F	ICMarketGuardPostDay05	Imperial Watch	M	0Theo	0TheoHL
+0101C321	0301C321	ICMarketGuardPatrolDay01	Imperial Watch	M	0Theo	0TheoHL
+0101C32A	0301C32A	ICMarketGuardPostNight05	Imperial Watch	M	0RedRobin	0RedRobinHL
+0101C32B	0301C32B	ICMarketGuardPatrolNight01	Imperial Watch	M	0Theo	0TheoHL
+0101C336	0301C336	ICMarketGuardPostDay04	Imperial Watch	M	0TheTruth	0TheTruthHL
+0101C343	0301C343	ICMarketGuardPostNight04	Imperial Watch	M	0Victor	0VictorHL
+0101C347	0301C347	ICMarketGuardPostDay01	Imperial Watch	M	0Victor	0VictorHL
+0101C348	0301C348	ICMarketGuardPostNight01	Imperial Watch	M	0TheTruth	0TheTruthHL
+0101C349	0301C349	ICMarketGuardPostDay02	Imperial Watch	M	0TheTruth	0TheTruthHL
+0101C34A	0301C34A	ICMarketGuardPostDay03	Imperial Watch	M	0Victor	0VictorHL
+0101C34B	0301C34B	ICMarketGuardPostNight02	Imperial Watch	M	0Victor	0VictorHL
+0101C34C	0301C34C	ICMarketGuardPostNight03	Imperial Watch	M	0Victor	0VictorHL
+0101C455	0301C455	ICWaterfrontGuardNight01	Imperial Watch	M	0RedRobin	0RedRobinHL
+0101C456	0301C456	ICWaterfrontGuardDay02	Imperial Watch	M	0RedRobin	0RedRobinHL
+0101C457	0301C457	ICWaterfrontGuardNight02	Imperial Watch	M	0Victor	0VictorHL
+0101C458	0301C458	BeggarICMarketSimplicia	Simplicia the Slow	F	0Laurell	0LaurellHL
+0101C459	0301C459	BeggarICElvenGardensFralav	Fralav the Faker	M	0Victor	0VictorHL
+0101C45A	0301C45A	BeggarICTalosPlazaDraninus	No-Coins Draninus	M	0Theo	0TheoHL
+0101C45B	0301C45B	BeggarICTempleBuntara	Ragbag Buntara	F	0Lenore	0LenoreHL
+0101C48D	0301C48D	Mishaxhi	Akaviri Commander Mishaxhi	M	0Victor	0VictorHL
+0101C494	0301C494	Tolgan	Tolgan	M	0Victor	0VictorHL
+0101CE9F	0301CE9F	DANamiraPriest1	Priest of Arkay	M	0RedRobin	0RedRobinHL
+0101CEA1	0301CEA1	DANamiraForgotten1	Forgotten One	M	0TheTruth	0TheTruthHL
+0101CEA8	0301CEA8	DANamiraPriest2	Priest of Arkay	M	0Theo	0TheoHL
+0101CEA9	0301CEA9	DANamiraPriest3	Priest of Arkay	M	0Theo	0TheoHL
+0101CEAA	0301CEAA	DANamiraPriest4	Priest of Arkay	M	0RedRobin	0RedRobinHL
+0101CEAB	0301CEAB	DANamiraForgotten2	Forgotten One	M	0TheTruth	0TheTruthHL
+0101CEAC	0301CEAC	DANamiraForgotten3	Forgotten One	M	0Theo	0TheoHL
+0101CEAD	0301CEAD	DANamiraForgotten4	Forgotten One	M	0Theo	0TheoHL
+0101CF33	0301CF33	OntusVanin	Ontus Vanin	M	0TheTruth	0TheTruthHL
+0101CF76	0301CF76	Seridur	Seridur	M	0Theo	0TheoHL
+0101D0AC	0301D0AC	MS29AgarmirThug	Rolgarel	M	0RedRobin	0RedRobinHL
+0101D0EE	0301D0EE	CGMythicDawnAssassinAmbushC	Assassin	M	0Victor	0VictorHL
+0101D24E	0301D24E	GilenNorvalo	Gilen Norvalo	M	0TheTruth	0TheTruthHL
+0101D252	0301D252	GreyThroat	Grey-Throat	M	0RedRobin	0RedRobinHL
+0101D340	0301D340	Willet	Willet	M	0RedRobin	0RedRobinHL
+0101D343	0301D343	RalsaNorvalo	Ralsa Norvalo	F	0Lenore	0LenoreHL
+0101D344	0301D344	AlgottheNortherner	Algot the Northerner	M	0Theo	0TheoHL
+0101D345	0301D345	HastrelOttus	Hastrel Ottus	M	0Victor	0VictorHL
+0101D346	0301D346	AlessiaOttus	Alessia Ottus	F	0Laurell	0LaurellHL
+0101D347	0301D347	IdaOttus	Ida Ottus	F	0Lenore	0LenoreHL
+0101D348	0301D348	TrenusDuronius	Trenus Duronius	M	0Theo	0TheoHL
+0101D349	0301D349	StantusVarrid	Stantus Varrid	M	0RedRobin	0RedRobinHL
+0101D34A	0301D34A	Curtis	Curtis	M	0TheTruth	0TheTruthHL
+0101D34B	0301D34B	RolandJenseric	Roland Jenseric	M	0RedRobin	0RedRobinHL
+0101D34C	0301D34C	CaulaAllectus	Caula Allectus	F	0Koala	0KoalaHL
+0101D34D	0301D34D	SalomonGeonette	Salomon Geonette	M	0TheTruth	0TheTruthHL
+0101D34E	0301D34E	ReneeGeonette	Renee Geonette	F	0Koala	0KoalaHL
+0101D350	0301D350	LuronkgroGlurzog	Luronk gro-Glurzog	M	0TheTruth	0TheTruthHL
+0101D351	0301D351	Ruslan	Ruslan	M	0TheTruth	0TheTruthHL
+0101D352	0301D352	Hagaer	Hagaer	M	0Victor	0VictorHL
+0101D353	0301D353	MaranaRian	Marana Rian	F	0Koala	0KoalaHL
+0101D354	0301D354	AncusAfranius	Ancus Afranius	M	0TheTruth	0TheTruthHL
+0101D355	0301D355	PraxedesAfranius	Praxedes Afranius	F	0Koala	0KoalaHL
+0101D356	0301D356	PennusMallius	Pennus Mallius	M	0TheTruth	0TheTruthHL
+0101D9D4	0301D9D4	SE08XeddefenNPC05	Refugee	M	0TheTruth	0TheTruthHL
+0101D9D5	0301D9D5	SE08XeddefenNPC01	Refugee	M	0Victor	0VictorHL
+0101D9D6	0301D9D6	SE08XeddefenNPC02	Refugee	F	0Koala	0KoalaHL
+0101D9D7	0301D9D7	SE08XeddefenNPC03	Refugee	M	0TheTruth	0TheTruthHL
+0101D9D8	0301D9D8	SE08XeddefenNPC04	Refugee	M	0Victor	0VictorHL
+0101DB3E	0301DB3E	TestToddMaleRedguard	Cyrus	F	0Koala	0KoalaHL
+0101DB45	0301DB45	TestToddManShield	Alban Corinis	M	0Victor	0VictorHL
+0101DB4A	0301DB4A	TestToddWoman45	Women 45	F	0Lamb	0LambHL
+0101DB4B	0301DB4B	TestToddWoman65	Women 65	F	0Lenore	0LenoreHL
+0101DB4E	0301DB4E	TestToddManOrc	Todd's Tester Orc	M	0RedRobin	0RedRobinHL
+0101DB52	0301DB52	TestToddWoman25	Women 25	F	0Leona	0LeonaHL
+0101DB53	0301DB53	TestToddWoman35	Women 35	F	0Koala	0KoalaHL
+0101DB54	0301DB54	TestToddWoman55	Women 55	F	0Laurell	0LaurellHL
+0101DFB0	0301DFB0	VelanAndus	Velan Andus	M	0TheTruth	0TheTruthHL
+0101DFB1	0301DFB1	DamianMagius	Damian Magius	M	0Victor	0VictorHL
+0101DFB3	0301DFB3	LumdumgroGolpok	Lumdum gro-Golpok	M	0Theo	0TheoHL
+0101E10E	0301E10E	FGD06DeadGuy01	Cartrus Gavinius	M	0RedRobin	0RedRobinHL
+0101E4EB	0301E4EB	TestVendorNPC	Test Vendor NPC	M	0RedRobin	0RedRobinHL
+0101E5E5	0301E5E5	NecromancerMaleBreton3	Necromancer	M	0Victor	0VictorHL
+0101E6FF	0301E6FF	CGMythicDawnAssassinFinal	Assassin	M	0TheTruth	0TheTruthHL
+0101E70C	0301E70C	HjolfroditheHarrier	Hjolfrodi the Harrier	F	0Lenore	0LenoreHL
+0101E750	0301E750	RaJhan	Ra'Jhan	M	0Theo	0TheoHL
+0101E783	0301E783	FGD06DeadGuy02	Ashtus Chenius	M	0Theo	0TheoHL
+0101E796	0301E796	FGD06DeadGuy03	Cargas Laftrius	F	0Lamb	0LambHL
+0101E831	0301E831	TG03ChapelTombGuard	Chapel Guard	F	0Leona	0LeonaHL
+0101EB7F	0301EB7F	Wumeek	Wumeek	M	0TheTruth	0TheTruthHL
+0101EB82	0301EB82	GeemJasaiin	Geem Jasaiin	M	0RedRobin	0RedRobinHL
+0101EBF7	0301EBF7	MelsMaryon	Mels Maryon	M	0Theo	0TheoHL
+0101EC02	0301EC02	DAMeridiaNecromancer1	Necromancer	M	0TheTruth	0TheTruthHL
+0101EC03	0301EC03	DAMeridiaNecromancer2	Necromancer	M	0RedRobin	0RedRobinHL
+0101EC04	0301EC04	DAMeridiaNecromancer3	Necromancer	F	0Lenore	0LenoreHL
+0101EC05	0301EC05	DAMeridiaNecromancer4	Necromancer	F	0Lamb	0LambHL
+0101EC06	0301EC06	DAMeridiaNecromancer5	Necromancer	F	0Lamb	0LambHL
+0101EC0E	0301EC0E	BasilErnarde	Basil Ernarde	M	0TheTruth	0TheTruthHL
+0101EC12	0301EC12	Arkved	Arkved	M	0RedRobin	0RedRobinHL
+0101EC31	0301EC31	LordDrad	Lord Drad	M	0Victor	0VictorHL
+0101EC33	0301EC33	LadyDrad	Lady Drad	F	0Laurell	0LaurellHL
+0101EC37	0301EC37	ShobobgroRugdush	Shobob gro-Rugdush	M	0RedRobin	0RedRobinHL
+0101EC4A	0301EC4A	BleakMineGuard	Bleak Mine Guard	M	0RedRobin	0RedRobinHL
+0101EC4B	0301EC4B	BleakMineGuardCaptain	Bleak Mine Guard Captain	M	0TheTruth	0TheTruthHL
+0101EC4C	0301EC4C	BleakMineGuardCaptain2	Bleak Mine Guard	M	0Theo	0TheoHL
+0101EC5D	0301EC5D	Vajhira	Vajhira	F	0Lenore	0LenoreHL
+0101ECA9	0301ECA9	Kewan	Kewan	M	0Victor	0VictorHL
+0101ECAA	0301ECAA	KewanSOUL	Soul of Kewan	M	0Victor	0VictorHL
+0101ECAB	0301ECAB	MarentheSeal	Maren the Seal	F	0Lamb	0LambHL
+0101ECAC	0301ECAC	MarentheSealSOUL	Soul of Maren the Seal	F	0Koala	0KoalaHL
+0101ECAD	0301ECAD	IlvelRomayn	Ilvel Romayn	M	0Victor	0VictorHL
+0101ECAE	0301ECAE	IlvelRomaynSOUL	Soul of Ilvel Romayn	M	0Victor	0VictorHL
+0101ECAF	0301ECAF	Mirie	Mirie	F	0Leona	0LeonaHL
+0101ECB0	0301ECB0	MirieSOUL	Soul of Mirie	F	0Laurell	0LaurellHL
+0101ECB1	0301ECB1	ErTeeus	Er-Teeus	M	0Theo	0TheoHL
+0101ECB2	0301ECB2	ErTeeusSOUL	Soul of Er-Teeus	M	0Theo	0TheoHL
+0101ECC8	0301ECC8	NivanDalvilu	Nivan Dalvilu	M	0Theo	0TheoHL
+0101ECC9	0301ECC9	ArvinDalvilu	Arvin Dalvilu	M	0Theo	0TheoHL
+0101ECCA	0301ECCA	RedasDalvilu	Redas Dalvilu	M	0TheTruth	0TheTruthHL
+0101ECCB	0301ECCB	SathaDalvilu	Satha Dalvilu	F	0Leona	0LeonaHL
+0101ECCC	0301ECCC	MalyaniDalvilu	Malyani Dalvilu	F	0Koala	0KoalaHL
+0101ECCF	0301ECCF	Beirir	Beirir	M	0Theo	0TheoHL
+0101ECD0	0301ECD0	HrolUlfgar	Hrol Ulfgar	M	0RedRobin	0RedRobinHL
+0101ECD1	0301ECD1	UlrikaUlfgar	Ulrika Ulfgar	F	0Leona	0LeonaHL
+0101ECD2	0301ECD2	Kirsten	Kirsten	F	0Lenore	0LenoreHL
+0101ECD6	0301ECD6	DredenaHlavel	Dredena Hlavel	F	0Leona	0LeonaHL
+0101ECD8	0301ECD8	Ciindil	Ciindil	F	0Lamb	0LambHL
+0101F106	0301F106	MQ06MythicDawnDoorkeeper	Doorkeeper	M	0Victor	0VictorHL
+0101F14B	0301F14B	MQ06MythicDawnGuard	Mythic Dawn Guard	M	0Theo	0TheoHL
+0101F1A8	0301F1A8	AdventurerOrcWarrior01	Adventurer	M	0RedRobin	0RedRobinHL
+0101F428	0301F428	KurdangroDragol	Kurdan gro-Dragol	M	0RedRobin	0RedRobinHL
+0101FB55	0301FB55	UzulGroGrulam	Uzul gro-Grulam	M	0TheTruth	0TheTruthHL
+0101FB56	0301FB56	Adanrel	Adanrel	F	0Koala	0KoalaHL
+0101FB57	0301FB57	Carwen	Carwen	F	0Koala	0KoalaHL
+0101FC4F	0301FC4F	SevariusAtius	Severius Atius	M	0Theo	0TheoHL
+0101FC50	0301FC50	HelvoAtius	Helvo Atius	M	0TheTruth	0TheTruthHL
+0101FC51	0301FC51	Angelie	Angelie	F	0Lenore	0LenoreHL
+0101FC52	0301FC52	SamuelBantien	Samuel Bantien	M	0TheTruth	0TheTruthHL
+0101FC53	0301FC53	RochelleBantien	Rochelle Bantien	F	0Laurell	0LaurellHL
+0101FC54	0301FC54	Agarmir	Agarmir	M	0RedRobin	0RedRobinHL
+0101FC55	0301FC55	UlenAthram	Ulen Athram	M	0Victor	0VictorHL
+0101FC56	0301FC56	DraloraAthram	Dralora Athram	F	0Leona	0LeonaHL
+0101FC57	0301FC57	DynariAmnis	Dynari Amnis	F	0Lamb	0LambHL
+0101FDCB	0301FDCB	Thamriel	Thamriel	F	0Lamb	0LambHL
+0101FDCC	0301FDCC	Rajiradh	Ra'jiradh	M	0Victor	0VictorHL
+0101FDCD	0301FDCD	Urjabhi	Urjabhi	M	0Theo	0TheoHL
+0101FDCE	0301FDCE	Hassiri	Hassiri	M	0Victor	0VictorHL
+0101FDCF	0301FDCF	ErnestManis	Ernest Manis	M	0Theo	0TheoHL
+0101FDD0	0301FDD0	Elragail	Elragail	F	0Lenore	0LenoreHL
+0101FDD1	0301FDD1	AstiniaAtius	Astinia Atius	F	0Leona	0LeonaHL
+0101FDD2	0301FDD2	Srathad	S'rathad	M	0Victor	0VictorHL
+0101FDD3	0301FDD3	Dorian	Dorian	M	0Theo	0TheoHL
+0101FDD4	0301FDD4	GemellusAxius	Gemellus Axius	M	0TheTruth	0TheTruthHL
+0101FDD5	0301FDD5	Areldil	Areldil	M	0Theo	0TheoHL
+0101FEEA	0301FEEA	MS08ImperialHunter	Kurdan's Imperial Hunter	M	0Victor	0VictorHL
+0101FEEC	0301FEEC	MS08NordHunter	Kurdan's Nord Hunter	M	0TheTruth	0TheTruthHL
+0101FEEF	0301FEEF	MS08OrcHunter	Kurdan's Orc Hunter	M	0RedRobin	0RedRobinHL
+01020078	03020078	Steffan	Captain Steffan	M	0RedRobin	0RedRobinHL
+010221C3	030221C3	Jmhad	J'mhad	M	0RedRobin	0RedRobinHL
+0102229F	0302229F	RallusOdiil	Rallus Odiil	M	0Theo	0TheoHL
+010222A0	030222A0	AntusOdiil	Antus Odiil	M	0Theo	0TheoHL
+010222A1	030222A1	ValusOdiil	Valus Odiil	M	0Victor	0VictorHL
+010222A3	030222A3	Glistel	Glistel	F	0Laurell	0LaurellHL
+010222A6	030222A6	MalintusAncrus	Malintus Ancrus	M	0TheTruth	0TheTruthHL
+010222A8	030222A8	ReynaldJemane	Reynald Jemane	M	0Theo	0TheoHL
+010222AC	030222AC	CastaScribonia	Casta Scribonia	F	0Lenore	0LenoreHL
+010222AD	030222AD	EugalBelette	Eugal Belette	M	0Theo	0TheoHL
+010222AE	030222AE	CarmenLitte	Carmen Litte	F	0Laurell	0LaurellHL
+010222B0	030222B0	ArielaDoran	Ariela Doran	F	0Lenore	0LenoreHL
+010222B1	030222B1	FrancoisMotierre	Francois Motierre	M	0RedRobin	0RedRobinHL
+010222B2	030222B2	RenaBruiant	Rena Bruiant	F	0Leona	0LeonaHL
+010222B3	030222B3	RimalusBruiant	Rimalus Bruiant	M	0Victor	0VictorHL
+010222B6	030222B6	Owyn	Owyn	M	0RedRobin	0RedRobinHL
+010222B7	030222B7	ContumeliorusFlorius	Contumeliorus Florius	M	0TheTruth	0TheTruthHL
+010222B8	030222B8	AlbericLitte	Alberic Litte	M	0RedRobin	0RedRobinHL
+010222B9	030222B9	OrgnolfHairyLegs	Orgnolf Hairy-Legs	M	0Theo	0TheoHL
+010222BA	030222BA	Chanel	Chanel	F	0Lenore	0LenoreHL
+010222BB	030222BB	ChorrolGuardPostNight01	Chorrol Guard	M	0TheTruth	0TheTruthHL
+010222C0	030222C0	ChorrolGuardPostNight02	Chorrol Guard	M	0Theo	0TheoHL
+010223AB	030223AB	PriorMaborel	Prior Maborel	M	0Theo	0TheoHL
+010223AD	030223AD	BrotherPiner	Brother Piner	M	0Theo	0TheoHL
+010223AF	030223AF	Eronor	Eronor	M	0Theo	0TheoHL
+01022466	03022466	Gwinas	Gwinas	M	0Victor	0VictorHL
+010224E2	030224E2	Earana	Earana	F	0Leona	0LeonaHL
+010224EC	030224EC	Ocheeva	Ocheeva	F	0Lamb	0LambHL
+010224ED	030224ED	LucienLachance	Lucien Lachance	M	0TheTruth	0TheTruthHL
+010224EE	030224EE	ManheimMaulhand	Manheim Maulhand	M	0RedRobin	0RedRobinHL
+010224EF	030224EF	Minerva	Minerva	F	0Lenore	0LenoreHL
+010224F0	030224F0	Rufio	Rufio	M	0TheTruth	0TheTruthHL
+0102253D	0302253D	ChorrolGuardPatrolNight03	Chorrol Guard	M	0RedRobin	0RedRobinHL
+01022583	03022583	ChorrolGuardPatrolNight02	Chorrol Guard	M	0TheTruth	0TheTruthHL
+01022584	03022584	ChorrolGuardPatrolNight01	Chorrol Guard	M	0TheTruth	0TheTruthHL
+01022586	03022586	ChorrolGuardPostDay02	Chorrol Guard	M	0RedRobin	0RedRobinHL
+01022587	03022587	ChorrolGuardPostDay03	Chorrol Guard	M	0RedRobin	0RedRobinHL
+01022BBD	03022BBD	LurioMaenius	Lurio Maenius	M	0Victor	0VictorHL
+01022C82	03022C82	MQ06MythicDawnGuardRandomMale	Mythic Dawn Guard	M	0TheTruth	0TheTruthHL
+01022C83	03022C83	MQ06MythicDawnAcolyteRandomMale	Mythic Dawn Acolyte	M	0TheTruth	0TheTruthHL
+01022C84	03022C84	MQ06MythicDawnAcolyteRandomFemale	Mythic Dawn Acolyte	F	0Leona	0LeonaHL
+01022C85	03022C85	MQ06MythicDawnGuardRandomFemale	Mythic Dawn Guard	F	0Leona	0LeonaHL
+01022D4B	03022D4B	TestScreenshotWoman	TestScreenshotWoman	F	0Lamb	0LambHL
+01022E37	03022E37	MQ06MythicDawnAcolyte01	Mythic Dawn Acolyte	M	0Theo	0TheoHL
+01022E3B	03022E3B	MQ06MythicDawnAcolyte02	Mythic Dawn Acolyte	F	0Lamb	0LambHL
+01022E3C	03022E3C	MQ06MythicDawnAcolyte04	Mythic Dawn Acolyte	F	0Koala	0KoalaHL
+01022E3D	03022E3D	MQ06MythicDawnAcolyte03	Mythic Dawn Acolyte	M	0TheTruth	0TheTruthHL
+01022EF5	03022EF5	MQ05MythicDawnGuard01	Mythic Dawn Guard	M	0Theo	0TheoHL
+01022EF6	03022EF6	MQ05MythicDawnGuard02	Mythic Dawn Guard	M	0TheTruth	0TheTruthHL
+01023186	03023186	TestClothing	TestClothing	M	0TheTruth	0TheTruthHL
+01023188	03023188	TestKKWoman	TestKKWoman	F	0Koala	0KoalaHL
+01023189	03023189	ChorrolGuardPatrolDay03	Chorrol Guard	M	0RedRobin	0RedRobinHL
+0102319F	0302319F	TestMaleFashionModel	Boromir	F	0Leona	0LeonaHL
+010231A0	030231A0	FemaleFashionModel	Brooke	F	0Leona	0LeonaHL
+010231AA	030231AA	ChorrolGuardPatrolDay02	Chorrol Guard	M	0RedRobin	0RedRobinHL
+010233EC	030233EC	ChorrolGuardPatrolDay01	Chorrol Guard	M	0RedRobin	0RedRobinHL
+0102349F	0302349F	Renote	Captain Renault	F	0Lenore	0LenoreHL
+010234A5	030234A5	ChorrolGuardGreatHallNight01	Chorrol Guard	M	0RedRobin	0RedRobinHL
+010234A6	030234A6	ChorrolGuardGreatHallDay01	Chorrol Guard	M	0Victor	0VictorHL
+010234A7	030234A7	BittneldtheCurseBringer	Bittneld the Curse-Bringer	M	0RedRobin	0RedRobinHL
+010234A8	030234A8	OrokgroGhoth	Orok gro-Ghoth	M	0Theo	0TheoHL
+010234A9	030234A9	ChorrolGuardCountess	Countess' Bodyguard	M	0RedRobin	0RedRobinHL
+010234AA	030234AA	ArrianaValga	Countess Arriana Valga	F	0Lenore	0LenoreHL
+010234AB	030234AB	OtiusLoran	Otius Loran	M	0Victor	0VictorHL
+010234AC	030234AC	JirolinDoran	Jirolin Doran	M	0Victor	0VictorHL
+010234AD	030234AD	GureryneSelvilo	Gureryne Selvilo	M	0TheTruth	0TheTruthHL
+010234AE	030234AE	OraggraBargol	Orag gra-Bargol	F	0Laurell	0LaurellHL
+010234AF	030234AF	Rasheda	Rasheda	F	0Lenore	0LenoreHL
+010234B0	030234B0	EstelleRenoit	Estelle Renoit	F	0Leona	0LeonaHL
+010234B1	030234B1	HomrazgraMorgrump	Homraz gra Morgrump	F	0Lenore	0LenoreHL
+010234B2	030234B2	Wallace	Wallace	M	0TheTruth	0TheTruthHL
+010234B3	030234B3	HidesHisHeart	Hides-His-Heart	M	0RedRobin	0RedRobinHL
+010234B4	030234B4	Talasma	Talasma	F	0Laurell	0LaurellHL
+010234B5	030234B5	GaturngroGonk	Gaturn gro-Gonk	M	0TheTruth	0TheTruthHL
+010234B6	030234B6	Bongond	Bongond	M	0TheTruth	0TheTruthHL
+010234B7	030234B7	Emfrid	Emfrid	F	0Lamb	0LambHL
+010234B8	030234B8	SeedNeeus	Seed-Neeus	F	0Leona	0LeonaHL
+010234B9	030234B9	Honditar	Honditar	M	0RedRobin	0RedRobinHL
+010234BA	030234BA	Athragar	Athragar	M	0TheTruth	0TheTruthHL
+010234BB	030234BB	Angalmo	Angalmo	M	0TheTruth	0TheTruthHL
+010234BC	030234BC	Teekeeus	Teekeeus	M	0RedRobin	0RedRobinHL
+010234BD	030234BD	SabineLaul	Sabine Laul	F	0Lenore	0LenoreHL
+010234BE	030234BE	KurzgroBaroth	Kurz gro-Baroth	M	0TheTruth	0TheTruthHL
+010234BF	030234BF	LumgroBaroth	Lum gro-Baroth	M	0Theo	0TheoHL
+010234C0	030234C0	ModrynOreyn	Modryn Oreyn	M	0TheTruth	0TheTruthHL
+010234C1	030234C1	VilenaDonton	Vilena Donton	F	0Laurell	0LaurellHL
+01023999	03023999	Jauffre	Jauffre	M	0TheTruth	0TheTruthHL
+01023D7E	03023D7E	TestLonelyman	Lonely Man	M	0TheTruth	0TheTruthHL
+01023DB8	03023DB8	TestConanLibrarian	Will flee when losing	M	0RedRobin	0RedRobinHL
+01023DE6	03023DE6	LutherBroad	Luther Broad	M	0Theo	0TheoHL
+01023E34	03023E34	Teinaava	Teinaava	M	0RedRobin	0RedRobinHL
+01023E35	03023E35	MraajDar	M'raaj-Dar	M	0TheTruth	0TheTruthHL
+01023E36	03023E36	AntoinettaMarie	Antoinetta Marie	F	0Leona	0LeonaHL
+01023E38	03023E38	GogrongroBolmog	Gogron gro-Bolmog	M	0Theo	0TheoHL
+01023E39	03023E39	VicenteValtieri	Vicente Valtieri	M	0RedRobin	0RedRobinHL
+01023E86	03023E86	GuilbertJemane	Guilbert Jemane	M	0Theo	0TheoHL
+01023F0B	03023F0B	Baenlin	Baenlin	M	0TheTruth	0TheTruthHL
+01023F0C	03023F0C	Gromm	Gromm	M	0Victor	0VictorHL
+01023F2A	03023F2A	Baurus	Baurus	M	0RedRobin	0RedRobinHL
+01023F2B	03023F2B	Glenroy	Glenroy	M	0Theo	0TheoHL
+01023F2E	03023F2E	UrielSeptim	Emperor Uriel Septim	M	0Victor	0VictorHL
+01023FEA	03023FEA	MachNa	Mach-Na	F	0Leona	0LeonaHL
+01024165	03024165	Maglir	Maglir	M	0RedRobin	0RedRobinHL
+01024166	03024166	Azzan	Azzan	M	0TheTruth	0TheTruthHL
+01024167	03024167	BurzGroKhash	Burz gro-Khash	M	0Theo	0TheoHL
+010243C1	030243C1	DAClavicusVoice		M	0Theo	0TheoHL
+010243C3	030243C3	DABarnasVoice		M	0Victor	0VictorHL
+010243C8	030243C8	CandiceCorgine	Candice Corgine	F	0Lamb	0LambHL
+01024412	03024412	SchlerusSestius	Schlera Sestius	F	0Lenore	0LenoreHL
+010245A5	030245A5	testHEMale	HEMale	M	0Victor	0VictorHL
+010245A6	030245A6	TestIMMale	IMMale	M	0RedRobin	0RedRobinHL
+01024615	03024615	testHEMale2	Test High Elf	M	0RedRobin	0RedRobinHL
+01024616	03024616	TestORMale	Test Imperial	M	0TheTruth	0TheTruthHL
+01024E0A	03024E0A	Jeelius	Jeelius	M	0Theo	0TheoHL
+010251CE	030251CE	Telaendril	Telaendril	F	0Lamb	0LambHL
+01025200	03025200	ValenDreth	Valen Dreth	M	0Victor	0VictorHL
+01025236	03025236	TestCharactersMaleskeleton		M	0Victor	0VictorHL
+01025237	03025237	TestBruce	Bruce	M	0Victor	0VictorHL
+01025264	03025264	TestBelgarr	Belgarr	M	0TheTruth	0TheTruthHL
+01025266	03025266	TestDenyiir	Denyiir	M	0Theo	0TheoHL
+01025299	03025299	GastonTussaud	Gaston Tussaud	M	0Victor	0VictorHL
+01025350	03025350	TestDeweyDecimal	Dewey Decimal	M	0Victor	0VictorHL
+0102576B	0302576B	ThulsaDoom	Thulsa Doom	M	0TheTruth	0TheTruthHL
+01025D04	03025D04	TestMadmartigan	Will Fight Always, Never Flee	M	0Victor	0VictorHL
+01026093	03026093	MQ05AstavWirich	Astav Wirich	M	0RedRobin	0RedRobinHL
+01026ACC	03026ACC	MorGraGamorn	Mor gra-Gamorn	F	0Leona	0LeonaHL
+01026AD6	03026AD6	FerulRavel	Ferul Ravel	M	0Victor	0VictorHL
+01026AD9	03026AD9	Ortis	Ortis	M	0Victor	0VictorHL
+01026ADA	03026ADA	Beewos	Beewos	F	0Koala	0KoalaHL
+01026ADB	03026ADB	Angalsama	Angalsama	F	0Laurell	0LaurellHL
+01026ADC	03026ADC	GregoryArne	Gregory Arne	M	0TheTruth	0TheTruthHL
+01026AED	03026AED	Ribassa	Ri'Bassa	M	0Victor	0VictorHL
+01026AEF	03026AEF	Zabhila	Zabhila	F	0Leona	0LeonaHL
+01026B14	03026B14	IrroketheWide	Irroke the Wide	M	0TheTruth	0TheTruthHL
+01026B1B	03026B1B	Umbra	Umbra	F	0Koala	0KoalaHL
+01026B2C	03026B2C	Shafaye	Shafaye	F	0Koala	0KoalaHL
+01026B36	03026B36	Anedhel	Anedhel	F	0Laurell	0LaurellHL
+01026B37	03026B37	Maraska	Ma'Raska	M	0RedRobin	0RedRobinHL
+01026B38	03026B38	GulGroBurbog	Gul gro-Burbog	M	0RedRobin	0RedRobinHL
+01026B46	03026B46	MelusPetilius	Melus Petilius	M	0TheTruth	0TheTruthHL
+01026B4C	03026B4C	Amir	Amir	M	0Theo	0TheoHL
+01026B4D	03026B4D	OlynSeran	Olyn Seran	M	0Victor	0VictorHL
+01026B4E	03026B4E	Yushi	Yushi	F	0Laurell	0LaurellHL
+01026B4F	03026B4F	IsabeauBienne	Isabeau Bienne	F	0Lenore	0LenoreHL
+01026B53	03026B53	Haekwon	Haekwon	M	0Victor	0VictorHL
+01026B7B	03026B7B	AymarDouar	Aymar Douar	M	0Theo	0TheoHL
+01026D98	03026D98	ItiusHayn	Itius Hayn	M	0Theo	0TheoHL
+01026D99	03026D99	ServatiusQuintilius	Servatius Quintilius	M	0TheTruth	0TheTruthHL
+01026D9A	03026D9A	AudensAvidius	Audens Avidius	M	0TheTruth	0TheTruthHL
+01026EB3	03026EB3	MQ10BrumaGuard01	Bruma Guard	M	0Theo	0TheoHL
+01026EB4	03026EB4	MQ11AnvilSoldier01	Anvil Soldier	M	0Victor	0VictorHL
+01026F0D	03026F0D	MQ11CheydinhalSoldier01	Cheydinhal Soldier	F	0Lamb	0LambHL
+01026F18	03026F18	MQ11KvatchSoldier01	Kvatch Soldier	M	0RedRobin	0RedRobinHL
+01026F20	03026F20	MQ11LeyawiinSoldier01	Leyawiin Soldier	M	0Theo	0TheoHL
+01026F25	03026F25	MQ11SkingradSoldier01	Skingrad Soldier	M	0RedRobin	0RedRobinHL
+01026F96	03026F96	TorbaltheSufficient	Torbal the Sufficient	M	0Victor	0VictorHL
+01026FC9	03026FC9	MQ06MythicDawnStoreroomGuard	Mythic Dawn Storeroom Guard	M	0TheTruth	0TheTruthHL
+01027047	03027047	MQ06MythicDawnAnteGuardM01	Mythic Dawn Guard	M	0TheTruth	0TheTruthHL
+01027048	03027048	MQ06MythicDawnAnteGuardM03	Mythic Dawn Guard	M	0Victor	0VictorHL
+01027060	03027060	MQ06MythicDawnCook	Mythic Dawn Acolyte	M	0Theo	0TheoHL
+01027064	03027064	TestHawkeye	Hawkeye	M	0TheTruth	0TheTruthHL
+01027065	03027065	TestBattleMage	Shows-His-Arrow-Quickly	M	0Victor	0VictorHL
+01027066	03027066	TestMage	Arkana	M	0Victor	0VictorHL
+010270F6	030270F6	MQ11ChorrolSoldier01	Chorrol Soldier	M	0TheTruth	0TheTruthHL
+010272C5	030272C5	MQ13BrumaMilitiaMale	Bruma Militia	M	0TheTruth	0TheTruthHL
+01027327	03027327	MQ13BrumaMilitiaFemale	Bruma Militia	F	0Laurell	0LaurellHL
+010274CB	030274CB	TestArena01	Arena Contestant	F	0Lenore	0LenoreHL
+010274CC	030274CC	TestArena02	Arena Champion	M	0RedRobin	0RedRobinHL
+010277A5	030277A5	MQ13BrumaSoldier	Bruma Soldier	M	0RedRobin	0RedRobinHL
+010277D1	030277D1	Neville	Neville	M	0TheTruth	0TheTruthHL
+010277D2	030277D2	DovesiDran	Dovesi Dran	F	0Leona	0LeonaHL
+010277D3	030277D3	PrimoAntonius	Primo Antonius	M	0RedRobin	0RedRobinHL
+010277D4	030277D4	NelsTheNaughty	Nels the Naughty	M	0RedRobin	0RedRobinHL
+010277D5	030277D5	MatildePetit	Matilde Petit	F	0Leona	0LeonaHL
+01027E03	03027E03	TestCaldwynTrespass	Caldwyn	M	0Theo	0TheoHL
+01027F93	03027F93	Elidor	Elidor	M	0Victor	0VictorHL
+01027F94	03027F94	Rienna	Rienna	F	0Lenore	0LenoreHL
+01027F95	03027F95	BragGroBharg	Brag gro-Bharg	M	0RedRobin	0RedRobinHL
+01027FCD	03027FCD	Testguard	Guard	M	0TheTruth	0TheTruthHL
+01028007	03028007	SavlianMatius	Savlian Matius	M	0Theo	0TheoHL
+0102800B	0302800B	JesanRilian	Jesan Rilian	M	0Victor	0VictorHL
+01028034	03028034	Tierra	Tierra	F	0Lenore	0LenoreHL
+01028035	03028035	Merandil	Merandil	M	0RedRobin	0RedRobinHL
+01028036	03028036	BerichInian	Berich Inian	M	0TheTruth	0TheTruthHL
+010280C6	030280C6	HackdirtBrethrenMonster	Hackdirt Brethren	M	0Victor	0VictorHL
+010280C7	030280C7	EtiraMoslin	Etira Moslin	F	0Laurell	0LaurellHL
+010280C8	030280C8	VlanhonderMoslin	Vlanhonder Moslin	M	0Victor	0VictorHL
+010280C9	030280C9	DarMa	Dar-Ma	F	0Lamb	0LambHL
+010280CA	030280CA	JivHiriel	Jiv Hiriel	M	0Theo	0TheoHL
+010280CB	030280CB	MarlenaBrussiner	Marlena Brussiner	F	0Laurell	0LaurellHL
+010280CC	030280CC	NatchPinder	Natch Pinder	M	0TheTruth	0TheTruthHL
+01028C7F	03028C7F	ChorrolGuardJailorDay	Chorrol Jailor	M	0Victor	0VictorHL
+01028C80	03028C80	ChorrolGuardJailorNight	Chorrol Jailor	M	0Victor	0VictorHL
+01028E72	03028E72	LazareMilvan	Lazare Milvan	M	0RedRobin	0RedRobinHL
+01028E73	03028E73	FalanuHlaalu	Falanu Hlaalu	F	0Lamb	0LambHL
+01028E75	03028E75	AmbroiseCanne	Ambroise Canne	M	0Theo	0TheoHL
+01028E7D	03028E7D	UndenaOrethi	Undena Orethi	F	0Lenore	0LenoreHL
+01028E84	03028E84	UurastheShepherd	Uuras the Shepherd	M	0Victor	0VictorHL
+01028F8C	03028F8C	MoggraMogakh	Mog gra-Mogakh	F	0Laurell	0LaurellHL
+01028F8D	03028F8D	UgakgraMogakh	Ugak gra-Mogakh	F	0Lenore	0LenoreHL
+01028F90	03028F90	ErinaJeranus	Erina Jeranus	F	0Lenore	0LenoreHL
+01028F92	03028F92	GraklakgroBuglump	Graklak gro-Buglump	M	0Theo	0TheoHL
+01028F96	03028F96	ElseGodHater	Else God-Hater	F	0Laurell	0LaurellHL
+01028F98	03028F98	Gunder	Gunder	M	0Theo	0TheoHL
+01028F9B	03028F9B	AgnetethePickled	Agnete the Pickled	F	0Laurell	0LaurellHL
+01028F9D	03028F9D	Tumindil	Tumindil	M	0Theo	0TheoHL
+01028F9F	03028F9F	MariePalielle	Marie Palielle	F	0Laurell	0LaurellHL
+01028FA1	03028FA1	ValandrusAbor	Valandrus Abor	M	0Theo	0TheoHL
+01028FA4	03028FA4	Roderick	Roderick	M	0RedRobin	0RedRobinHL
+01028FA6	03028FA6	GerardMelie	Gerard Melie	M	0RedRobin	0RedRobinHL
+01028FA7	03028FA7	Laenafil	Laenafil	F	0Lenore	0LenoreHL
+01028FA9	03028FA9	UlmuggroCromgog	Ulmug gro-Cromgog	M	0TheTruth	0TheTruthHL
+01028FAC	03028FAC	Neesha	Neesha	F	0Lenore	0LenoreHL
+01028FAE	03028FAE	JanusHassildor	Janus Hassildor	M	0Theo	0TheoHL
+01028FB0	03028FB0	HalLiurz	Hal-Liurz	F	0Laurell	0LaurellHL
+01028FB2	03028FB2	Dion	Dion	M	0Victor	0VictorHL
+01028FB6	03028FB6	ShumgroYarug	Shum gro-Yarug	M	0Victor	0VictorHL
+01028FB7	03028FB7	VandorallenTrebatius	Vandorallen Trebatius	M	0RedRobin	0RedRobinHL
+01028FB9	03028FB9	DanusArtellian	Danus Artellian	M	0Theo	0TheoHL
+01028FBB	03028FBB	SkingradCastleGuardPostDay01	Skingrad Guard	M	0Victor	0VictorHL
+01029231	03029231	ArenaRank1A	Yellow Team Brawler	M	0TheTruth	0TheTruthHL
+01029232	03029232	ArenaRank1C	Yellow Team Brawler	F	0Laurell	0LaurellHL
+01029233	03029233	ArenaRank1B	Yellow Team Brawler	F	0Koala	0KoalaHL
+01029234	03029234	ArenaRank1D	Yellow Team Brawler	M	0Theo	0TheoHL
+01029372	03029372	SkingradCastleGuardPostDay02	Skingrad Guard	M	0TheTruth	0TheTruthHL
+01029373	03029373	SkingradCastleGuardPostNight01	Skingrad Guard	M	0Victor	0VictorHL
+01029379	03029379	SkingradCastleGuardPostNight02	Skingrad Guard	M	0TheTruth	0TheTruthHL
+0102937E	0302937E	SkingradGuardPostDay01	Skingrad Guard	M	0TheTruth	0TheTruthHL
+01029389	03029389	SkingradGuardPostDay02	Skingrad Guard	M	0Victor	0VictorHL
+0102938E	0302938E	SkingradGuardPostNight01	Skingrad Guard	M	0RedRobin	0RedRobinHL
+01029394	03029394	SkingradGuardPostNight02	Skingrad Guard	M	0RedRobin	0RedRobinHL
+01029396	03029396	SkingradGuardPostDay04	Skingrad Guard	M	0RedRobin	0RedRobinHL
+01029397	03029397	SkingradGuardPatrolDay01	Skingrad Guard	M	0Theo	0TheoHL
+01029398	03029398	SkingradGuardPostDay03	Skingrad Guard	M	0TheTruth	0TheTruthHL
+010293A9	030293A9	SkingradGuardPostNight04	Skingrad Guard	M	0Victor	0VictorHL
+010293AA	030293AA	SkingradGuardPatrolNight01	Skingrad Guard	M	0TheTruth	0TheTruthHL
+010293AB	030293AB	SkingradGuardPostNight03	Skingrad Guard	M	0TheTruth	0TheTruthHL
+010293D5	030293D5	AhMalz	Ah-Malz	M	0RedRobin	0RedRobinHL
+010293DB	030293DB	FadusCalidius	Fadus Calidius	M	0TheTruth	0TheTruthHL
+010293E4	030293E4	Parwen	Parwen	F	0Leona	0LeonaHL
+010293ED	030293ED	SulinusVassinus	Sulinus Vassinus	M	0Theo	0TheoHL
+010293EE	030293EE	Druja	Druja	F	0Lenore	0LenoreHL
+010293F3	030293F3	ViggetheCautious	Vigge the Cautious	M	0RedRobin	0RedRobinHL
+010293F7	030293F7	ToutiusSextius	Toutius Sextius	M	0TheTruth	0TheTruthHL
+01029495	03029495	Salmo	Salmo	M	0Victor	0VictorHL
+010294A2	030294A2	RemanBroder	Reman Broder	M	0TheTruth	0TheTruthHL
+010294AF	030294AF	BernadettePeneles	Bernadette Peneles	F	0Leona	0LeonaHL
+010294B7	030294B7	Shameer	Shameer	M	0Victor	0VictorHL
+010294BF	030294BF	DavideSurilie	Davide Surilie	M	0Theo	0TheoHL
+010294C0	030294C0	GastonSurilie	Gaston Surilie	M	0RedRobin	0RedRobinHL
+010294C3	030294C3	Glarthir	Glarthir	M	0TheTruth	0TheTruthHL
+010294CC	030294CC	Tamika	Tamika	F	0Lamb	0LambHL
+0102950A	0302950A	AdrienneBerene	Adrienne Berene	F	0Koala	0KoalaHL
+0102952D	0302952D	Ruma	Ruma Camoran	F	0Laurell	0LaurellHL
+01029908	03029908	ArenaRank2A	Yellow Team Bloodletter	M	0Theo	0TheoHL
+01029909	03029909	ArenaRank2B	Yellow Team Bloodletter	F	0Koala	0KoalaHL
+0102990A	0302990A	ArenaRank2C	Yellow Team Bloodletter	M	0Theo	0TheoHL
+01029910	03029910	ArenaRank3A	Yellow Team Myrmidon	M	0Theo	0TheoHL
+01029911	03029911	ArenaRank3B	Yellow Team Myrmidon	F	0Koala	0KoalaHL
+01029912	03029912	ArenaRank3C	Yellow Team Myrmidon	M	0RedRobin	0RedRobinHL
+01029915	03029915	TestHelmetHead	Widehead	M	0TheTruth	0TheTruthHL
+01029916	03029916	TestHelmetHead2	NormalHead	M	0Victor	0VictorHL
+0102991A	0302991A	TimotheeLaRouche	Timothee LaRouche	M	0Theo	0TheoHL
+0102991C	0302991C	VaronVamori	Varon Vamori	M	0Victor	0VictorHL
+0102991E	0302991E	BrotchCalus	Brotch Calus	M	0Victor	0VictorHL
+01029938	03029938	ArenaRank4A	Yellow Team Warrior	F	0Leona	0LeonaHL
+01029939	03029939	ArenaRank4B	Yellow Team Warrior	F	0Leona	0LeonaHL
+01029944	03029944	ArenaRank4C	Yellow Team Warrior	F	0Laurell	0LaurellHL
+01029945	03029945	ArenaRank5A	Yellow Team Gladiator	M	0RedRobin	0RedRobinHL
+01029946	03029946	ArenaRank5B	Yellow Team Gladiator	F	0Lenore	0LenoreHL
+01029947	03029947	ArenaRank5C	Yellow Team Gladiator	M	0Theo	0TheoHL
+01029948	03029948	ArenaRank5D	Yellow Team Gladiator	M	0Victor	0VictorHL
+0102994E	0302994E	ArenaRank5E	Yellow Team Gladiator	M	0Theo	0TheoHL
+01029968	03029968	ArenaRank6A	Yellow Team Hero	M	0RedRobin	0RedRobinHL
+01029969	03029969	ArenaRank6B	Yellow Team Hero	M	0RedRobin	0RedRobinHL
+0102996B	0302996B	ArenaRank6D	Yellow Team Champion	F	0Laurell	0LaurellHL
+0102996C	0302996C	ArenaRank6C	Yellow Team Bloodletter	M	0RedRobin	0RedRobinHL
+0102996D	0302996D	ArenaRank6E	Yellow Team Pit Dog	F	0Laurell	0LaurellHL
+01029D75	03029D75	Hundolin	Hundolin	M	0RedRobin	0RedRobinHL
+0102A2AE	0302A2AE	ArenaRank0B	Yellow Team Pit Dog	M	0RedRobin	0RedRobinHL
+0102A2B1	0302A2B1	ArenaRank0A	Yellow Team Pit Dog	F	0Koala	0KoalaHL
+0102A2B3	0302A2B3	ArenaRank0C	Yellow Team Pit Dog	M	0RedRobin	0RedRobinHL
+0102AB4C	0302AB4C	Jollring	Jollring	M	0Theo	0TheoHL
+0102AB4E	0302AB4E	Umbacano	Umbacano	M	0TheTruth	0TheTruthHL
+0102AB55	0302AB55	TestJuanDummy	Lackey	M	0Victor	0VictorHL
+0102ACC3	0302ACC3	ChorrolGuardPostDay01	Chorrol Guard	M	0RedRobin	0RedRobinHL
+0102ACC4	0302ACC4	ChorrolGuardPostNight03	Chorrol Guard	M	0TheTruth	0TheTruthHL
+0102ACD1	0302ACD1	ArenaYellowCombatant	Yellow Team Combatant	F	0Leona	0LeonaHL
+0102ACD2	0302ACD2	ArenaBlueCombatant	Blue Team Combatant	M	0Theo	0TheoHL
+0102AD83	0302AD83	TestChappyCombatGuy	Test Guy	F	0Lenore	0LenoreHL
+0102AE7B	0302AE7B	DarkPirate1	Pirate	M	0TheTruth	0TheTruthHL
+0102AE7C	0302AE7C	DarkPirate2	Pirate	M	0RedRobin	0RedRobinHL
+0102AE7D	0302AE7D	DarkPirate3	Pirate	M	0TheTruth	0TheTruthHL
+0102AF05	0302AF05	ClaudeMaric	Claude Maric	M	0Theo	0TheoHL
+0102AF3C	0302AF3C	Rigmor	Rigmor	F	0Lenore	0LenoreHL
+0102AF3E	0302AF3E	Srazirr	S'razirr	M	0Victor	0VictorHL
+0102AF42	0302AF42	BrucetusFestinius	Brucetus Festinius	M	0Theo	0TheoHL
+0102B528	0302B528	UmoggraMarad	Umog gra-Marad	F	0Leona	0LeonaHL
+0102B529	0302B529	CollatinusVedius	Collatinus Vedius	M	0TheTruth	0TheTruthHL
+0102B5EA	0302B5EA	Usheeja	Usheeja	M	0TheTruth	0TheTruthHL
+0102B5EB	0302B5EB	SuriusAfranius	Surius Afranius	M	0TheTruth	0TheTruthHL
+0102B7CE	0302B7CE	TestInigoMontoya	Inigo Montoya	M	0TheTruth	0TheTruthHL
+0102B7D0	0302B7D0	TestCountTyroneRugen	Count Tyrone Rugen	M	0Victor	0VictorHL
+0102B7D2	0302B7D2	TestPrinceHumperdinck	Prince Humperdinck	M	0Victor	0VictorHL
+0102BA47	0302BA47	FathisUles	Fathis Ules	M	0RedRobin	0RedRobinHL
+0102C0B6	0302C0B6	SkingradCastleGuardJailorDay	Skingrad Jailor	M	0TheTruth	0TheTruthHL
+0102C0B7	0302C0B7	SkingradCastleGuardJailorNight	Skingrad Jailor	M	0Victor	0VictorHL
+0102C0BB	0302C0BB	SkingradCastleGuardPatrolNight01	Skingrad Guard	M	0TheTruth	0TheTruthHL
+0102C0C1	0302C0C1	SkingradCastleGuardPatrolDay01	Skingrad Guard	M	0Victor	0VictorHL
+0102C0C6	0302C0C6	FrancoisMotierreFaked	Francois Motierre	M	0Victor	0VictorHL
+0102C0EB	0302C0EB	ErissareArenim	Erissare Arenim	F	0Laurell	0LaurellHL
+0102C623	0302C623	AzaniBlackheart	Azani Blackheart	M	0Theo	0TheoHL
+0102C6C0	0302C6C0	DAAzuraVoice	Azura's Voce for Recording	F	0Lamb	0LambHL
+0102C7C5	0302C7C5	DubokgroShagk	Dubok gro-Shagk	M	0Theo	0TheoHL
+0102C7C6	0302C7C6	Rellian	Rellian	M	0Victor	0VictorHL
+0102C7C7	0302C7C7	VantusPrelius	Vantus Prelius	M	0TheTruth	0TheTruthHL
+0102C8D8	0302C8D8	Witseidutsei	Witseidutsei	F	0Koala	0KoalaHL
+0102CA35	0302CA35	Henantier	Henantier	M	0Theo	0TheoHL
+0102CA36	0302CA36	Droshanji	Dro'shanji	M	0RedRobin	0RedRobinHL
+0102CA37	0302CA37	HenantierDream	Henantier	M	0Theo	0TheoHL
+0102CB2D	0302CB2D	DelphineJend	Delphine Jend	F	0Lamb	0LambHL
+0102CD1E	0302CD1E	Carahil	Carahil	F	0Laurell	0LaurellHL
+0102CD1F	0302CD1F	KudEi	Kud-Ei	F	0Lamb	0LambHL
+0102CD20	0302CD20	JeanneFrasoric	Jeanne Frasoric	F	0Leona	0LeonaHL
+0102CD21	0302CD21	Falcar	Falcar	M	0RedRobin	0RedRobinHL
+0102CD22	0302CD22	Dagail	Dagail	F	0Lenore	0LenoreHL
+0102D018	0302D018	Thaurron	Thaurron	M	0Theo	0TheoHL
+0102D019	0302D019	FelenRelas	Felen Relas	M	0TheTruth	0TheTruthHL
+0102D01A	0302D01A	MarcGulitte	Marc Gulitte	M	0RedRobin	0RedRobinHL
+0102D01B	0302D01B	Ardaline	Ardaline	F	0Lenore	0LenoreHL
+0102D01C	0302D01C	ItaRienus	Ita Rienus	F	0Lenore	0LenoreHL
+0102D01D	0302D01D	Aryarie	Aryarie	F	0Lenore	0LenoreHL
+0102D01E	0302D01E	Jskar	J'skar	M	0RedRobin	0RedRobinHL
+0102D01F	0302D01F	Volanaro	Volanaro	M	0TheTruth	0TheTruthHL
+0102D020	0302D020	SelenaOrania	Selena Orania	F	0Koala	0KoalaHL
+0102D021	0302D021	Deetsan	Deetsan	F	0Lamb	0LambHL
+0102D022	0302D022	Orintur	Orintur	M	0Theo	0TheoHL
+0102D023	0302D023	Eilonwy	Eilonwy	F	0Laurell	0LaurellHL
+0102D024	0302D024	TrayvondtheRedguard	Trayvond the Redguard	M	0RedRobin	0RedRobinHL
+0102D025	0302D025	Uurwen	Uurwen	F	0Koala	0KoalaHL
+0102D026	0302D026	Sdrassa	S'drassa	M	0RedRobin	0RedRobinHL
+0102D027	0302D027	AlvesUvenim	Alves Uvenim	F	0Koala	0KoalaHL
+0102D028	0302D028	Agata	Agata	F	0Koala	0KoalaHL
+0102D3F1	0302D3F1	TestStealthGuyAlert	Stealth Test Guy -- Alert	M	0TheTruth	0TheTruthHL
+0102D3F2	0302D3F2	TestStealthGuyNotAlert	Stealth Test Guy -- Not Alert	M	0Victor	0VictorHL
+0102D6E6	0302D6E6	Erthor	Erthor	M	0RedRobin	0RedRobinHL
+0102D6EC	0302D6EC	IlavDralgoner	Ilav Dralgoner	M	0RedRobin	0RedRobinHL
+0102D6EE	0302D6EE	WeedumJa	Weedum-Ja	F	0Lenore	0LenoreHL
+0102D6F6	0302D6F6	Boldon	Boldon	M	0Victor	0VictorHL
+0102D6F9	0302D6F9	Tavia	Tavia	F	0Leona	0LeonaHL
+0102D6FB	0302D6FB	BatulgraSharob	Batul gra-Sharob	F	0Lenore	0LenoreHL
+0102D6FD	0302D6FD	Athrelor	Athrelor	M	0Theo	0TheoHL
+0102D6FF	0302D6FF	Hirtel	Hirtel	M	0RedRobin	0RedRobinHL
+0102D701	0302D701	Sigrid	Sigrid	F	0Koala	0KoalaHL
+0102D71F	0302D71F	ViranusDonton	Viranus Donton	M	0Theo	0TheoHL
+0102D728	0302D728	GaltusPrevia	Galtus Previa	M	0Victor	0VictorHL
+0102D8C0	0302D8C0	Kalthar	Kalthar	M	0Victor	0VictorHL
+0102DC04	0302DC04	ChristopheMarane	Christophe Marane	M	0Victor	0VictorHL
+0102DC06	0302DC06	Kiara	Kiara	F	0Leona	0LeonaHL
+0102DC08	0302DC08	Caminalda	Caminalda	F	0Lenore	0LenoreHL
+0102DF5F	0302DF5F	DemoTestToddManDarkElf	Alban Justinius	M	0RedRobin	0RedRobinHL
+0102DF7A	0302DF7A	ValenDrethDark04	Valen Dreth	M	0TheTruth	0TheTruthHL
+0102E5AF	0302E5AF	Vidkun	Vidkun	M	0TheTruth	0TheTruthHL
+0102E5C6	0302E5C6	HerminiaCinna	Herminia Cinna	F	0Leona	0LeonaHL
+0102E5D8	0302E5D8	DarkPrisonGuard01	Imperial Prison Guard	M	0Theo	0TheoHL
+0102E5D9	0302E5D9	DarkPrisonGuard02	Imperial Prison Guard	M	0TheTruth	0TheTruthHL
+0102E5DB	0302E5DB	DarkPrisonGuard04	Imperial Prison Guard	M	0TheTruth	0TheTruthHL
+0102E5DC	0302E5DC	DarkPrisonGuard05	Imperial Prison Guard	M	0RedRobin	0RedRobinHL
+0102F101	0302F101	MQ04MythicDawnAgent01	Mythic Dawn Leader	M	0RedRobin	0RedRobinHL
+0102F108	0302F108	MQ04MythicDawnAgent02	Mythic Dawn Agent	F	0Leona	0LeonaHL
+0102F10A	0302F10A	MQ04MythicDawnAgent03	Mythic Dawn Agent	M	0RedRobin	0RedRobinHL
+0102F10B	0302F10B	MQ04MythicDawnAgent04	Mythic Dawn Agent	F	0Lenore	0LenoreHL
+0102F10F	0302F10F	MQ04MythicDawnAgent05	Mythic Dawn Agent	M	0RedRobin	0RedRobinHL
+0102F1FD	0302F1FD	SorisArenim	Soris Arenim	M	0RedRobin	0RedRobinHL
+0102F85F	0302F85F	Sakeepa	Sakeepa	M	0TheTruth	0TheTruthHL
+0102F861	0302F861	ShagolgroBumph	Shagol gro-Bumph	M	0RedRobin	0RedRobinHL
+0102F864	0302F864	DiramSerethi	Diram Serethi	M	0Theo	0TheoHL
+0102F865	0302F865	AdosiSerethi	Adosi Serethi	F	0Leona	0LeonaHL
+0102F866	0302F866	UrnsiSerethi	Urnsi Serethi	F	0Koala	0KoalaHL
+0102F86D	0302F86D	Ancotar	Ancotar	M	0RedRobin	0RedRobinHL
+0102F874	0302F874	AugustaCalidia	Augusta Calidia	F	0Lamb	0LambHL
+0102F875	0302F875	Faelian	Faelian	M	0Victor	0VictorHL
+0102F876	0302F876	Atraena	Atraena	F	0Koala	0KoalaHL
+0102FB2B	0302FB2B	AdamusPhillida	Adamus Phillida	M	0Victor	0VictorHL
+0102FD6E	0302FD6E	ArielleJurard	Arielle Jurard	F	0Lamb	0LambHL
+0102FD70	0302FD70	RoliandHanus	Roliand Hanus	M	0Victor	0VictorHL
+0102FF2A	0302FF2A	JeeTah	Jee-Tah	M	0Victor	0VictorHL
+0103001C	0303001C	Malene	Malene	F	0Laurell	0LaurellHL
+0103001D	0303001D	Baurion	Baurion	M	0RedRobin	0RedRobinHL
+01030148	03030148	JGhasta	J'Ghasta	M	0Victor	0VictorHL
+0103018E	0303018E	Shaleez	Shaleez	F	0Lenore	0LenoreHL
+01030196	03030196	AlvalUvani	Alval Uvani	M	0Victor	0VictorHL
+010301AC	030301AC	HavilsteinHoarBlood	Havilstein Hoar-Blood	M	0TheTruth	0TheTruthHL
+010301C4	030301C4	Ungolim	Ungolim	M	0Theo	0TheoHL
+01030FD8	03030FD8	SibyllaDraconis	Sibylla Draconis	F	0Lamb	0LambHL
+01030FD9	03030FD9	CaeliaDraconis	Caelia Draconis	F	0Lamb	0LambHL
+01030FDA	03030FDA	MatthiasDraconis	Matthias Draconis	M	0Theo	0TheoHL
+01030FDB	03030FDB	AndreasDraconis	Andreas Draconis	M	0RedRobin	0RedRobinHL
+01030FDC	03030FDC	PerenniaDraconis	Perennia Draconis	F	0Lenore	0LenoreHL
+01031317	03031317	GoblinJim	Goblin Jim	M	0Victor	0VictorHL
+01031540	03031540	Mirisa	Mirisa	F	0Lamb	0LambHL
+01031867	03031867	AloysBincal	Aloys Bincal	M	0RedRobin	0RedRobinHL
+01031869	03031869	CalliaBincal	Callia Bincal	F	0Leona	0LeonaHL
+0103186C	0303186C	BarthelGernand	Barthel Gernand	M	0RedRobin	0RedRobinHL
+01031BC5	03031BC5	FarwilIndarys	Farwil Indarys	M	0Theo	0TheoHL
+01031BC7	03031BC7	BremmanSenyan	Bremman Senyan	M	0Theo	0TheoHL
+01031C23	03031C23	GarrusDarelliun	Garrus Darelliun	M	0Victor	0VictorHL
+01031C31	03031C31	MS13CheydinhalGuardB	Cheydinhal Gate Guard	M	0RedRobin	0RedRobinHL
+01031E96	03031E96	OrmelliusGoldwine	Ormellius Goldwine	M	0RedRobin	0RedRobinHL
+01032640	03032640	VampireWarrior2	Vampire Warrior	M	0TheTruth	0TheTruthHL
+01032641	03032641	VampireBarbarian2	Vampire Barbarian	M	0Victor	0VictorHL
+01032642	03032642	VampireCrusader2	Vampire Crusader	M	0RedRobin	0RedRobinHL
+01032643	03032643	VampireKnight2	Vampire Knight	M	0Theo	0TheoHL
+01032644	03032644	VampireScout2	Vampire Scout	M	0RedRobin	0RedRobinHL
+01032645	03032645	VampireArcher2	Vampire Archer	M	0RedRobin	0RedRobinHL
+01032646	03032646	VampireRogue2	Vampire Rogue	M	0TheTruth	0TheTruthHL
+01032647	03032647	VampireThief2	Vampire Thief	F	0Lamb	0LambHL
+01032648	03032648	VampireAgent2	Vampire Agent	F	0Lamb	0LambHL
+01032649	03032649	VampireAssassin2	Vampire Assassin	F	0Koala	0KoalaHL
+0103264A	0303264A	VampireAcrobat2	Vampire Acrobat	F	0Laurell	0LaurellHL
+0103264B	0303264B	VampireMonk2	Vampire Monk	F	0Lenore	0LenoreHL
+0103264C	0303264C	VampirePilgrim2	Vampire Pilgrim	F	0Lamb	0LambHL
+0103264D	0303264D	VampireBard2	Vampire Bard	F	0Laurell	0LaurellHL
+0103264E	0303264E	VampireMage2	Vampire Mage	M	0TheTruth	0TheTruthHL
+0103264F	0303264F	VampireSorcerer2	Vampire Sorcerer	M	0Victor	0VictorHL
+01032650	03032650	VampireHealer2	Vampire Sorcerer	F	0Lenore	0LenoreHL
+01032651	03032651	VampireBattlemage2	Vampire Battlemage	M	0Theo	0TheoHL
+01032652	03032652	VampireWitchhunter2	Vampire Witchhunter	F	0Lenore	0LenoreHL
+01032653	03032653	VampireSpellsword2	Vampire Spellsword	M	0TheTruth	0TheTruthHL
+01032654	03032654	VampireNightblade2	Vampire Nightblade	F	0Leona	0LeonaHL
+010327BA	030327BA	EduardRetiene	Eduard Retiene	M	0Victor	0VictorHL
+010327BB	030327BB	MarieAlouette	Marie Alouette	F	0Lamb	0LambHL
+010327BF	030327BF	JolieRetiene	Jolie Retiene	F	0Koala	0KoalaHL
+01032940	03032940	MG16NecromancerMale1	Mage	M	0TheTruth	0TheTruthHL
+01032941	03032941	MG16NecromancerFemale2	Mage	F	0Leona	0LeonaHL
+01032942	03032942	MG16NecromancerFemale1TEMPLATE	Mage	F	0Koala	0KoalaHL
+01032943	03032943	MG16NecromancerMale2	Mage	M	0TheTruth	0TheTruthHL
+01032AEC	03032AEC	ICTempleGuardPatrolDay01	Imperial Watch	M	0TheTruth	0TheTruthHL
+01032AED	03032AED	ICTempleGuardPatrolDay02	Imperial Watch	M	0Theo	0TheoHL
+01032AEE	03032AEE	ICTempleGuardPostDay04	Imperial Watch	M	0TheTruth	0TheTruthHL
+01032AF0	03032AF0	ICTempleGuardPostDay05	Imperial Watch	M	0Victor	0VictorHL
+01032AF1	03032AF1	ICTempleGuardPatrolNight01	Imperial Watch	M	0TheTruth	0TheTruthHL
+01032AF2	03032AF2	ICTempleGuardPatrolNight02	Imperial Watch	M	0Victor	0VictorHL
+01032AF3	03032AF3	ICTempleGuardPostNight04	Imperial Watch	M	0Victor	0VictorHL
+01032AF5	03032AF5	ICTempleGuardPostNight05	Imperial Watch	M	0RedRobin	0RedRobinHL
+01032AF6	03032AF6	ICTempleGuardPostDay01	Imperial Watch	M	0Theo	0TheoHL
+01032AF7	03032AF7	ICTempleGuardPostDay02	Imperial Watch	M	0Victor	0VictorHL
+01032AF8	03032AF8	ICTempleGuardPostDay03	Imperial Watch	M	0TheTruth	0TheTruthHL
+01032AF9	03032AF9	ICTempleGuardPostNight01	Imperial Watch	M	0RedRobin	0RedRobinHL
+01032AFA	03032AFA	ICTempleGuardPostNight02	Imperial Watch	M	0TheTruth	0TheTruthHL
+01032AFB	03032AFB	ICTempleGuardPostNight03	Imperial Watch	M	0RedRobin	0RedRobinHL
+01032BF8	03032BF8	VampirePatriarchSorcererMale	Vampire Patriarch	M	0Victor	0VictorHL
+01032BF9	03032BF9	VampirePatriarchSorcererFemale	Vampire Matriarch	F	0Lenore	0LenoreHL
+01032BFC	03032BFC	VampirePatriarchAssassinFemale	Vampire Matriarch	F	0Laurell	0LaurellHL
+01032BFD	03032BFD	VampirePatriarchAssassinMale	Vampire Patriarch	M	0TheTruth	0TheTruthHL
+01032BFE	03032BFE	VampirePatriarchCrusaderMale	Vampire Patriarch	M	0TheTruth	0TheTruthHL
+01032BFF	03032BFF	VampirePatriarchCrusaderFemale	Vampire Matriarch	F	0Leona	0LeonaHL
+010335B1	030335B1	JharedStrongblade	Jhared Strongblade	M	0Victor	0VictorHL
+010336F6	030336F6	WormAnchorite	Worm Anchorite	M	0RedRobin	0RedRobinHL
+01033900	03033900	Styrbjorn	Styrbjorn	M	0RedRobin	0RedRobinHL
+01033904	03033904	MargueriteDiel	Marguerite Diel	F	0Lamb	0LambHL
+01033905	03033905	Harrow	Harrow	M	0Theo	0TheoHL
+01033906	03033906	OnStayaSundew	On-Staya Sundew	F	0Leona	0LeonaHL
+01033907	03033907	Martin	Brother Martin	M	0Victor	0VictorHL
+01033908	03033908	MankarCamoran	Mankar Camoran	M	0Theo	0TheoHL
+01033B8B	03033B8B	MG16NecromancerFemale3	Mage	F	0Lamb	0LambHL
+01033B8D	03033B8D	MG16NecromancerMale3	Mage	M	0TheTruth	0TheTruthHL
+01033C74	03033C74	RosentiaGallenus	Rosentia Gallenus	F	0Leona	0LeonaHL
+01033CD8	03033CD8	MQ09UndeadBlade04	Ghost of Alain	M	0Theo	0TheoHL
+01033E8E	03033E8E	MQ04MythicDawnAgent06	Mythic Dawn Agent	M	0TheTruth	0TheTruthHL
+010342C3	030342C3	TestDremora	derek	M	0TheTruth	0TheTruthHL
+01034597	03034597	EduardDenile	Eduard Denile	M	0TheTruth	0TheTruthHL
+010347B1	030347B1	ForlornWatchmanPre	The Forlorn Watchman	M	0TheTruth	0TheTruthHL
+010347B2	030347B2	GranthamBlakeley	Grantham Blakeley	M	0TheTruth	0TheTruthHL
+0103486E	0303486E	HieronymusLex	Hieronymus Lex	M	0Victor	0VictorHL
+01034870	03034870	ArmandChristophe	Armand Christophe	M	0RedRobin	0RedRobinHL
+01034E15	03034E15	RaminusPolus	Raminus Polus	M	0Victor	0VictorHL
+01034E16	03034E16	HannibalTraven	Hannibal Traven	M	0Victor	0VictorHL
+01034E65	03034E65	Shuravi	Shuravi	F	0Leona	0LeonaHL
+01034E66	03034E66	Shamada	Shamada	F	0Lamb	0LambHL
+01034E67	03034E67	Shomara	Shomara	F	0Koala	0KoalaHL
+01034E68	03034E68	Gundalas	Gundalas	M	0TheTruth	0TheTruthHL
+01034E69	03034E69	TunZeeus	Tun-Zeeus	M	0RedRobin	0RedRobinHL
+01034E6A	03034E6A	AvrusAdas	Avrus Adas	M	0RedRobin	0RedRobinHL
+01034E6B	03034E6B	SilanaBlandia	Silana Blandia	F	0Leona	0LeonaHL
+01034E6C	03034E6C	KantavCheynoslin	Kantav Cheynoslin	M	0RedRobin	0RedRobinHL
+01034E6D	03034E6D	MariusCaro	Count Marius Caro	M	0TheTruth	0TheTruthHL
+01034E6F	03034E6F	Tsavi	Tsavi	F	0Lenore	0LenoreHL
+01034E71	03034E71	LeyawiinGuardCastlePostDay02	Leyawiin Guard	M	0Victor	0VictorHL
+01034E72	03034E72	Brodras	Brodras	M	0RedRobin	0RedRobinHL
+01034E73	03034E73	Sherina	Sherina	F	0Lenore	0LenoreHL
+01034E76	03034E76	DarJee	Dar Jee	M	0Theo	0TheoHL
+01034E77	03034E77	Jbari	J'bari	M	0Victor	0VictorHL
+01034E78	03034E78	Tsrava	Tsrava	F	0Laurell	0LaurellHL
+01034E7A	03034E7A	JaFazir	Ja'Fazir	M	0Victor	0VictorHL
+01034E7B	03034E7B	Rana	Rana	F	0Lamb	0LambHL
+01034E7C	03034E7C	OleedEi	Oleed-Ei	M	0RedRobin	0RedRobinHL
+01034E7D	03034E7D	Geel	Geel	M	0Victor	0VictorHL
+01034E7E	03034E7E	Numeen	Numeen	F	0Koala	0KoalaHL
+01034E7F	03034E7F	Mahei	Mahei	M	0TheTruth	0TheTruthHL
+01034E81	03034E81	Margarte	Margarte	F	0Leona	0LeonaHL
+01034E82	03034E82	Eitar	Eitar	M	0Victor	0VictorHL
+01034E83	03034E83	WeebumNa	Weebam-Na	M	0Victor	0VictorHL
+01034E84	03034E84	Bejeen	Bejeen	F	0Koala	0KoalaHL
+01034E85	03034E85	RaJahirr	Ra'Jahirr	M	0Theo	0TheoHL
+01034E86	03034E86	Cingor	Cingor	M	0Theo	0TheoHL
+01034E87	03034E87	Ahdarji	Ahdarji	F	0Lenore	0LenoreHL
+01034E88	03034E88	Otumeel	Otumeel	M	0Victor	0VictorHL
+01034E89	03034E89	BettoPlotius	Betto Plotius	M	0RedRobin	0RedRobinHL
+01034E8A	03034E8A	JulittaPlotius	Julitta Plotius	F	0Lenore	0LenoreHL
+01034E8B	03034E8B	DecentiusOpsius	Decentius Opsius	M	0RedRobin	0RedRobinHL
+01034E8C	03034E8C	AlessiaCaro	Countess Alessia Caro	F	0Koala	0KoalaHL
+01034E8D	03034E8D	HlidaraMothril	Hlidara Mothril	F	0Lamb	0LambHL
+01034E99	03034E99	Methredhel	Methredhel	F	0Koala	0KoalaHL
+01034EAB	03034EAB	IrlavJarol	Irlav Jarol	M	0RedRobin	0RedRobinHL
+01034EAD	03034EAD	Caranya	Caranya	F	0Lamb	0LambHL
+01034EAF	03034EAF	JulienneFanis	Julienne Fanis	F	0Lenore	0LenoreHL
+01034EB0	03034EB0	Borissean	Borissean	M	0Victor	0VictorHL
+01034EB1	03034EB1	GasparStegine	Gaspar Stegine	M	0TheTruth	0TheTruthHL
+01034EB2	03034EB2	TarMeena	Tar-Meena	F	0Lamb	0LambHL
+01034EB3	03034EB3	BoderiFarano	Boderi Farano	F	0Lamb	0LambHL
+01034EB4	03034EB4	Delmar	Delmar	M	0Victor	0VictorHL
+01034EB5	03034EB5	MartinaFloria	Martina Floria	F	0Koala	0KoalaHL
+01034EB6	03034EB6	RenaldViernis	Renald Viernis	M	0Victor	0VictorHL
+01034EB7	03034EB7	Bothiel	Bothiel	F	0Koala	0KoalaHL
+0103529A	0303529A	MyvrynaArano	Myvryna Arano	F	0Lamb	0LambHL
+010352B1	030352B1	Zahrasha	Zahrasha	F	0Lamb	0LambHL
+010352B3	030352B3	Eletta	Eletta	F	0Lenore	0LenoreHL
+0103533E	0303533E	LeyawiinGuardCastlePostNight01	Leyawiin Guard	M	0Victor	0VictorHL
+010353D5	030353D5	LeyawiinGuardCityPostDay01	Leyawiin City Watch	M	0RedRobin	0RedRobinHL
+010353D6	030353D6	LeyawiinGuardCityPostNight01	Leyawiin City Watch	M	0TheTruth	0TheTruthHL
+010353DF	030353DF	NoveniOthran	Noveni Othran	F	0Laurell	0LaurellHL
+0103554B	0303554B	LeyawiinGuardCastlePostDay01	Leyawiin Guard	M	0RedRobin	0RedRobinHL
+0103554D	0303554D	LeyawiinGuardCastlePostNight02	Leyawiin Guard	M	0Theo	0TheoHL
+0103554E	0303554E	LeyawiinGuardCityPostDay02	Leyawiin City Watch	M	0Victor	0VictorHL
+0103554F	0303554F	LeyawiinGuardCityPostNight02	Leyawiin City Watch	M	0Theo	0TheoHL
+01035552	03035552	LeyawiinGuardCityPatrolDay03	Leyawiin City Watch	M	0TheTruth	0TheTruthHL
+01035562	03035562	LeyawiinGuardCityPostDay03	Leyawiin City Watch	M	0Theo	0TheoHL
+01035564	03035564	LeyawiinGuardCityPatrolNight03	Leyawiin City Watch	M	0RedRobin	0RedRobinHL
+01035569	03035569	LeyawiinGuardCityPostNight03	Leyawiin City Watch	M	0RedRobin	0RedRobinHL
+01035572	03035572	LeyawiinGuardCityPatrolDay01	Leyawiin City Watch	M	0Victor	0VictorHL
+0103557A	0303557A	LeyawiinGuardCityPatrolNight01	Leyawiin City Watch	M	0Theo	0TheoHL
+0103558A	0303558A	ScarTail	Scar-Tail	M	0RedRobin	0RedRobinHL
+0103558B	0303558B	DeadArgonianAgent	Dead Argonian Agent	M	0TheTruth	0TheTruthHL
+010355F8	030355F8	Celedaen	Celedaen	M	0Theo	0TheoHL
+0103563B	0303563B	Amusei	Amusei	M	0Victor	0VictorHL
+01035649	03035649	MercatorHosidus	Mercator Hosidus	M	0TheTruth	0TheTruthHL
+010356CD	030356CD	AjumKajin	Ajum-Kajin	M	0RedRobin	0RedRobinHL
+010356EC	030356EC	JeetumZe	Jeetum-Ze	M	0RedRobin	0RedRobinHL
+01035703	03035703	Rizakar	Ri'Zakar	M	0Victor	0VictorHL
+0103571D	0303571D	ArvenaThelas	Arvena Thelas	F	0Lamb	0LambHL
+01035724	03035724	NorbertLelles	Norbert Lelles	M	0TheTruth	0TheTruthHL
+01035726	03035726	Aenvir	Aenvir	M	0Victor	0VictorHL
+01035727	03035727	StorntheBurly	Storn the Burly	M	0Theo	0TheoHL
+01035728	03035728	DranasLerano	Dranas Lerano	M	0TheTruth	0TheTruthHL
+01035740	03035740	NewheimthePortly	Newheim the Portly	M	0TheTruth	0TheTruthHL
+0103597A	0303597A	LeyawiinGuardEscortCountess	Countess' Bodyguard	M	0Victor	0VictorHL
+0103597B	0303597B	LeyawiinGuardEscortCount	Count's Bodyguard	M	0RedRobin	0RedRobinHL
+01035A16	03035A16	MondrarHenim	Mondrar Henim	M	0TheTruth	0TheTruthHL
+01035A18	03035A18	Arterion	Arterion	M	0RedRobin	0RedRobinHL
+01035C83	03035C83	CarmaloTruiand	Carmalo Truiand	M	0RedRobin	0RedRobinHL
+01035DD6	03035DD6	Skrivva	S'Krivva	F	0Lamb	0LambHL
+01035DFB	03035DFB	Dark09CeremonyGuard	Imperial Legion Centurion	M	0RedRobin	0RedRobinHL
+01035DFD	03035DFD	Dark09CeremonyGuard2	Imperial Legion Centurion	M	0Theo	0TheoHL
+01035EAC	03035EAC	Olav	Olav	M	0TheTruth	0TheTruthHL
+01035EAD	03035EAD	Petrine	Petrine	F	0Lamb	0LambHL
+01035EAE	03035EAE	RaynilDralas	Raynil Dralas	M	0TheTruth	0TheTruthHL
+01035EB0	03035EB0	HafidHollowleg	Hafid Hollowleg	M	0RedRobin	0RedRobinHL
+01035EB1	03035EB1	Logvaar	Logvaar	M	0TheTruth	0TheTruthHL
+01035EB2	03035EB2	SnartheCook	Snar the Cook	M	0TheTruth	0TheTruthHL
+01035EB3	03035EB3	Suurootan	Suurootan	M	0TheTruth	0TheTruthHL
+01035EB4	03035EB4	Skjorta	Skjorta	F	0Lenore	0LenoreHL
+01035EB5	03035EB5	Olfand	Olfand	M	0RedRobin	0RedRobinHL
+01035EB6	03035EB6	Fjotreid	Fjotreid	M	0RedRobin	0RedRobinHL
+01035EB7	03035EB7	IsaRaman	Isa Raman	F	0Leona	0LeonaHL
+01035EB8	03035EB8	Cirroc	Cirroc	M	0Theo	0TheoHL
+01035EB9	03035EB9	ArentusFalvius	Arentus Falvius	M	0TheTruth	0TheTruthHL
+01035EBB	03035EBB	NarinaCarvain	Countess Narina Carvain	F	0Leona	0LeonaHL
+01035EBC	03035EBC	YvaraChannitte	Yvara Channitte	F	0Lenore	0LenoreHL
+01035EBE	03035EBE	Burd	Burd	M	0Victor	0VictorHL
+01035EBF	03035EBF	GerichSenarel	Gerich Senarel	M	0Victor	0VictorHL
+01035EC0	03035EC0	GanLuseph	Gan Luseph	M	0Theo	0TheoHL
+01035EC1	03035EC1	RightWind	Right-Wind	M	0Theo	0TheoHL
+01035EC2	03035EC2	BumphgraGash	Bumph gra-Gash	F	0Leona	0LeonaHL
+01035EC3	03035EC3	Honmund	Honmund	M	0Theo	0TheoHL
+01035EC4	03035EC4	Alga	Alga	F	0Leona	0LeonaHL
+01035EC5	03035EC5	LyraRosentia	Lyra Rosentia	F	0Leona	0LeonaHL
+01035EC6	03035EC6	BradonLirrian	Bradon Lirrian	M	0RedRobin	0RedRobinHL
+01035EC7	03035EC7	ErlineLirrian	Erline Lirrian	F	0Lamb	0LambHL
+01035EC8	03035EC8	IstirusBrolus	Istirus Brolus	M	0Theo	0TheoHL
+01035EC9	03035EC9	JantusBrolus	Jantus Brolus	F	0Koala	0KoalaHL
+01035ECA	03035ECA	OngartheWorldWeary	Ongar the World-Weary	M	0Theo	0TheoHL
+01035ECB	03035ECB	Jearl	Jearl	F	0Koala	0KoalaHL
+01035ECC	03035ECC	SaveriFaram	Saveri Faram	F	0Leona	0LeonaHL
+01035ECD	03035ECD	ArnoraAuria	Arnora Auria	F	0Laurell	0LaurellHL
+01035ECE	03035ECE	Regner	Regner	M	0TheTruth	0TheTruthHL
+01035ECF	03035ECF	EdlaDarkHeart	Edla Dark-Heart	F	0Lamb	0LambHL
+01035ED0	03035ED0	HelviusCecia	Helvius Cecia	M	0TheTruth	0TheTruthHL
+01035F43	03035F43	Skaleel	Skaleel	F	0Koala	0KoalaHL
+01035F52	03035F52	Denel	Denel	M	0Victor	0VictorHL
+01035F8E	03035F8E	LeyawiinGuardJailorNight	Leyawiin Jailor	M	0TheTruth	0TheTruthHL
+01035F8F	03035F8F	LeyawiinGuardJailorDay	Leyawiin Jailor	M	0RedRobin	0RedRobinHL
+01035FD2	03035FD2	MarauderMissileFemale3A	Marauder Archer	F	0Lenore	0LenoreHL
+01035FD3	03035FD3	MarauderMissileFemale4A	Marauder Archer	F	0Lenore	0LenoreHL
+01035FD4	03035FD4	MarauderMissileMale3B	Marauder Archer	M	0Victor	0VictorHL
+01035FD5	03035FD5	MarauderMissileMale2	Marauder Archer	M	0RedRobin	0RedRobinHL
+01035FD6	03035FD6	MarauderMageMale3A	Marauder Battlemage	M	0TheTruth	0TheTruthHL
+01035FD9	03035FD9	MarauderMageMale4A	Marauder Battlemage	M	0Victor	0VictorHL
+01035FDC	03035FDC	MarauderMageFemale3B	Marauder Battlemage	F	0Lamb	0LambHL
+01035FDD	03035FDD	MarauderMageFemale2	Marauder Battlemage	F	0Laurell	0LaurellHL
+01035FDE	03035FDE	MarauderBossMale1	Marauder Warlord	M	0Theo	0TheoHL
+01035FDF	03035FDF	MarauderBossMale2	Marauder Warlord	M	0Victor	0VictorHL
+01035FE0	03035FE0	MarauderBossFemale1	Marauder Warlord	F	0Lenore	0LenoreHL
+01035FE1	03035FE1	MarauderBossFemale2	Marauder Warlord	F	0Lamb	0LambHL
+01036244	03036244	Jorundr	Jorundr	M	0TheTruth	0TheTruthHL
+0103628D	0303628D	VelwynBenirus	Velwyn Benirus	M	0Victor	0VictorHL
+010362A7	030362A7	BrumaGuardCityPostDay01	Bruma Guard	M	0TheTruth	0TheTruthHL
+010362AD	030362AD	BrumaGuardCityPostDay02	Bruma Guard	M	0RedRobin	0RedRobinHL
+010362B0	030362B0	BrumaGuardCityPostNight01	Bruma Guard	M	0RedRobin	0RedRobinHL
+010362B1	030362B1	BrumaGuardCityPostNight02	Bruma Guard	M	0Theo	0TheoHL
+010362B7	030362B7	BrumaGuardCityPatrolDay01	Bruma Guard	M	0Victor	0VictorHL
+010362BD	030362BD	BrumaGuardCityPatrolDay02	Bruma Guard	M	0Victor	0VictorHL
+010362C9	030362C9	BrumaGuardCityPatrolNight01	Bruma Guard	M	0Theo	0TheoHL
+010362CA	030362CA	BrumaGuardCityPatrolNight02	Bruma Guard	M	0Victor	0VictorHL
+010362E8	030362E8	BrumaGuardCastlePostDay01	Bruma Guard	M	0Theo	0TheoHL
+010362E9	030362E9	BrumaGuardCastlePostDay02	Bruma Guard	M	0RedRobin	0RedRobinHL
+010362EA	030362EA	BrumaGuardCastlePostNight01	Bruma Guard	M	0TheTruth	0TheTruthHL
+010362EB	030362EB	BrumaGuardCastlePostNight02	Bruma Guard	M	0Theo	0TheoHL
+010362EC	030362EC	BrumaGuardJailorNight	Bruma Jailor	M	0RedRobin	0RedRobinHL
+010362ED	030362ED	BrumaGuardJailorDay	Bruma Jailor	M	0RedRobin	0RedRobinHL
+010362EE	030362EE	BrumaGuardEscortCountess	Countess's Bodyguard	M	0TheTruth	0TheTruthHL
+01036307	03036307	Enilroth	Enilroth	M	0TheTruth	0TheTruthHL
+01036308	03036308	Arquen	Arquen	F	0Koala	0KoalaHL
+01036309	03036309	BelisariusArius	Belisarius Arius	M	0Victor	0VictorHL
+0103630A	0303630A	BanusAlor	Banus Alor	M	0Theo	0TheoHL
+010364B7	030364B7	MQ09UndeadBlade03	Ghost of Valdemar	M	0RedRobin	0RedRobinHL
+010364B8	030364B8	MQ09UndeadBlade02	Ghost of Casnar	M	0Theo	0TheoHL
+010364B9	030364B9	MQ09UndeadBlade01	Ghost of Rielus	M	0RedRobin	0RedRobinHL
+010366E9	030366E9	MG17Necromancer01a	Necromancer	M	0Victor	0VictorHL
+01037572	03037572	Belisarius	Belisarius	M	0RedRobin	0RedRobinHL
+01037573	03037573	Roliand	Roliand	M	0Victor	0VictorHL
+01037574	03037574	Cyrus	Cyrus	M	0Victor	0VictorHL
+01037575	03037575	Caroline	Caroline	F	0Laurell	0LaurellHL
+01037576	03037576	Jena	Jena	F	0Lenore	0LenoreHL
+01037847	03037847	DAMolagBalVoice		M	0Theo	0TheoHL
+01037C33	03037C33	BugakgroBol	Bugak gro-Bol	M	0Theo	0TheoHL
+01037CDD	03037CDD	YsabelAndronicus	Ysabel Andronicus	F	0Lenore	0LenoreHL
+01037E8D	03037E8D	GiovanniCivello	Giovanni Civello	M	0TheTruth	0TheTruthHL
+01037F73	03037F73	CariusRunellius	Carius Runellius	M	0TheTruth	0TheTruthHL
+01037F74	03037F74	MS11BrumaInvestigatorGuard02	Bruma Investigator Guard	M	0RedRobin	0RedRobinHL
+01037FF8	03037FF8	AgronakGroMalog	Agronak gro-Malog	M	0Theo	0TheoHL
+0103832F	0303832F	testDremoraMaleA	Genghis	M	0RedRobin	0RedRobinHL
+01038331	03038331	testDremoraMaleAClad	GenghisClad	M	0TheTruth	0TheTruthHL
+010389B8	030389B8	Abhuki	Abhuki	F	0Lenore	0LenoreHL
+010389BD	030389BD	Pranal	Pranal	M	0Theo	0TheoHL
+01038A61	03038A61	MQ16ImperialSoldier01	Imperial Legion Soldier	M	0TheTruth	0TheTruthHL
+01038A62	03038A62	MQ16ImperialArcher01	Imperial Legion Archer	M	0TheTruth	0TheTruthHL
+01038EDD	03038EDD	LordLovidicus	Lord Lovidicus	M	0Victor	0VictorHL
+0103A8E4	0303A8E4	TestKenManOrc	Ken's Tester Orc for Christiane	M	0RedRobin	0RedRobinHL
+0103A8E5	0303A8E5	TestKenManKhajiit	Ken's Tester Khajiit for Christiane	M	0TheTruth	0TheTruthHL
+0103A8E6	0303A8E6	TestKenManArgonian	Ken's Tester Argonian for Christiane	M	0TheTruth	0TheTruthHL
+0103AA83	0303AA83	Tsarrina	Tsarrina	F	0Laurell	0LaurellHL
+0103AA85	0303AA85	SignyHomeWrecker	Signy Home-Wrecker	F	0Laurell	0LaurellHL
+0103AA89	0303AA89	FaustinaCartia	Faustina Cartia	F	0Leona	0LeonaHL
+0103AA8B	0303AA8B	MS13FallenKnightA	Fallen Knight of the Thorn	M	0TheTruth	0TheTruthHL
+0103AA8D	0303AA8D	MS13FallenKnightB	Fallen Knight of the Thorn	M	0Theo	0TheoHL
+0103AA8F	0303AA8F	MS13FallenKnightC	Fallen Knight of the Thorn	M	0Theo	0TheoHL
+0103AA91	0303AA91	MS13FallenKnightD	Fallen Knight of the Thorn	M	0Victor	0VictorHL
+0103AB4E	0303AB4E	DavelaHlaren	Davela Hlaren	F	0Laurell	0LaurellHL
+0103AB51	0303AB51	Foroch	Foroch	M	0RedRobin	0RedRobinHL
+0103AB78	0303AB78	TestBoundBuff	Uses Bound	F	0Lenore	0LenoreHL
+0103AB7A	0303AB7A	TestFortBuff	Uses Fortify	M	0Victor	0VictorHL
+0103AB7C	0303AB7C	TestSummonBuff	Uses Summon	F	0Laurell	0LaurellHL
+0103ABAD	0303ABAD	MQ13DremoraLeveledGate2	Dremora Captain	M	0Victor	0VictorHL
+0103ABB4	0303ABB4	MQ13DremoraLeveledGate1	Dremora Captain	M	0Theo	0TheoHL
+0103ABB5	0303ABB5	MQ13DremoraLeveledGate3	Dremora Captain	M	0Theo	0TheoHL
+0103AF03	0303AF03	Gogan	Gogan	M	0RedRobin	0RedRobinHL
+0103B302	0303B302	BCDeadGuy01	Blackwood Company Member	M	0Victor	0VictorHL
+0103B3D3	0303B3D3	GoganGuard	Gogan	M	0Theo	0TheoHL
+0103B3D4	0303B3D4	MaelonaGuard	Maelona	F	0Leona	0LeonaHL
+0103B3DC	0303B3DC	MQ13DremoraLord	Dremora Lord	M	0RedRobin	0RedRobinHL
+0103C15F	0303C15F	Alawen	Alawen	F	0Lamb	0LambHL
+0103C165	0303C165	ToothintheSea	Tooth-in-the-Sea	M	0TheTruth	0TheTruthHL
+0103C2C5	0303C2C5	MS10CheydinhalHouseGuard01	Cheydinhal Guard	M	0TheTruth	0TheTruthHL
+0103C805	0303C805	MQ15Kathutet	Kathutet	M	0RedRobin	0RedRobinHL
+0103C806	0303C806	MQ15Eldamil	Eldamil	M	0Victor	0VictorHL
+0103C97A	0303C97A	HumilisNonius	Humilis Nonius	M	0TheTruth	0TheTruthHL
+0103CD19	0303CD19	MQ15Amkaos	Amkaos	M	0TheTruth	0TheTruthHL
+0103CD1A	0303CD1A	MQ15Ranyu	Ranyu	M	0RedRobin	0RedRobinHL
+0103CD1B	0303CD1B	MQ15Orthe	Orthe	M	0TheTruth	0TheTruthHL
+0103CD2B	0303CD2B	MG07MarauderBoss	Marauder Warlord	M	0Victor	0VictorHL
+0103DB27	0303DB27	BanditMeleeMale4A	Bandit	M	0Theo	0TheoHL
+0103DB2B	0303DB2B	BanditMeleeMale2	Bandit	M	0Theo	0TheoHL
+0103DB2D	0303DB2D	BanditMeleeMale3B	Bandit	M	0Victor	0VictorHL
+0103DB2F	0303DB2F	BanditMeleeMale3A	Bandit	M	0RedRobin	0RedRobinHL
+0103DB31	0303DB31	BanditMeleeFemale4A	Bandit	F	0Lamb	0LambHL
+0103DB33	0303DB33	BanditMeleeFemale2	Bandit	F	0Leona	0LeonaHL
+0103DB34	0303DB34	BanditMeleeFemale3A	Bandit	F	0Lamb	0LambHL
+0103DB35	0303DB35	BanditMeleeFemale3B	Bandit	F	0Lamb	0LambHL
+0103DB99	0303DB99	TestVampireFoodNPC	Vamp Chow	M	0Victor	0VictorHL
+0103DBAA	0303DBAA	SE32GenericFanatic01	Ghost Fanatic	M	0RedRobin	0RedRobinHL
+0103DBBC	0303DBBC	SE32genericDefender01	Vitharn Ghost Soldier	M	0Victor	0VictorHL
+0103DC23	0303DC23	BanditMissileMale3A	Bandit Bowman	M	0RedRobin	0RedRobinHL
+0103DC24	0303DC24	BanditBossMale1TEMPLATE	Bandit Ringleader	M	0RedRobin	0RedRobinHL
+0103DC25	0303DC25	BanditBossMale2	Bandit Ringleader	M	0Victor	0VictorHL
+0103DC26	0303DC26	BanditBossMale3	Bandit Ringleader	M	0TheTruth	0TheTruthHL
+0103DC27	0303DC27	BanditBossFemale1	Bandit Ringleader	F	0Lamb	0LambHL
+0103DC28	0303DC28	BanditBossFemale2	Bandit Ringleader	F	0Lamb	0LambHL
+0103DC29	0303DC29	BanditBossFemale3	Bandit Ringleader	F	0Leona	0LeonaHL
+0103DC42	0303DC42	BanditMissileFemale4A	Bandit Bowman	F	0Lenore	0LenoreHL
+0103DC43	0303DC43	BanditMissileFemale2	Bandit Bowman	F	0Lamb	0LambHL
+0103DC44	0303DC44	BanditMissileFemale3B	Bandit Bowman	F	0Lamb	0LambHL
+0103DC45	0303DC45	BanditMissileFemale3A	Bandit Bowman	F	0Koala	0KoalaHL
+0103DC46	0303DC46	BanditMissileMale3B	Bandit Bowman	M	0Victor	0VictorHL
+0103DC47	0303DC47	BanditMissileMale2	Bandit Bowman	M	0TheTruth	0TheTruthHL
+0103DC48	0303DC48	BanditMissileMale4A	Bandit Bowman	M	0TheTruth	0TheTruthHL
+0103DC55	0303DC55	BanditWizardMale3B	Bandit Hedge Wizard	M	0Theo	0TheoHL
+0103DC56	0303DC56	BanditWizardMale2	Bandit Hedge Wizard	M	0Theo	0TheoHL
+0103DC57	0303DC57	BanditWizardFemale3A	Bandit Hedge Wizard	F	0Laurell	0LaurellHL
+0103DC58	0303DC58	BanditWizardFemale4A	Bandit Hedge Wizard	F	0Laurell	0LaurellHL
+0103DC5D	0303DC5D	MarauderMeleeMale3B	Marauder	M	0Theo	0TheoHL
+0103DC5E	0303DC5E	MarauderMeleeMale2	Marauder	M	0Theo	0TheoHL
+0103DC5F	0303DC5F	MarauderMeleeMale4A	Marauder	M	0RedRobin	0RedRobinHL
+0103DC60	0303DC60	MarauderMeleeMale3A	Marauder	M	0Theo	0TheoHL
+0103DC61	0303DC61	MarauderMeleeFemale3B	Marauder	F	0Koala	0KoalaHL
+0103DC62	0303DC62	MarauderMeleeFemale2	Marauder	F	0Lenore	0LenoreHL
+0103DC63	0303DC63	MarauderMeleeFemale4A	Marauder	F	0Koala	0KoalaHL
+0103DC64	0303DC64	MarauderMeleeFemale3A	Marauder	F	0Lenore	0LenoreHL
+0103E0DE	0303E0DE	Ernest	Ernest	M	0Victor	0VictorHL
+0103E0DF	0303E0DF	Clesa	Clesa	F	0Laurell	0LaurellHL
+0103E17E	0303E17E	Nordinor	Nordinor	M	0Theo	0TheoHL
+0103E183	0303E183	Elsynia	Elsynia	F	0Lenore	0LenoreHL
+0103E188	0303E188	Karinnarre	Karinnarre	F	0Laurell	0LaurellHL
+0103E190	0303E190	MagragroNaybek	Magra gro-Naybek	M	0TheTruth	0TheTruthHL
+0103E193	0303E193	Eyja	Eyja	F	0Laurell	0LaurellHL
+0103E29B	0303E29B	MQ15MythicDawnLowM01	Ascended Immortal	M	0TheTruth	0TheTruthHL
+0103E915	0303E915	testDremoraMaleLordA	LordGenghis	M	0TheTruth	0TheTruthHL
+0103E92B	0303E92B	Sinderion	Sinderion	M	0TheTruth	0TheTruthHL
+0103E92D	0303E92D	GinWulm	Gin-Wulm	M	0Victor	0VictorHL
+0103E92F	0303E92F	BralsaAndaren	Bralsa Andaren	F	0Koala	0KoalaHL
+0103E931	0303E931	Melisande	Melisande	F	0Koala	0KoalaHL
+0103E956	0303E956	RonaHassildor	Rona Hassildor	F	0Laurell	0LaurellHL
+0103E9C6	0303E9C6	Dremora2KynvalMelee1	Dremora Kynval	M	0RedRobin	0RedRobinHL
+0103E9C8	0303E9C8	Dremora4KynmarcherMelee1	Dremora Kynmarcher	M	0Victor	0VictorHL
+0103E9CA	0303E9CA	Dremora6ValkynazMelee1	Dremora Valkynaz	M	0Theo	0TheoHL
+0103EAAD	0303EAAD	MQ15MythicDawnPrisonerMale	Prisoner	M	0TheTruth	0TheTruthHL
+0103EAAE	0303EAAE	MQ15MythicDawnPrisonerFemale	Prisoner	F	0Laurell	0LaurellHL
+0103EE70	0303EE70	Dremora1CaitiffMelee1	Dremora Caitiff	M	0TheTruth	0TheTruthHL
+0103EE71	0303EE71	Dremora1CaitiffMelee2	Dremora Caitiff	M	0Theo	0TheoHL
+0103EE72	0303EE72	Dremora2KynvalMelee2	Dremora Kynval	M	0Victor	0VictorHL
+0103EE75	0303EE75	Dremora4KynmarcherMelee2	Dremora Kynmarcher	M	0Theo	0TheoHL
+0103EE79	0303EE79	Dremora5MarkynazMelee1	Dremora Markynaz	M	0Victor	0VictorHL
+0103EE7A	0303EE7A	Dremora5MarkynazMelee2	Dremora Markynaz	M	0RedRobin	0RedRobinHL
+0103EE7B	0303EE7B	Dremora6ValkynazMelee2	Dremora Valkynaz	M	0RedRobin	0RedRobinHL
+0103EE7F	0303EE7F	Dremora3KynreeveMelee1	Dremora Kynreeve	M	0RedRobin	0RedRobinHL
+0103EE80	0303EE80	Dremora3KynreeveMelee2	Dremora Kynreeve	M	0Victor	0VictorHL
+0103F8AD	0303F8AD	TestToddMan15	Man 15	M	0Victor	0VictorHL
+0103F8AE	0303F8AE	TestToddMan25	Man25	M	0Victor	0VictorHL
+0103F8AF	0303F8AF	TestToddMan35	Man 35	M	0RedRobin	0RedRobinHL
+0103F8B0	0303F8B0	TestToddMan45	Man 45	M	0RedRobin	0RedRobinHL
+0103F8B1	0303F8B1	TestToddMan55	Man 55	M	0Victor	0VictorHL
+0103F8B2	0303F8B2	TestToddMan65	Man 65	M	0TheTruth	0TheTruthHL
+0103FB81	0303FB81	MG07MarauderMeleeMale1	Marauder	M	0TheTruth	0TheTruthHL
+0103FB83	0303FB83	MG07MarauderMissileFemale1	Marauder Archer	F	0Laurell	0LaurellHL
+0103FB84	0303FB84	MG07MarauderMageMale2	Marauder Battlemage	M	0TheTruth	0TheTruthHL
+0103FB85	0303FB85	MG07MarauderMageFemale1	Marauder Battlemage	F	0Lenore	0LenoreHL
+0103FB86	0303FB86	MG07MarauderMissileMale2	Marauder Archer	M	0RedRobin	0RedRobinHL
+0103FBD9	0303FBD9	MQ15MythicDawnGuardDarkElf	Ascended Immortal	M	0Theo	0TheoHL
+0103FD71	0303FD71	BWCGuard1	Blackwood Company Guard	M	0TheTruth	0TheTruthHL
+0103FD72	0303FD72	BWCGuard2	Blackwood Company Guard	M	0RedRobin	0RedRobinHL
+0104118F	0304118F	SEZealotBoss1HighElfFemale	Zealot Neophyte	F	0Lenore	0LenoreHL
+01041190	03041190	SEZealotBoss2HighElfFemale	Zealot Missionary	F	0Lenore	0LenoreHL
+01041191	03041191	SEZealotBoss3BretonFemale	Zealot Proselytizer	F	0Lenore	0LenoreHL
+01041192	03041192	SEZealotBoss4HighElfFemale	Zealot Matriarch	F	0Lamb	0LambHL
+01041193	03041193	SEZealotBoss5BretonFemale	Ascended Zealot	F	0Leona	0LeonaHL
+01041194	03041194	SEZealot1HighElfMale	Zealot Neophyte	M	0Victor	0VictorHL
+01041195	03041195	SEZealot2HighElfMale	Zealot Missionary	M	0RedRobin	0RedRobinHL
+01041196	03041196	SEZealot3HighElfMale	Zealot Prosleytizer	M	0Victor	0VictorHL
+01041197	03041197	SEZealot4HighElfMale	Zealot Patriarch	M	0Theo	0TheoHL
+01041198	03041198	SEZealot5HighElfMale	Ascended Zealot	M	0RedRobin	0RedRobinHL
+01041199	03041199	SEZealot1HighElfFemale	Zealot Neophyte	F	0Lamb	0LambHL
+0104119A	0304119A	SEZealot2HighElfFemale	Zealot Missionary	F	0Leona	0LeonaHL
+0104119B	0304119B	SEZealot3HighElfFemale	Zealot Prosleytizer	F	0Koala	0KoalaHL
+0104119C	0304119C	SEZealot4HighElfFemale	Zealot Matriarch	F	0Lenore	0LenoreHL
+0104119D	0304119D	SEZealot5HighElfFemale	Ascended Zealot	F	0Leona	0LeonaHL
+010411F3	030411F3	SEThaedil	Thaedil	F	0Laurell	0LaurellHL
+01041273	03041273	SEHeretic1BretonFemale	Heretic Novitiate	F	0Laurell	0LaurellHL
+01041274	03041274	SEHeretic2BretonFemale	Heretic Soldier	F	0Lamb	0LambHL
+01041275	03041275	SEHeretic3BretonFemale	Heretic Crusader	F	0Lamb	0LambHL
+01041276	03041276	SEHeretic4HighElfMale	Heretic Warpriest	M	0Victor	0VictorHL
+01041277	03041277	SEHeretic5BretonFemale	Transformed Heretic	F	0Laurell	0LaurellHL
+01041278	03041278	SEHeretic1BretonMale	Heretic Novitiate	M	0TheTruth	0TheTruthHL
+01041279	03041279	SEHeretic2BretonMale	Heretic Soldier	M	0Theo	0TheoHL
+0104127A	0304127A	SEHeretic3BretonMale	Heretic Crusader Witch	M	0TheTruth	0TheTruthHL
+0104127D	0304127D	SEHereticBoss1BretonMale	Heretic Novitiate	M	0TheTruth	0TheTruthHL
+0104127E	0304127E	SEHereticBoss2BretonMale	Heretic Soldier	M	0Victor	0VictorHL
+0104127F	0304127F	SEHereticBoss3BretonMale	Heretic Crusader	M	0Victor	0VictorHL
+01041280	03041280	SEHereticBoss4BretonMale	Heretic Warpriest	M	0TheTruth	0TheTruthHL
+01041281	03041281	SEHereticBoss5BretonMale	Transformed Heretic	M	0TheTruth	0TheTruthHL
+0104136C	0304136C	SE08DarkSeducerDeadMale	Dark Seducer	M	0Theo	0TheoHL
+0104136D	0304136D	SE08GoldenSaintDeadMale	Golden Saint	M	0TheTruth	0TheTruthHL
+0104150F	0304150F	SEDarkSeducerFemaleBoss	Dark Seducer	F	0Lamb	0LambHL
+01041510	03041510	SEGoldenSaintFemaleBoss	Golden Saint	F	0Koala	0KoalaHL
+01041511	03041511	SEDarkSeducerFemaleMage	Dark Seducer Mage	F	0Koala	0KoalaHL
+01041512	03041512	SEGoldenSaintFemaleMage	Golden Saint Mage	F	0Leona	0LeonaHL
+01041712	03041712	SEGoldenSaintMaleMelee	Golden Saint	M	0RedRobin	0RedRobinHL
+01041713	03041713	SEDarkSeducerMaleMelee	Dark Seducer	M	0Theo	0TheoHL
+01041D90	03041D90	SEYngvar	Yngvar Doom-Sayer	M	0RedRobin	0RedRobinHL
+01042FED	03042FED	SE05SeducerEscort	Dark Seducer	M	0Theo	0TheoHL
+01043824	03043824	SE09Victim01	Victim	F	0Koala	0KoalaHL
+01043825	03043825	SE09Victim02	Victim	M	0Theo	0TheoHL
+01043F17	03043F17	SE06DarkSeducerMeleeAttackRoomA01	Dark Seducer	F	0Leona	0LeonaHL
+01044044	03044044	SE09ExperimentCorpse01	Test Subject	F	0Leona	0LeonaHL
+010440FB	030440FB	SE09ExperimentCorpse02	Test Subject	M	0Victor	0VictorHL
+0104412A	0304412A	SE06DarkSeducerUlfriBodyguard02	Dark Seducer	F	0Lamb	0LambHL
+01045418	03045418	TRAPVictimDarkSeducer	Dark Seducer	M	0Victor	0VictorHL
+01045512	03045512	SE08KnightHoldPosition	Knight of Order	M	0Victor	0VictorHL
+01045631	03045631	SE14Dancer1	Dancer	F	0Leona	0LeonaHL
+0104566E	0304566E	SE09Victim03	Victim	M	0Victor	0VictorHL
+01045762	03045762	SEDarkSeducerGuardPost	Dark Seducer Guard	F	0Laurell	0LaurellHL
+010457D9	030457D9	SEGoldenSaintGuardPost	Golden Saint Guard	F	0Leona	0LeonaHL
+0104593F	0304593F	SEGoldenSaintGuardWildernessOfficer	Golden Saint Aurgezel	F	0Lenore	0LenoreHL
+01045946	03045946	SEGoldenSaintGuardWilderness1	Golden Saint Guard	F	0Lenore	0LenoreHL
+010459A8	030459A8	SESummonGoldenSaintFemale	Golden Saint	F	0Lenore	0LenoreHL
+010459A9	030459A9	SESummonDarkSeducerFemale	Dark Seducer	F	0Laurell	0LaurellHL
+010459C0	030459C0	SEDarkSeducerGuardWildernessOfficer	Dark Seducer Kiskedrig	F	0Koala	0KoalaHL
+010459C1	030459C1	SEDarkSeducerGuardWilderness1	Dark Seducer Guard	F	0Koala	0KoalaHL
+01045F7E	03045F7E	DarkPrisonGuardTaunt	Imperial Prison Guard	M	0TheTruth	0TheTruthHL
+01045F7F	03045F7F	DarkPrisonGuard03	Imperial Prison Guard	M	0RedRobin	0RedRobinHL
+0104630B	0304630B	MQ10BrumaGuard02	Bruma Guard	M	0Theo	0TheoHL
+01046315	03046315	MQ10BrumaGuard03	Bruma Guard	M	0RedRobin	0RedRobinHL
+01046318	03046318	MQ10BrumaGuard04	Bruma Guard	M	0RedRobin	0RedRobinHL
+01046319	03046319	MQ10BrumaGuard05	Bruma Guard	M	0Victor	0VictorHL
+01046653	03046653	ArenaMouth	Arena Mouth	M	0TheTruth	0TheTruthHL
+01046691	03046691	MQ15MythicDawnLowM02	Ascended Immortal	M	0RedRobin	0RedRobinHL
+01046692	03046692	MQ15MythicDawnLowM04	Ascended Immortal	M	0Victor	0VictorHL
+0104679E	0304679E	SEDarkSeducerGuardPatrolDay	Dark Seducer Guard	F	0Leona	0LeonaHL
+0104679F	0304679F	SEGoldenSaintGuardPatrol3	Golden Saint Guard	F	0Leona	0LeonaHL
+010467A0	030467A0	SEGoldenSaintGuardPatrolNight	Golden Saint Guard	F	0Leona	0LeonaHL
+010467A3	030467A3	SEGoldenSaintGuardPatrolDay	Golden Saint Guard	F	0Lamb	0LambHL
+010467CE	030467CE	SEDarkSeducerGuardPatrolNight	Dark Seducer Guard	F	0Leona	0LeonaHL
+01046830	03046830	SE14GSFemaleMelee	Golden Saint	F	0Koala	0KoalaHL
+01046836	03046836	SE14DSFemaleMelee	Dark Seducer	F	0Lamb	0LambHL
+0104683B	0304683B	SE14VoiceofSheogorath	Voice	M	0TheTruth	0TheTruthHL
+010471C2	030471C2	SE10Brellach04aTemplate	Knight of Order	M	0Theo	0TheoHL
+01047389	03047389	Dremora1CaitiffMelee3	Dremora Caitiff	M	0RedRobin	0RedRobinHL
+0104738A	0304738A	Dremora2KynvalMelee3	Dremora Kynval	M	0RedRobin	0RedRobinHL
+0104738B	0304738B	Dremora3KynreeveMelee3	Dremora Kynreeve	M	0RedRobin	0RedRobinHL
+0104738C	0304738C	Dremora4KynmarcherMelee3	Dremora Kynmarcher	M	0Victor	0VictorHL
+0104738D	0304738D	Dremora5MarkynazMelee3	Dremora Markynaz	M	0Victor	0VictorHL
+0104738E	0304738E	Dremora6ValkynazMelee3	Dremora Valkynaz	M	0TheTruth	0TheTruthHL
+01047720	03047720	ViniciaMelissaeia	Vinicia Melissaeia	F	0Lamb	0LambHL
+010477D4	030477D4	Jair	Jair	M	0Theo	0TheoHL
+010477DB	030477DB	BronsilaKvinchal	Bronsila Kvinchal	F	0Lenore	0LenoreHL
+010477DC	030477DC	VlanarusKvinchal	Vlanarus Kvinchal	M	0TheTruth	0TheTruthHL
+010477DD	030477DD	KastavKvinchal	Kastav Kvinchal	M	0Theo	0TheoHL
+010477E5	030477E5	IsleifTheOpenHanded	Isleif the Open Handed	M	0Theo	0TheoHL
+010477EC	030477EC	DranasLlethro	Dranas Llethro	M	0Victor	0VictorHL
+010477ED	030477ED	HillodTheOutlaw	Hillod the Outlaw	M	0Victor	0VictorHL
+010479F5	030479F5	CatFace	Cat-Face	M	0Victor	0VictorHL
+010479F7	030479F7	Atahba	Atahba	F	0Laurell	0LaurellHL
+0104872A	0304872A	MG13Vampire01Warrior	Bloodcrust Vampire	M	0Victor	0VictorHL
+0104872B	0304872B	MG13Vampire02Spellsword	Bloodcrust Vampire	M	0Theo	0TheoHL
+010488F3	030488F3	AntoineBranck	Antoine Branck	M	0Theo	0TheoHL
+0104892E	0304892E	MQ16DeadPalaceGuard	Palace Guard	M	0Theo	0TheoHL
+0104892F	0304892F	MQ16ImperialCaptain01	Imperial Legion Captain	M	0RedRobin	0RedRobinHL
+0104894F	0304894F	MQ16DremoraKynval	Dremora Kynval	M	0TheTruth	0TheTruthHL
+01048962	03048962	DarkFirstMate	First Mate Malvulis	F	0Koala	0KoalaHL
+01048968	03048968	DarkDoorSpeakNPC	Sanctuary Door Voice	M	0RedRobin	0RedRobinHL
+01049197	03049197	MG13Vampire04Warrior	Bloodcrust Vampire	F	0Laurell	0LaurellHL
+010493AE	030493AE	DarkPirate4	Pirate	M	0Theo	0TheoHL
+0104981E	0304981E	TestTakeCoverFighter1	TestTakeCoverFighter1	M	0Victor	0VictorHL
+0104981F	0304981F	TestTakeCoverFighter2	TestTakeCoverFighter2	M	0Theo	0TheoHL
+01049820	03049820	TestTakeCoverCaster1	TestTakeCoverCaster1	M	0TheTruth	0TheTruthHL
+01049821	03049821	TestTakeCoverCaster2	TestTakeCoverCaster2	M	0RedRobin	0RedRobinHL
+01049880	03049880	DarkPirate5	Pirate	M	0TheTruth	0TheTruthHL
+01049882	03049882	DarkPirate6	Pirate	M	0TheTruth	0TheTruthHL
+0104A2BF	0304A2BF	ICPalaceGuardGreenWay01	Palace Guard	M	0TheTruth	0TheTruthHL
+0104A2C2	0304A2C2	MQ16DremoraCouncilChamberAttack	Dremora Kynval	M	0TheTruth	0TheTruthHL
+0104A866	0304A866	SE13GoldenSaintDead	Golden Saint	F	0Koala	0KoalaHL
+0104A86F	0304A86F	SEGoldenSaintGuardPalacePatrol1	Golden Saint Guard	F	0Lenore	0LenoreHL
+0104A871	0304A871	SEDarkSeducerGuardPalacePatrol1	Dark Seducer Guard	F	0Leona	0LeonaHL
+0104A938	0304A938	MQ16ImperialWatch	Imperial Watch	M	0Victor	0VictorHL
+0104B76F	0304B76F	TG06PaleLadyVampire	Pale Lady	F	0Leona	0LeonaHL
+0104B909	0304B909	ConjurerMaleHighElf4	Conjurer	M	0TheTruth	0TheTruthHL
+0104B928	0304B928	ConjurerMaleBreton3	Conjurer	M	0RedRobin	0RedRobinHL
+0104B929	0304B929	ConjurerMaleBreton2	Conjurer	M	0Victor	0VictorHL
+0104B92A	0304B92A	ConjurerMaleHighElf3	Conjurer	M	0RedRobin	0RedRobinHL
+0104B92B	0304B92B	ConjurerFemaleBreton3	Conjurer	F	0Lamb	0LambHL
+0104B92C	0304B92C	ConjurerFemaleHighElf2	Conjurer	F	0Koala	0KoalaHL
+0104B92D	0304B92D	ConjurerFemaleHighElf4	Conjurer	F	0Leona	0LeonaHL
+0104B92E	0304B92E	ConjurerFemaleHighElf3	Conjurer	F	0Lamb	0LambHL
+0104B936	0304B936	NecromancerMaleBreton4	Necromancer	M	0Victor	0VictorHL
+0104B937	0304B937	NecromancerMaleHighElf2	Necromancer	M	0Theo	0TheoHL
+0104B938	0304B938	NecromancerMaleHighElf3	Necromancer	M	0TheTruth	0TheTruthHL
+0104B939	0304B939	NecromancerFemaleBreton4	Necromancer	F	0Leona	0LeonaHL
+0104B93A	0304B93A	NecromancerFemaleBreton2	Necromancer	F	0Laurell	0LaurellHL
+0104B93B	0304B93B	NecromancerFemaleHighElf4	Necromancer	F	0Leona	0LeonaHL
+0104B93C	0304B93C	NecromancerFemaleHighElf3	Necromancer	F	0Lenore	0LenoreHL
+0104B940	0304B940	ConjurerBossFemaleBreton	Conjurer Adept	F	0Koala	0KoalaHL
+0104B941	0304B941	ConjurerBossFemaleHighElf	Conjurer Adept	F	0Leona	0LeonaHL
+0104B942	0304B942	ConjurerBossMaleHighElf	Conjurer Adept	M	0Victor	0VictorHL
+0104B943	0304B943	ConjurerBossMaleBreton	Conjurer Adept	M	0TheTruth	0TheTruthHL
+0104B945	0304B945	NecromancerBossFemaleHighElf	Necromancer Adept	F	0Koala	0KoalaHL
+0104B946	0304B946	NecromancerBossFemaleBreton	Necromancer Adept	F	0Koala	0KoalaHL
+0104B947	0304B947	NecromancerBossMaleHighElf	Necromancer Adept	M	0Theo	0TheoHL
+0104B948	0304B948	NecromancerBossMaleBreton	Necromancer Adept	M	0RedRobin	0RedRobinHL
+0104B9FE	0304B9FE	SERottenPatrol01TEMPLATE	Ascended Zealot	M	0Victor	0VictorHL
+0104BA06	0304BA06	SERottenPatrol02TEMPLATE	Zealot Neophyte	M	0Victor	0VictorHL
+0104BA28	0304BA28	SERottenDenZealotBoss1TEMPLATE	Zealot Neophyte	M	0RedRobin	0RedRobinHL
+0104BD31	0304BD31	SE14Healer1	Court Healer	F	0Leona	0LeonaHL
+0104BFB1	0304BFB1	MQ16ImperialArcherDagonAttack	Imperial Legion Archer	M	0TheTruth	0TheTruthHL
+0104BFB2	0304BFB2	MQ16ImperialSoldierDagonAttack	Imperial Legion Soldier	M	0RedRobin	0RedRobinHL
+0104D52D	0304D52D	SERottenPatrol05aTEMPLATE	Zealot Neophyte	M	0Victor	0VictorHL
+0104D54F	0304D54F	SERottenPatrol05bTEMPLATE	Zealot Neophyte	M	0RedRobin	0RedRobinHL
+0104D7D0	0304D7D0	SERottenPatrol06TEMPLATE	Zealot Neophyte	M	0Theo	0TheoHL
+0104D83C	0304D83C	Nardhil	Nardhil	F	0Laurell	0LaurellHL
+0104DAEE	0304DAEE	SE05SummonedSeducer2	Dark Seducer	F	0Lenore	0LenoreHL
+0104DAF3	0304DAF3	SE05SummonedSeducer3	Dark Seducer	F	0Koala	0KoalaHL
+0104DAF7	0304DAF7	SE05SummonedSeducer4	Dark Seducer	F	0Lamb	0LambHL
+0104DE82	0304DE82	Dark06Lorkmir	Lorkmir	M	0Victor	0VictorHL
+0104E887	0304E887	MivrynaArano	Mivryna Arano	F	0Lenore	0LenoreHL
+0104EF69	0304EF69	CheydinhalGuardCityPostDay03	Cheydinhal Guard	M	0Theo	0TheoHL
+0104EF6F	0304EF6F	CheydinhalGuardCityPostNight03	Cheydinhal Guard	M	0Theo	0TheoHL
+0104EFF9	0304EFF9	CheydinhalGuardCityPostDay04	Cheydinhal Guard	M	0RedRobin	0RedRobinHL
+0104EFFA	0304EFFA	CheydinhalGuardCityPostNight04	Cheydinhal Guard	M	0Victor	0VictorHL
+0104EFFB	0304EFFB	AnvilGuardCityPostDay03	Anvil Guard	M	0Victor	0VictorHL
+0104EFFC	0304EFFC	AnvilGuardCityPostNight03	Anvil Guard	M	0TheTruth	0TheTruthHL
+0104EFFD	0304EFFD	BravilGuardCastlePostDay03	Bravil Guard	M	0Theo	0TheoHL
+0104EFFE	0304EFFE	BravilGuardCastlePostNight03	Bravil Guard	M	0TheTruth	0TheTruthHL
+0104F125	0304F125	TestToddManNoShield	Alban Corinis	M	0TheTruth	0TheTruthHL
+0104F126	0304F126	TestToddManHammer	Alban Corinis	M	0Victor	0VictorHL
+0104F705	0304F705	TestGoblinJim	Goblin Jim	M	0Theo	0TheoHL
+0104F77D	0304F77D	JanoniaAurunceia	Janonia Aurunceia	F	0Leona	0LeonaHL
+0104F77E	0304F77E	JanuariusAurunceia	Januarius Aurunceia	M	0RedRobin	0RedRobinHL
+01050C85	03050C85	SE32GenericFanatic02	Ghost Fanatic	M	0Victor	0VictorHL
+01050C86	03050C86	SE32GenericFanatic03	Ghost Fanatic	M	0Theo	0TheoHL
+01050C87	03050C87	SE32genericDefender02	Vitharn Ghost Soldier	F	0Lenore	0LenoreHL
+01050C88	03050C88	SE32genericDefender03	Vitharn Ghost Soldier	M	0Theo	0TheoHL
+01050C89	03050C89	SE32GenericFanaticMissile01	Ghost Fanatic Archer	M	0Theo	0TheoHL
+01050C8A	03050C8A	SE32GenericFanaticMissile02	Ghost Fanatic Archer	M	0TheTruth	0TheTruthHL
+01050C8B	03050C8B	SE32GenericFanaticMissile03	Ghost Fanatic Archer	M	0TheTruth	0TheTruthHL
+01050C8D	03050C8D	SE32genericDefenderMissile01	Vitharn Ghost Archer	M	0Theo	0TheoHL
+01050C8E	03050C8E	SE32genericDefenderMissile02	Vitharn Ghost Archer	F	0Lamb	0LambHL
+01050C8F	03050C8F	SE32genericDefenderMissile03	Vitharn Ghost Archer	F	0Lenore	0LenoreHL
+010514C4	030514C4	Aengvir	Aengvir	M	0Theo	0TheoHL
+010514C5	030514C5	DeetumJa	Deetum-Ja	M	0TheTruth	0TheTruthHL
+010514C6	030514C6	Smirra	S'mirra	F	0Koala	0KoalaHL
+01051EDB	03051EDB	DAHircineVoice	Hircine's Voice for Recording	M	0Theo	0TheoHL
+01051EE2	03051EE2	DAMalacathVoice	Malacath's Voice for Recording	M	0RedRobin	0RedRobinHL
+01051EE3	03051EE3	DAMephalaVoice	Mephala's Voice for Recording	F	0Lamb	0LambHL
+01052449	03052449	TestJuan	Bruce	M	0Victor	0VictorHL
+0105282E	0305282E	SEHeretic1HighElfFemale	Heretic Novitiate	F	0Koala	0KoalaHL
+0105282F	0305282F	SEHeretic1HighElfMale	Heretic Novitiate	M	0Theo	0TheoHL
+01052830	03052830	SEHeretic2HighElfFemale	Heretic Soldier	F	0Koala	0KoalaHL
+01052831	03052831	SEHeretic2HighElfMale	Heretic Soldier	M	0Victor	0VictorHL
+01052832	03052832	SEHeretic3HighElfFemale	Heretic Crusader	F	0Lenore	0LenoreHL
+01052833	03052833	SEHeretic3HighElfMale	Heretic Crusader Witch	M	0TheTruth	0TheTruthHL
+01052834	03052834	SEHeretic4HighElfFemale	Heretic Warpriest	F	0Laurell	0LaurellHL
+01052835	03052835	SEHeretic4BretonFemale	Heretic Warpriest	F	0Leona	0LeonaHL
+01052836	03052836	SEHeretic4BretonMale	Heretic Warpriest	M	0Theo	0TheoHL
+01052837	03052837	SEHeretic5BretonMale	Transformed Heretic	M	0TheTruth	0TheTruthHL
+01052838	03052838	SEHeretic5HighElfFemale	Transformed Heretic	F	0Leona	0LeonaHL
+01052839	03052839	SEHeretic5HighElfMale	Transformed Heretic	M	0TheTruth	0TheTruthHL
+0105283A	0305283A	SEHereticBoss1HighElfMale	Heretic Novitiate	M	0TheTruth	0TheTruthHL
+0105283B	0305283B	SEHereticBoss2HighElfMale	Heretic Soldier	M	0TheTruth	0TheTruthHL
+0105283C	0305283C	SEHereticBoss3HighElfMale	Heretic Crusader	M	0TheTruth	0TheTruthHL
+0105283D	0305283D	SEHereticBoss4HighElfMale	Heretic Warpriest	M	0Victor	0VictorHL
+0105283E	0305283E	SEHereticBoss5HighElfMale	Transformed Heretic	M	0Victor	0VictorHL
+0105283F	0305283F	SEZealotBoss1BretonFemale	Zealot Neophyte	F	0Laurell	0LaurellHL
+01052840	03052840	SEZealotBoss2BretonFemale	Zealot Missionary	F	0Leona	0LeonaHL
+01052841	03052841	SEZealotBoss3HighElfFemale	Zealot Proselytizer	F	0Leona	0LeonaHL
+01052842	03052842	SEZealotBoss4BretonFemale	Zealot Matriarch	F	0Koala	0KoalaHL
+01052843	03052843	SEZealotBoss5HighElfFemale	Ascended Zealot	F	0Koala	0KoalaHL
+01052844	03052844	SEZealot1BretonFemale	Zealot Neophyte	F	0Lenore	0LenoreHL
+01052845	03052845	SEZealot1BretonMale	Zealot Neophyte	M	0Theo	0TheoHL
+01052846	03052846	SEZealot2BretonFemale	Zealot Missionary	F	0Koala	0KoalaHL
+01052847	03052847	SEZealot2BretonMale	Zealot Missionary	M	0Victor	0VictorHL
+01052848	03052848	SEZealot3BretonFemale	Zealot Prosleytizer	F	0Leona	0LeonaHL
+01052849	03052849	SEZealot3BretonMale	Zealot Prosleytizer	M	0Victor	0VictorHL
+0105284A	0305284A	SEZealot4BretonFemale	Zealot Matriarch	F	0Lenore	0LenoreHL
+0105284B	0305284B	SEZealot4BretonMale	Zealot Patriarch	M	0TheTruth	0TheTruthHL
+0105284C	0305284C	SEZealot5BretonFemale	Ascended Zealot	F	0Koala	0KoalaHL
+0105284D	0305284D	SEZealot5BretonMale	Ascended Zealot	M	0RedRobin	0RedRobinHL
+01052F61	03052F61	SE32Anglor	Anglor's Ghost	M	0Victor	0VictorHL
+01052F6F	03052F6F	SE32Reveler01	Vitharn Ghost Reveler	M	0TheTruth	0TheTruthHL
+01052F70	03052F70	SE32Reveler02	Vitharn Ghost Reveler	F	0Koala	0KoalaHL
+01052F72	03052F72	SE32Reveler04	Vitharn Ghost Reveler	F	0Koala	0KoalaHL
+01052F74	03052F74	SE32Reveler06	Vitharn Reveler	F	0Lenore	0LenoreHL
+01052F90	03052F90	SE07ADarkSeducerEliteQuartersGuard01	Dark Seducer Royal Guard	F	0Laurell	0LaurellHL
+01052F92	03052F92	SE07ADarkSeducerEliteQuartersGuard02	Dark Seducer Royal Guard	F	0Koala	0KoalaHL
+01052FE3	03052FE3	SE11Apostle03	Apostle	M	0RedRobin	0RedRobinHL
+01052FE4	03052FE4	SE11Apostle04	Apostle	M	0TheTruth	0TheTruthHL
+01052FE5	03052FE5	SE11Apostle05	Luminary Kaz	M	0RedRobin	0RedRobinHL
+01053095	03053095	SE07ADarkSeducerEliteChambersGuard02	Dark Seducer Royal Guard	F	0Lamb	0LambHL
+01053096	03053096	SE07ADarkSeducerEliteChambersGuard01	Dark Seducer Royal Guard	F	0Laurell	0LaurellHL
+01053788	03053788	TyrelliusLogellus	Tyrellius Logellus	M	0Theo	0TheoHL
+0105378D	0305378D	TyrelliusLogellusOffDuty	Tyrellius Logellus	M	0RedRobin	0RedRobinHL
+0105383F	0305383F	ArnoraCorpse	Arnora	F	0Lamb	0LambHL
+010538DA	030538DA	TestToddDremoraHelm	Dremora Test	M	0TheTruth	0TheTruthHL
+01053FE8	03053FE8	MS94ImperialArcher	Imperial Legion Soldier	M	0RedRobin	0RedRobinHL
+01053FEA	03053FEA	MS94Dremora	Dremora Kynval	M	0Victor	0VictorHL
+01053FEE	03053FEE	MS94ImperialCaptain	Imperial Legion Captain	M	0TheTruth	0TheTruthHL
+010545D9	030545D9	Tilmo	Tilmo	M	0TheTruth	0TheTruthHL
+0105466B	0305466B	MS94ImperialSoldier	Imperial Legion Soldier	M	0Theo	0TheoHL
+010546F2	030546F2	ICArboretumPatrolDay01	Imperial Watch	M	0Theo	0TheoHL
+010546FA	030546FA	ICArboretumPatrolDay02	Imperial Watch	M	0Theo	0TheoHL
+010546FD	030546FD	ICArboretumPatrolNight01	Imperial Watch	M	0Theo	0TheoHL
+01054702	03054702	ICArboretumPatrolNight02	Imperial Watch	M	0Theo	0TheoHL
+01054971	03054971	SE06GoldenSaint02	Golden Saint	F	0Lenore	0LenoreHL
+01054979	03054979	SE06GoldenSaint03	Golden Saint	F	0Lamb	0LambHL
+0105497A	0305497A	SE06GoldenSaint04	Golden Saint	F	0Lenore	0LenoreHL
+0105497E	0305497E	SE06GoldenSaint05	Golden Saint	F	0Lenore	0LenoreHL
+0105497F	0305497F	SE06DarkSeducerMeleeAttackRoomA02	Dark Seducer	F	0Leona	0LeonaHL
+01054980	03054980	SE06DarkSeducerMeleeAttackRoomA03	Dark Seducer	F	0Leona	0LeonaHL
+01054981	03054981	SE06DarkSeducerMissileHoldPosition01	Dark Seducer	F	0Laurell	0LaurellHL
+01054982	03054982	SE06DarkSeducerMissileHoldPosition03	Dark Seducer	F	0Lamb	0LambHL
+01054983	03054983	SE06DarkSeducerMissileHoldPosition04	Dark Seducer	F	0Lenore	0LenoreHL
+01054984	03054984	SE06DarkSeducerMissileHoldPosition05	Dark Seducer	F	0Laurell	0LaurellHL
+01054B41	03054B41	SE09Victim04	Victim	F	0Leona	0LeonaHL
+01054B42	03054B42	SE09Victim05	Victim	M	0TheTruth	0TheTruthHL
+01054B43	03054B43	SE09Victim06	Victim	M	0RedRobin	0RedRobinHL
+01054CA1	03054CA1	SE11Apostle06	Apostle	M	0RedRobin	0RedRobinHL
+01054CA2	03054CA2	SE11Apostle07	Apostle	M	0Victor	0VictorHL
+01054CD3	03054CD3	SE10SaintMaleWarrior1	Golden Saint Warrior	M	0RedRobin	0RedRobinHL
+01054CD5	03054CD5	SE10SaintMaleWarrior2	Golden Saint Warrior	M	0RedRobin	0RedRobinHL
+01054CD6	03054CD6	SE10SaintMaleWarrior3	Golden Saint Warrior	M	0TheTruth	0TheTruthHL
+01054CD7	03054CD7	SE10SaintMaleWarrior4	Golden Saint Warrior	M	0Theo	0TheoHL
+01054FE7	03054FE7	SEBreakneckPatrol01	Heretic Watchman	M	0TheTruth	0TheTruthHL
+01055000	03055000	SEBreakneckPatrol02	Heretic Watchman	M	0Victor	0VictorHL
+01055007	03055007	SEBreakneckNovitiate	Heretic Novitiate	F	0Laurell	0LaurellHL
+01055125	03055125	SE07XirethardDarkSeducerPatrol02	Dark Seducer Archer	F	0Koala	0KoalaHL
+01055126	03055126	SE07XirethardDarkSeducerPatrol01	Dark Seducer Mage	F	0Lenore	0LenoreHL
+01055127	03055127	SE07XirethardDarkSeducerPatrol03	Dark Seducer	F	0Lenore	0LenoreHL
+01055139	03055139	SE07XirethardDarkSeducerPatrol04	Dark Seducer Archer	F	0Leona	0LeonaHL
+01055199	03055199	SE08MiniBoss	Knight of Order	M	0RedRobin	0RedRobinHL
+0105530E	0305530E	TestTrapVictimHigh	LCD	F	0Lenore	0LenoreHL
+0105530F	0305530F	TestTrapVictimLow	LCD	F	0Laurell	0LaurellHL
+01055421	03055421	SERottenPatrol07aTEMPLATE	Zealot Neophyte	M	0Victor	0VictorHL
+01055422	03055422	SERottenPatrol07bTEMPLATE	Zealot Neophyte	M	0Theo	0TheoHL
+0105544F	0305544F	SERottenDenZealotBoss2TEMPLATE	Zealot Neophyte	F	0Leona	0LeonaHL
+010554E5	030554E5	SE10SeducerMaleWarrior1	Dark Seducer Warrior	M	0Victor	0VictorHL
+010554E6	030554E6	SE10SeducerMaleWarrior2	Dark Seducer Warrior	M	0Victor	0VictorHL
+010554E7	030554E7	SE10SeducerMaleWarrior3	Dark Seducer Warrior	M	0RedRobin	0RedRobinHL
+010554E8	030554E8	SE10SeducerMaleWarrior4	Dark Seducer Warrior	M	0Victor	0VictorHL
+01055877	03055877	SE07ASESylDouble	Syl	F	0Koala	0KoalaHL
+01055FED	03055FED	SE06GoldenSaintVictory	Golden Saint	F	0Koala	0KoalaHL
+01055FEE	03055FEE	SE06DarkSeducerVictory	Dark Seducer	F	0Laurell	0LaurellHL
+01056028	03056028	SE01GateVoice1		M	0Theo	0TheoHL
+0105602E	0305602E	SE07BGoldenSaintPrivateQuartersGuard01	Golden Saint Guard	F	0Lenore	0LenoreHL
+01056039	03056039	SE07BGoldenSaintGardenGuard	Golden Saint Guard	F	0Laurell	0LaurellHL
+0105609D	0305609D	SE32Worshipper02	Vitharn Ghost Citizen	F	0Lamb	0LambHL
+010560D5	030560D5	SE32Worshipper01	Vitharn Ghost Citizen	F	0Laurell	0LaurellHL
+010579C4	030579C4	DAMeridiaVoice		F	0Lenore	0LenoreHL
+01058A8C	03058A8C	ImperialLegionSoldierInnGottshaw	Imperial Legion Soldier	M	0TheTruth	0TheTruthHL
+01058AF5	03058AF5	ImperialLegionSoldierInnWawnet	Imperial Legion Soldier	M	0Victor	0VictorHL
+01059B4B	03059B4B	SE07Xirethard01DarkSeducerPatrol01a	Dark Seducer	F	0Laurell	0LaurellHL
+01059B4C	03059B4C	SE07Xirethard01DarkSeducerPatrol01b	Dark Seducer	F	0Koala	0KoalaHL
+01059B53	03059B53	SE07Xirethard01DarkSeducerDoorGuard01	Dark Seducer	F	0Lenore	0LenoreHL
+01059D2E	03059D2E	Merildor	Merildor	M	0Victor	0VictorHL
+01059D2F	03059D2F	Astante	Astante	F	0Leona	0LeonaHL
+0105A2A5	0305A2A5	SEXPEbroccaMinion	Clanfather Malifant	M	0RedRobin	0RedRobinHL
+0105C01E	0305C01E	DANamiraVoice		M	0TheTruth	0TheTruthHL
+0105D369	0305D369	MQ15MythicDawnXivCatcher	Ascended Immortal	M	0RedRobin	0RedRobinHL
+0105D516	0305D516	NorasaAdus	Norasa Adus	F	0Koala	0KoalaHL
+0105D517	0305D517	BrusciusLongus	Bruscius Longus	M	0RedRobin	0RedRobinHL
+0105D545	0305D545	Demetrius	Demetrius	M	0Victor	0VictorHL
+0105D547	0305D547	JavoliaMaborel	Javolia Maborel	F	0Lamb	0LambHL
+0105DC98	0305DC98	DANamiraForgotten1a	Forgotten One	F	0Lamb	0LambHL
+0105DC99	0305DC99	DANamiraForgotten1b	Forgotten One	M	0Victor	0VictorHL
+0105DC9C	0305DC9C	DANamiraForgotten2a	Forgotten One	F	0Laurell	0LaurellHL
+0105DC9D	0305DC9D	DANamiraForgotten2b	Forgotten One	M	0Victor	0VictorHL
+0105DCA0	0305DCA0	DANamiraForgotten3a	Forgotten One	M	0Theo	0TheoHL
+0105DCA1	0305DCA1	DANamiraForgotten3b	Forgotten One	F	0Koala	0KoalaHL
+0105DCA4	0305DCA4	DANamiraForgotten4a	Forgotten One	F	0Koala	0KoalaHL
+0105DCA5	0305DCA5	DANamiraForgotten4b	Forgotten One	M	0RedRobin	0RedRobinHL
+0105FA44	0305FA44	SEDredhwenOrdered	Dredhwen	F	0Laurell	0LaurellHL
+0105FA45	0305FA45	SEFelasSarandasOrdered	Felas Sarandas	M	0Victor	0VictorHL
+0105FA47	0305FA47	SEJayredIceVeinsOrdered	Jayred Ice-Veins	M	0Victor	0VictorHL
+0105FA48	0305FA48	SENanetteDonOrdered	Nanette Don	F	0Leona	0LeonaHL
+01060793	03060793	SEGrommokgroBarakGhosted	Grommok gro-Barak	M	0TheTruth	0TheTruthHL
+010607E1	030607E1	SE14Juggler	Juggler	F	0Laurell	0LaurellHL
+010613B8	030613B8	Torbern	Torbern	M	0Theo	0TheoHL
+01061444	03061444	ImperialLegionForester3	Imperial Legion Forester	M	0Theo	0TheoHL
+01061BD7	03061BD7	SEGoldenSaintGuardTEST1	Golden Saint Guard	F	0Lamb	0LambHL
+01062B9E	03062B9E	TestArgonianMale	TestArgonian	M	0RedRobin	0RedRobinHL
+01062D0F	03062D0F	SE32Citizen03	Vitharn Ghost Citizen	F	0Laurell	0LaurellHL
+01062D10	03062D10	SE32Citizen01	Vitharn Ghost Citizen	F	0Lamb	0LambHL
+0106371E	0306371E	SEJyggalagVoice		M	0TheTruth	0TheTruthHL
+0106374A	0306374A	SE14GSEscort	Golden Saint Escort	F	0Lamb	0LambHL
+010637AD	030637AD	SE14DSEscort	Dark Seducer Escort	F	0Laurell	0LaurellHL
+0106421B	0306421B	TestHair	TestHair	M	0RedRobin	0RedRobinHL
+01064C1D	03064C1D	DeadCaptive	Dead Captive	M	0Victor	0VictorHL
+01064DA4	03064DA4	TESTBreton	Hlaro Dren	M	0TheTruth	0TheTruthHL
+01064DA5	03064DA5	TESTImperial	Hlaro Dren	M	0Victor	0VictorHL
+01064DA6	03064DA6	TESTKhajiit	Hlaro Dren	M	0Victor	0VictorHL
+01064DA7	03064DA7	TESTNord	Kurz gro-Baroth	M	0Victor	0VictorHL
+01064DA8	03064DA8	TESTRedguard	Kurz gro-Baroth	M	0TheTruth	0TheTruthHL
+010651A7	030651A7	DeadCaptive02	Dead Captive	M	0Theo	0TheoHL
+01065643	03065643	DeadMarauderMeleeMale01	Dead Marauder	M	0RedRobin	0RedRobinHL
+01065E39	03065E39	DeadMarauderMeleeMale02	Dead Marauder	M	0RedRobin	0RedRobinHL
+0106653D	0306653D	TG11PalaceGuard06	Palace Guard	M	0Theo	0TheoHL
+0106653F	0306653F	TG11PalaceGuard05	Palace Guard	M	0TheTruth	0TheTruthHL
+010666E7	030666E7	TG11PalaceGuard01	Palace Guard	M	0RedRobin	0RedRobinHL
+010666E9	030666E9	TG11PalaceGuard02	Palace Guard	M	0TheTruth	0TheTruthHL
+010666EB	030666EB	TG11PalaceGuard03	Palace Guard	M	0RedRobin	0RedRobinHL
+010666EC	030666EC	TG11PalaceGuard04	Palace Guard	M	0Theo	0TheoHL
+010666FF	030666FF	TG11PalaceGuard00	Palace Guard	M	0Theo	0TheoHL
+01066ECB	03066ECB	SEPyke	Pyke	M	0Victor	0VictorHL
+01067417	03067417	Skasha	S'kasha	F	0Laurell	0LaurellHL
+01067418	03067418	AntusFlonius	Antus Flonius	M	0Victor	0VictorHL
+01067BB2	03067BB2	DeadTreasureHunter	Dead Treasure Hunter	M	0Victor	0VictorHL
+01068459	03068459	RestitaStatlilia	Restita Statlilia	F	0Laurell	0LaurellHL
+0106845A	0306845A	BrielusGawey	Brielus Gawey	M	0Theo	0TheoHL
+0106988F	0306988F	SEBeggarBolwing	Bolwing	M	0Victor	0VictorHL
+01069895	03069895	SEBeggarGloorolros	Gloorolros	M	0TheTruth	0TheTruthHL
+0106989A	0306989A	SEBeggarFimmion	Fimmion	M	0TheTruth	0TheTruthHL
+0106989C	0306989C	SEBeggarUungor	Uungor	M	0TheTruth	0TheTruthHL
+01069AD1	03069AD1	BanditMeleeMale4B	Bandit	M	0Theo	0TheoHL
+01069AD2	03069AD2	BanditMissileFemale4B	Bandit Bowman	F	0Koala	0KoalaHL
+01069AD3	03069AD3	BanditMissileMale4B	Bandit Bowman	M	0TheTruth	0TheTruthHL
+01069AD4	03069AD4	BanditWizardMale4B	Bandit Hedge Wizard	M	0RedRobin	0RedRobinHL
+01069AD5	03069AD5	BanditMeleeFemale4B	Bandit	F	0Lamb	0LambHL
+01069AD6	03069AD6	MarauderMageFemale4B	Marauder Battlemage	F	0Koala	0KoalaHL
+01069AD7	03069AD7	MarauderMeleeFemale4B	Marauder	F	0Leona	0LeonaHL
+01069AD8	03069AD8	MarauderMeleeMale4B	Marauder	M	0TheTruth	0TheTruthHL
+01069AD9	03069AD9	MarauderMissileMale4B	Marauder Archer	M	0TheTruth	0TheTruthHL
+01069ADA	03069ADA	ConjurerMaleBreton4	Conjurer	M	0TheTruth	0TheTruthHL
+01069ADB	03069ADB	ConjurerFemaleBreton4	Conjurer	F	0Leona	0LeonaHL
+01069ADC	03069ADC	NecromancerFemaleBreton3	Necromancer	F	0Leona	0LeonaHL
+01069ADD	03069ADD	NecromancerMaleHighElf4	Necromancer	M	0TheTruth	0TheTruthHL
+01069ADE	03069ADE	VampireAcrobat3	Vampire Acrobat	M	0Victor	0VictorHL
+01069ADF	03069ADF	VampireAcrobat4	Vampire Acrobat	F	0Lenore	0LenoreHL
+01069AE0	03069AE0	VampireAgent3	Vampire Agent	M	0TheTruth	0TheTruthHL
+01069AE1	03069AE1	VampireAgent4	Vampire Agent	F	0Koala	0KoalaHL
+01069AE2	03069AE2	VampireArcher3	Vampire Archer	F	0Laurell	0LaurellHL
+01069AE3	03069AE3	VampireArcher4	Vampire Archer	M	0Theo	0TheoHL
+01069AE4	03069AE4	VampireAssassin3	Vampire Assassin	M	0RedRobin	0RedRobinHL
+01069AE5	03069AE5	VampireAssassin4	Vampire Assassin	F	0Laurell	0LaurellHL
+01069AE6	03069AE6	VampireBarbarian3	Vampire Barbarian	F	0Lenore	0LenoreHL
+01069AE7	03069AE7	VampireBarbarian4	Vampire Barbarian	M	0Victor	0VictorHL
+01069AE8	03069AE8	VampireBard3	Vampire Bard	M	0RedRobin	0RedRobinHL
+01069AE9	03069AE9	VampireBard4	Vampire Bard	F	0Lamb	0LambHL
+01069AEA	03069AEA	VampireBattlemage3	Vampire Battlemage	F	0Leona	0LeonaHL
+01069AEB	03069AEB	VampireBattlemage4	Vampire Battlemage	M	0RedRobin	0RedRobinHL
+01069AEC	03069AEC	VampireCrusader3	Vampire Crusader	F	0Lenore	0LenoreHL
+01069AED	03069AED	VampireCrusader4	Vampire Crusader	M	0Theo	0TheoHL
+01069AEE	03069AEE	VampireHealer3	Vampire Sorcerer	M	0TheTruth	0TheTruthHL
+01069AEF	03069AEF	VampireHealer4	Vampire Sorcerer	F	0Lamb	0LambHL
+01069AF0	03069AF0	VampireKnight3	Vampire Knight	F	0Lamb	0LambHL
+01069AF1	03069AF1	VampireKnight4	Vampire Knight	M	0Theo	0TheoHL
+01069AF2	03069AF2	VampireMage3	Vampire Mage	F	0Lamb	0LambHL
+01069AF3	03069AF3	VampireMage4	Vampire Mage	M	0Victor	0VictorHL
+01069AF4	03069AF4	VampireMonk3	Vampire Monk	M	0RedRobin	0RedRobinHL
+01069AF5	03069AF5	VampireMonk4	Vampire Monk	F	0Lenore	0LenoreHL
+01069AF6	03069AF6	VampireNightblade3	Vampire Nightblade	M	0TheTruth	0TheTruthHL
+01069AF7	03069AF7	VampireNightblade4	Vampire Nightblade	F	0Laurell	0LaurellHL
+01069AF8	03069AF8	VampirePilgrim3	Vampire Pilgrim	M	0TheTruth	0TheTruthHL
+01069AF9	03069AF9	VampirePilgrim4	Vampire Pilgrim	F	0Lamb	0LambHL
+01069AFA	03069AFA	VampireRogue3	Vampire Rogue	F	0Koala	0KoalaHL
+01069AFB	03069AFB	VampireRogue4	Vampire Rogue	M	0Victor	0VictorHL
+01069AFC	03069AFC	VampireScout3	Vampire Scout	F	0Koala	0KoalaHL
+01069AFD	03069AFD	VampireScout4	Vampire Scout	M	0Victor	0VictorHL
+01069AFE	03069AFE	VampireSorcerer3	Vampire Sorcerer	F	0Lenore	0LenoreHL
+01069AFF	03069AFF	VampireSorcerer4	Vampire Sorcerer	M	0RedRobin	0RedRobinHL
+01069B00	03069B00	VampireSpellsword3	Vampire Spellsword	F	0Lenore	0LenoreHL
+01069B01	03069B01	VampireSpellsword4	Vampire Spellsword	M	0TheTruth	0TheTruthHL
+01069B02	03069B02	VampireThief3	Vampire Thief	M	0Theo	0TheoHL
+01069B03	03069B03	VampireThief4	Vampire Thief	F	0Lamb	0LambHL
+01069B04	03069B04	VampireWarrior3	Vampire Warrior	F	0Leona	0LeonaHL
+01069B05	03069B05	VampireWarrior4	Vampire Warrior	M	0Victor	0VictorHL
+01069B06	03069B06	VampireWitchhunter3	Vampire Witchhunter	M	0Theo	0TheoHL
+01069B07	03069B07	VampireWitchhunter4	Vampire Witchhunter	F	0Lamb	0LambHL
+0106A82E	0306A82E	MGMageScholar	Mage Scholar	M	0Victor	0VictorHL
+0106A82F	0306A82F	MGMageScholar2	Mage Scholar	M	0Victor	0VictorHL
+0106A830	0306A830	MGMageScholar3	Mage Scholar	F	0Leona	0LeonaHL
+0106A831	0306A831	MGMageApprentice2	Mage Apprentice	M	0Victor	0VictorHL
+0106A832	0306A832	MGMageApprentice3	Mage Apprentice	M	0Victor	0VictorHL
+0106A833	0306A833	MGMageApprentice	Mage Apprentice	F	0Koala	0KoalaHL
+0106AAA9	0306AAA9	MGMageApprentice4	Mage Apprentice	F	0Lenore	0LenoreHL
+0106AAAA	0306AAAA	MGMageApprentice5	Mage Apprentice	M	0Theo	0TheoHL
+0106AAAB	0306AAAB	MGMageApprentice6	Mage Apprentice	M	0Victor	0VictorHL
+0106AAAC	0306AAAC	MGMageApprentice7	Mage Apprentice	M	0RedRobin	0RedRobinHL
+0106AAAD	0306AAAD	MGMageApprentice8	Mage Apprentice	F	0Lenore	0LenoreHL
+0106AAAE	0306AAAE	MGMageApprentice9	Mage Apprentice	M	0RedRobin	0RedRobinHL
+0106AAAF	0306AAAF	MGMageApprentice10	Mage Apprentice	M	0TheTruth	0TheTruthHL
+0106AAB0	0306AAB0	MGMageScholar4	Mage Scholar	F	0Laurell	0LaurellHL
+0106AAB1	0306AAB1	MGMageScholar5	Mage Scholar	M	0RedRobin	0RedRobinHL
+0106AAB2	0306AAB2	MGMageScholar6	Mage Scholar	M	0RedRobin	0RedRobinHL
+0106B32B	0306B32B	SnakgraBura	Snak gra-Bura	F	0Leona	0LeonaHL
+0106B592	0306B592	ImperialLegionForester4	Imperial Legion Forester	M	0TheTruth	0TheTruthHL
+0106BD29	0306BD29	FGD06DeadGuy04	Mattius Wotrus	M	0TheTruth	0TheTruthHL
+0106BD2B	0306BD2B	FGD06DeadGuy05	Ariente	F	0Lamb	0LambHL
+0106BD2D	0306BD2D	FGD06DeadGuy06	Lashana	F	0Leona	0LeonaHL
+0106BFA4	0306BFA4	DeadKhajiitBandit	Dead Bandit	F	0Leona	0LeonaHL
+0106C355	0306C355	VilverinBanditAmbushNPC	Bandit	M	0Victor	0VictorHL
+0106C357	0306C357	VilverinBanditSittingNPC	Bandit	F	0Laurell	0LaurellHL
+0106C35A	0306C35A	VilverinBanditBoss	Bandit Ringleader	M	0Theo	0TheoHL
+0106C35D	0306C35D	VilverinBanditFurnitureKhajiit	Bandit	F	0Laurell	0LaurellHL
+0106D1F4	0306D1F4	SE11Apostle08	Apostle	M	0RedRobin	0RedRobinHL
+0106E629	0306E629	ICPalaceGuardCryptPatrol	Palace Guard	M	0TheTruth	0TheTruthHL
+0106E632	0306E632	ICPalaceGuardCryptPost	Palace Guard	M	0RedRobin	0RedRobinHL
+0106E7EF	0306E7EF	LorgrenBenirusNPC	Lorgren Benirus	M	0TheTruth	0TheTruthHL
+0106FDB4	0306FDB4	EmilLeyawiinGuardTest	Leyawiin City Watch	M	0Victor	0VictorHL
+0106FDB6	0306FDB6	EmilChorrolGuardTest	Chorrol Guard	M	0TheTruth	0TheTruthHL
+010700C0	030700C0	ImperialLegionRiderAnvil	Imperial Legion Soldier	M	0Victor	0VictorHL
+010700C1	030700C1	ImperialLegionRiderGottshaw	Imperial Legion Soldier	M	0Victor	0VictorHL
+010700C2	030700C2	ImperialLegionRiderCrossroads	Imperial Legion Soldier	M	0Victor	0VictorHL
+010700C3	030700C3	ImperialLegionRiderRidge	Imperial Legion Soldier	M	0Theo	0TheoHL
+010700C4	030700C4	ImperialLegionRiderSlope	Imperial Legion Soldier	M	0TheTruth	0TheTruthHL
+010700C5	030700C5	ImperialLegionRiderFalls	Imperial Legion Soldier	M	0Theo	0TheoHL
+010700C6	030700C6	ImperialLegionRiderWell	Imperial Legion Soldier	M	0Theo	0TheoHL
+010700C7	030700C7	ImperialLegionRiderSardavar	Imperial Legion Soldier	M	0Theo	0TheoHL
+010700C8	030700C8	ImperialLegionRiderRoxey	Imperial Legion Soldier	M	0TheTruth	0TheTruthHL
+010700C9	030700C9	ImperialLegionRiderWellspring	Imperial Legion Soldier	M	0RedRobin	0RedRobinHL
+010700CA	030700CA	ImperialLegionRiderAleswell	Imperial Legion Soldier	M	0Victor	0VictorHL
+010700CB	030700CB	ImperialLegionRiderNikel	Imperial Legion Soldier	M	0TheTruth	0TheTruthHL
+010700CC	030700CC	ImperialLegionRiderVirtue	Imperial Legion Soldier	M	0TheTruth	0TheTruthHL
+010700CD	030700CD	ImperialLegionRiderRock	Imperial Legion Soldier	M	0Theo	0TheoHL
+01071716	03071716	DeadBanditMale02	Dead Bandit	M	0TheTruth	0TheTruthHL
+01071717	03071717	DeadBanditMale01	Dead Bandit	M	0RedRobin	0RedRobinHL
+01071B91	03071B91	MS13FallenKnightE	Fallen Knight of the Thorn	M	0TheTruth	0TheTruthHL
+01071B92	03071B92	MS13FallenKnightF	Fallen Knight of the Thorn	M	0Theo	0TheoHL
+01071B94	03071B94	MS13FallenKnightG	Fallen Knight of the Thorn	M	0TheTruth	0TheTruthHL
+01071D4B	03071D4B	ClaudiusArcadia	Claudius Arcadia	M	0RedRobin	0RedRobinHL
+01071F37	03071F37	ICTalosGuardClaudiusHouse	Imperial Watch	M	0Victor	0VictorHL
+01071FBF	03071FBF	SEBeggarBhisha	Bhisha	M	0RedRobin	0RedRobinHL
+010727C7	030727C7	SE32TestJoelGhost	Vitharn Soldier	M	0Theo	0TheoHL
+010727E2	030727E2	SE32TestJoelFanatic	Fanatic	M	0TheTruth	0TheTruthHL
+010730BD	030730BD	MS13FallenKnightH	Fallen Knight of the Thorn	M	0TheTruth	0TheTruthHL
+01073279	03073279	Caenlin	Caenlin	M	0TheTruth	0TheTruthHL
+01073296	03073296	MS49LegionSoldier	Imperial Legion Soldier	M	0Victor	0VictorHL
+010732D1	030732D1	MS49LegionArcher	Imperial Legion Archer	M	0Victor	0VictorHL
+010732D3	030732D3	MS49LegionSoldier2	Imperial Legion Soldier	M	0TheTruth	0TheTruthHL
+010738DB	030738DB	FirstMateFilch	First Mate Filch	M	0Victor	0VictorHL
+010738DC	030738DC	ClarabellaPirate1	Pirate	F	0Laurell	0LaurellHL
+010738DD	030738DD	ClarabellaPirate2	Pirate	M	0TheTruth	0TheTruthHL
+010738DE	030738DE	ClarabellaPirate3	Pirate	M	0Theo	0TheoHL
+01073A2F	03073A2F	DASkullArgonianMale	Corrupted Clone	M	0TheTruth	0TheTruthHL
+01073A30	03073A30	DASkullArgonianFemale	Corrupted Clone	F	0Laurell	0LaurellHL
+01073A31	03073A31	DASkullKhajiitMale	Corrupted Clone	M	0TheTruth	0TheTruthHL
+01073A32	03073A32	DASkullKhajiitFemale	Corrupted Clone	F	0Lamb	0LambHL
+01073A33	03073A33	DASkullBretonMale	Corrupted Clone	M	0TheTruth	0TheTruthHL
+01073A34	03073A34	DASkullDarkElfMale	Corrupted Clone	M	0Theo	0TheoHL
+01073A35	03073A35	DASkullHighElfMale	Corrupted Clone	M	0Theo	0TheoHL
+01073A36	03073A36	DASkullImperialMale	Corrupted Clone	M	0Victor	0VictorHL
+01073A37	03073A37	DASkullNordMale	Corrupted Clone	M	0RedRobin	0RedRobinHL
+01073A38	03073A38	DASkullOrcMale	Corrupted Clone	M	0TheTruth	0TheTruthHL
+01073A39	03073A39	DASkullRedguardMale	Corrupted Clone	M	0TheTruth	0TheTruthHL
+01073A3A	03073A3A	DASkullWoodElfMale	Corrupted Clone	M	0Victor	0VictorHL
+01073A3B	03073A3B	DASkullBretonFemale	Corrupted Clone	F	0Koala	0KoalaHL
+01073A3C	03073A3C	DASkullDarkElfFemale	Corrupted Clone	F	0Laurell	0LaurellHL
+01073A3D	03073A3D	DASkullHighElfFemale	Corrupted Clone	F	0Leona	0LeonaHL
+01073A3E	03073A3E	DASkullImperialFemale	Corrupted Clone	F	0Koala	0KoalaHL
+01073A3F	03073A3F	DASkullNordFemale	Corrupted Clone	F	0Lenore	0LenoreHL
+01073A40	03073A40	DASkullOrcFemale	Corrupted Clone	F	0Koala	0KoalaHL
+01073A41	03073A41	DASkullRedguardFemale	Corrupted Clone	F	0Laurell	0LaurellHL
+01073A42	03073A42	DASkullWoodElfFemale	Corrupted Clone	F	0Koala	0KoalaHL
+01074A94	03074A94	EduardHodge	Eduard Hodge	M	0RedRobin	0RedRobinHL
+010752EE	030752EE	ICArenaPostDay01	Imperial Watch	M	0TheTruth	0TheTruthHL
+010752EF	030752EF	ICArenaPostNight01	Imperial Watch	M	0RedRobin	0RedRobinHL
+010752F0	030752F0	ICArenaPostNight02	Imperial Watch	M	0Theo	0TheoHL
+010752F1	030752F1	ICArenaPatrolDay01	Imperial Watch	M	0Theo	0TheoHL
+010752F2	030752F2	ICArboretumPostDay01	Imperial Watch	M	0Theo	0TheoHL
+010752F3	030752F3	ICArboretumPostNight01	Imperial Watch	M	0TheTruth	0TheTruthHL
+010752F4	030752F4	ICArboretumPostDay02	Imperial Watch	M	0Victor	0VictorHL
+010752F5	030752F5	ICArboretumPostNight02	Imperial Watch	M	0Theo	0TheoHL
+010752F6	030752F6	ICArboretumPostDay03	Imperial Watch	M	0Theo	0TheoHL
+010752F7	030752F7	ICArboretumPostNight03	Imperial Watch	M	0TheTruth	0TheTruthHL
+010752F8	030752F8	ICArboretumPostNight04	Imperial Watch	M	0TheTruth	0TheTruthHL
+010752F9	030752F9	ICArboretumPostDay04	Imperial Watch	M	0Theo	0TheoHL
+01076467	03076467	SE32VitharnPatriach	Count Cirion	M	0RedRobin	0RedRobinHL
+01076472	03076472	SE32VitharnMatriach	Countess Cirion	F	0Leona	0LeonaHL
+01076904	03076904	SEXiditteGuard	Zealot Guard	M	0TheTruth	0TheTruthHL
+01078207	03078207	SEPadEi	Pad-Ei	M	0Victor	0VictorHL
+010785E1	030785E1	TestDead	Kill Me	M	0Victor	0VictorHL
+010786EC	030786EC	SEXPxiditteC1AlchemyZealotTemplate	Zealot Neophyte	F	0Lamb	0LambHL
+01078C04	03078C04	SE08WalkToPasswallKnight	Knight of Order	M	0Victor	0VictorHL
+01078C31	03078C31	SEKnightOfOrder1	Knight of Order	M	0Theo	0TheoHL
+01078C32	03078C32	SEKnightOfOrder5	Knight of Order	M	0TheTruth	0TheTruthHL
+01079AA9	03079AA9	SE08KnightHoldPositionWimpy	Knight of Order	M	0Theo	0TheoHL
+01079F74	03079F74	SEXeddefenc2PatrolGrummiteTemplate	Knight of Order	M	0Victor	0VictorHL
+0107B13B	0307B13B	SE07BGoldenSaintPrivateQuartersGuard02	Golden Saint Guard	F	0Lamb	0LambHL
+0107B1FE	0307B1FE	SE07BGoldenSaintPalaceGuard	Golden Saint Guard	F	0Lenore	0LenoreHL
+0107B3A6	0307B3A6	SE07BGoldenSaintSiloGuard01	Golden Saint Guard	F	0Lenore	0LenoreHL
+0107B3A7	0307B3A7	SE07BGoldenSaintSiloGuard02	Golden Saint Guard	F	0Leona	0LeonaHL
+0107B3A8	0307B3A8	SE07BGoldenSaintSiloGuard03	Golden Saint Guard	F	0Laurell	0LaurellHL
+0107B3A9	0307B3A9	SE07BGoldenSaintSiloGuard04	Golden Saint Guard	F	0Laurell	0LaurellHL
+0107BA7C	0307BA7C	Dark07MercenaryMale10	Mercenary	M	0Victor	0VictorHL
+0107BA7D	0307BA7D	Dark07MercenaryFemale8	Mercenary	F	0Koala	0KoalaHL
+0107BA7E	0307BA7E	Dark07MercenaryMale6	Mercenary	M	0RedRobin	0RedRobinHL
+0107BA7F	0307BA7F	Dark07MercenaryFemale4	Mercenary	F	0Koala	0KoalaHL
+0107BA80	0307BA80	Dark07MercenaryMale2	Mercenary	M	0RedRobin	0RedRobinHL
+0107D15D	0307D15D	SERottenPatrol03TEMPLATE	Zealot Neophyte	M	0Victor	0VictorHL
+0107D15E	0307D15E	SERottenPatrol04TEMPLATE	Zealot Neophyte	M	0Victor	0VictorHL
+0107DB28	0307DB28	SE45ZealotBoss	Zealot Crusader	M	0Theo	0TheoHL
+0107DB2C	0307DB2C	SE45HereticBoss	Heretic Crusader	M	0TheTruth	0TheTruthHL
+0107DB41	0307DB41	SE45HereticLackey	Heretic Lackey	M	0Theo	0TheoHL
+0107DB45	0307DB45	SEXPXavaraPatrolTemplate01	Zealot Neophyte	F	0Koala	0KoalaHL
+0107DB72	0307DB72	SEXPXavaraPatrolTemplate02	Zealot Neophyte	F	0Leona	0LeonaHL
+0107DC03	0307DC03	SEKnottyBramZealot02Dead	Preserved Zealot	M	0TheTruth	0TheTruthHL
+0107DD77	0307DD77	SE45ZealotLackey	Zealot Minion	M	0TheTruth	0TheTruthHL
+0107E205	0307E205	SE07Xirethard01DarkSeducerMissile01	Dark Seducer Archer	F	0Laurell	0LaurellHL
+0107E20A	0307E20A	SE07Xirethard01DarkSeducerMissile02	Dark Seducer Archer	F	0Laurell	0LaurellHL
+0107E20D	0307E20D	SE07Xirethard01DarkSeducerMelee01	Dark Seducer	F	0Lenore	0LenoreHL
+0107E21F	0307E21F	SE07Xirethard01DarkSeducerMelee02	Dark Seducer	F	0Lenore	0LenoreHL
+0107E220	0307E220	SE07Xirethard01DarkSeducerMelee03	Dark Seducer	F	0Lamb	0LambHL
+0107E22D	0307E22D	SE07Xirethard01DarkSeducerMelee04	Dark Seducer	F	0Lamb	0LambHL
+0107EBFF	0307EBFF	SE07Xirethard02DarkSeducerMissile01	Dark Seducer Archer	F	0Laurell	0LaurellHL
+0107EC00	0307EC00	SE07Xirethard02DarkSeducerMissile02	Dark Seducer Archer	F	0Lamb	0LambHL
+0107F469	0307F469	SEObelisk11Priest	Priest of Order	M	0TheTruth	0TheTruthHL
+0107F46A	0307F46A	SEObelisk12Priest	Priest of Order	M	0RedRobin	0RedRobinHL
+0107F46B	0307F46B	SEObelisk13Priest	Priest of Order	M	0RedRobin	0RedRobinHL
+0107F46C	0307F46C	SEObelisk14Priest	Priest of Order	M	0Victor	0VictorHL
+0107F46D	0307F46D	SEObelisk15Priest	Priest of Order	M	0TheTruth	0TheTruthHL
+0107F46E	0307F46E	SEObelisk16Priest	Priest of Order	M	0Theo	0TheoHL
+0107F46F	0307F46F	SEObelisk17Priest	Priest of Order	M	0Victor	0VictorHL
+0107F470	0307F470	SEObelisk18Priest	Priest of Order	M	0Theo	0TheoHL
+0107F471	0307F471	SEObelisk19Priest	Priest of Order	M	0Victor	0VictorHL
+0107F472	0307F472	SEObelisk20Priest	Priest of Order	M	0Victor	0VictorHL
+0107F473	0307F473	SEObelisk01Priest	Priest of Order	M	0RedRobin	0RedRobinHL
+0107F474	0307F474	SEObelisk02Priest	Priest of Order	M	0TheTruth	0TheTruthHL
+0107F475	0307F475	SEObelisk03Priest	Priest of Order	M	0TheTruth	0TheTruthHL
+0107F476	0307F476	SEObelisk04Priest	Priest of Order	M	0Victor	0VictorHL
+0107F477	0307F477	SEObelisk05Priest	Priest of Order	M	0TheTruth	0TheTruthHL
+0107F478	0307F478	SEObelisk06Priest	Priest of Order	M	0RedRobin	0RedRobinHL
+0107F479	0307F479	SEObelisk07Priest	Priest of Order	M	0Theo	0TheoHL
+0107F47A	0307F47A	SEObelisk08Priest	Priest of Order	M	0TheTruth	0TheTruthHL
+0107F47B	0307F47B	SEObelisk09Priest	Priest of Order	M	0Theo	0TheoHL
+0107F47C	0307F47C	SEObelisk10Priest	Priest of Order	M	0RedRobin	0RedRobinHL
+0107FDD1	0307FDD1	SE08KnightDEAD	Knight of Order	M	0RedRobin	0RedRobinHL
+010807FB	030807FB	SE08KnightOfOrderPasswallBattleTEMPLATE	Knight of Order	M	0Victor	0VictorHL
+01080DD7	03080DD7	SE08KnightOfOrderPasswallIInitialAttackTEMPLATE	Knight of Order	M	0Victor	0VictorHL
+01081362	03081362	SEMazaddhaDead	Ma'zaddha	M	0TheTruth	0TheTruthHL
+0108146B	0308146B	SEXiditteArbiter	Zealot Arbiter	M	0Theo	0TheoHL
+01081B15	03081B15	SE10Brellach05bTemplate	Knight of Order	M	0Theo	0TheoHL
+01081B82	03081B82	SE10Brellach04bTemplate	Knight of Order	M	0RedRobin	0RedRobinHL
+01081B83	03081B83	SE10KnightSentryTemplate	Knight of Order	M	0Victor	0VictorHL
+0108209B	0308209B	XPDireWarrenAlyssa	Alyssa	F	0Koala	0KoalaHL
+0108209F	0308209F	SEDireWarrenTraelius	Traelius	M	0Theo	0TheoHL
+010820B0	030820B0	XPDeadVolunteer	Dead Volunteer	M	0TheTruth	0TheTruthHL
+01082360	03082360	SEKnottyBramZealot01Live	Zealot Guardian	F	0Koala	0KoalaHL
+01082361	03082361	SEKnottyBramZealot02Live	Zealot Guardian	M	0RedRobin	0RedRobinHL
+01082362	03082362	SEKnottyBramZealot01Dead	Preserved Zealot	F	0Laurell	0LaurellHL
+01082393	03082393	XPEbroccaBody01	Dead Courier	M	0Victor	0VictorHL
+0108239E	0308239E	XPEbroccaBody04	Dead Wood Elf	M	0Theo	0TheoHL
+010823A9	030823A9	XPEbroccaBody03	Dead Traveler	M	0RedRobin	0RedRobinHL
+010823B5	030823B5	SELimark	Limark	M	0Theo	0TheoHL
+010823B8	030823B8	SESaloniaViria	Salonia Viria	F	0Lamb	0LambHL
+010823BA	030823BA	SELorenzBogTrotter	Lorenz Bog-Trotter	M	0RedRobin	0RedRobinHL
+010823BC	030823BC	SEGadeneriRalvel	Gadeneri Ralvel	F	0Laurell	0LaurellHL
+010823BE	030823BE	SEMdesi	M'desi	M	0TheTruth	0TheTruthHL
+01082574	03082574	SEBrellachGuard	Golden Saint Guard	F	0Laurell	0LaurellHL
+01082577	03082577	SEPinnacleRockGuard	Dark Seducer Guard	F	0Laurell	0LaurellHL
+01082595	03082595	SEKilledBySheogorath	Sheogorath's Punished	M	0Victor	0VictorHL
+010825AB	030825AB	SE10GoldenSaintDead	Golden Saint	F	0Lamb	0LambHL
+010825AC	030825AC	SE10KnightOfOrderDead	Knight of Order	M	0Victor	0VictorHL
+01082659	03082659	SE10DarkSeducerDead	Dark Seducer	F	0Leona	0LeonaHL
+01082DE5	03082DE5	TestClothes	Arena Contestant	M	0Victor	0VictorHL
+010837CF	030837CF	Dark09Gwendolyn	Gwendolyn	F	0Laurell	0LaurellHL
+010837D0	030837D0	Fafnir	Fafnir	M	0Theo	0TheoHL
+010837F1	030837F1	ICArenaPostDay02	Imperial Watch	M	0RedRobin	0RedRobinHL
+010837F2	030837F2	ICArenaPatrolNight01	Imperial Watch	M	0TheTruth	0TheTruthHL
+010837F3	030837F3	ICArenaPostDay03	Imperial Watch	M	0Theo	0TheoHL
+010837F4	030837F4	ICArenaPostNight03	Imperial Watch	M	0TheTruth	0TheTruthHL
+01084A49	03084A49	DANocturnalVoice		F	0Lamb	0LambHL
+0108510F	0308510F	FrancineVelain	Francine Velain	F	0Lenore	0LenoreHL
+01085110	03085110	Dhola	Dhola	F	0Koala	0KoalaHL
+0108521A	0308521A	MogensWindShifter	Mogens Wind-Shifter	M	0TheTruth	0TheTruthHL
+0108521B	0308521B	JBaasha	J'Baasha	M	0RedRobin	0RedRobinHL
+0108521C	0308521C	Ayisha	Ayisha	F	0Lenore	0LenoreHL
+0108521D	0308521D	MensaSelas	Mensa Selas	F	0Laurell	0LaurellHL
+0108587F	0308587F	JeanneFrasoricDead	Jeanne Frasoric	F	0Lenore	0LenoreHL
+0108592F	0308592F	Dark17Victim1	Unknown Victim	F	0Laurell	0LaurellHL
+01085931	03085931	Dark17Victim2	Unknown Victim	M	0RedRobin	0RedRobinHL
+0108595A	0308595A	BlackBrugo	Black Brugo	M	0TheTruth	0TheTruthHL
+0108595B	0308595B	RoxyAric	Roxy Aric	F	0Lamb	0LambHL
+0108595D	0308595D	Alonzo	Alonzo	M	0Victor	0VictorHL
+01085969	03085969	MazogatheOrc	Mazoga the Orc	F	0Laurell	0LaurellHL
+01085E4B	03085E4B	TestStair	I walk up and down stairs	M	0Victor	0VictorHL
+01086753	03086753	Dark19Murderer1	Dark Brotherhood Murderer	M	0Theo	0TheoHL
+01086754	03086754	Dark19Murderer2	Dark Brotherhood Murderer	F	0Laurell	0LaurellHL
+01086755	03086755	Dark19Murderer3	Dark Brotherhood Murderer	M	0Victor	0VictorHL
+01086772	03086772	MG17Necromancer02	Necromancer	M	0Theo	0TheoHL
+0108677B	0308677B	MG17Necromancer01b	Necromancer	M	0TheTruth	0TheTruthHL
+01088D28	03088D28	ChorrolGuardPrivateQuarters01	Chorrol Guard	M	0Victor	0VictorHL
+01088D29	03088D29	ChorrolGuardPrivateQuarters02	Chorrol Guard	M	0RedRobin	0RedRobinHL
+01088D2A	03088D2A	ChorrolGuardPrivateQuarters03	Chorrol Guard	M	0RedRobin	0RedRobinHL
+01089533	03089533	SE10Pinnacle04aTemplate	Knight of Order	M	0Theo	0TheoHL
+01089534	03089534	SE10Pinnacle04bTemplate	Knight of Order	M	0Victor	0VictorHL
+01089535	03089535	SE10Pinnacle05bTemplate	Knight of Order	M	0Theo	0TheoHL
+010897C0	030897C0	DASheogorathVoice		M	0Theo	0TheoHL
+010897C1	030897C1	DAPeryiteVoice		M	0TheTruth	0TheTruthHL
+010897DD	030897DD	Jriska	J'riska	M	0RedRobin	0RedRobinHL
+010897DF	030897DF	Mdasha	M'dasha	M	0TheTruth	0TheTruthHL
+010897E1	030897E1	Mdirr	M'dirr	M	0Theo	0TheoHL
+010897E3	030897E3	Tsalajma	Tsalajma	F	0Leona	0LeonaHL
+010897E5	030897E5	Tsramla	Tsramla	F	0Leona	0LeonaHL
+010897E7	030897E7	Sthasa	S'thasa	F	0Lamb	0LambHL
+0108ADCA	0308ADCA	DAVaerminaVoice	DAVaerminaVoice	F	0Leona	0LeonaHL
+0108ADCB	0308ADCB	Tenville	Tenville	F	0Lenore	0LenoreHL
+0108ADCC	0308ADCC	AvieraNirol	Aviera Nirol	F	0Leona	0LeonaHL
+0108DB93	0308DB93	SEHillOfSuicidesGhost01	Ghost	M	0Victor	0VictorHL
+0108DB94	0308DB94	SEHillOfSuicidesGhost02	Ghost	F	0Leona	0LeonaHL
+0108DB95	0308DB95	SEHillOfSuicidesGhost03	Ghost	M	0RedRobin	0RedRobinHL
+0108DBF6	0308DBF6	SEPrisonSaintFemaleBoss	Golden Saint Turnkey	F	0Laurell	0LaurellHL
+0108DBF7	0308DBF7	SEPrisonSeducerFemaleBoss	Dark Seducer Turnkey	F	0Lamb	0LambHL
+0108DD96	0308DD96	TestPlayer	Test Player	M	0TheTruth	0TheTruthHL
+0108EF7C	0308EF7C	SE04FelldewAddict01	Felldew Addict	F	0Koala	0KoalaHL
+0108EF7E	0308EF7E	SE04FelldewAddict02	Felldew Addict	M	0Victor	0VictorHL
+0108EF81	0308EF81	SE04FelldewAddict03	Joofy the Brown	M	0Theo	0TheoHL
+0108F114	0308F114	SE10OrderPriestNoRez	Priest of Order	M	0TheTruth	0TheTruthHL
+0108F4F0	0308F4F0	SE07EndSeducer01	Dark Seducer	F	0Lenore	0LenoreHL
+0108F4F1	0308F4F1	SE07EndSeducer02	Dark Seducer	F	0Laurell	0LaurellHL
+0108F4F2	0308F4F2	SE07EndSaint01	Golden Saint	F	0Lenore	0LenoreHL
+0108F4F3	0308F4F3	SE07EndSaint02	Golden Saint	F	0Laurell	0LaurellHL
+0108FD01	0308FD01	MS13CheydinhalGuardA	Cheydinhal Gate Guard	M	0TheTruth	0TheTruthHL
+0108FD03	0308FD03	MS13CheydinhalGuardC	Cheydinhal Gate Guard	M	0Theo	0TheoHL
+0109061A	0309061A	TestEndGameImperialArcherDagonAttack	Imperial Legionnaire	M	0RedRobin	0RedRobinHL
+0109061B	0309061B	TestEndGameImperialSoldierDagonAttack	Imperial Legionnaire	M	0Victor	0VictorHL
+01090661	03090661	TG05Dremora	Dremora Churl	M	0Theo	0TheoHL
+010908AC	030908AC	BanditBlackBowFemale1	Black Bow Bandit	F	0Lamb	0LambHL
+010908AF	030908AF	BanditBlackBowFemale2	Black Bow Bandit	F	0Laurell	0LaurellHL
+010908B0	030908B0	BanditBlackBowFemale3	Black Bow Bandit	F	0Lamb	0LambHL
+010908B1	030908B1	BanditBlackBowFemale4	Black Bow Bandit	F	0Koala	0KoalaHL
+010908B2	030908B2	BanditBlackBowMale1	Black Bow Bandit	M	0TheTruth	0TheTruthHL
+010908B3	030908B3	BanditBlackBowMale2	Black Bow Bandit	M	0Victor	0VictorHL
+010908B4	030908B4	BanditBlackBowMale3	Black Bow Bandit	M	0Victor	0VictorHL
+010908B5	030908B5	BanditBlackBowMale4	Black Bow Bandit	M	0TheTruth	0TheTruthHL
+010908B6	030908B6	BanditBlackBowBoss4Female1	Black Bow Ringleader	F	0Laurell	0LaurellHL
+010908B7	030908B7	BanditBlackBowBoss4Female2	Black Bow Ringleader	F	0Leona	0LeonaHL
+010908B8	030908B8	BanditBlackBowBoss4Female3	Black Bow Ringleader	F	0Leona	0LeonaHL
+010908B9	030908B9	BanditBlackBowBoss4Male1	Black Bow Ringleader	M	0TheTruth	0TheTruthHL
+010908BA	030908BA	BanditBlackBowBoss4Male2	Black Bow Ringleader	M	0Theo	0TheoHL
+010908BB	030908BB	BanditBlackBowBoss4Male3	Black Bow Ringleader	M	0Theo	0TheoHL
+01090AB3	03090AB3	Oleta	Oleta	F	0Lamb	0LambHL
+010918F2	030918F2	TestPosion	Arena Contestant	F	0Lenore	0LenoreHL
+010919C8	030919C8	MS11UnidentifiedBeggar	Murdered Beggar	M	0TheTruth	0TheTruthHL
+0109263A	0309263A	ICArcaneUGuardDay01	Imperial Legion Battlemage	M	0Theo	0TheoHL
+0109263B	0309263B	ICArcaneUGuardNight01	Imperial Legion Battlemage	M	0RedRobin	0RedRobinHL
+01092642	03092642	ICArcaneUGuardDay02	Imperial Legion Battlemage	M	0RedRobin	0RedRobinHL
+01092643	03092643	ICArcaneUGuardNight02	Imperial Legion Battlemage	M	0RedRobin	0RedRobinHL
+010927AA	030927AA	KvatchFallenGuard01		M	0TheTruth	0TheTruthHL
+010927AC	030927AC	KvatchFallenGuard02		M	0Theo	0TheoHL
+010927AE	030927AE	KvatchFallenGuard03		M	0Theo	0TheoHL
+01092A77	03092A77	SEPrisoner1Syl	Prisoner	M	0Theo	0TheoHL
+01092A81	03092A81	SEPrisoner2Syl	Prisoner	F	0Laurell	0LaurellHL
+01092A88	03092A88	SEPrisoner4Syl	Prisoner	M	0RedRobin	0RedRobinHL
+01092B02	03092B02	ICPrisonGuardDay01	Imperial Watch	M	0Theo	0TheoHL
+01092B03	03092B03	ICPrisonGuardDay02	Imperial Watch	M	0Victor	0VictorHL
+01092B04	03092B04	ICPrisonGuardDay03	Imperial Watch	M	0Theo	0TheoHL
+01092B05	03092B05	ICPrisonGuardDay04	Imperial Watch	M	0TheTruth	0TheTruthHL
+01092B06	03092B06	ICPrisonGuardNight01	Imperial Watch	M	0TheTruth	0TheTruthHL
+01092B07	03092B07	ICPrisonGuardNight02	Imperial Watch	M	0Victor	0VictorHL
+01092D9A	03092D9A	Dremora1CaitiffMage	Dremora Caitiff	M	0RedRobin	0RedRobinHL
+01092D9B	03092D9B	Dremora2KynvalMage	Dremora Kynval	M	0TheTruth	0TheTruthHL
+01092D9C	03092D9C	Dremora3KynreeveMage	Dremora Kynreeve	M	0Theo	0TheoHL
+01092D9D	03092D9D	Dremora4KynmarcherMage	Dremora Kynmarcher	M	0Victor	0VictorHL
+01092D9E	03092D9E	Dremora5MarkynazMage	Dremora Markynaz	M	0RedRobin	0RedRobinHL
+01092D9F	03092D9F	Dremora6ValkynazMage	Dremora Valkynaz	M	0RedRobin	0RedRobinHL
+01092DA0	03092DA0	Dremora0ChurlMelee1	Dremora Churl	M	0TheTruth	0TheTruthHL
+01092DA1	03092DA1	Dremora0ChurlMelee2	Dremora Churl	M	0RedRobin	0RedRobinHL
+01092DA2	03092DA2	Dremora0ChurlMelee3	Dremora Churl	M	0Victor	0VictorHL
+01092DA5	03092DA5	Dremora0ChurlMage	Dremora Churl	M	0Theo	0TheoHL
+0109346E	0309346E	Jbaana	J'baana	M	0RedRobin	0RedRobinHL
+01093C66	03093C66	ZahrashaDead	Zahrasha	F	0Lamb	0LambHL
+01093CC8	03093CC8	TG08MothPriestMale01	Blind Moth Priest	M	0Theo	0TheoHL
+01093CCA	03093CCA	TG08MothPriestMale02	Blind Moth Priest	M	0Victor	0VictorHL
+01093CCD	03093CCD	TG08MothPriestBossMale01	Blind Moth Prelate	M	0RedRobin	0RedRobinHL
+01093CCE	03093CCE	TG08MothPriestFemale01	Blind Moth Priest	F	0Koala	0KoalaHL
+01093CCF	03093CCF	TG08MothPriestFemale02	Blind Moth Priest	F	0Laurell	0LaurellHL
+01093CD2	03093CD2	TG08MothPriestBossFemale01	Blind Moth Prelate	F	0Lamb	0LambHL
+01093CD4	03093CD4	TG08MothPriestBigBossMale01	Blind Moth Prelate	M	0Victor	0VictorHL
+01093EF0	03093EF0	MS48OblivionSigilKeeper	Dremora Sigil Keeper	M	0Theo	0TheoHL
+01094048	03094048	BanditCampTEMPLATE	Bandit	M	0RedRobin	0RedRobinHL
+010947A9	030947A9	FGGuardPorterChorrol	Fighters Guild Porter	M	0TheTruth	0TheTruthHL
+010947AA	030947AA	FGGuardPorterAnvil	Fighters Guild Porter	M	0TheTruth	0TheTruthHL
+010947AB	030947AB	FGGuardPorterBravil	Fighters Guild Porter	M	0TheTruth	0TheTruthHL
+010947AC	030947AC	FGGuardPorterBruma	Fighters Guild Porter	M	0RedRobin	0RedRobinHL
+010947AD	030947AD	FGGuardPorterCheydinhal	Fighters Guild Porter	M	0RedRobin	0RedRobinHL
+010947AE	030947AE	FGGuardPorterLeyawiin	Fighters Guild Porter	M	0Victor	0VictorHL
+010947AF	030947AF	FGGuardPorterSkingrad	Fighters Guild Porter	M	0RedRobin	0RedRobinHL
+010947BB	030947BB	CylbenDolovas	Cylben Dolovas	M	0RedRobin	0RedRobinHL
+01094A28	03094A28	SEKnightOfOrder1Obelisk	Knight of Order	M	0Victor	0VictorHL
+01094A38	03094A38	SEKnightOfOrder2Obelisk	Knight of Order	M	0Theo	0TheoHL
+01094AC9	03094AC9	SEKnightOfOrder3Obelisk	Knight of Order	M	0Victor	0VictorHL
+01094B25	03094B25	SEKnightOfOrder4Obelisk	Knight of Order	M	0Theo	0TheoHL
+01094B5B	03094B5B	SEKnightOfOrder5Obelisk	Knight of Order	M	0Victor	0VictorHL
+01094BE8	03094BE8	CaptainBaszonePatneim	Captain Baszone Patneim	M	0Theo	0TheoHL
+01094E81	03094E81	MQ06MythicDawnAnteGuardF03	Mythic Dawn Guard	F	0Koala	0KoalaHL
+01094E82	03094E82	MQ06MythicDawnAnteGuardF02	Mythic Dawn Guard	F	0Lamb	0LambHL
+01094E83	03094E83	MQ06MythicDawnAnteGuardM02	Mythic Dawn Guard	M	0TheTruth	0TheTruthHL
+01094E84	03094E84	MQ06MythicDawnAnteGuardF01	Mythic Dawn Guard	F	0Lamb	0LambHL
+01094E85	03094E85	MQ06MythicDawnAcolyteRandom04	Mythic Dawn Acolyte	F	0Koala	0KoalaHL
+01094E86	03094E86	MQ06MythicDawnAcolyteRandom03	Mythic Dawn Acolyte	M	0RedRobin	0RedRobinHL
+01094E87	03094E87	MQ06MythicDawnAcolyteRandom02	Mythic Dawn Acolyte	F	0Lamb	0LambHL
+01094E88	03094E88	MQ06MythicDawnAcolyteRandom01	Mythic Dawn Acolyte	M	0RedRobin	0RedRobinHL
+0109504D	0309504D	Mq10OblivionSigilKeeper	Sigil Keeper	M	0Victor	0VictorHL
+010950DB	030950DB	Dark04MythicDawn	Assassin	M	0Theo	0TheoHL
+01095243	03095243	SE09KnightOfOrder	Knight of Order	M	0RedRobin	0RedRobinHL
+01095331	03095331	DarkPrisonGuard06	Captain Gepard Montrose	M	0Theo	0TheoHL
+01095A40	03095A40	MS93Captain	Dead Captain	M	0RedRobin	0RedRobinHL
+01095A41	03095A41	MS93Crewmember1	Dead Crewmember	M	0Victor	0VictorHL
+01095A42	03095A42	MS93Crewmember2	Dead Crewmember	M	0RedRobin	0RedRobinHL
+01095A43	03095A43	MS93Crewmember3	Dead Crewmember	M	0Victor	0VictorHL
+01095A44	03095A44	MS93Crewmember4	Dead Crewmember	M	0Theo	0TheoHL
+01095A45	03095A45	MS93Varulae	Varulae	F	0Leona	0LeonaHL
+01096765	03096765	SEKnightOfOrderPatrol1	Knight of Order	M	0TheTruth	0TheTruthHL
+0109700A	0309700A	Faurinthil	Faurinthil	F	0Lenore	0LenoreHL
+0109700C	0309700C	Ashni	Ashni	F	0Lamb	0LambHL
+010977DA	030977DA	Hindaril	Hindaril	M	0TheTruth	0TheTruthHL
+01097865	03097865	RalsaNethan	Ralsa Nethan	M	0RedRobin	0RedRobinHL
+0109786B	0309786B	BurMeema	Bur-Meema	F	0Koala	0KoalaHL
+01097C78	03097C78	MS94Archer01	Imperial Legion Soldier	M	0Theo	0TheoHL
+01097C79	03097C79	MS94Soldier01	Imperial Legion Soldier	M	0Theo	0TheoHL
+01097CAF	03097CAF	MQ06MythicDawnGuardPatrol01	Mythic Dawn Guard	M	0Theo	0TheoHL
+01097CB0	03097CB0	MQ06MythicDawnShrineGuard01	Mythic Dawn Guard	F	0Laurell	0LaurellHL
+01097CB1	03097CB1	MQ06MythicDawnShrineGuard02	Mythic Dawn Guard	M	0RedRobin	0RedRobinHL
+01097FAF	03097FAF	E3KvatchStartSoldier	Imperial Legionnaire	M	0RedRobin	0RedRobinHL
+01097FBC	03097FBC	E3KvatchDremoraLord	Dremora Kynval	M	0RedRobin	0RedRobinHL
+01097FBE	03097FBE	E3KvatchCaptain01	Imperial Legion Captain	M	0TheTruth	0TheTruthHL
+01098052	03098052	E3KvatchArcherFall01	Imperial Legionnaire	M	0RedRobin	0RedRobinHL
+01098064	03098064	E3KvatchSoldierALERT02	Imperial Legionnaire	M	0RedRobin	0RedRobinHL
+0109808A	0309808A	E3KvatchSoldierArcher02	Imperial Legionnaire	M	0Victor	0VictorHL
+010980E0	030980E0	TestDeadMeat	Dead Meat	M	0Victor	0VictorHL
+0109812E	0309812E	MenienGoneld	Menien Goneld	M	0TheTruth	0TheTruthHL
+0109812F	0309812F	IlendVonius	Ilend Vonius	M	0TheTruth	0TheTruthHL
+01098176	03098176	BWCWatersEdge2	Blackwood Company Guard	M	0RedRobin	0RedRobinHL
+01098177	03098177	BWCWatersEdge3	Blackwood Company Guard	M	0TheTruth	0TheTruthHL
+010981C2	030981C2	HackdirtBrethrenMonsterPatrol	Hackdirt Brethren	M	0RedRobin	0RedRobinHL
+01098252	03098252	Boroneth	Boroneth	F	0Laurell	0LaurellHL
+01098254	03098254	DAAzuraVampire01	Afflicted Brethren	M	0TheTruth	0TheTruthHL
+01098255	03098255	DAAzuraVAmpire02	Afflicted Brethren	F	0Lenore	0LenoreHL
+01098256	03098256	DAAzuraVampire03	Afflicted Brethren	F	0Lenore	0LenoreHL
+01098257	03098257	DAAzuraVampire04	Afflicted Brethren	F	0Lenore	0LenoreHL
+01098258	03098258	DAAzuraVampire05	Afflicted Brethren	F	0Koala	0KoalaHL
+0109828B	0309828B	GhorubgroUgdub	Ghorub gro-Ugdub	M	0Victor	0VictorHL
+01098295	03098295	HuntingTail	Hunting Tail	M	0Victor	0VictorHL
+0109829B	0309829B	MuggraMurgak	Mug gro-Murgak	M	0Theo	0TheoHL
+010982A5	030982A5	Rona	Rona	F	0Lamb	0LambHL
+010982F8	030982F8	ColinStedrine	Colin Stedrine	M	0Theo	0TheoHL
+010982F9	030982F9	BeatriceGene	Beatrice Gene	F	0Lenore	0LenoreHL
+010982FA	030982FA	BravilGuardCastlePatrolDay01	Bravil Guard	M	0TheTruth	0TheTruthHL
+010982FB	030982FB	BravilGuardCastlePatrolNight01	Bravil Guard	M	0Victor	0VictorHL
+010982FC	030982FC	Hjar	Brother Hjar	M	0RedRobin	0RedRobinHL
+010982FD	030982FD	Hridi	Brother Hridi	M	0Theo	0TheoHL
+010982FE	030982FE	Holger	Brother Holger	M	0RedRobin	0RedRobinHL
+010998C1	030998C1	MQ15MythicDawnLowM03	Ascended Immortal	M	0Theo	0TheoHL
+010998C2	030998C2	MQ15MythicDawnLowF03	Ascended Immortal	F	0Koala	0KoalaHL
+010998C3	030998C3	MQ15MythicDawnLowF02	Ascended Immortal	F	0Leona	0LeonaHL
+010998C4	030998C4	MQ15MythicDawnLowF01	Ascended Immortal	F	0Lamb	0LambHL
+01099A6A	03099A6A	MG13Vampire06Assassin	Bloodcrust Vampire	F	0Koala	0KoalaHL
+01099A6B	03099A6B	MG13Vampire03Mage	Bloodcrust Vampire	M	0TheTruth	0TheTruthHL
+01099A6C	03099A6C	MG13Vampire05Battlemage	Bloodcrust Vampire	M	0TheTruth	0TheTruthHL
+01099A6D	03099A6D	MG13Vampire09Spellsword	Bloodcrust Vampire	F	0Lenore	0LenoreHL
+01099A6F	03099A6F	MG13Vampire07Rogue	Bloodcrust Vampire	F	0Lenore	0LenoreHL
+01099A70	03099A70	MG13Vampire08Sorcerer	Bloodcrust Vampire	F	0Lenore	0LenoreHL
+01099A71	03099A71	MG13Vampire10Mage	Bloodcrust Vampire	M	0TheTruth	0TheTruthHL
+0109C226	0309C226	Mq14DremoraSigilGuard	Sigil Keeper	M	0TheTruth	0TheTruthHL
+0109C26A	0309C26A	MQ14DremoraSentryTemplate	Siege Crawler Sentry	M	0Theo	0TheoHL
+0109F98A	0309F98A	DABoethiaVoice	Boethia's Voice for Recording	M	0Theo	0TheoHL
+0109FD71	0309FD71	HackdirtBrethrenMonsterDarMa	Hackdirt Brethren	M	0RedRobin	0RedRobinHL
+0109FD72	0309FD72	HackdirtBrethrenMonsterPatrol2	Hackdirt Brethren	M	0TheTruth	0TheTruthHL
+010A2ADD	030A2ADD	DABoethiaChosen01	Boethia's Chosen	F	0Lenore	0LenoreHL
+010A2ADE	030A2ADE	DABoethiaChosen02	Boethia's Chosen	M	0TheTruth	0TheTruthHL
+010A2ADF	030A2ADF	DABoethiaChosen03	Boethia's Chosen	M	0Victor	0VictorHL
+010A2AE0	030A2AE0	DABoethiaChosen04	Boethia's Chosen	F	0Koala	0KoalaHL
+010A2AE1	030A2AE1	DABoethiaChosen05	Boethia's Chosen	M	0Theo	0TheoHL
+010A2AE2	030A2AE2	DABoethiaChosen06	Boethia's Chosen	M	0RedRobin	0RedRobinHL
+010A2AE3	030A2AE3	DABoethiaChosen07	Boethia's Chosen	F	0Koala	0KoalaHL
+010A2AE4	030A2AE4	DABoethiaChosen08	Boethia's Chosen	F	0Laurell	0LaurellHL
+010A2AE5	030A2AE5	DABoethiaChosen09	Boethia's Chosen	M	0Victor	0VictorHL
+010A2AE6	030A2AE6	DABoethiaChosen10	Boethia's Chosen	M	0Victor	0VictorHL
+010A3162	030A3162	Blade2	Fortis	M	0Victor	0VictorHL
+010A3163	030A3163	Blade3	Arcturus	M	0Theo	0TheoHL
+010A3164	030A3164	Blade1	Pelagius	M	0RedRobin	0RedRobinHL
+010A3165	030A3165	Blade4	Ferrum	M	0Victor	0VictorHL
+010A3166	030A3166	Blade5	Achille	M	0Victor	0VictorHL
+010A3167	030A3167	Blade6	Baragon	M	0Theo	0TheoHL
+010A3457	030A3457	BieneAmelionDEAD	Biene Amelion	F	0Laurell	0LaurellHL
+010A345B	030A345B	MarcelAmelion	Marcel Amelion	M	0RedRobin	0RedRobinHL
+010A348F	030A348F	BanditRobberTEMPLATE	Highwayman	M	0Victor	0VictorHL
+010A369F	030A369F	AmminusGregori	Amminus Gregori	M	0TheTruth	0TheTruthHL
+010A3832	030A3832	TolvasaSendas	Tolvasa Sendas	F	0Lenore	0LenoreHL
+010A3833	030A3833	Pajeen	Pajeen	M	0TheTruth	0TheTruthHL
+010A713B	030A713B	ArenaHopeful1	Branwen	F	0Koala	0KoalaHL
+010A713C	030A713C	ArenaHopeful2	Saliith	M	0Victor	0VictorHL
+010A9487	030A9487	CastaFlavus	Casta Flavus	M	0Victor	0VictorHL
+010A948B	030A948B	DAHermaeusVoice		M	0Theo	0TheoHL
+010ACE6D	030ACE6D	SisterAngrond	Sister Angrond	F	0Leona	0LeonaHL
+010ACE73	030ACE73	SisterPhebeJeanard	Sister Phebe Jeanard	F	0Lamb	0LambHL
+010AED40	030AED40	ArenaFan1	Adoring Fan	M	0Theo	0TheoHL
+010B11D4	030B11D4	Degil	Degil	F	0Leona	0LeonaHL
+010B11D6	030B11D6	BlancheMastien	Blanche Mastien	F	0Lenore	0LenoreHL
+010B1231	030B1231	DASanguineVoice		M	0Victor	0VictorHL
+010B166E	030B166E	SingsLikeThunder	Sings-Like-Thunder	M	0RedRobin	0RedRobinHL
+010B1670	030B1670	HearsVoicesInTheAir	Hears-Voices-In-The-Air	M	0RedRobin	0RedRobinHL
+010B167D	030B167D	FloydNathans	Floyd Nathans	M	0RedRobin	0RedRobinHL
+010B167F	030B167F	HanzgroHubrag	Hanz gro-Hubrag	M	0Victor	0VictorHL
+010B1681	030B1681	PhilipFranc	Philip Franc	M	0RedRobin	0RedRobinHL
+010BB9CB	030BB9CB	Nerussa	Nerussa	F	0Koala	0KoalaHL
+010BE330	030BE330	Courier1	Courier	F	0Koala	0KoalaHL
+010BE33D	030BE33D	Courier2	Courier	F	0Laurell	0LaurellHL
+010BE340	030BE340	Courier3	Courier	F	0Lamb	0LambHL
+010BE341	030BE341	Courier4	Courier	F	0Laurell	0LaurellHL
+010C45B5	030C45B5	ShadySam	Shady Sam	M	0Theo	0TheoHL
+010C47EC	030C47EC	Maiqtheliar	M'aiq the Liar	M	0TheTruth	0TheTruthHL
+010C509C	030C509C	NightChild	Night Child	M	0Victor	0VictorHL
+010C5227	030C5227	BanditHighwayman01	Highwayman	M	0RedRobin	0RedRobinHL
+010C5228	030C5228	BanditHighwayman02	Highwayman	M	0RedRobin	0RedRobinHL
+010C5229	030C5229	BanditHighwayman03	Highwayman	M	0Victor	0VictorHL
+010C522A	030C522A	BanditHighwayman04	Highwayman	M	0Theo	0TheoHL
+010C526B	030C526B	MQ15MythicDawnACave02	Ascended Immortal	F	0Lenore	0LenoreHL
+010C526C	030C526C	MQ15MythicDawnACave01	Ascended Immortal	M	0Theo	0TheoHL
+010C55E5	030C55E5	AgnartheUnwavering	Agnar the Unwavering	M	0RedRobin	0RedRobinHL
+010C56E4	030C56E4	AndreLabouche2	Andre Labouche	M	0Victor	0VictorHL
+010C7619	030C7619	ICPalaceGuardGreenWay02	Palace Guard	M	0Victor	0VictorHL
+010C769D	030C769D	MG08Necromancer1	Necromancer	F	0Koala	0KoalaHL
+010C769E	030C769E	MG08Necromancer2	Necromancer	M	0Theo	0TheoHL
+010C7944	030C7944	Dark07MercenaryTEMPLATE	Mercenary	M	0Theo	0TheoHL
+010C798E	030C798E	TestErikNPC		M	0Theo	0TheoHL
+010C80FD	030C80FD	JalbertREF	Jalbert	M	0Victor	0VictorHL
+010C87B2	030C87B2	BrumaGuardCityPostDay03	Bruma Guard	M	0Victor	0VictorHL
+010C87B3	030C87B3	BrumaGuardCityPostNight03	Bruma Guard	M	0Theo	0TheoHL
+010C87B4	030C87B4	BrumaGuardCityPostDay04	Bruma Guard	M	0Victor	0VictorHL
+010C87B5	030C87B5	BrumaGuardCityPostNight04	Bruma Guard	M	0Victor	0VictorHL
+010C8808	030C8808	DeadScholar	Dead Scholar	M	0TheTruth	0TheTruthHL
+010C89E0	030C89E0	MQ16PalaceGuard	Palace Guard	M	0Victor	0VictorHL
+010C8C6C	030C8C6C	SummonDremora1CaitiffMale1	Dremora Caitiff	M	0RedRobin	0RedRobinHL
+010C8C92	030C8C92	SummonDremora5MarkynazMale1	Dremora Markynaz	M	0TheTruth	0TheTruthHL
+010CA005	030CA005	DeadTreasureHunter2	Dead Treasure Hunter	M	0Victor	0VictorHL
+010CA18D	030CA18D	BlackRockPirate03	Black Rock Pirate	M	0RedRobin	0RedRobinHL
+010CA18E	030CA18E	BlackRockPirate04	Black Rock Captain	M	0TheTruth	0TheTruthHL
+010CA18F	030CA18F	BlackRockPirate01	Black Rock Pirate	M	0RedRobin	0RedRobinHL
+010CA190	030CA190	BlackRockPirate02	Black Rock Pirate	M	0Victor	0VictorHL
+010CD302	030CD302	lyndacartertest	Lynda Carter	F	0Laurell	0LaurellHL
+010CD327	030CD327	MS08KurdanThug	Ra'jhera the Keeneye	M	0RedRobin	0RedRobinHL
+010CD4D3	030CD4D3	KvatchCastleWallDremoraMage	Dremora Churl	M	0Theo	0TheoHL
+0110D759	0310D759	ICPalaceGuardPostDay01	Palace Guard	M	0Victor	0VictorHL
+01115DF6	03115DF6	ICPalaceGuardPostDay02	Palace Guard	M	0Theo	0TheoHL
+01115DF7	03115DF7	ICPalaceGuardPatrolDay01	Palace Guard	M	0RedRobin	0RedRobinHL
+01115DF8	03115DF8	ICPalaceGuardPatrolNight01	Palace Guard	M	0TheTruth	0TheTruthHL
+01115DF9	03115DF9	ICPalaceGuardPostNight01	Palace Guard	M	0Victor	0VictorHL
+01115DFA	03115DFA	ICPalaceGuardPostNight02	Palace Guard	M	0RedRobin	0RedRobinHL
+01115DFB	03115DFB	ICPalaceGuardPostDay03	Palace Guard	M	0Theo	0TheoHL
+01115DFC	03115DFC	ICPalaceGuardPostNight03	Palace Guard	M	0RedRobin	0RedRobinHL
+01115DFD	03115DFD	ICPalaceGuardPostDay04	Palace Guard	M	0RedRobin	0RedRobinHL
+01115DFE	03115DFE	ICPalaceGuardPostNight04	Palace Guard	M	0Theo	0TheoHL
+01132AEB	03132AEB	TESTArgonian	Tar-Meena	M	0Theo	0TheoHL
+0114683C	0314683C	ArenaICBlueTeamGladiator	Blue Team Gladiator	M	0TheTruth	0TheTruthHL
+0114683D	0314683D	ArenaICYellowTeamChampion	Yellow Team Champion	F	0Laurell	0LaurellHL
+0114C466	0314C466	TG11MothPriestFemale01	Blind Moth Priest	F	0Leona	0LeonaHL
+0114C467	0314C467	TG11MothPriestFemale02	Blind Moth Priest	F	0Koala	0KoalaHL
+0114C46A	0314C46A	TG11MothPriestMale01	Blind Moth Priest	M	0Theo	0TheoHL
+0114C46B	0314C46B	TG11MothPriestMale02	Blind Moth Priest	M	0RedRobin	0RedRobinHL
+0114C46E	0314C46E	TG11MothPriestBossMale01	Blind Moth Prelate	M	0RedRobin	0RedRobinHL
+0114C46F	0314C46F	TG11MothPriestBossFemale01	Blind Moth Prelate	F	0Lenore	0LenoreHL
+0114C715	0314C715	EvangelineBeanique	Evangeline Beanique	F	0Lenore	0LenoreHL
+01165CA3	03165CA3	TESTWoodElf	Hasathil	M	0Theo	0TheoHL
+01165CA4	03165CA4	TESTHighElf	Mannimarco	F	0Laurell	0LaurellHL
+01165CA5	03165CA5	TESTDarkElf	Hlaro Dren	M	0RedRobin	0RedRobinHL
+01165CA6	03165CA6	TESTOrc	Kurz gro-Baroth	M	0Theo	0TheoHL
+011778DC	031778DC	Dark09PhillidaBodyguard	Adamus Phillida's Bodyguard	M	0Victor	0VictorHL
+01177A2B	03177A2B	Sjirra	S'jirra	F	0Lamb	0LambHL
+0117C457	0317C457	MythicDawnMeleeMale1	Mythic Dawn Agent	M	0Theo	0TheoHL
+0117C464	0317C464	TG11MothPriestDoorGuard01	Blind Moth Priest	M	0Victor	0VictorHL
+0117C465	0317C465	TG11MothPriestPrivateWanderer	Blind Moth Priest	F	0Lenore	0LenoreHL
+0117CCFF	0317CCFF	DEADMythicDawnGuardRandomMale	Mythic Dawn Guard	M	0Theo	0TheoHL
+01181C64	03181C64	KyliusLonavo	Kylius Lonavo	M	0Theo	0TheoHL
+01181C68	03181C68	LerexusCallidus	Lerexus Callidus	M	0TheTruth	0TheTruthHL
+01181D1E	03181D1E	TG11PalaceGuardTopFloor	Palace Guard	M	0Victor	0VictorHL
+01185374	03185374	Lithnilian	Lithnilian	M	0TheTruth	0TheTruthHL
+01185378	03185378	RaelynntheGravefinder	Raelynn the Gravefinder	F	0Lamb	0LambHL
+01185DC9	03185DC9	SlytheSeringi	Slythe Seringi	M	0Victor	0VictorHL
+01185FE0	03185FE0	AelwinMerowald	Aelwin Merowald	M	0RedRobin	0RedRobinHL
+01185FE3	03185FE3	BjalfitheContemptible	Bjalfi the Contemptible	M	0Theo	0TheoHL
+01185FE5	03185FE5	MaevatheBuxom	Maeva the Buxom	F	0Leona	0LeonaHL
+01189D01	03189D01	CorrickNorthwode	Corrick Northwode	M	0TheTruth	0TheTruthHL
+0118ABFB	0318ABFB	AdventurerOrcSpellsword01	Adventurer	M	0Theo	0TheoHL
+0118ABFC	0318ABFC	AdventurerOrcBattlemage01	Adventurer	M	0RedRobin	0RedRobinHL
+0118ABFD	0318ABFD	AdventurerOrcWarrior02	Adventurer	M	0TheTruth	0TheTruthHL
+0118ABFE	0318ABFE	AdventurerOrcWarrior03	Adventurer	M	0Theo	0TheoHL
+0118ABFF	0318ABFF	AdventurerOrcWarrior04	Adventurer	M	0RedRobin	0RedRobinHL
+0118AD6B	0318AD6B	GuilbertSelone	Guilbert Selone	M	0RedRobin	0RedRobinHL
+0118AD70	0318AD70	LenkaValus	Lenka Valus	F	0Koala	0KoalaHL
+0118AD8C	0318AD8C	LeyawiinGuardDEAD	Leyawiin City Watch	M	0TheTruth	0TheTruthHL
+0118AFD9	0318AFD9	ThorleyAethelred	Thorley Aethelred	M	0Victor	0VictorHL
+0118B118	0318B118	ImperialLegionSoldier	Imperial Legion Soldier	M	0Theo	0TheoHL
+0118B11A	0318B11A	ImperialLegionForester	Imperial Legion Forester	M	0TheTruth	0TheTruthHL
+0118BA84	0318BA84	ImperialLegionForester2	Imperial Legion Forester	M	0Theo	0TheoHL
+0118BA85	0318BA85	ImperialLegionSoldierInnImpBridge	Imperial Legion Soldier	M	0Theo	0TheoHL
+0118BA86	0318BA86	ImperialLegionRiderChorrol	Imperial Legion Soldier	M	0RedRobin	0RedRobinHL
+0118BA87	0318BA87	ImperialLegionSoldierInnRoxey	Imperial Legion Soldier	M	0Theo	0TheoHL
+0118BA88	0318BA88	ImperialLegionRiderChey	Imperial Legion Soldier	M	0Theo	0TheoHL
+0118BA89	0318BA89	ImperialLegionRiderLey	Imperial Legion Soldier	M	0RedRobin	0RedRobinHL
+0118D1F2	0318D1F2	ICPrisonJailorDay	Imperial Jailor	M	0Theo	0TheoHL
+0118D1F4	0318D1F4	ICPrisonJailorNight	Imperial Jailor	M	0RedRobin	0RedRobinHL
+0118D2B4	0318D2B4	AlixLencolia	Alix Lencolia	M	0Victor	0VictorHL
+0118D4CF	0318D4CF	ImperialLegionSoldierOBGATE	Imperial Legion Soldier	M	0RedRobin	0RedRobinHL
+0118D7D8	0318D7D8	ImperialLegionSoldierInnDrunkDrag	Imperial Legion Soldier	M	0Theo	0TheoHL
+011A5057	031A5057	LL1ConjurerBossLvl100_Lvl		M	0RedRobin	0RedRobinHL
+011BF0A3	031BF0A3	LL1Conjurer100_Lvl		M	0Victor	0VictorHL
+011BF8FC	031BF8FC	SELL2ZealotBossLvl100_Lvl		M	0RedRobin	0RedRobinHL
+011CF0D5	031CF0D5	SE45mLackey_Lvl		M	0Victor	0VictorHL
+01210383	03210383	LL2NecromancerLair75_Lvl		M	0Theo	0TheoHL
+01211FF3	03211FF3	MS48FinalBattleDremoraBossLvl100_Lvl		M	0Theo	0TheoHL
+012149D3	032149D3	LL1BanditBossBlackBow100_Lvl		M	0Theo	0TheoHL
+0123859B	0323859B	LL1NecromancerBoss100_Lvl		M	0RedRobin	0RedRobinHL
+0124EB55	0324EB55	SERottenDenLL1Patrol03_Lvl		M	0RedRobin	0RedRobinHL
+01265281	03265281	SELL1HereticMage100_Lvl		M	0Theo	0TheoHL
+0129338C	0329338C	LL2ConjurerLair50_Lvl		M	0RedRobin	0RedRobinHL
+01295D87	03295D87	LL1DremoraArcher100_Lvl		M	0RedRobin	0RedRobinHL
+0129F6E0	0329F6E0	LL1RoadBandit_Lvl		M	0Theo	0TheoHL
+012B6087	032B6087	LL1BanditHighwayman50_Lvl		M	0Victor	0VictorHL
+012CEDF3	032CEDF3	LL0VeyondCaveTribesman75_Lvl		M	0TheTruth	0TheTruthHL
+012D018B	032D018B	SERottenDenLL1Patrol05b_Lvl		M	0TheTruth	0TheTruthHL
+012D94BE	032D94BE	LL0VeyondCaveShaman100_Lvl		M	0TheTruth	0TheTruthHL
+012E6DEC	032E6DEC	LL1Necromancer75_Lvl		M	0RedRobin	0RedRobinHL
+0130D7D7	0330D7D7	SE08WalkToPassWallList_Lvl		M	0Theo	0TheoHL
+01320C82	03320C82	LL1MarauderBossLvl100_Lvl		M	0TheTruth	0TheTruthHL
+0137A0E9	0337A0E9	LL2NecromancerLair25_Lvl		M	0Victor	0VictorHL
+013DEF95	033DEF95	MQ06MythicDawnAcolyteRandom_Lvl		M	0TheTruth	0TheTruthHL
+013DFFAB	033DFFAB	LL1Dremora25_Lvl		M	0Theo	0TheoHL
+014319E4	034319E4	LL1Conjurer50_Lvl		M	0Victor	0VictorHL
+0143415A	0343415A	LL1MarauderBattlemage50_Lvl		M	0TheTruth	0TheTruthHL
+014B8322	034B8322	LL1DremoraBossLvl100_Lvl		M	0Victor	0VictorHL
+014BF751	034BF751	SEXPXavaraPatrolList01_Lvl		M	0Theo	0TheoHL
+014CA55F	034CA55F	SERottenDenLL1Patrol04_Lvl		M	0RedRobin	0RedRobinHL
+014D3F03	034D3F03	LL1MarauderMissile50_Lvl		M	0Victor	0VictorHL
+014F0A39	034F0A39	SE10LLPinnacle05bKnight100_Lvl		M	0RedRobin	0RedRobinHL
+015028C5	035028C5	LL1BanditMelee50_Lvl		M	0TheTruth	0TheTruthHL
+0152C6D0	0352C6D0	SE03LL1KnightOfOrder100_Lvl		M	0Victor	0VictorHL
+01534E5C	03534E5C	LL1BanditWizard25_Lvl		M	0TheTruth	0TheTruthHL
+0153F51A	0353F51A	SERottenDenLL1Patrol02_Lvl		M	0Theo	0TheoHL
+01542527	03542527	LL1MarauderMissile100_Lvl		M	0Victor	0VictorHL
+0154DB93	0354DB93	LL0VeyondCaveTribesman50_Lvl		M	0Theo	0TheoHL
+01561002	03561002	SE45zLackey_Lvl		M	0Victor	0VictorHL
+015843F8	035843F8	MQ13BrumaMilitiaLeveled_Lvl		M	0Theo	0TheoHL
+015933E2	035933E2	LL1BanditMelee75_Lvl		M	0TheTruth	0TheTruthHL
+0163D046	0363D046	LL1BanditMissileBlackBow100_Lvl		M	0Theo	0TheoHL
+0165B93C	0365B93C	SE10LLBrellach05bKnight100_Lvl		M	0RedRobin	0RedRobinHL
+016641C9	036641C9	LL2NecromancerLair100_Lvl		M	0RedRobin	0RedRobinHL
+016CB408	036CB408	LL1Necromancer25_Lvl		M	0TheTruth	0TheTruthHL
+016CC7AA	036CC7AA	SE10LLPinnacle04bKnight100_Lvl		M	0TheTruth	0TheTruthHL
+016E20FF	036E20FF	OrcAdventurerRandom25_Lvl		M	0Theo	0TheoHL
+016F8F5B	036F8F5B	LL1Conjurer75_Lvl		M	0Theo	0TheoHL
+0170A0F6	0370A0F6	LL1BanditBossLvl100_Lvl		M	0Victor	0VictorHL
+017377F0	037377F0	SELL1KnightOfOrder100_Lvl		M	0Victor	0VictorHL
+01737C49	03737C49	LL1MarauderMissile25_Lvl		M	0RedRobin	0RedRobinHL
+01752327	03752327	LL2NecromancerLair50_Lvl		M	0RedRobin	0RedRobinHL
+01768B44	03768B44	SEXPXavaraPatrolList02_Lvl		M	0TheTruth	0TheTruthHL
+0177028E	0377028E	LL1Vampire100_Lvl		M	0TheTruth	0TheTruthHL
+01792EA6	03792EA6	OrcAdventurerRandom10_Lvl		M	0TheTruth	0TheTruthHL
+017C7D52	037C7D52	LL1DremoraMageLvl100_Lvl		M	0RedRobin	0RedRobinHL
+0180DC6C	0380DC6C	SE10LLBrellach04aKnight100_Lvl		M	0TheTruth	0TheTruthHL
+0186497F	0386497F	SELL1HereticBossLvl100_Lvl		M	0Victor	0VictorHL
+0186E9E1	0386E9E1	LL0VeyondCaveChieftain100_Lvl		M	0Victor	0VictorHL
+01871328	03871328	LL1MarauderMelee100_Lvl		M	0TheTruth	0TheTruthHL
+01879619	03879619	SE10LLOrderPriest100_Lvl		M	0Victor	0VictorHL
+0187AA3E	0387AA3E	MQ16PalaceDremoraBossLvl100_Lvl		M	0Theo	0TheoHL
+0188316F	0388316F	SERottenDen03LLBoss01_Lvl		M	0Theo	0TheoHL
+018A6876	038A6876	LL1BanditMelee100_Lvl		M	0Theo	0TheoHL
+018A6F18	038A6F18	SELL1ZealotBossLvl100_Lvl		M	0Theo	0TheoHL
+018A7249	038A7249	SE10LLKnightSentry100_Lvl		M	0RedRobin	0RedRobinHL
+018BABD7	038BABD7	LL1BanditMissile25_Lvl		M	0Victor	0VictorHL
+018D7774	038D7774	LL1BanditMissile100_Lvl		M	0Theo	0TheoHL
+018EBD70	038EBD70	LL1MarauderMelee75_Lvl		M	0RedRobin	0RedRobinHL
+01915EB2	03915EB2	SELL2ZealotLvl100_Lvl		M	0Theo	0TheoHL
+01928C9D	03928C9D	LL1MarauderBattlemage100_Lvl		M	0RedRobin	0RedRobinHL
+01931CC7	03931CC7	LL1MarauderMelee25_Lvl		M	0Victor	0VictorHL
+0194B009	0394B009	LL1BanditCampMelee_Lvl		M	0Victor	0VictorHL
+01951A05	03951A05	LL1MarauderMelee50_Lvl		M	0Theo	0TheoHL
+01980A26	03980A26	LL1Necromancer50_Lvl		M	0Theo	0TheoHL
+0199EBE4	0399EBE4	LL2WildernessConjurerLair50_Lvl		M	0TheTruth	0TheTruthHL
+019A20A1	039A20A1	SELL2Zealot50_Lvl		M	0Victor	0VictorHL
+019E68E6	039E68E6	SELL1ZealotMage100_Lvl		M	0TheTruth	0TheTruthHL
+01A09DA8	03A09DA8	LL1VampireMissile100_Lvl		M	0Victor	0VictorHL
+01A0A534	03A0A534	MQ15MythicDawnLow100_Lvl		M	0RedRobin	0RedRobinHL
+01A30255	03A30255	MQ06MythicDawnGuardRandom_Lvl		M	0Victor	0VictorHL
+01A56632	03A56632	SERottenDenLL1Patrol07a_Lvl		M	0RedRobin	0RedRobinHL
+01A60F24	03A60F24	LL2ConjurerLair75_Lvl		M	0RedRobin	0RedRobinHL
+01A6602F	03A6602F	SELL1ZealotMageLvl100_Lvl		M	0Victor	0VictorHL
+01A733C5	03A733C5	LL1DremoraLvl100_Lvl		M	0TheTruth	0TheTruthHL
+01A953FE	03A953FE	SERottenDen02LLBoss01_Lvl		M	0RedRobin	0RedRobinHL
+01A9A479	03A9A479	LL2ConjurerLair100_Lvl		M	0Theo	0TheoHL
+01AC5B08	03AC5B08	LL1DremoraMage100_Lvl		M	0TheTruth	0TheTruthHL
+01ACB7CC	03ACB7CC	MQ16DremoraBossLvl100_Lvl		M	0Theo	0TheoHL
+01B12D7A	03B12D7A	SE10LLPinnacle04aKnight100_Lvl		M	0TheTruth	0TheTruthHL
+01B1D858	03B1D858	LL1Necromancer100_Lvl		M	0RedRobin	0RedRobinHL
+01B1F6F6	03B1F6F6	LL1BanditMissile50_Lvl		M	0Victor	0VictorHL
+01B6D7B4	03B6D7B4	LL1MarauderMissile75_Lvl		M	0Theo	0TheoHL
+01B89A3B	03B89A3B	MQ14LL1DremoraArcherLvl100_Lvl		M	0RedRobin	0RedRobinHL
+01BC370E	03BC370E	LL1Vampire75_Lvl		M	0Victor	0VictorHL
+01C46735	03C46735	SEXPxiditteSELL2Zealot100_Lvl		M	0RedRobin	0RedRobinHL
+01C4CF50	03C4CF50	SERottenDenLL1Patrol07b_Lvl		M	0Victor	0VictorHL
+01C58C23	03C58C23	MQ16Dremora100_Lvl		M	0TheTruth	0TheTruthHL
+01C6FA69	03C6FA69	SERottenDenLL1Patrol05a_Lvl		M	0Victor	0VictorHL
+01CB8D8B	03CB8D8B	LL0VeyondCaveShaman50_Lvl		M	0Victor	0VictorHL
+01D383BD	03D383BD	MythicDawnGuardLeveled_Lvl		M	0Theo	0TheoHL
+01D3BECF	03D3BECF	SERottenDenLL1Patrol01_Lvl		M	0Victor	0VictorHL
+01D3F289	03D3F289	LL1Dremora50_Lvl		M	0Victor	0VictorHL
+01D5220B	03D5220B	LL0VeyondCaveTribesman100_Lvl		M	0Victor	0VictorHL
+01D58995	03D58995	SELL1HereticMageLvl100_Lvl		M	0RedRobin	0RedRobinHL
+01D65E03	03D65E03	LL1Dremora100_Lvl		M	0Victor	0VictorHL
+01D7B7A2	03D7B7A2	SE10LLBrellach04bKnight100_Lvl		M	0RedRobin	0RedRobinHL
+01D80EE7	03D80EE7	LL1VampireBossLvl100_Lvl		M	0TheTruth	0TheTruthHL
+01DB751F	03DB751F	LL1Vampire25_Lvl		M	0Victor	0VictorHL
+01E39F7C	03E39F7C	MQ14LL1DremoraMageLvl100_Lvl		M	0RedRobin	0RedRobinHL
+01E6A333	03E6A333	Dark07Mercenary100_Lvl		M	0Victor	0VictorHL
+01E779D5	03E779D5	MG16LeveledMage_Lvl		M	0RedRobin	0RedRobinHL
+01EB0B0F	03EB0B0F	SERottenDenLL1Patrol06_Lvl		M	0Theo	0TheoHL
+01ED3E13	03ED3E13	SE10LLKnightOfOrder100_Lvl		M	0Victor	0VictorHL
+01ED8EAE	03ED8EAE	SELL2Zealot100_Lvl		M	0RedRobin	0RedRobinHL
+01EF7D4F	03EF7D4F	LL1BanditWizard100_Lvl		M	0Victor	0VictorHL
+01EFA1CA	03EFA1CA	SELL2Heretic100_Lvl		M	0RedRobin	0RedRobinHL

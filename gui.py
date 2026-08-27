@@ -163,6 +163,27 @@ GLOBAL_ACTIONS = [
      "Patch Skyrim", 2),
 ]
 
+# Patch plugins the app can build from the converted output. Each one is an
+# override ESP over the plugins the user ticks -- see tools/patch/build_patch.py.
+# (key, button label, plugin name, one-line description, tooltip)
+PATCH_ACTIONS = [
+    ("cosmetic", "Outfits & Hair", "MyOwnTamrielCosmeticPatch.esp",
+     "NPC outfits, hair and skin tone",
+     "Restyle the converted NPCs: a random outfit for every woman, a KS "
+     "Hairdo for everyone, and the skin-tone fix that stops faces being lit "
+     "differently from bodies"),
+    ("creatures", "Creatures", "MyOwnTamrielCreaturePatch.esp",
+     "vanilla Skyrim creatures, and the removals",
+     "Replace converted Oblivion creatures with the vanilla Skyrim creature "
+     "they match, so they animate properly. Mounts are NOT included -- they "
+     "have their own patch"),
+    ("horses", "Horses", "MyOwnTamrielHorsePatch.esp",
+     "mounts: vanilla horse race, coat and saddle",
+     "Turn the converted horses (and Elsweyr's zebras and camels) into "
+     "vanilla Skyrim horses, which is what makes them rideable again. Coat "
+     "and saddle come from the Oblivion record"),
+]
+
 # ── Colors ───────────────────────────────────────────────────────────────────
 CLR = {
     "bg":           "#1e1e2e",
@@ -2542,6 +2563,13 @@ def gui_main():
     # confirmed", same convention as the LOD lists above.
     master_plugins: list[str] = []
 
+    # Patches: which converted plugins each patch covers, keyed by PATCH_ACTIONS
+    # key. A key that is ABSENT means "never confirmed" and defaults to every
+    # converted plugin; an empty list would mean the user unticked them all, so
+    # the two states have to stay distinguishable -- hence .get(key) is None
+    # rather than a falsy test.
+    patch_esp_selection: dict[str, list[str]] = {}
+
     def _lod_out_root() -> Path:
         return Path(output_var.get().strip() or str(SCRIPT_DIR / "output"))
 
@@ -3471,6 +3499,38 @@ def gui_main():
     )
     body_toggle_lbl.grid(row=0, column=0, sticky="w", padx=(0, 3))
     body_toggle_lbl.bind("<Button-1>", lambda _: _open_patch_plugin_panel())
+
+    # ── Patches ──────────────────────────────────────────────────────────────
+    # Separate from Global because these do not act on the whole load order:
+    # each builds ONE override ESP over a chosen subset of converted plugins,
+    # and the user picks that subset in the button's own panel.
+    _sep()
+    ph = ttk.Frame(sb_body, style="Panel.TFrame")
+    ph.pack(fill=tk.X, padx=14, pady=(0, 4))
+    ttk.Label(ph, text="Patches", style="PanelSub.TLabel").pack(side=tk.LEFT)
+
+    pf = ttk.Frame(sb_body, style="Panel.TFrame")
+    pf.pack(fill=tk.X, padx=14, pady=(0, 6))
+    pf.columnconfigure(0, weight=1, uniform="patch")
+    pf.columnconfigure(1, weight=1, uniform="patch")
+
+    patch_btns: dict[str, ttk.Button] = {}
+    for _i, (_pkey, _plabel, _pname, _pwhat, _ptip) in enumerate(PATCH_ACTIONS):
+        _pb = ttk.Button(pf, text=_plabel, style="Global.TButton",
+                         command=(lambda k=_pkey: _open_patch_panel(k)))
+        _pb.grid(row=_i // 2, column=_i % 2, sticky="ew",
+                 padx=((0, 3) if _i % 2 == 0 else (3, 0)),
+                 pady=(0 if _i < 2 else 4, 0))
+        _attach_tooltip(_pb, _ptip)
+        patch_btns[_pkey] = _pb
+
+    tk.Label(pf,
+             text="each opens its plugin list, then builds an ESP and zips it "
+                  "into Finished Mods",
+             bg=CLR["panel"], fg=CLR["subtext"], justify=tk.LEFT,
+             font=("Segoe UI", 8), wraplength=250).grid(
+        row=(len(PATCH_ACTIONS) + 1) // 2, column=0, columnspan=2,
+        sticky="w", pady=(6, 0))
 
     # Column 0 of this row is under "Patch Skyrim", the last row's left-hand
     # button, which is the only action with a selection to make from here.
@@ -4690,6 +4750,137 @@ def gui_main():
             else:
                 btn.configure(text=gshort, style="Global.TButton")
 
+    def _open_patch_panel(key: str):
+        """Pick the converted plugins this patch covers, then build it.
+
+        One panel for all three patches: they take the same two inputs (which
+        patch, which plugins), so a per-patch dialog would be three copies of
+        this one. The list is ordered masters-first, which is both the order the
+        patch has to declare them in and the order they install in.
+        """
+        if running.is_set():
+            return
+        label, plugin_name, what, _tip = next(
+            (l, n, w, t) for k, l, n, w, t in PATCH_ACTIONS if k == key)
+        all_names = _default_master_plugins()
+
+        # Remembered per patch, and never hides a plugin converted since the
+        # last run: an unknown name is ticked rather than silently dropped.
+        wanted = patch_esp_selection.get(key)
+        if wanted is None:
+            checked = set(all_names)
+        else:
+            checked = {n for n in wanted if n in all_names}
+            checked |= {n for n in all_names if n not in wanted}
+
+        card = tk.Frame(outer, bg=CLR["panel"],
+                        highlightbackground=CLR["border"], highlightthickness=1)
+
+        def _close():
+            card.destroy()
+
+        tk.Label(card, text=f"Generate patch — {label}",
+                 bg=CLR["panel"], fg=CLR["text"],
+                 font=("Segoe UI", 10, "bold")).pack(anchor="w", padx=16,
+                                                     pady=(14, 0))
+        tk.Label(card,
+                 text=(f"{plugin_name}\n{what}\n\n"
+                       "Tick the converted plugins this patch should cover. "
+                       "It masters only what it\nactually references, so an "
+                       "unticked plugin costs nothing — and the finished\n"
+                       "ESP is zipped into output/Finished Mods like any "
+                       "other converted mod."),
+                 bg=CLR["panel"], fg=CLR["subtext"], justify=tk.LEFT,
+                 font=("Segoe UI", 9)).pack(anchor="w", padx=16, pady=(4, 0))
+
+        ttk.Separator(card, orient=tk.HORIZONTAL).pack(fill=tk.X, padx=16,
+                                                       pady=8)
+
+        if not all_names:
+            tk.Label(card,
+                     text="Nothing converted yet — convert a plugin first.",
+                     bg=CLR["panel"], fg=CLR["subtext"],
+                     font=("Segoe UI", 9)).pack(anchor="w", padx=16,
+                                                pady=(0, 8))
+            ttk.Separator(card, orient=tk.HORIZONTAL).pack(fill=tk.X, padx=16,
+                                                           pady=8)
+            ttk.Button(card, text="Close", command=_close).pack(pady=(0, 14))
+            card.update_idletasks()
+            card.place(in_=outer, anchor="center", relx=0.5, rely=0.5)
+            card.lift()
+            return
+
+        rows = tk.Frame(card, bg=CLR["panel"])
+        rows.pack(fill=tk.BOTH, expand=True, padx=16)
+        row_vars: dict[str, tk.BooleanVar] = {}
+        warn = tk.Label(card, text="", bg=CLR["panel"], fg=CLR["yellow"],
+                        justify=tk.LEFT, font=("Segoe UI", 9))
+
+        def _validate():
+            """A patch may not cover a plugin without covering its masters.
+
+            The records it copies reference the master's FormIDs, so leaving the
+            master out would write a reference the patch cannot declare.
+            """
+            sel = {n for n, v in row_vars.items() if v.get()}
+            missing = [f"{n} needs {m}" for n in sel
+                       for m in _plugin_masters(n)
+                       if m in set(all_names) and m not in sel]
+            warn.configure(text=("⚠ " + "; ".join(missing[:3])) if missing
+                           else "")
+            gen_btn.configure(state=("normal" if sel and not missing
+                                     else "disabled"))
+            return sel and not missing
+
+        def _on_toggle(name):
+            """Ticking a plugin ticks the masters it rests on."""
+            if row_vars[name].get():
+                stack = [name]
+                while stack:
+                    cur = stack.pop()
+                    for m in _plugin_masters(cur):
+                        if m in row_vars and not row_vars[m].get():
+                            row_vars[m].set(True)
+                            stack.append(m)
+            _validate()
+
+        for name in all_names:
+            var = tk.BooleanVar(value=name in checked)
+            row_vars[name] = var
+            cb = tk.Checkbutton(
+                rows, text=name, variable=var,
+                command=(lambda n=name: _on_toggle(n)),
+                bg=CLR["panel"], fg=CLR["text"], selectcolor=CLR["btn"],
+                activebackground=CLR["panel"], activeforeground=CLR["text"],
+                highlightthickness=0, anchor="w", font=("Segoe UI", 9))
+            cb.pack(fill=tk.X, anchor="w")
+
+        warn.pack(anchor="w", padx=16, pady=(6, 0))
+        ttk.Separator(card, orient=tk.HORIZONTAL).pack(fill=tk.X, padx=16,
+                                                       pady=8)
+
+        btns = tk.Frame(card, bg=CLR["panel"])
+        btns.pack(fill=tk.X, padx=16, pady=(0, 14))
+
+        def _generate():
+            chosen = [n for n in all_names if row_vars[n].get()]
+            if not chosen:
+                return
+            patch_esp_selection[key] = chosen
+            _close()
+            _start_patch_build(key, chosen)
+
+        gen_btn = ttk.Button(btns, text="Generate Patch",
+                             style="Accent.TButton", command=_generate)
+        gen_btn.pack(side=tk.LEFT, padx=4)
+        ttk.Button(btns, text="Cancel", command=_close).pack(side=tk.LEFT,
+                                                             padx=4)
+        _validate()
+
+        card.update_idletasks()
+        card.place(in_=outer, anchor="center", relx=0.5, rely=0.5)
+        card.lift()
+
     def _run_global_action(key: str):
         """Run one global action in a worker thread, logging to the main pane.
 
@@ -4713,13 +4904,15 @@ def gui_main():
             return
         _start_global_action(key)
 
-    def _start_global_action(key: str):
-        """Launch one global action with the selection already settled."""
+    def _run_job(label: str, cmd: list, out_dir: str, on_success=None):
+        """Run one command in a worker thread, logging to the main pane.
+
+        Shared by the Global actions and the Patches section: both are a single
+        subprocess whose output belongs in the log, and the threading here is
+        subtle enough that a second copy would drift.
+        """
         if running.is_set():
             return
-        out_dir = output_var.get().strip()
-        cmd = _global_cmd(key, out_dir)
-        label = next(l for k, l, _t, _s, _r in GLOBAL_ACTIONS if k == key)
 
         _clear_log()
         # Opened BEFORE the header lines so they land in the file too.
@@ -4772,13 +4965,11 @@ def gui_main():
                       else f"  FAILED (exit {ret})")
             finally:
                 _want_summary[0] = ret not in (0, -2)
-                if ret == 0:
-                    # Stamp only on success: a failed or cancelled run must
-                    # leave the button lit, not quietly mark the work done.
+                if ret == 0 and on_success is not None:
+                    # Only on success: a failed or cancelled run must leave the
+                    # button lit, not quietly mark the work done.
                     try:
-                        _last_global_stamp[key] = _global_stamp(key)
-                        import version as _v
-                        _v.record_step_run(key, None)
+                        on_success()
                     except Exception:
                         pass
                 root.after(0, lambda: _set_running(False))
@@ -4787,9 +4978,38 @@ def gui_main():
         # Schedule the drain, never call it inline: `running` is set INSIDE
         # _worker, on the worker thread, so an immediate call almost always
         # sees it still clear, skips the `if running.is_set()` re-arm and never
-        # runs again — every line of output stays stranded in the queue and the
+        # runs again -- every line of output stays stranded in the queue and the
         # button looks dead. Deferring lets the worker set the flag first.
         root.after(50, _drain)
+
+    def _start_global_action(key: str):
+        """Launch one global action with the selection already settled."""
+        if running.is_set():
+            return
+        out_dir = output_var.get().strip()
+        label = next(l for k, l, _t, _s, _r in GLOBAL_ACTIONS if k == key)
+
+        def _stamp():
+            _last_global_stamp[key] = _global_stamp(key)
+            import version as _v
+            _v.record_step_run(key, None)
+
+        _run_job(label, _global_cmd(key, out_dir), out_dir, on_success=_stamp)
+
+    def _start_patch_build(key: str, plugins: list):
+        """Build one patch ESP and package it, for the ticked plugins."""
+        if running.is_set():
+            return
+        out_dir = output_var.get().strip()
+        name, what = next((n, w) for k, _l, n, w, _t in PATCH_ACTIONS
+                          if k == key)
+        cmd = [sys.executable, "-u",
+               str(SCRIPT_DIR / "tools" / "patch" / "build_patch.py"),
+               "--patch", key, "--plugins"] + list(plugins)
+        if out_dir:
+            cmd += ["--output-dir", out_dir]
+        _run_job(f"{name} -- {what}", cmd, out_dir)
+
 
     def _run_clicked():
         if running.is_set():

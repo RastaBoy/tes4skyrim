@@ -29,6 +29,12 @@ DogSwimRoot/DogSwimStart/DogSwimStop etc.).
 
 from .writer import pack_record, pack_subrecord, pack_string_subrecord
 
+# Creature folder whose tree is currently being built, for _idle's sharing
+# check. The whole set for one folder is built by a single non-reentrant
+# build_creature_idles call, so one module-level slot is enough and every
+# _idle call site stays unchanged.
+_CURRENT_FOLDER = ''
+
 # Vanilla Skyrim.esm AACT records (master index 0 — written unremapped)
 _ACTIONS = {
     'ActionMoveStart': 0x000959F8,
@@ -131,7 +137,19 @@ def _idle(writer, edid: str, dnam: str, enam: str, parent: int,
     Returns the new FormID."""
     # `edid` is TES4<folder><suffix> from the _LEAVES constant — a stable
     # name, not an ordinal, so it keys the derived id directly.
-    fid = writer.derive_formid('CREA_IDLE', edid)
+    #
+    # A folder inherited wholesale from a master already HAS this tree in the
+    # load order, and the engine finds it by walking every IDLE under the AACT
+    # filtered on DNAM — so a second identical tree adds nothing but 513
+    # duplicate EditorIDs (docs/ck_file_in_use_stall.md). Resolved per record
+    # rather than per folder so a master that only covers part of the tree
+    # still gets the rest written here, with the parent links pointing at its
+    # records.
+    from .creature_races import share_folder_fid
+    fid, from_master = share_folder_fid(writer, 'CREA_IDLE', edid,
+                                        _CURRENT_FOLDER)
+    if from_master:
+        return fid
     subs = pack_string_subrecord('EDID', edid)
     for c in ([ctda] if isinstance(ctda, bytes) else (ctda or [])):
         subs += pack_subrecord('CTDA', c)
@@ -273,6 +291,8 @@ def _build_block_idles(writer, base: str, dnam: str) -> None:
 
 def build_creature_idles(writer, folder: str, proj: dict) -> None:
     """The per-project action-routing IDLE set (once per creature folder)."""
+    global _CURRENT_FOLDER
+    _CURRENT_FOLDER = folder
     # The engine picks a creature's IDLE root (several unchained roots hang
     # under each AACT) by matching DNAM against the actor's root behavior
     # path, which it resolves from the loaded project — so this must be the

@@ -21,11 +21,13 @@ Usage:
     python tools/creature/creature_race_resolve.py --all
     python tools/creature/creature_race_resolve.py --plugin Dragonborn.esm
     python tools/creature/creature_race_resolve.py --plugin BSAssets.esm --grep goblin
+    python tools/creature/creature_race_resolve.py --plugin <newmod.esp> --skins
     python tools/creature/creature_race_resolve.py --all --json out.json
 """
 import argparse
 import json
 import os
+import struct
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -77,19 +79,36 @@ def find_data_dir(explicit=None):
     return None
 
 
-def races_in(path):
-    """[(local_fid, editorid)] for every RACE record, plus the ESL flag."""
-    header, records, _loc = read_tes5_file(path, parse_types={'RACE'})
+def races_in(path, want_skins=False):
+    """[(local_fid, editorid, skin_fid, skin_edid)] per RACE, plus the ESL flag.
+
+    `skin_fid` is the race's WNAM -- the body ARMO. A swap that replaces the
+    race without also replacing the skin leaves the actor on its old body mesh
+    with bone names the new skeleton does not have, so the skin is not optional
+    trivia; see docs/creature_race_equivalence.md. The ARMO EditorID is only
+    resolved when `want_skins`, and only for skins defined in this same file --
+    a skin inherited from a master comes back with an empty name.
+    """
+    types = {'RACE', 'ARMO'} if want_skins else {'RACE'}
+    header, records, _loc = read_tes5_file(path, parse_types=types)
     flags = 0
     if header is not None:
         flags = getattr(header, 'flags', 0) or 0
-    out = []
+    armo = {}
+    races = []
     for rec in records:
-        if rec.type != 'RACE':
-            continue
         sub = _get(rec, 'EDID')
         edid = _zstring(sub.data) if sub else ''
-        out.append((rec.form_id, edid))
+        if rec.type == 'ARMO':
+            armo[rec.form_id] = edid
+        elif rec.type == 'RACE':
+            skin = 0
+            if want_skins:
+                w = _get(rec, 'WNAM')
+                if w is not None and len(w.data) >= 4:
+                    skin = struct.unpack('<I', w.data[:4])[0]
+            races.append((rec.form_id, edid, skin))
+    out = [(f, e, s, armo.get(s, '')) for f, e, s in races]
     return out, bool(flags & ESL_FLAG)
 
 
@@ -101,6 +120,9 @@ def main():
     ap.add_argument('--plugin', help='just this one plugin')
     ap.add_argument('--grep', help='only EditorIDs containing this (case-insens)')
     ap.add_argument('--all', action='store_true', help='every known source')
+    ap.add_argument('--skins', action='store_true',
+                    help="also print each race's WNAM skin ARMO -- what a swap "
+                         'has to replace alongside the race')
     ap.add_argument('--json', help='also write results as JSON here')
     args = ap.parse_args()
 
@@ -119,21 +141,26 @@ def main():
             print('%-30s -- NOT INSTALLED (rows must be greyed out)' % name)
             continue
         try:
-            races, is_esl = races_in(path)
+            races, is_esl = races_in(path, want_skins=args.skins)
         except Exception as exc:
             print('%-30s !! read failed: %s' % (name, exc))
             continue
-        hits = [(f, e) for f, e in races
-                if not args.grep or args.grep.lower() in e.lower()]
+        hits = [row for row in races
+                if not args.grep or args.grep.lower() in row[1].lower()]
         print('=== %s ===%s' % (name, ('  [%s]' % why) if why else ''))
         print('    %d RACE records%s%s'
               % (len(races), ', ESL-flagged (runtime FE___xxx)' if is_esl else '',
                  ', %d match' % len(hits) if args.grep else ''))
-        for fid, edid in sorted(hits, key=lambda t: t[1].lower()):
-            print('      0x%08X  %s' % (fid, edid))
+        for fid, edid, skin, skin_edid in sorted(hits, key=lambda t: t[1].lower()):
+            if args.skins:
+                print('      0x%08X  %-44s skin=0x%08X %s'
+                      % (fid, edid, skin, skin_edid))
+            else:
+                print('      0x%08X  %s' % (fid, edid))
         result[name] = {'esl': is_esl,
-                        'races': [{'fid': '0x%08X' % f, 'edid': e}
-                                  for f, e in hits]}
+                        'races': [{'fid': '0x%08X' % f, 'edid': e,
+                                   'skin': '0x%08X' % s, 'skin_edid': se}
+                                  for f, e, s, se in hits]}
         print()
 
     if args.json:

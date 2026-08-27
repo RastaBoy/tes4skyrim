@@ -154,20 +154,39 @@ def check_masters(patch, rep):
     rep.check('masters', not bad, named if not bad else f'out of range: {dict(bad)}')
 
 
-def check_fidelity(patch, src, mapping, owned, rep):
-    src_index = {remap_fid(f, mapping): v for f, v in src.by_type['NPC_'].items()}
+def check_fidelity(patch, sources, owned, rep):
+    """Every field the passes do not own must survive the copy untouched.
+
+    `sources` is a list of (SourcePlugin, mapping): a patch may span several
+    converted plugins, and each record is checked against whichever one it came
+    from.
+    """
+    src_index = {}
+    for src, mapping in sources:
+        for f, v in src.by_type['NPC_'].items():
+            src_index[remap_fid(f, mapping)] = (v, mapping)
     missing = order = value = 0
     checked = 0
     for pfid, (_hdr, subs) in patch.npcs.items():
-        origin = src_index.get(pfid)
-        if origin is None:
+        found = src_index.get(pfid)
+        if found is None:
             missing += 1
             continue
+        origin, mapping = found
         want = [(s, p) for s, p in origin[1] if s not in owned]
         got = [(s, p) for s, p in subs if s not in owned]
-        if [s for s, _ in want] != [s for s, _ in got]:
+        # Compare the sequence only over signatures present in BOTH. A clone
+        # patch rebuilds the record from a vanilla donor and keeps a handful of
+        # fields from the source, so the donor legitimately contributes a FULL
+        # or an INAM the source never had; what must hold is that every kept
+        # field survived byte-identically and in the same relative order.
+        shared = {s for s, _ in want} & {s for s, _ in got}
+        if ([s for s, _ in want if s in shared]
+                != [s for s, _ in got if s in shared]):
             order += 1
             continue
+        want = [(s, p) for s, p in want if s in shared]
+        got = [(s, p) for s, p in got if s in shared]
         for (sig, payload), (_gsig, gpayload) in zip(want, got):
             checked += 1
             if remap_npc_subrecord(sig, payload, mapping) != gpayload:
@@ -213,8 +232,13 @@ def check_carried(patch, original, rep):
 
 
 def check_outfits(patch, src_otft, rep):
-    """Every DOFT must name a real OTFT -- this patch's own (an assigned
-    outfit) or the source plugin's (one carried through untouched)."""
+    """Every DOFT must name a real OTFT the check can actually see.
+
+    Three places one can legitimately come from: this patch (an outfit it
+    assigned), the source plugin (one carried through untouched), or a plugin
+    named with --otft-from -- which is how a vanilla outfit such as Skyrim's
+    HorseSaddleOutfit gets recognised instead of being reported as dangling.
+    """
     mine = set(patch.records_of('OTFT'))
     known = mine | src_otft
     assigned = Counter()
@@ -328,12 +352,17 @@ def main():
     ap = argparse.ArgumentParser(
         description='Verify a built NPC-override patch plugin.')
     ap.add_argument('--patch', required=True, help='the BUILT plugin to check')
-    ap.add_argument('--source', required=True,
-                    help='plugin the NPC_ overrides were copied from')
+    ap.add_argument('--source', required=True, action='append',
+                    help='plugin the NPC_ overrides were copied from; repeat '
+                         'it when the patch spans several converted plugins')
     ap.add_argument('--original',
                     help='the patch before any pass ran, to prove untouched '
                          'groups are byte-identical')
     ap.add_argument('--hair-plugin', help='enables the head-part checks')
+    ap.add_argument('--otft-from', action='append', default=[], metavar='PLUGIN',
+                    help='also accept outfits defined in these plugins (the '
+                         'horse patch assigns Skyrim.esm HorseSaddleOutfit, '
+                         'which is in neither the patch nor its source)')
     ap.add_argument('--owns', default='DOFT,PNAM,QNAM',
                     help='comma-separated subrecords the passes are allowed to '
                          'change (default DOFT,PNAM)')
@@ -348,12 +377,28 @@ def main():
     print(f'  ....  masters      {patch.masters}')
     print(f'  ....  overrides    {len(patch.npcs)} NPC_')
 
-    src = SourcePlugin(args.source, {'NPC_', 'OTFT'})
-    mapping = make_remap(src.masters, patch.masters, src.name)
-    src_otft = {remap_fid(f, mapping) for f in src.by_type['OTFT']}
+    sources = []
+    src_otft = set()
+    for path in args.source:
+        src = SourcePlugin(path, {'NPC_', 'OTFT'})
+        mapping = make_remap(src.masters, patch.masters, src.name)
+        sources.append((src, mapping))
+        src_otft |= {remap_fid(f, mapping) for f in src.by_type['OTFT']}
+    # An outfit from a plugin the patch masters directly (Skyrim.esm's
+    # HorseSaddleOutfit) is already in the patch's own FormID space, so it needs
+    # no remap -- only the index has to name a master the patch lists.
+    for extra in args.otft_from:
+        other = SourcePlugin(extra, {'OTFT'})
+        idx = {n.lower(): i for i, n in enumerate(patch.masters)}
+        own = idx.get(Path(extra).name.lower())
+        if own is None:
+            print(f'  ....  outfits      {Path(extra).name} is not a master of '
+                  'this patch; its outfits cannot be referenced')
+            continue
+        src_otft |= {(own << 24) | (f & 0xFFFFFF) for f in other.by_type['OTFT']}
 
     check_masters(patch, rep)
-    check_fidelity(patch, src, mapping,
+    check_fidelity(patch, sources,
                    {s.strip() for s in args.owns.split(',') if s.strip()}, rep)
     check_order(patch, rep)
     check_carried(patch, args.original, rep)

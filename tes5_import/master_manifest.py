@@ -20,10 +20,20 @@ Format (`<Master>.manifest.json`):
     {"version": 1,
      "source": "Nehrim.esm",
      "records": {"0001A2B3": {"fid": 16852147,
-                              "companions": [16852148, 16852149]}}}
+                              "companions": [16852148, 16852149]}},
+     "derived": {"MOVT\x00('rat', 'TES4ratDefault')": 16706132}}
 
-Keys are the RAW TES4 FormIDs from the export, so a plugin can look up its own
-override's source id directly.
+Keys of `records` are the RAW TES4 FormIDs from the export, so a plugin can look
+up its own override's source id directly.
+
+`derived` covers the OTHER kind of generated record: one keyed on something the
+plugin shares with its master rather than on a source record of its own — a
+creature folder, which a dependent plugin inherits wholesale. Those never appear
+in `records` (nothing was being converted when they were made), so without this
+section a dependent plugin re-derives them and ships a second copy of a record
+the master already has. See `writer.derive_shared` and
+docs/ck_file_in_use_stall.md. The section is optional: a manifest written before
+it existed simply has no shared keys to offer.
 """
 
 import json
@@ -39,13 +49,19 @@ def manifest_path(plugin_output_path: str) -> str:
 
 
 def write_manifest(plugin_output_path: str, source_name: str,
-                   manifest: dict) -> str:
-    """Persist the writer's source->companions map beside the converted plugin."""
+                   manifest: dict, derived: dict = None) -> str:
+    """Persist the writer's source->companions map beside the converted plugin.
+
+    `derived` is `writer.derived_map()` — the generated records keyed on
+    something a dependent plugin can share (creature folders), which have no
+    source record to hang off and so cannot live in `records`.
+    """
     path = manifest_path(plugin_output_path)
     payload = {
         'version': MANIFEST_VERSION,
         'source': source_name,
         'records': {k: v for k, v in manifest.items() if v.get('fid')},
+        'derived': derived or {},
     }
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(payload, f, separators=(',', ':'))
@@ -125,9 +141,16 @@ class MasterManifest:
 
     def __init__(self):
         self._records = {}
+        self._derived = {}
+        self.masters_without_derived = []
 
     def __len__(self):
         return len(self._records)
+
+    def derived_map(self) -> dict:
+        """`{derive payload -> id}` for every shared generated record the
+        masters own, restated in THIS plugin's index space."""
+        return self._derived
 
     def __contains__(self, source_formid: str) -> bool:
         return (source_formid or '').upper() in self._records
@@ -142,7 +165,7 @@ class MasterManifest:
         entry = self._records.get((source_formid or '').upper())
         return entry.get('companions', []) if entry else []
 
-    def load(self, path: str, index_map: dict = None):
+    def load(self, path: str, index_map: dict = None, name: str = ''):
         """Merge one master's manifest.
 
         `index_map` translates that master's OWN source index bytes into the
@@ -164,8 +187,19 @@ class MasterManifest:
                 f"(found {payload.get('version')!r}, need {MANIFEST_VERSION}). "
                 f"Re-convert the master.")
         records = payload.get('records', {})
+        # Absent (not merely empty) means a manifest written before shared
+        # derive keys existed, so this master offers none and its dependants
+        # will duplicate its folder-keyed records until it is re-converted.
+        derived = payload.get('derived')
+        if derived is None:
+            self.masters_without_derived.append(name or path)
+            derived = {}
         if index_map is None:
             self._records.update(records)
+            # Same reasoning as the records above: with a single master whose
+            # own new-master prefix matches this plugin's, its index byte is
+            # already the one this plugin names it by.
+            self._derived.update(derived)
             return
         # KEYS are in the master's TES4 SOURCE space; `fid`/`companions` are in
         # its converted OUTPUT space. Both are the master's own numbering and
@@ -193,6 +227,15 @@ class MasterManifest:
                                  for c in entry.get('companions', ())) if c]
             self._records['%08X' % new_key] = {'fid': fid,
                                                'companions': comps}
+
+        # Derive keys are plain strings shared across files (a creature folder
+        # name); only their ids need restating, and they are in the master's
+        # OUTPUT space like `fid` above. A later master wins a key an earlier
+        # one also defines, matching load order.
+        for dkey, dfid in derived.items():
+            got = _remap(dfid, out_map)
+            if got:
+                self._derived[dkey] = got
 
 
 def load_master_manifests(masters: list, tes4_master_count: int,
@@ -228,7 +271,7 @@ def load_master_manifests(masters: list, tes4_master_count: int,
             missing.append((name, path))
             continue
         manifest.load(path, _index_map(export_root, name, slot, slot_of,
-                                       new_master_count))
+                                       new_master_count), name)
 
     if missing:
         lines = [

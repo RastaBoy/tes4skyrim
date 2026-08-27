@@ -426,3 +426,200 @@ the standard of this document and are marked as such in-table above — notably
 and `grummite → FalmerRace`. They are acceptable as last-resort fallbacks
 (something must be written) but should not be read as equivalences, and any
 creature reaching them is a creature whose project failed to convert.
+
+---
+
+## 5. The patch-side proposal table (2026-08-27)
+
+`patch_folder/sources/creature_changes.py` is a second, narrower table built for
+the hand-authored patch: **Oblivion.esm + ElsweyrAnequina.esp only**, and
+restricted to the Skyrim plugins actually installed on this machine
+(Skyrim.esm, Dawnguard, Dragonborn, `ccbgssse025-advdsgs.esm` / Saints &
+Seducers). Beyond Skyrim and the other CC packs are NOT installed, so the rows
+this document credits to `BSKGoblinRace`, `CYRMinotaurRace`, `BSKScampRace`
+etc. are unavailable there and fall back to `near` tier. It also carries the
+mount/horse layer this document has no data for. Run
+`python patch_folder/sources/creature_changes.py` for the full report, and
+`python tools/creature/creature_patch_census.py -f <plugin>` to find creatures
+the table does not cover yet.
+
+**Implemented 2026-08-27.** The table is no longer reference-only:
+`tools/patch/assign_creatures.py` applies it, and `tools/patch/build_patch.py`
+(the GUI's **Patches** section) ships it as `MyOwnTamrielCreaturePatch.esp` and
+`MyOwnTamrielHorsePatch.esp`. Mounts are a separate plugin. Measured over
+Oblivion.esm + ElsweyrAnequina.esp: **955 creature swaps, 26 removals** (30
+placed refs disabled, 15 leveled lists rewritten) and **70 mounts**.
+
+**Decisions taken 2026-08-27** (settled, not proposals — rows in the table carry
+a `DECIDED` note): alfiq **removed outright** rather than substituted; the 25
+Elsweyr fish, the 16 elephants and the 10 Oblivion xivilai **left converted**;
+camels become horses in a coat drawn deterministically from the source FormID;
+Slarjei become dogs; goblins (95) and grummites (113) become rieklings.
+Resulting coverage — Oblivion.esm: exact 264 records / near 582 / keep 68.
+ElsweyrAnequina.esp: exact 52 / near 127 / keep 49 / remove 27.
+
+### 🛑 A race swap must carry the whole vanilla AI SHELL, not just race + skin
+
+**In-game, 2026-08-27.** The first build swapped `RNAM`/`WNAM`/`ATKR`/`VTCK`.
+Result: horses became rideable and **wolves behaved correctly, while spiders and
+everything else stood still and did nothing.**
+
+Cause, measured in the converted plugins: the converter stamps **`csWolf` on
+almost every creature** — 646 of 914 in Oblivion.esm and 245 of 255 in
+ElsweyrAnequina.esp, the remainder `DefaultCombatstyle`. It also gives them all
+`EncClassAnimalPredator` and `DefaultMasterPackageListCreature`. That is the
+correct vanilla combination for exactly one creature: the wolf. On a wolf body
+it works, which is why wolves were the one thing that behaved; on a spider, a
+giant or a skeleton it is a combat style the body cannot perform, and the actor
+never engages.
+
+So the shell a swap has to move is bigger than "race + skin":
+
+| Field | Taken from |
+|---|---|
+| `RNAM` | the vanilla race |
+| `WNAM` | the skin the vanilla ACTORS of that race wear — **and nothing at all where they carry none** |
+| `ATKR` | the race |
+| `VTCK` | the race's voice type |
+| `ZNAM` | the race's combat style |
+| `CNAM` | the race's class |
+| `DPLT` | the race's default package list |
+| `DOFT` | the race's default outfit, where it has one |
+
+Each is a **majority vote over every vanilla `NPC_` pointing at that race**,
+published only above a 60% majority so a split vote leaves the converted value
+alone; the vote is recorded per row in `creature_changes.py` (`votes`). Stats,
+level, factions, inventory, packages, scripts and dialogue stay the Oblivion
+record's own.
+
+Two things this fixed that were silently wrong:
+
+- **`DOFT` is part of a creature's kit.** Every vanilla frostbite spider (10/10)
+  carries `SpiderSpitOutfit` — the spit attack is an equipped item, so a spider
+  without it has no ranged attack at all.
+- **The race's own `WNAM` is not always usable.** `DLC1DeathHoundRace` points at
+  `SkinDog`, whose ARMA does **not** list that race, so a death hound wearing it
+  has no body; its actors wear `DLC1SkinVampireWolf` instead. Most creature
+  actors (the frostbite spider, the elytra) carry **no** `WNAM` and inherit the
+  race's — writing one anyway is how the elytra got a skin no ARMA maps to it.
+  Rule: write what the actors write, including nothing.
+
+### 🛑 The swap CLONES the vanilla actor; only size, name and scripts are kept
+
+**Second in-game round, 2026-08-27.** With the full AI shell (above) the goblins
+started behaving and **the spiders still stood still and would not attack.**
+
+Measured: a converted spider carries **one** Oblivion faction where a vanilla
+frostbite spider has **three**, plus converted paralysis lesser-powers and an
+Oblivion inventory. A creature in no hostile faction has nobody to attack. Field
+by field there was always going to be another one of these, so the default
+became a **wholesale clone of the vanilla donor actor**, keeping only:
+
+| Kept from the converted record | Why |
+|---|---|
+| `EDID` / `FULL` / `SHRT` | identity and the Oblivion name — no behavioural cost |
+| `NAM6` / `NAM7` | the size, kept by request |
+| `VMAD` | converter-attached scripts (171 creatures have one); dropping one silently breaks quest logic |
+
+The donor is the most **typical** vanilla actor of the race — the one agreeing
+with the majority vote on the most fields, tie-broken towards an `Enc*`
+EditorID (`EncFrostbiteSpider`, `EncWolf`, `EncGiant03`, `DLC2EncRiekling01Melee`
+…). It is recorded per race in `creature_changes.py` so it can be argued with.
+
+**Verified:** all 955 cloned records are byte-identical to their donor outside
+the keep-list, across 33 races; sizes survive (595 at 1.0, the rest spread
+0.9–2.0).
+
+**What it costs, deliberately:** 798 creatures lose their Oblivion abilities,
+904 their Oblivion loot, 1,168 their Oblivion factions, and levels become the
+vanilla creature's. That is what "identical to the vanilla one" means; the
+shell-only behaviour is still available as `--no-clone`, and the **horse patch
+stays on it**, because horses already worked and there was no reason to hand
+them vanilla stats too.
+
+### A removal has three layers, not one
+
+Measured for the alfiq with `creature_patch_census.py --group mountainlion/alfiq
+--refs`: **27** base CREA records, **30** placed `ACRE` references, and **41**
+entries across **15** `LVLC` leveled lists. Deleting only the base records is
+the failure mode — the placed refs and list entries become null. Worth
+recording: despite individual names (J'Shani, Z'lil, K'vigi, Skooma Cat, Alfiq
+Guard) **no alfiq is referenced by any INFO, QUST or PACK record**; the single
+non-placement dependency in the whole plugin is the script `ANQSummonsAlfiqBrown`,
+which does `player.PlaceAtMe ANQCreatureAlfiqBrownSummon` for a summonable pet.
+
+Findings that also belong here:
+
+### The authored mount flag is `CREA DATA.Type == 4`, and the importer drops it
+
+TES4 CREA carries a creature type (0 Creature, 1 Daedra, 2 Undead, 3 Humanoid,
+**4 Horse**, 5 Giant). Measured: **Oblivion.esm sets type 4 on 51 records**,
+**ElsweyrAnequina.esp on 26** (horses, zebras, elephants, camels and one
+running bird). `grep -rn "DATA.Type" tes5_import/*.py` finds **no reader** —
+the flag is discarded, which is why every converted mount is an ordinary
+walking actor.
+
+### RACE Mount Data is a CK default, not the mountability switch
+
+All **99** Skyrim.esm races — dog, cow, wolf, sabre cat included — carry
+byte-identical mount data: mount offset `(-63.479, 0, 0)`, dismount
+`(-50, 0, 65)`, camera `(0, -300, 0)`. `creature_races.py`'s DogRace template
+already emits exactly those bytes, so adding "mount data" to a generated race
+changes nothing. This corrects step 2 of
+[horse_rideability_plan.md](horse_rideability_plan.md), which treats the struct
+as the data-only half of the fix.
+
+### What a vanilla mount actor actually carries
+
+Read off `WhiterunPlayerHorse 00109E3D`, `EncHorseSaddledBrown 00023AB2` and
+`HorseForCarriageNew 00072A08`:
+
+| Field | Value |
+|---|---|
+| `RNAM` | `HorseRace 000131FD` (carriage: `CartHorseRace 000DE505`) |
+| `WNAM` | the coat skin ARMO |
+| `ATKR` | `000131FD` |
+| `KWDA` | `ActorTypeHorse 00026110` — **on the NPC_, not on the RACE** |
+| `VTCK` | `CrHorseVoice 0001F232` |
+| `CNAM` | `EncClassHorse 0010F71E` |
+| `DOFT` | `HorseSaddleOutfit 00060798` when saddled; `HorseHarnessOutfit01 000C236E` for cart horses; absent for wild |
+| `ACBS.Flags` | `0x00040018` |
+
+Coats (Oblivion body NIF is the authored indicator, and it agrees with the FULL
+name in all 55 records):
+
+| Oblivion body mesh | Skyrim skin | Vanilla actor |
+|---|---|---|
+| `horse.nif` (bay) | `SkinHorse 00060715` | `EncHorseBrown` |
+| `horseblack.nif` | `SkinHorseBlackHide 0008650D` | `EncHorseBlack` |
+| `horsepaint.nif` | `SkinHorseBlacknWhiteHide 00086510` | `EncHorseBlackAndWhite` |
+| `horsegrey.nif` (white) | `SkinHorseGreyHide 0008650F` | `EncHorseGrey` |
+| `horsechestnut.nif` | `SkinHorsePalominoHide 0008650E` | `EncHorsePalomino` |
+
+`Dark10Horse` (Shadowmere) has a true counterpart: Skyrim ships **Shadowmere
+`0009CCD7`** with `SkinHorseShadowmere 00086503`. `DAHircineUnicorn` does not —
+grey coat is the right base, the horn has no vanilla source.
+
+### Correction: Will-o-the-Wisp is `WitchlightRace`, not `WispRace`
+
+`WispRace 00013208` is the **Wispmother**, a humanoid caster.
+`WitchlightRace 00013209` is the small floating drain-light, which is what an
+Oblivion Will-o-the-Wisp is. `vanilla_creature_swap.BY_FOLDER['willothewisp']`
+still points at `WispRace` — unchanged, because nothing reads that module, but
+noted so the next pass does not "fix" the new table to match the old one.
+
+### ElsweyrAnequina folder traps (same class as §1c)
+
+The plugin reuses Oblivion folder names for unrelated animals. Measured from
+`export/ElsweyrAnequina.esp/CREA.txt`:
+
+| Folder | Actually contains |
+|---|---|
+| `goblin` | **monkeys and a Tenmar Ape** (`anequinaape*.nif`) — no goblins at all |
+| `sheep` | 4 sheep and **10 goats** (`anequinagoat*.nif`) — an exact `GoatRace` match Oblivion.esm never had |
+| `deer` | White Stag, a desert antelope (`anequinaaddax.nif`) and a **skeletal shark** |
+| `rat` | rats and a **glyptodon** |
+| `mountainlion` | lion, leopard, panther, senche-tiger, spore cat and **27 house-cat-sized alfiq** |
+| `anequinaragasha` | built entirely from Warhammer **skaven** meshes (ratmen), despite two records named "Desert Goblin" |
+| `dog` | red wolves and **10 durzogs** (hairless reptilian war-dogs) |
+| `clannfear` | one "Nequinal Lizard" |

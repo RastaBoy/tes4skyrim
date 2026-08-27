@@ -261,6 +261,32 @@ def audit(path, label):
     return sum(problems.values())
 
 
+def _resolve(output_dir: str, export_dir: str, name: str) -> str:
+    """The converted plugin file, wherever the layout actually puts it.
+
+    `output_dir/<name>/<name>` is wrong for a plugin imported as part of a MOD:
+    those share one folder named for the mod (ElsweyrAnequina.esp lives in
+    output/Update_ElsweyrAnequina/), so the naive join missed the file and this
+    tool reported "NOT BUILT" -- and "TOTAL PROBLEMS: 0" -- for a plugin that
+    was built and never checked.
+    """
+    try:
+        # Run as `python tools/validate/plugin_load_audit.py`, sys.path[0] is
+        # this script's folder, so the repo root must be added or the import
+        # fails and every mod-folder plugin silently reads as NOT BUILT.
+        repo = os.path.dirname(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))))
+        if repo not in sys.path:
+            sys.path.insert(0, repo)
+        from output_layout import plugin_esm
+        got = str(plugin_esm(output_dir, name, export_dir))
+        if os.path.isfile(got):
+            return got
+    except Exception:
+        pass
+    return os.path.join(output_dir, name, name)
+
+
 def main():
     root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     ap = argparse.ArgumentParser(
@@ -269,19 +295,24 @@ def main():
     ap.add_argument('plugins', nargs='+',
                     help='Plugin names under the output dir (e.g. Tamriel.esp)')
     ap.add_argument('--output-dir', default=os.path.join(root, 'output'),
-                    help='Root holding <plugin>/<plugin> (default: output/)')
+                    help='Root holding the converted plugins (default: output/)')
+    ap.add_argument('--export-dir', default=os.path.join(root, 'export'),
+                    help='Export root, for the source registry that says which '
+                         'plugins share a mod folder (default: export/)')
     args = ap.parse_args()
 
     total = 0
     missing = 0
     for name in args.plugins:
-        path = os.path.join(args.output_dir, name, name)
+        path = _resolve(args.output_dir, args.export_dir, name)
         if not os.path.isfile(path):
             print(f'--- {name}: NOT BUILT ({path})')
             missing += 1
             continue
         total += audit(path, name)
-    print(f'\nTOTAL PROBLEMS: {total}')
+    print(f'\nTOTAL PROBLEMS: {total}'
+          + (f'   ({missing} plugin(s) NOT BUILT - nothing was checked for '
+             f'them)' if missing else ''))
     return min(total + missing, 125)
 
 

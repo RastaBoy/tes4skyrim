@@ -832,6 +832,21 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
     writer = PluginWriter(masters=masters, is_esm=is_esm,
                           description="Converted from TES4 by tes4_export")
 
+    # Generated records keyed on something this plugin SHARES with a master
+    # (a creature folder) must reuse the master's ids and not be written
+    # again — see writer.derive_shared and docs/ck_file_in_use_stall.md.
+    if ctx is not None and ctx.master_manifest is not None:
+        _shared = ctx.master_manifest.derived_map()
+        writer.set_master_derived(_shared)
+        print(f"  Master shared generated records: {len(_shared)} available")
+        _stale = ctx.master_manifest.masters_without_derived
+        if _stale:
+            print("  NOTE: no shared-record section in the manifest of "
+                  + ", ".join(_stale) + " — records this plugin generates per "
+                  "creature folder will be DUPLICATED rather than reused. "
+                  "Re-convert with: "
+                  + "; ".join(f"python convert.py -f {m}" for m in _stale))
+
     # Every distinct BOOK model in the plugin, so convert_BOOK can resolve
     # inventory-art basenames through the same collision-aware map the asset
     # side uses (asset_convert/book_inam.py).  Two BOOK models can share a
@@ -2386,9 +2401,11 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
     # mod's folder (`export/Black Marsh/`), so basename(export_dir) yielded the
     # MOD label and the GUI then offered a plugin called "Black Marsh" that
     # does not exist and cannot be re-run.
+    _derived_map = writer.derived_map()
     mpath = write_manifest(output_path, os.path.basename(output_path),
-                           writer.manifest())
-    print(f"  Wrote {mpath} ({len(writer.manifest())} source records)")
+                           writer.manifest(), _derived_map)
+    print(f"  Wrote {mpath} ({len(writer.manifest())} source records, "
+          f"{len(_derived_map)} shared generated records)")
 
     # Derived-FormID telemetry. Collisions are expected to be a fraction of a
     # percent; a spike means the derived region is filling up or a key has
@@ -2398,7 +2415,8 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
         pct = 100.0 * ds['collisions'] / ds['derived']
         print(f"  Derived FormIDs: {ds['derived']:,} hashed from source, "
               f"{ds['collisions']} collisions ({pct:.3f}%), "
-              f"max {ds['max_probe']} rehash")
+              f"max {ds['max_probe']} rehash, "
+              f"{ds['shared_from_master']} reused from a master")
 
     file_size = os.path.getsize(output_path)
     print(f"Wrote {output_path} ({file_size:,} bytes)")

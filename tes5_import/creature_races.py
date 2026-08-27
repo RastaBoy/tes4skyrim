@@ -323,7 +323,11 @@ def build_creature_death_piles(writer) -> int:
         pile = proj.get('death_pile')
         if not pile:
             continue
-        fid = writer.derive_formid('CREA_PILE', folder)
+        fid, from_master = share_folder_fid(
+            writer, 'CREA_PILE', folder, folder)
+        _CREA_PILE_ACTI[folder] = fid
+        if from_master:
+            continue
         subs = pack_string_subrecord(
             'EDID', f'TES4Cr{folder.capitalize()}DeathPile')
         # OBND is what the engine builds the activation target from, so it
@@ -354,7 +358,6 @@ def build_creature_death_piles(writer) -> int:
         # Sandbox", matching DefaultAshPileGhost.
         subs += pack_subrecord('FNAM', struct.pack('<H', 0))
         writer.add_record('ACTI', pack_record('ACTI', fid, 0, subs))
-        _CREA_PILE_ACTI[folder] = fid
     return len(_CREA_PILE_ACTI)
 
 
@@ -396,15 +399,25 @@ def build_creature_voice_types(writer) -> int:
     """
     _CREA_VOICE_MAP.clear()
     for folder in sorted(set(_CREA_FOLDER_MAP.values())):
-        fid = writer.derive_formid('CREA_VTYP', folder)
+        fid, from_master = share_folder_fid(
+            writer, 'CREA_VTYP', folder, folder)
+        _CREA_VOICE_MAP[folder] = fid
+        if from_master:
+            continue
         subs = pack_string_subrecord(
             'EDID', f'TES4Cr{folder.capitalize()}Voice')
         subs += pack_subrecord('DNAM', struct.pack('<B', _CREATURE_VTYP_DNAM))
         writer.add_record('VTYP', pack_record('VTYP', fid, 0, subs))
-        _CREA_VOICE_MAP[folder] = fid
     return len(_CREA_VOICE_MAP)
 # folder → project summary (attacks etc.) for anything else that needs it
 _PROJECTS = {}
+
+# Folders whose project came ENTIRELY from a master, with no entry of our own.
+# Every record we generate per folder (MOVT, the IDLE action tree, VTYP, BPTD,
+# the death pile) is then a byte-for-byte re-run of what the master already
+# ships, so we must not ship it twice -- see _build_movts and
+# docs/ck_file_in_use_stall.md.
+_INHERITED_FOLDERS = set()
 
 
 # folder → generated BPTD FormID, filled by build_creature_body_parts()
@@ -474,7 +487,11 @@ def build_creature_body_parts(writer) -> int:
             s += pack_subrecord('NAM5', b'')
             return s
 
-        fid = writer.derive_formid('CREA_BPTD', folder)
+        fid, from_master = share_folder_fid(
+            writer, 'CREA_BPTD', folder, folder)
+        _CREA_BPTD_MAP[folder] = fid
+        if from_master:
+            continue
         subs = pack_string_subrecord(
             'EDID', f'TES4{folder.capitalize()}BodyPartData')
         subs += pack_string_subrecord('MODL', skel)
@@ -484,7 +501,6 @@ def build_creature_body_parts(writer) -> int:
             subs += _part('Head', head, head, _BPND_HEAD)
         subs += _part('Torso', torso_node, spine, _BPND_TORSO)
         writer.add_record('BPTD', pack_record('BPTD', fid, 0, subs))
-        _CREA_BPTD_MAP[folder] = fid
     return len(_CREA_BPTD_MAP)
 
 
@@ -1055,6 +1071,17 @@ def _build_movts(writer, folder: str, proj: dict) -> None:
     sped = _movt_sped(speeds)
     sped_swim = _movt_sped_swim(speeds)
     for mnam in names:
+        # MNAM must be unique across the whole load order — the engine matches
+        # it against the graph's iState_* variables by NAME, and the CK rejects
+        # a second record claiming one. Re-emitting a master's movement type is
+        # therefore not redundancy but an error: 40 of these stalled the CK
+        # forever on ElsweyrAnequina.esp (docs/ck_file_in_use_stall.md). No
+        # record anywhere references a MOVT by FormID, so the master's copy
+        # serves this plugin's actors unchanged.
+        _fid, from_master = share_folder_fid(
+            writer, 'MOVT', (folder, mnam), folder)
+        if from_master:
+            continue
         subs = pack_string_subrecord('EDID', f'{mnam}_MT')
         subs += pack_string_subrecord('MNAM', mnam)
         # the generated Swim movement type carries the water speeds; the
@@ -1062,9 +1089,7 @@ def _build_movts(writer, folder: str, proj: dict) -> None:
         subs += pack_subrecord('SPED',
                                sped_swim if mnam.endswith('Swim') else sped)
         subs += pack_subrecord('INAM', _MOVT_INAM)
-        writer.add_record('MOVT', pack_record(
-            'MOVT', writer.derive_formid('MOVT', (folder, mnam)),
-                                              0, subs))
+        writer.add_record('MOVT', pack_record('MOVT', _fid, 0, subs))
 
 
 def _build_skin(writer, folder: str, bodies: list, race_fid: int,
@@ -1104,6 +1129,28 @@ def _build_skin(writer, folder: str, bodies: list, race_fid: int,
     writer.add_record('ARMO', pack_record('ARMO', skin_fid, 4, subs))
 
 
+def share_folder_fid(writer, site: str, key, folder: str) -> tuple:
+    """`(fid, from_master)` for a record generated once per creature FOLDER.
+
+    Two conditions must both hold before this plugin reuses a master's record
+    instead of writing its own:
+
+      * the folder is one we inherited WHOLESALE (`_INHERITED_FOLDERS`) — a
+        folder this plugin converted itself may have different speeds, bones or
+        behavior paths, so the master's record would describe the wrong animal;
+      * the master's manifest actually records that id. Inferring it from
+        "the master surely generated one too" would silently ship a creature
+        with no movement type at all if the master's build predates the
+        generator, which is a creature that cannot move.
+
+    Otherwise this is a plain `derive_formid` and the caller writes the record
+    as before. See docs/ck_file_in_use_stall.md.
+    """
+    if folder in _INHERITED_FOLDERS:
+        return writer.derive_shared(site, key)
+    return writer.derive_formid(site, key), False
+
+
 def _load_projects(export_dir: str) -> dict:
     """This plugin's creature projects, with its MASTERS' projects merged in
     underneath.
@@ -1122,6 +1169,7 @@ def _load_projects(export_dir: str) -> dict:
     are shared, exactly as the source plugin intended. Own projects win on
     conflict — this plugin's own conversion of a folder is the authoritative
     one for the records it ships."""
+    _INHERITED_FOLDERS.clear()
     own_path = os.path.join(export_dir, 'creature_projects.json')
     own = {}
     if os.path.exists(own_path):
@@ -1159,6 +1207,11 @@ def _load_projects(export_dir: str) -> dict:
     if inherited:
         print(f'  Creature projects: inherited {inherited} from master(s) '
               f'{", ".join(names)} (own: {len(own)})')
+    # Recorded BEFORE `own` is merged in: a folder this plugin converted
+    # itself is authoritative for the records it ships, even when a master
+    # happens to use the same folder name, so only the untouched ones are
+    # safe to inherit records for.
+    _INHERITED_FOLDERS.update(merged)
     merged.update(own)
     return merged
 

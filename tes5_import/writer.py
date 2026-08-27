@@ -44,6 +44,16 @@ DERIVED_ID_BASE = 0x400000
 DERIVED_ID_SPAN = 0xBFF000
 _DERIVED_ID_FLOOR = 0x000800
 
+
+def derive_payload(site: str, key) -> str:
+    """Canonical string for a derive key — the exact input `derive_formid`
+    hashes, and the exact key the manifest stores it under.
+
+    One function so the id a master allocated and the id a dependent plugin
+    looks up can never disagree about how the key was spelled.
+    """
+    return f'{site}\x00{key!r}'
+
 # Object ids at or above this are never handed to a derived record. The engine
 # mints every RUNTIME-created form (dropped items, summons, placed objects,
 # spawned actors) from the header's next-object-id upward, so a file that
@@ -807,6 +817,10 @@ class PluginWriter:
         self._derived_span = DERIVED_ID_SPAN
         self._derive_collisions = 0
         self._derive_max_probe = 0
+        # Derive keys a MASTER already allocated (see derive_shared), already
+        # restated in THIS plugin's index space by MasterManifest.
+        self._master_derived = {}    # payload str -> master's id
+        self._shared_from_master = 0
 
     @property
     def next_object_id(self):
@@ -894,7 +908,7 @@ class PluginWriter:
             if existing is not None:
                 return existing
 
-            payload = f'{site}\x00{key!r}'.encode('utf-8')
+            payload = derive_payload(site, key).encode('utf-8')
             probe = 0
             while True:
                 salt = b'' if probe == 0 else b'\x00%d' % probe
@@ -917,11 +931,62 @@ class PluginWriter:
                 self._manifest[self._converting]['companions'].append(fid)
         return fid
 
+    def derive_shared(self, site: str, key) -> tuple:
+        """`(fid, from_master)` for a generated record a MASTER may already own.
+
+        Some generated records are keyed on something a plugin SHARES with its
+        master rather than on one of its own source records — a creature
+        folder, say, which a dependent plugin inherits wholesale (see
+        `creature_races._load_projects`). Deriving those again mints a second
+        copy of a record the master already ships: harmless duplication for
+        most types, an outright load error for MOVT, whose MNAM the CK
+        requires to be unique. 40 such MOVTs stalled the CK on
+        ElsweyrAnequina.esp (docs/ck_file_in_use_stall.md).
+
+        When the master's manifest records the same derive key, its id is
+        returned with `from_master=True` and the caller must NOT write the
+        record — the master's copy is already in the load order. Otherwise this
+        is exactly `derive_formid`.
+
+        `derive_formid` deliberately does NOT consult this map: returning a
+        master's id from it would silently turn every unaudited call site into
+        an override of the master's record. Sharing is opt-in, per call site.
+        """
+        if self._master_derived:
+            fid = self._master_derived.get(derive_payload(site, key))
+            if fid:
+                with self._lock:
+                    self._derived.setdefault((site, key), fid)
+                    self._shared_from_master += 1
+                return fid, True
+        return self.derive_formid(site, key), False
+
+    def set_master_derived(self, mapping: dict) -> None:
+        """Derive keys the masters already allocated, for `derive_shared`.
+
+        Values must already be restated in THIS plugin's index space; that is
+        `MasterManifest`'s job, not the writer's.
+        """
+        self._master_derived = mapping or {}
+
+    def derived_map(self) -> dict:
+        """`{derive payload -> id}` for every id THIS run allocated itself.
+
+        Persisted in the manifest so a dependent plugin can share them. Ids
+        inherited from a master are excluded: they are not ours to hand on, and
+        re-exporting them would let a grandchild plugin resolve them through
+        the wrong master's index map.
+        """
+        return {derive_payload(site, key): fid
+                for (site, key), fid in self._derived.items()
+                if (fid >> 24) & 0xFF == self.own_index}
+
     def derive_stats(self) -> dict:
         """Collision telemetry for the derived-id allocator."""
         return {'derived': len(self._derived),
                 'collisions': self._derive_collisions,
-                'max_probe': self._derive_max_probe}
+                'max_probe': self._derive_max_probe,
+                'shared_from_master': self._shared_from_master}
 
     def _high_water_id(self) -> int:
         """HEDR next-object-id: above every id this file uses.

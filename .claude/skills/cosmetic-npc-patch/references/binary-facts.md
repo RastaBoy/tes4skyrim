@@ -212,3 +212,50 @@ Third-party plugins compress freely (Apachii's NPC_, this patch's own CELL
 records). `iter_records()` inflates them and clears the flag, because anything
 rewritten is emitted uncompressed. Groups that are carried through untouched
 keep their original bytes, compression included.
+
+---
+
+## Where FormIDs live, outside NPC_
+
+Re-measured against the real `Skyrim.esm` on 2026-08-27 by resolving every
+4-byte-aligned candidate offset against the file's own set of record FormIDs.
+The tables live in `tools/patch/patch_builder.py`; three entries were **wrong**
+before that pass and are worth remembering as traps:
+
+| field | truth | how it was wrong |
+|---|---|---|
+| `CELL.XWEM` | a texture PATH (`Data\Textures\Cubemaps\…`), 56 samples | listed as a FormID |
+| `CELL.XEZN` | the encounter-zone FormID, 291/291 resolve | listed as plain |
+| `ACHR.VMAD` | script properties, FormIDs inside | listed as plain, so the 1,391 placed-actor VMADs in the converted `Oblivion.esm` carried stale master indexes |
+
+- **`ACHR` and `REFR` are one record family** and share the whole vocabulary:
+  `NAME XLCN XEZN XHOR XLRT XLRM XLRL XOWN XEMI XLIB XMBR XTRI` are plain
+  FormIDs; `XLKR` (keyword + ref) and `XPOD` (two rooms) are FormID pairs;
+  `XESP` (parent + flags) and `XAPR` (parent + delay) are 8 bytes with the
+  FormID FIRST; `XNDP` is navmesh + triangle index; `XTEL` is 32 bytes with the
+  destination door at 0 and pos/rot/flags after it; **`XLOC` is 20 bytes with
+  the key FormID at offset 4**, not 0 (offset 0 is the lock level).
+  `DATA XSCL XPRM XMBO XLIG XRDS XRMR XALP XACT` carry no FormID.
+- **The enum trap.** `HDPT.PNAM` (part type) and `HDPT.NAM0` (file type) hold
+  small ints, and small ints resolve against `Skyrim.esm` by coincidence
+  (`00000001` is a real record). Resolution alone never proves a FormID; the
+  value's ROLE does. `HDPT`'s real FormIDs are `HNAM`, `TNAM`, `RNAM`, `CNAM`.
+- `RELA.DATA` is 16 bytes: parent FormID, child FormID, rank `u16` + pad `u16`,
+  association-type FormID — so FormIDs at **0, 4 and 12**, not on a stride.
+- `WRLD.RNAM` ("Large References") is `cell x/y, count u32,
+  count × (REFR FormID, x i16, y i16)`. Verified on all 11,105 RNAM blobs in
+  `Skyrim.esm`: every one parses exactly, all 193,424 references resolve.
+- `TXST` has no FormID at all.
+
+## What binds a plugin to a master
+
+Only three things, and `merge_plugins.py --drop-master` removes exactly these:
+
+1. a record whose own FormID carries that master's index (an override);
+2. a **GRUP labelled with one of its FormIDs** — a cell-children or
+   world-children group. This is how a placed reference gets into somebody
+   else's cell, and it is usually the ONLY reason a companion mod is mastered:
+   in `MyOwnGamePatch.esp` the entire dependency on `Gray Fox Cowl.esm` and
+   `RigmorCyrodiil.esm` was six placed actors, with no `NPC_`, `RELA`, `HDPT`
+   or `TXST` field naming either mod;
+3. a subrecord FormID pointing into it.

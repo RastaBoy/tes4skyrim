@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
-"""Build the cosmetic patch plugin: outfits, hair and skin tone, in one pass.
+"""Build the cosmetic patch. A thin shim over tools/patch/build_patch.py.
 
-Reads the untouched plugin from `sources/`, applies every cosmetic pass in
-order, and writes the result to `output/`. The build always restarts from
-`sources/`, so it is reproducible: same inputs and same `--seed` give a
-byte-identical plugin, and a bad run is fixed by re-running, never by undoing.
+The build itself moved to `tools/patch/build_patch.py`, which drives all three
+patches (cosmetic, creatures, horses) through one pipeline and is what the GUI's
+Patches section calls. Two copies of "assemble a patch ESP" would drift, so this
+file only survives as the short command the docs have always named.
 
-    python patch_folder/pipeline.py                 # full build
-    python patch_folder/pipeline.py --dry-run       # report only, write nothing
-    python patch_folder/pipeline.py --only skin     # one pass
-    python patch_folder/pipeline.py --seed 7        # different random draw
+    python patch_folder/pipeline.py                          # every converted plugin
+    python patch_folder/pipeline.py -f Oblivion.esm           # just this one
+    python patch_folder/pipeline.py --seed 7                  # a different draw
+    python patch_folder/pipeline.py --dry-run
 
-Each pass is `tools/patch/assign_*.py`, which can also be run on its own; this script
-prints the exact command it runs so a pass can be repeated or tweaked by hand.
-The passes compose -- each rewrites only its own fields and carries the rest of
-the record through -- so their order here is not load-bearing.
+For the creature and horse patches, or to skip the zip, call the driver:
+
+    python tools/patch/build_patch.py --patch creatures --plugins Oblivion.esm
+    python tools/patch/build_patch.py --list
 """
 
 import argparse
@@ -23,149 +23,69 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-PATCH_DIR = Path(__file__).resolve().parent
-SOURCES = PATCH_DIR / 'sources'
-OUTPUT = PATCH_DIR / 'output'
-REPORTS = PATCH_DIR / 'reports'
+sys.path.insert(0, str(REPO))
 
-PLUGIN = 'MyCosmeticTamrielPatch.esp'
-NPC_SOURCE = REPO / 'output' / 'Oblivion.esm' / 'Oblivion.esm'
-HAIR_PLUGIN = SOURCES / "KS Hairdo's.esp"
-CONSTANTS = SOURCES / 'constants.py'
-
-# Outfit list per placement keyword; first match wins, rest get the default.
-DEFAULT_OUTFITS = 'OUTFITS_TO_CHOOSE'
-OUTFIT_RULES = [
-    ('bruma', 'BRUMA_OUTFITS_TO_CHOOSE'),
-]
-
-# Races to leave alone even though they carry a FaceGen head, as hex FormIDs in
-# the source plugin's own numbering. Empty by default.
-EXCLUDE_RACES: list[str] = []
+DRIVER = REPO / 'tools' / 'patch' / 'build_patch.py'
 
 
-def find_skyrim_esm():
-    """Skyrim.esm, needed to classify vanilla head parts. None if not found."""
-    sys.path.insert(0, str(REPO))
-    try:
-        from asset_convert.skyrim_assets import find_skyrim_data
-        candidate = Path(find_skyrim_data()) / 'Skyrim.esm'
-        return candidate if candidate.exists() else None
-    except Exception:
-        return None
+def converted_plugins(output_dir):
+    """Every converted plugin under `output_dir`, masters first.
 
+    Same ordering rule the GUI panel uses: a patch has to declare a master
+    before the plugin resting on it, because the index IS the FormID high byte.
+    """
+    from asset_convert.sibling_lod import converted_plugins as scan
+    from tools.esm.make_master import read_header, resolve
+    names = sorted(scan(Path(output_dir)))
 
-def run(step, argv, dry_run):
-    print(f'\n=== {step} ' + '=' * max(3, 66 - len(step)))
-    print('  ' + ' '.join(f'"{a}"' if ' ' in str(a) else str(a) for a in argv))
-    print(flush=True)
-    result = subprocess.run([sys.executable, *[str(a) for a in argv]], cwd=REPO)
-    if result.returncode != 0:
-        raise SystemExit(f'{step} failed with exit code {result.returncode}')
+    def masters_of(name):
+        try:
+            _flags, masters = read_header(resolve(name, str(output_dir)))
+            return [m for m in masters if m in set(names)]
+        except Exception:
+            return []
+
+    ordered, seen = [], set()
+
+    def visit(name, stack=()):
+        if name in seen or name in stack:
+            return
+        for master in masters_of(name):
+            visit(master, stack + (name,))
+        seen.add(name)
+        ordered.append(name)
+
+    for name in names:
+        visit(name)
+    return ordered
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--only', choices=['outfits', 'hair', 'skin'], action='append',
-                    default=[], help='run just this pass (repeatable)')
-    ap.add_argument('--seed', type=int, default=0,
-                    help='RNG seed shared by every pass (default 0)')
-    ap.add_argument('--dry-run', action='store_true',
-                    help='report what each pass would do, write no plugin')
-    ap.add_argument('--source', default=str(NPC_SOURCE),
-                    help=f'plugin the NPCs come from (default {NPC_SOURCE})')
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('-f', '--plugin', action='append', dest='plugins',
+                    default=[], metavar='PLUGIN',
+                    help='converted plugin to cover; repeatable. Default: all')
+    ap.add_argument('--output-dir', default=str(REPO / 'output'))
+    ap.add_argument('--seed', type=int, default=0)
+    ap.add_argument('--no-zip', action='store_true')
+    ap.add_argument('--dry-run', action='store_true')
     args = ap.parse_args()
 
-    passes = args.only or ['outfits', 'hair', 'skin']
-    src_plugin = SOURCES / PLUGIN
-    out_plugin = OUTPUT / PLUGIN
-    npc_source = Path(args.source)
+    plugins = args.plugins or converted_plugins(args.output_dir)
+    if not plugins:
+        print(f'nothing converted in {args.output_dir} -- convert a plugin first')
+        return 1
 
-    for path in (src_plugin, CONSTANTS, npc_source):
-        if not path.exists():
-            raise SystemExit(f'missing input: {path}')
-    if 'hair' in passes and not HAIR_PLUGIN.exists():
-        raise SystemExit(f'missing input: {HAIR_PLUGIN}')
-
-    OUTPUT.mkdir(parents=True, exist_ok=True)
-    REPORTS.mkdir(parents=True, exist_ok=True)
-
-    # A full build always restarts from sources/ so it is reproducible. A
-    # partial run (--only ...) continues from output/ instead, so it keeps what
-    # the other passes already wrote; delete output/ for a clean slate.
-    current = src_plugin
-    if args.only and out_plugin.exists():
-        current = out_plugin
-        print(f'partial run: continuing from {out_plugin}')
-    else:
-        print(f'building from {src_plugin}')
-
-    if 'outfits' in passes:
-        argv = [REPO / 'tools' / 'patch' / 'assign_female_outfits.py',
-                '--source', npc_source,
-                '--patch', current,
-                '--out', out_plugin,
-                '--constants', CONSTANTS,
-                '--default-outfits', DEFAULT_OUTFITS,
-                '--seed', args.seed,
-                '--report', REPORTS / 'outfits.tsv']
-        for keyword, const in OUTFIT_RULES:
-            argv += ['--match-outfits', f'{keyword}={const}']
-        if args.dry_run:
-            argv.append('--dry-run')
-        run('outfits: female NPCs get a random OTFT', argv, args.dry_run)
-        if not args.dry_run:
-            current = out_plugin
-
-    if 'hair' in passes:
-        argv = [REPO / 'tools' / 'patch' / 'assign_npc_hair.py',
-                '--source', npc_source,
-                '--patch', current,
-                '--out', out_plugin,
-                '--hair-plugin', HAIR_PLUGIN,
-                '--constants', CONSTANTS,
-                '--seed', args.seed,
-                '--report', REPORTS / 'hair.tsv']
-        skyrim = find_skyrim_esm()
-        if skyrim:
-            argv += ['--hdpt-from', skyrim]
-        else:
-            print('!! Skyrim.esm not found; vanilla head parts cannot be '
-                  'classified and will be left in place. Pass --hdpt-from to '
-                  'tools/patch/assign_npc_hair.py by hand if that matters.')
-        for race in EXCLUDE_RACES:
-            argv += ['--exclude-race', race]
-        if args.dry_run:
-            argv.append('--dry-run')
-        run('hair: humanoid NPCs get a random hair + its HL part', argv,
-            args.dry_run)
-        if not args.dry_run:
-            current = out_plugin
-
-    if 'skin' in passes:
-        argv = [REPO / 'tools' / 'patch' / 'assign_skin_tone.py',
-                '--source', npc_source,
-                '--patch', current,
-                '--out', out_plugin,
-                '--report', REPORTS / 'skin_tone.tsv']
-        skyrim = find_skyrim_esm()
-        if skyrim:
-            argv += ['--race-plugin', skyrim]
-        if args.dry_run:
-            argv.append('--dry-run')
-        run("skin tone: QNAM re-derived from each NPC's own tint layer", argv,
-            args.dry_run)
-        if not args.dry_run:
-            current = out_plugin
-
-    print('\n' + '=' * 70)
+    argv = [sys.executable, '-u', str(DRIVER), '--patch', 'cosmetic',
+            '--plugins'] + plugins + [
+            '--output-dir', args.output_dir, '--seed', str(args.seed)]
+    if args.no_zip:
+        argv.append('--no-zip')
     if args.dry_run:
-        print('dry run: nothing written')
-    else:
-        print(f'built {out_plugin}  ({out_plugin.stat().st_size:,} bytes)')
-        print(f'reports in {REPORTS}')
+        argv.append('--dry-run')
+    return subprocess.run(argv, cwd=str(REPO)).returncode
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

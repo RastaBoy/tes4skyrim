@@ -447,6 +447,7 @@ relevant doc when working in that area.
 | [ck_navmesh_generation.md](docs/ck_navmesh_generation.md) | How the CK generates navmesh (Recast), defaults, the voxel-vs-world units trap |
 | [ck_vs_game_missing_objects.md](docs/ck_vs_game_missing_objects.md) | Objects the CK draws but the game does not: the forced-Persistent cause (confirmed in game), the vanilla censuses that refuted it, ruled-out classes with counts, and building on a 16 GB machine |
 | [ck_reference_init_hang.md](docs/ck_reference_init_hang.md) | The "Initializing References" hang: unchecked XTEL destination grid lookup, the GRUP-order ref deletion, and the stack-walk-first hang methodology |
+| [ck_file_in_use_stall.md](docs/ck_file_in_use_stall.md) | The CK "File in use" stall (NOT a slow load — flat CPU, climbing timer): the end-of-load rewrite pass reopening a plugin at the game ROOT under MO2; the 682 master-blind generated records (513 IDLE, 40 MOVT, ...) ElsweyrAnequina.esp duplicates from Oblivion.esm; the CK in use is now SSE 1.6.1378.1, not SkyrimVR 1.5.73 |
 | [ck_warnings_audit.md](docs/ck_warnings_audit.md) | Every CK load warning bucketed easiest-to-hardest with measured counts; how to pull the live `ckpe.log` past its exclusive lock; the LCTN ref-array + WRLD OFST gap that is 96% of the log; the 2026-07 sweep fixes |
 
 ### Skills
@@ -456,3 +457,4 @@ relevant doc when working in that area.
 | `skyrim-dialog-system` | Vanilla TES5 dialogue/voice/quest records |
 | `oblivion-to-skyrim-dialog` | TES4→TES5 dialogue/quest/voice mapping |
 | `cosmetic-npc-patch` | `patch_folder/` — authoring NPC_ overrides in a binary ESP |
+| `house-upgrade-fix` | DIAGNOSED, unfixed: house furnishings unbuyable — TES4 sells from an OWNED container, TES5 only from the vendor faction's VENC |
