@@ -72,8 +72,11 @@ caching, skipped record types, the export text format, and the directory layout.
 - Don't preserve backwards compatibility. Delete code that is no longer used.
 - Keep files under ~1000 lines; split by responsibility when one grows.
 - <a id="tools-first"></a>**CHECK `tools/` BEFORE BUILDING ANYTHING BESPOKE.**
-  ~95 tools already exist and one probably answers your question — the full
+  ~147 tools already exist and one probably answers your question — the full
   catalogue is [docs/python_tools_reference.md](docs/python_tools_reference.md).
+  They live in `tools/<folder>/`: `generators` (code imports their output —
+  never delete blind), `release`, `validate`, `audit`, `live`, `disasm`, `nif`,
+  `creature`, `dialog`, `script`, `lod`, `esm`, `navmesh`, `misc`.
   The order is:
   1. **Use** the existing tool.
   2. If it *almost* fits, **extend or fix it** — new flags, wider output. Never
@@ -82,6 +85,12 @@ caching, skipped record types, the export text format, and the directory layout.
   3. Only if nothing is close, write a new one — and **add its entry to
      `python_tools_reference.md` in the same pass**, before you report back. An
      undocumented tool is one the next session will rebuild from scratch.
+- <a id="one-off-goes-in-temp"></a>**A SCRIPT THAT CHASES ONE BUG GOES IN
+  `temp/`, NOT `tools/`.** A tool re-answers its question on NEW input; if
+  nothing new would change its output, it is a one-off. A/B and bisect
+  harnesses, censuses whose answer ships as a constant, and anything naming one
+  plugin/mesh/creature in code are one-offs — finding to `docs/`, script to
+  `temp/`. A good docstring does not make one reusable.
 - Put throwaway files in `temp/`. Don't write one-off scripts with hardcoded
   output — `tools/` scripts take arguments and produce general output, so they are
   reusable next time.
@@ -135,7 +144,7 @@ regenerate scripts, so a behavioural regression means reading
 2. <a id="ck-is-a-source"></a>**`CreationKit.exe` (Steam) — NOT DRM-packed, and
    the BEST source for why a record is REJECTED.** Asserts carry file+line, and
    it keeps 1,114 Bethesda source paths, 17k diagnostic strings, and 433 record
-   editor dialogs the game strips. `tools/ck_srcpaths.py`, `ck_strref.py`,
+   editor dialogs the game strips. `tools/disasm/ck_srcpaths.py`, `ck_strref.py`,
    `skyrim_disasm.py --exe <ck>`. Runtime behavior still comes from item 1;
    the CK can disagree with the game ([ck_vs_game_missing_objects.md](docs/ck_vs_game_missing_objects.md)).
    Details: [ck_exe_as_a_source.md](docs/ck_exe_as_a_source.md).
@@ -145,7 +154,7 @@ regenerate scripts, so a behavioural regression means reading
 5. The Skyrim.esm dump at `references/Skyrim.esm`, real Skyrim.esm, and
    `references/Skyrim Meshes`. **Verify binary layout against BOTH the xEdit
    definition AND a real Skyrim.esm dump — never skip either.**
-6. UESP / CK wiki via `python tools/uesp_lookup.py`. **Never WebSearch or
+6. UESP / CK wiki via `python tools/misc/uesp_lookup.py`. **Never WebSearch or
    WebFetch for these** (they 403). An empty result means fix the query.
 7. A web search for other authoritative sources.
 8. The Papyrus logs from the last in-game run — read them to diagnose a runtime
@@ -353,16 +362,21 @@ Navmesh generation is the slowest import stage; per-cell results are cached and
 published as a GitHub Release asset.
 
 ```bash
-python tools/navmesh_cache.py verify  --plugin Oblivion.esm   # publishable?
-python tools/navmesh_cache.py install --plugin Oblivion.esm   # get the cache
-python tools/navmesh_cache_hook.py --install                  # gate pushes
-python tools/navmesh_cache_hook.py --run                      # publish manually
+python tools/navmesh/navmesh_cache.py verify  --plugin Oblivion.esm   # publishable?
+python tools/navmesh/navmesh_cache.py install --plugin Oblivion.esm   # get the cache
+python tools/navmesh/navmesh_cache_hook.py --install                  # gate pushes
+python tools/navmesh/navmesh_cache_hook.py --run                      # publish manually
 ```
 
 - **NEVER ship `collision_cache.bin`** — it holds Bethesda's Havok triangles
   keyed by asset path. Only our own `navmesh_geom_cache` pickles go in.
 - **Never put mtime, absolute paths, or worker counts in a cache key** — they
   are machine-local, so every downloader misses.
+- **NEVER add a function directly below — or edit the tail of — one of the six
+  gated functions in `import_main.py`** (`NAVMESH_FUNCS` in
+  `navmesh_cache_hook.py`). Git's `-U0` hunk header names the function ABOVE an
+  insertion, so unrelated code reads as a navmesh change and the next push
+  republishes the whole cache. Check with `navmesh_cache_hook.py --check`.
 
 Why, and the invalidation/tag contracts:
 [world_land_navmesh_notes.md](docs/world_land_navmesh_notes.md#the-shared-navmesh-cache--design-rationale).
@@ -384,12 +398,14 @@ relevant doc when working in that area.
 | [TES5_Binary_Format.md](docs/TES5_Binary_Format.md) | TES5 binary structure reference |
 | [TES4_Record_Definitions.md](docs/TES4_Record_Definitions.md) | TES4 record structure reference |
 | [xedit_scripting_reference.md](docs/xedit_scripting_reference.md) | xEdit Pascal API + globals (historical — the pipeline is pure Python now; kept for ad-hoc verification scripts) |
+| [in_app_update_plan.md](docs/in_app_update_plan.md) | PLAN (unimplemented): in-app update downloading only changed files via the GitHub compare API (0.8–3.5 MB vs a 45 MB tree; truncates at 300 files). No git needed — zip installs have no `.git`. Dev trees protected by `is_dev_version()`. Optional launch check. `conversion_config.json` is the one tracked file the app writes |
 
 ### Records & data
 | Doc | Covers |
 |---|---|
 | [record_mapping_reference.md](docs/record_mapping_reference.md) | Full TES4→TES5 record type mapping, OBND/structural requirements, skipped/problem records, skill/weapon/biped-slot/enchantment tables, Skyblivion conversion rules |
 | [magic_conversion_plan.md](docs/magic_conversion_plan.md) | SPEL/ENCH/MGEF: dropped effect families, phantom effect codes, archetype mapping, ARTO/PROJ/SEFF |
+| [music_conversion.md](docs/music_conversion.md) | MUSC/MUST built from TES4's `Music\<Category>\` FOLDERS (no TES4 record exists); the masterless-plugin gate, xWMAEncode's fixed bitrate list, StreamMusic revival |
 | [weather_climate_conversion.md](docs/weather_climate_conversion.md) | WTHR/CLMT: the WRLD→CNAM→CLMT→WLST chain, NAM0 slot remap, cloud-speed units, DALC weights |
 
 ### Actors, AI & dialogue
@@ -409,6 +425,7 @@ relevant doc when working in that area.
 | [vanilla_item_swap_plan.md](docs/vanilla_item_swap_plan.md) | PLAN (unimplemented): item/ingredient/clutter **and WEATHER** swap; model-swap vs full-reference modes, OBND size+orientation gate, PIL preview renderer |
 | [item_swap_table.md](docs/item_swap_table.md) | Per-item MISC/INGR swap recommendations with measured size ratios and verdicts (OK/SCALE/ROT/REJECT) |
 | [horse_rideability_plan.md](docs/horse_rideability_plan.md) | Rideable horses: RACE Mount Data, horse/rider graph pair, rider-animation sourcing |
+| [npc_skin_tone_conversion.md](docs/npc_skin_tone_conversion.md) | Skin color = RACE part textures + **race FGTS** via the `.egt` basis; per-NPC FGTS is negligible (sd 1/255); the `.egt` format; why a Skyrim census pick made Imperials dark |
 
 ### Scripts
 | Doc | Covers |

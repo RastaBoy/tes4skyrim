@@ -70,6 +70,7 @@ SCRIPT_DIR = Path(__file__).parent.resolve()  # TESConversion root
 # pathlib, so this is safe at module scope despite convert.py being the entry
 # point every package imports from.
 from output_layout import record_dir, plugin_out_root
+import run_log
 
 
 # Papyrus batch compilation (see phase_compile).  An error line from
@@ -658,7 +659,7 @@ def phase_import(file_name: str, tes4_data: str, tes5_data: str,
     # on any problem the navmesh just regenerates as it always did.
     # Opt out with TESCONV_NO_CACHE_DOWNLOAD=1 (metered connections).
     try:
-        from tools.navmesh_cache import auto_install, NO_DOWNLOAD_ENV_VAR
+        from tools.navmesh.navmesh_cache import auto_install, NO_DOWNLOAD_ENV_VAR
         auto_install(file_name,
                      allow_download=os.environ.get(
                          NO_DOWNLOAD_ENV_VAR, '').strip().lower()
@@ -729,6 +730,23 @@ def phase_sounds(file_name: str, config: dict, output_dir: str = None):
     failed    = stats.get('failed', 0)
     print(f"[{file_name}] Sounds complete "
           f"({converted} converted to XWM, {copied} copied, {failed} failed)")
+
+    # Music rides the sound phase: same encoders (ffmpeg + xWMAEncode), so a
+    # single --sounds-only rebuilds both.  It writes music_tracks.json, which
+    # the importer reads to build MUST/MUSC, so it must run before --import-only
+    # for the records to name real files.
+    from asset_convert.music_convert import convert_music
+    print(f"[{file_name}] Converting music to xWMA...")
+    mstats = convert_music(
+        source_file=file_name,
+        extract_dir=extract_dir,
+        output_dir=out_dir,
+    )
+    print(f"[{file_name}] Music complete "
+          f"({mstats.get('converted', 0)} converted, "
+          f"{mstats.get('cached', 0)} cached, "
+          f"{mstats.get('failed', 0)} failed, "
+          f"{mstats.get('tracks', 0)} tracks)")
     return True
 
 
@@ -1115,7 +1133,7 @@ def phase_modify_body_meshes(tes5_data: str = None, plugins: list = None,
     """Add greaves partition to vanilla Skyrim character body NIFs, then
     generate ONE merged companion slot-44 patch covering `plugins`.
 
-    The patch (tools/patch_body_slots.py) is mandatory alongside the split
+    The patch (tools/creature/patch_body_slots.py) is mandatory alongside the split
     body meshes: without slot 44 on the NakedTorso ARMA the new lower-body
     skin partition never renders and naked thighs are invisible.
 
@@ -1128,7 +1146,7 @@ def phase_modify_body_meshes(tes5_data: str = None, plugins: list = None,
     """
     if not tes5_data:
         print("WARNING: Skyrim data path not found - slot-44 patch not "
-              "generated (run tools/patch_body_slots.py manually)")
+              "generated (run tools/creature/patch_body_slots.py manually)")
         return True
 
     plugins = plugins or ["Skyrim.esm"]
@@ -1156,7 +1174,7 @@ def phase_modify_body_meshes(tes5_data: str = None, plugins: list = None,
               "patch not generated")
         return True
 
-    patch_script = SCRIPT_DIR / "tools" / "patch_body_slots.py"
+    patch_script = SCRIPT_DIR / "tools" / "creature" / "patch_body_slots.py"
     ret = subprocess.run(
         [sys.executable, str(patch_script), *plugin_paths, "-o", str(out_path)],
         cwd=str(SCRIPT_DIR), capture_output=True, text=True, **_POPEN_FLAGS)
@@ -1248,7 +1266,7 @@ def phase_pack_zip(file_name: str, config: dict, output_dir: str = None):
 # Main
 # ===========================================================================
 
-def main():
+def _run_pipeline():
     parser = argparse.ArgumentParser(
         description="TES4-to-TES5 Conversion Pipeline",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -1598,7 +1616,7 @@ def main():
         print("=" * 54)
         print("  GENERATE LOD")
         print("=" * 54)
-        # Delegated to tools/create_lod.py, NOT looped per plugin.
+        # Delegated to tools/release/create_lod.py, NOT looped per plugin.
         #
         # LOD tiles are files on a fixed grid keyed only by worldspace and
         # coordinate, so every plugin editing a worldspace writes the same
@@ -1609,7 +1627,7 @@ def main():
         # narrow it to one plugin: there is one shared artefact, and building
         # it from a single plugin would be building it wrong.
         _cmd = [sys.executable, "-u",
-                str(SCRIPT_DIR / "tools" / "create_lod.py")]
+                str(SCRIPT_DIR / "tools" / "release" / "create_lod.py")]
         if output_dir:
             _cmd += ["--output-dir", str(output_dir)]
         ok = subprocess.call(_cmd) == 0
@@ -1703,6 +1721,75 @@ def main():
     print("-" * 54)
     print("Pipeline completed with errors.")
     return 1
+
+
+def main():
+    """Own the run log for a standalone CLI run, then run the pipeline.
+
+    Only a run's OWNER rotates.  When the GUI launched us it has already
+    opened the log for the whole run (several convert.py invocations, one per
+    step) and set TESCONV_RUN_LOG, so `start_cli_run` returns None here and we
+    neither rotate nor write -- otherwise a 7-step run would rotate 7 times and
+    the retained logs would be the last 3 STEPS of one run.
+    """
+    try:
+        config = load_config(_config_path_from_argv())
+    except Exception:
+        config = {}
+    header = {
+        "Version": _version_string(),
+        "Command": " ".join(["convert.py"] + sys.argv[1:]),
+    }
+    # `--help`/`--list-mods`-style invocations convert nothing; letting them
+    # rotate would push a real run's log out of the retained set for free.
+    log = (None if _is_informational_argv()
+           else run_log.start_cli_run(SCRIPT_DIR / "logs", config, header))
+    code = 1
+    try:
+        code = _run_pipeline()
+        return code
+    except SystemExit as exc:
+        # argparse exits this way for --help and for a bad flag.  Record the
+        # REAL status rather than the "unset" 1, which read as a failed run.
+        code = exc.code if isinstance(exc.code, int) else 0
+        raise
+    finally:
+        run_log.finish_cli_run(log, f"EXIT: {code}")
+
+
+# Flags that print something and exit without converting anything.  A run log
+# exists to explain a CONVERSION; spending a rotation slot on `--help` would
+# evict a real run's log.
+_INFORMATIONAL_FLAGS = {"-h", "--help", "--list-mods"}
+
+
+def _is_informational_argv() -> bool:
+    return any(a in _INFORMATIONAL_FLAGS for a in sys.argv[1:])
+
+
+def _config_path_from_argv() -> str | None:
+    """Read --config out of argv before argparse runs.
+
+    The run log is opened BEFORE _run_pipeline so the header, and any failure
+    inside argument parsing, are captured -- but the config that carries
+    `logRunsKept` is only located by --config. Scanning argv is the cheapest
+    way to honour it without splitting the parser in two.
+    """
+    argv = sys.argv[1:]
+    for i, arg in enumerate(argv):
+        if arg == "--config" and i + 1 < len(argv):
+            return argv[i + 1]
+        if arg.startswith("--config="):
+            return arg.split("=", 1)[1]
+    return None
+
+
+def _version_string() -> str:
+    try:
+        import version as _v
+        return _v.current_version()
+    except Exception:
+        return ""
 
 
 if __name__ == "__main__":

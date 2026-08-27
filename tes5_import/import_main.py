@@ -10,6 +10,20 @@ Handles:
 
 Usage:
     python -m tes5_import export/Oblivion.esm -o output/Oblivion.esm
+
+🛑 ADDING A NEW FUNCTION? DO NOT PUT IT DIRECTLY BELOW A NAVMESH FUNCTION.
+Six functions in this file are gated by `tools/navmesh_cache_hook.py`
+(`NAVMESH_FUNCS`): `_navmesh_geom_cache`, `_navm_model_key`,
+`_build_base_model_index`, `_build_door_fid_set`, `_gather_navm_jobs`,
+`_precompute_navmeshes`.  The hook attributes a change using git's `-U0` hunk
+header, which names the ENCLOSING function -- and for a pure insertion at a
+function boundary that is the function ABOVE.  So a brand-new function placed
+immediately after any of those six is reported as a change to IT, the pre-push
+gate fires, and its success path republishes the whole shared navmesh cache
+(~206 MB re-uploaded, and the open-ended cache release renamed).  Editing the
+TAIL of one of those functions does the same thing.  Put new helpers next to
+unrelated code instead -- and if a push does start a cache publish you did not
+intend, see `tools/navmesh_cache_hook.py --check`.
 """
 
 import argparse
@@ -37,12 +51,11 @@ from .dialog_converter import (
 from .record_types.dialog_misc import convert_SOUN
 from .skyrim_overrides import (
     CUSTOM_VTYP_EDIDS,
-    TES4_RACE_FID_TO_EDID,
-    VOICE_TYPE_MAP,
     VTYP_EDID_BY_FID,
     set_voice_type,
 )
 from .navi_builder import NAVI_SINGLETON_FID, build_navi_record
+from .lava_placement import LavaPlanner
 from .locations import build_marker_locations
 from .record_types.world import (
     convert_ACHR,
@@ -76,7 +89,6 @@ from .writer import (
     pack_record,
     pack_string_subrecord,
     pack_subrecord,
-    pack_uint32_subrecord,
 )
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -1445,9 +1457,19 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
     from .record_types.world import reset_emitted_regions
     reset_emitted_regions()
 
-    from .creature_races import build_creature_races
+    from .creature_races import (build_creature_races,
+                                 build_creature_death_piles)
     build_creature_races(by_type, writer, export_dir,
                          ctx.master_export if ctx else None)
+    # Dissolving creatures (ghost/wraith) leave an AUTHORED ectoplasm pile
+    # that asset_convert lifted out of their skeleton; wrap each one in an
+    # ACTI so TES4_GhostDissolve can drop Oblivion's own pile instead of
+    # Skyrim's DefaultAshPileGhost.  Must run BEFORE the CREA pass, which
+    # binds the ACTI into each creature's VMAD.
+    n_piles = build_creature_death_piles(writer)
+    if n_piles:
+        print(f'  Creature death piles: {n_piles} ACTI '
+              f'(authored ectoplasm, replaces the vanilla ash pile)')
     _step_done('creature races')
 
     # --- Phase 0g: plan AI packages -------------------------------------
@@ -1559,6 +1581,51 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
     # record_types/actors.py.
     from .record_types.actors import load_faction_player_reactions
     load_faction_player_reactions(by_type)
+
+    # --- Phase 0j: index hair-length variants ---
+    # Skyrim has no per-NPC hair length, so NPC_.LNAM is resolved by baking
+    # the hair .tri's HairMorph into a mesh per distinct length and giving
+    # each its own HDPT (asset_convert.hair_pipeline).  convert_HAIR needs to
+    # know which lengths to emit before it runs in Phase 1, and NPC_ needs it
+    # to point PNAM at the right variant.  Master exports are indexed too:
+    # a dependent plugin's actors wear their MASTER's hair, so a plugin-only
+    # scan would register no lengths and silently give every one of them the
+    # bucket-0 mesh regardless of its authored length.
+    try:
+        from . import hair_variants
+        hair_variants.load(getattr(ctx, 'export_dir', None) or export_dir,
+                           _master_export_dirs(ctx) if ctx else ())
+        print(f"  Hair length variants: "
+              f"{sum(len(v) for v in hair_variants._BUCKETS.values())} baked "
+              f"lengths across {len(hair_variants._BUCKETS)} hair records")
+    except Exception as _hair_exc:      # noqa: BLE001 - never block the import
+        print(f"  WARNING: hair length index unavailable: {_hair_exc}")
+
+    # --- Phase 0k: index authored race skin tones ---
+    # Skyrim colors body skin from a per-NPC "Skin Tone" tint layer, and
+    # Oblivion authors that color in the RACE record: its body/face part
+    # textures plus its own FGTS vector, which recolors a SHARED texture for
+    # the races that do not ship their own (High Elf gold, Redguard brown,
+    # Nord pale all share Characters\Imperial\HeadHuman.dds).  Master exports
+    # are indexed too -- a dependent plugin's actors use their MASTER's races,
+    # so a plugin-only scan would leave every one of them on the fallback.
+    try:
+        from .npc_face_mapper import load_race_skin_tones, _RACE_SKIN_RGB
+        _skin_dirs = [getattr(ctx, 'export_dir', None) or export_dir]
+        if ctx:
+            _skin_dirs.extend(_master_export_dirs(ctx))
+        _skin_by_type = dict(by_type)
+        if ctx and getattr(ctx, 'master_export', None):
+            _m_races = [r for r in ctx.master_export.values()
+                        if r.get('Signature') == 'RACE']
+            if _m_races:
+                _skin_by_type['RACE'] = _m_races + (by_type.get('RACE') or [])
+        load_race_skin_tones(_skin_by_type, _skin_dirs)
+        print(f"  Race skin tones: {len(_RACE_SKIN_RGB)} races resolved "
+              f"from authored textures")
+    except Exception as _skin_exc:      # noqa: BLE001 - never block the import
+        print(f"  WARNING: race skin tone index unavailable: {_skin_exc}")
+
     _phase_done('phase 0 pre-scans')
 
     # --- Phase 1: Simple record types (flat top-level groups) ---
@@ -1577,8 +1644,10 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
         simple_types.add(sig)
 
     # Types that need the writer passed in (for companion record generation)
+    # HAIR side-emits one HDPT per extra hair length its NPCs wear (Skyrim has
+    # no per-NPC hair-length field, so NPC_.LNAM is baked per variant).
     _WRITER_TYPES = {'ARMO', 'CLOT', 'WEAP', 'AMMO', 'NPC_', 'CREA', 'BOOK',
-                     'ENCH', 'SPEL', 'SGST'}
+                     'ENCH', 'SPEL', 'SGST', 'HAIR'}
 
     converted = 0
     errors = 0
@@ -1589,6 +1658,23 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
         target_sig = TYPE_MAP.get(sig, sig)
         for rec in by_type[sig]:
             work_items.append((sig, target_sig, rec))
+
+    # Sunless-sky registry: a CLMT with a void/absent sun sprite marks every
+    # weather in its WLST as sunless, and convert_WTHR (Phase 2b) zeroes those
+    # weathers' sun slots.  Reset per plugin, then seed from the MASTER export
+    # before Phase 1 runs: an override plugin's climates take the ctx.build()
+    # short-circuit and never reach convert_CLMT, and a plugin may add a
+    # weather to a climate its master owns.  Without the seed those weathers
+    # keep Skyrim's sun over the Deadlands.
+    from .record_types.dialog_misc import (
+        record_sunless_climate, reset_sunless_climates)
+    reset_sunless_climates()
+    if ctx and getattr(ctx, 'master_export', None):
+        for mrec in ctx.master_export.values():
+            if (mrec.get('Signature') or '') == 'CLMT':
+                record_sunless_climate(mrec)
+    for rec in by_type.get('CLMT', []):
+        record_sunless_climate(rec)
 
     # Serial on purpose: this whole phase is ~1.5s of GIL-bound Python, so a
     # thread pool adds no speed — but it DID make the output nondeterministic:
@@ -1676,15 +1762,15 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
     # the weather points at, so each converted weather mints four IMGS (one
     # per time of day) from its TES4 HNAM block.  Serial, like the other
     # companion-emitting phases, so record order stays deterministic.
-    from .record_types.dialog_misc import convert_WTHR, set_nam0_normalization
+    from .record_types.dialog_misc import convert_WTHR
     wthr_records = by_type.get('WTHR', [])
     if wthr_records:
-        # Self-calibrating color normalization: Oblivion authors weather
-        # colors far hotter than Skyrim (Sun slot 193 vs 43 median day
-        # luminance) and ambient darker; scale each slot so this plugin's
-        # median lands on the vanilla median. Must run before any weather
-        # converts.
-        set_nam0_normalization(wthr_records)
+        # NOTE: weather colours used to be normalised against a per-PLUGIN
+        # median computed here, before any weather converted.  That is gone —
+        # the replacement is a per-colour highlight knee (see the block
+        # comment above _NAM0_KNEE in dialog_misc.py), which needs no
+        # population pass and makes a weather convert identically regardless
+        # of what else is in the plugin.
         print(f"  Converting {len(wthr_records)} WTHR records (with IMGS creation)...")
         for rec in wthr_records:
             try:
@@ -1849,6 +1935,31 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
 
     set_teleport_grid(*_build_teleport_grid(
         by_type, ctx.master_export if ctx else None))
+
+    # --- Phase 3c: MUSC/MUST from the converted music folder ---
+    # Must precede Phase 4: convert_CELL/convert_WRLD read the enum->MUSC table
+    # this registers to emit XCMO/ZNAM.  The manifest is written by the sound
+    # stage (asset_convert.music_convert), so an import run whose music has not
+    # been converted yet simply registers nothing and omits the subrecords.
+    try:
+        from .record_types.music import (build_music_records,
+                                         load_music_manifest)
+        from .record_types.world import register_music_types
+        _music_manifest = load_music_manifest(plugin_out_dir)
+        if _music_manifest.get('tracks'):
+            _plugin_name = _music_manifest.get('plugin') or os.path.basename(
+                os.path.normpath(plugin_out_dir))
+            _music = build_music_records(_music_manifest, writer, _plugin_name)
+            for _fid, _b in _music['must']:
+                writer.add_record('MUST', _b)
+            for _fid, _b in _music['musc']:
+                writer.add_record('MUSC', _b)
+            register_music_types(_music['by_enum'])
+            print(f"  Music: {len(_music['must'])} MUST + "
+                  f"{len(_music['musc'])} MUSC records "
+                  f"({len(_music['by_enum'])} enum categories)")
+    except Exception as e:
+        print(f"  ERROR building music records: {e}")
 
     # --- Phase 4: CELL/WRLD hierarchy (+ PGRD→NAVM navmeshes) ---
     # Base-object model index for navmesh static-footprint carving. Only
@@ -2158,22 +2269,51 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
     n_snd = patch_actor_sounds(writer)
     if n_snd:
         print(f"  Actor sound entries bound/flattened: {n_snd} actors")
-    # DOOR SNAM/ANAM/BNAM hold TES4 SOUN ids because Phase 1 runs before the
-    # descriptors exist — TES5 wants the SNDR there.
-    from .record_types.items import patch_door_sounds
-    n_dsnd = patch_door_sounds(
-        writer,
-        {get_formid(r, 'FormID') & 0x00FFFFFF for r in by_type.get('SOUN', [])})
-    if n_dsnd:
-        print(f"  Door sound descriptors bound: {n_dsnd} doors")
+    # Sound-slot records (ACTI/CONT/DOOR/LIGH) hold TES4 SOUN ids because
+    # Phase 1 runs before the descriptors exist — TES5 wants the SNDR there, and
+    # a SOUN id left in one of these slots CRASHES the audio thread (see
+    # items._SNDR_SLOTS).  Weather is patched separately below: its SNAM is an
+    # 8-byte struct, not a bare FormID.
+    _own_souns = {get_formid(r, 'FormID') & 0x00FFFFFF
+                  for r in by_type.get('SOUN', [])}
+
+    def _master_sound_descriptor(soun_fid: int) -> int:
+        """MASTER-owned TES4 SOUN id -> the SNDR the master's conversion made.
+
+        Read out of the master's converted SOUN (whose SDSC names the
+        companion) rather than re-derived, which would mint an id in THIS
+        plugin's index space.  Required, not optional: Morrowind_ob's containers
+        and torches point at Oblivion.esm sounds it never overrides, so the
+        master manifest carries no entry for them and every one of those ~2,400
+        slots would otherwise be left wrong-typed.
+        """
+        if not ctx or not getattr(ctx, 'master_index', None):
+            return 0
+        blob = ctx.master_index.record(soun_fid)
+        if not blob or blob[:4] != b'SOUN':
+            return 0
+        pos = 24
+        while pos + 6 <= len(blob):
+            sig = blob[pos:pos + 4]
+            size = struct.unpack_from('<H', blob, pos + 4)[0]
+            if sig == b'SDSC' and size == 4:
+                return struct.unpack_from('<I', blob, pos + 6)[0]
+            pos += 6 + size
+        return 0
+
+    from .record_types.items import patch_sound_descriptor_slots
+    for _sig, _label in (('ACTI', 'activators'), ('CONT', 'containers'),
+                         ('DOOR', 'doors'), ('LIGH', 'lights')):
+        _n = patch_sound_descriptor_slots(
+            writer, _sig, _own_souns, _master_sound_descriptor)
+        if _n:
+            print(f"  Sound descriptors bound: {_n} {_label}")
     # WTHR SNAM holds TES4 SOUN ids for the same reason (Phase 2 precedes the
     # descriptors). TES5 weather sounds are SNDR slots; left as SOUN ids the
     # engine dereferences a record that carries no descriptor payload and the
     # sky plays the wrong sound entirely.
     from .record_types.dialog_misc import patch_weather_sounds
-    n_wsnd = patch_weather_sounds(
-        writer,
-        {get_formid(r, 'FormID') & 0x00FFFFFF for r in by_type.get('SOUN', [])})
+    n_wsnd = patch_weather_sounds(writer, _own_souns)
     if n_wsnd:
         print(f"  Weather sound descriptors bound: {n_wsnd} weathers")
     # Creature voice types: allocated LAST so no other generated FormID moves,
@@ -2224,6 +2364,13 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
 
     t3 = time.time()
     print(f"\nConverted {converted} records ({errors} errors) in {t3-t2:.2f}s")
+
+    # Lava surface mesh.  Generated here rather than in the asset stage so
+    # that --import-only alone produces a working result: the REFRs written
+    # above name it, and a placed reference whose model is missing renders as
+    # nothing at all.
+    if getattr(writer, '_lava_stat_emitted', False):
+        _write_lava_mesh(plugin_out_dir, by_type)
 
     # Write output
     os.makedirs(os.path.dirname(output_path) or '.', exist_ok=True)
@@ -2976,6 +3123,9 @@ def _build_cell_groups(by_type: dict, writer: PluginWriter,
         base_model_by_fid = {}
     if navm_cache is None:
         navm_cache = {}
+    # Lava surfaces: Skyrim's water shader cannot render lava, so realm water
+    # gets an emissive plane laid over it (see tes5_import/lava_placement.py).
+    lava = LavaPlanner(by_type, writer)
     cells = by_type.get('CELL', [])
     refrs = by_type.get('REFR', [])
     achrs = by_type.get('ACHR', []) + by_type.get('ACRE', [])
@@ -3075,6 +3225,10 @@ def _build_cell_groups(by_type: dict, writer: PluginWriter,
                         if not is_persistent(achr_rec):
                             temporary.append(convert_ACHR(achr_rec))
                             converted += 1
+                    lava_refr = lava.refr_for(cell_rec)
+                    if lava_refr:
+                        temporary.append(lava_refr)
+                        converted += 1
                     # PGRD → NAVM (interior cells have no LAND; Z from node heights)
                     # Precomputed in parallel by _precompute_navmeshes.
                     for pgrd_rec in pgrd_by_cell.get(cell_fid, []):
@@ -3104,10 +3258,15 @@ def _build_cell_groups(by_type: dict, writer: PluginWriter,
         if block_parts:
             all_cell_parts.append(pack_group(2, struct.pack('<i', block_num), b''.join(block_parts)))
 
+    if lava.placed:
+        lava.emit_stat()
+
     if all_cell_parts:
         writer.add_raw_group('CELL', b''.join(all_cell_parts))
 
     print(f"    Interior cells: {len(interior_cells)}, children: {converted}")
+    if lava.placed:
+        print(f"    Lava surfaces placed (interior): {lava.placed}")
 
 
 def _grid_sort_key(label: bytes):
@@ -3153,6 +3312,53 @@ def _ensure_cell_grid(cell: dict) -> None:
         return
     cell['XCLC.X'] = '0'
     cell['XCLC.Y'] = '0'
+
+
+def _write_lava_mesh(plugin_out_dir: str, by_type: dict) -> None:
+    """Generate the emissive lava plane the placed lava REFRs point at.
+
+
+    The texture comes from the AUTHORED WATR: Oblivion's lava records name
+    their surface image in TNAM (OblivionLavaTest01 names
+    ``Water\\OblivionLava06.dds``), and the asset stage deploys it under
+    ``textures\\tes4\\``.  Records that name no texture fall back to the one a
+    sibling lava record does name, so a stub record cannot leave the plane
+    untextured.
+    """
+    from .lava_placement import (LAVA_MESH_REL, collect_lava_water_fids,
+                                 scroll_for)
+    from .record_types.common import _prefix_path
+
+    lava_fids = collect_lava_water_fids(by_type)
+    if not lava_fids:
+        return
+
+    texture = ''
+    for rec in by_type.get('WATR', []):
+        if get_formid(rec, 'FormID') not in lava_fids:
+            continue
+        tex = get_str(rec, 'TNAM.Texture', '').strip()
+        if tex:
+            texture = _prefix_path(tex)
+            break
+    if not texture:
+        print('    Lava surface: no authored texture on any lava WATR '
+              '- surface not generated')
+        return
+
+    scroll_x, scroll_y = scroll_for(by_type, lava_fids)
+
+    try:
+        from asset_convert.lava_surface import write_lava_nif
+    except Exception as exc:
+        print(f'    Lava surface: generator unavailable ({exc})')
+        return
+
+    dst = os.path.join(plugin_out_dir, 'meshes', *LAVA_MESH_REL.split('\\'))
+    if write_lava_nif(dst, 'textures\\' + texture,
+                      scroll_x=scroll_x, scroll_y=scroll_y):
+        print(f'    Lava surface mesh: {dst} (texture {texture}, '
+              f'scroll {scroll_x:g}/{scroll_y:g})')
 
 
 def _land_extents_by_wrld(ext_cells_by_wrld: dict) -> dict:
@@ -3244,6 +3450,8 @@ def _build_world_groups(by_type: dict, writer: PluginWriter,
         door_fids = set()
     if navm_cache is None:
         navm_cache = {}
+    # Lava surfaces over Oblivion realm water — see tes5_import/lava_placement.py.
+    lava = LavaPlanner(by_type, writer)
     worlds = by_type.get('WRLD', [])
     cells = by_type.get('CELL', [])
     refrs = by_type.get('REFR', [])
@@ -3608,6 +3816,10 @@ def _build_world_groups(by_type: dict, writer: PluginWriter,
                                 if not (get_int(achr, 'RecordFlags') & 0x400):
                                     temporary.append(convert_ACHR(achr))
                                     converted += 1
+                            lava_refr = lava.refr_for(cell_rec)
+                            if lava_refr:
+                                temporary.append(lava_refr)
+                                converted += 1
                             # PGRD → NAVM for exterior cells (LAND gives Z, CELL gives water)
                             # Precomputed in parallel by _precompute_navmeshes.
                             for pgrd_rec in pgrd_by_cell.get(cell_fid, []):
@@ -3657,7 +3869,12 @@ def _build_world_groups(by_type: dict, writer: PluginWriter,
     if all_wrld_parts:
         writer.add_raw_group('WRLD', b''.join(all_wrld_parts))
 
+    if lava.placed:
+        lava.emit_stat()
+
     print(f"    Worldspaces: {len(_wrld_jobs)}, children: {converted}")
+    if lava.placed:
+        print(f"    Lava surfaces placed (exterior): {lava.placed}")
 
 
 def main():

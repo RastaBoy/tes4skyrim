@@ -230,6 +230,16 @@ class TestConverters:
             pos += 6 + size
         return None
 
+    def _iter_subrecords(self, rec_bytes: bytes):
+        """Yield (signature, data) for every subrecord, in written order."""
+        data = rec_bytes[RECORD_HEADER_SIZE:]
+        pos = 0
+        while pos + 6 <= len(data):
+            sig = data[pos:pos + 4].decode('ascii', 'replace')
+            size = struct.unpack_from('<H', data, pos + 4)[0]
+            yield sig, data[pos + 6:pos + 6 + size]
+            pos += 6 + size
+
     def test_stat(self):
         rec = {'Signature': 'STAT', 'FormID': '00012345', 'RecordFlags': '0',
                'EditorID': 'TestRock', 'Model.MODL': 'Rocks\\Rock01.nif'}
@@ -484,25 +494,87 @@ class TestConverters:
         tini = struct.unpack('<H', self._get_subrecord_data(result, 'TINI'))[0]
         assert tini == 1  # Redguard male skin-tone index in Skyrim.esm
         r, g, b, a = struct.unpack('<4B', self._get_subrecord_data(result, 'TINC'))
-        # Must be one of the census colors — all dark Redguard tones, never white
-        assert (r, g, b) in {(45, 33, 30), (53, 39, 34), (79, 69, 64)}
         assert a == 0
-        tinv = struct.unpack('<I', self._get_subrecord_data(result, 'TINV'))[0]
-        assert tinv == 100
+        # The color is Oblivion's authored Redguard skin: a dark warm brown.
+        # Redguards were rendering near-black under the old census pick, and
+        # Imperials came out darker than Redguards should be, so assert the
+        # actual appearance rather than membership of a palette.
+        assert r > g > b, 'Redguard skin must be warm (R > G > B)'
+        luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        assert 45 < luma < 95, f'Redguard luma {luma:.0f} outside brown range'
+
         tias = struct.unpack('<h', self._get_subrecord_data(result, 'TIAS'))[0]
         assert tias == -1
-        # QNAM must agree with the tint (tinv=100 → exactly color/255)
+        # QNAM is the tint blended toward mid-grey by TINV, and must agree
+        # with the layer or the face is lit a different color than the body.
+        from tes5_import.npc_face_mapper import skin_tone_qnam
+        tinv = struct.unpack('<I', self._get_subrecord_data(result, 'TINV'))[0]
+        assert 0 < tinv <= 100
         qnam = struct.unpack('<3f', self._get_subrecord_data(result, 'QNAM'))
-        for got, want in zip(qnam, (r / 255.0, g / 255.0, b / 255.0)):
+        for got, want in zip(qnam, skin_tone_qnam((r, g, b), tinv)):
             assert abs(got - want) < 1e-6
+
         # Female Nord uses the FEMALE tint list index (24, not male 1)
         rec_f = dict(base, **{'RNAM.Race': '000224FD', 'ACBS.Flags': '1'})
         result_f = convert_NPC_(rec_f)
         tini_f = struct.unpack('<H', self._get_subrecord_data(result_f, 'TINI'))[0]
         assert tini_f == 24
-        # Deterministic: same FormID → same pick
+        # Deterministic: same input → same color
         assert (self._get_subrecord_data(result_f, 'TINC')
                 == self._get_subrecord_data(convert_NPC_(rec_f), 'TINC'))
+
+        # A Nord must be markedly PALER than a Redguard.  This is the defect
+        # the authored-color path fixes: the census pick gave 72% of Imperial
+        # males a luma-66 tone, darker than Redguards ought to be.
+        nord_r, nord_g, nord_b, _ = struct.unpack(
+            '<4B', self._get_subrecord_data(result_f, 'TINC'))
+        nord_luma = 0.2126 * nord_r + 0.7152 * nord_g + 0.0722 * nord_b
+        assert nord_luma > luma + 60, (
+            f'Nord luma {nord_luma:.0f} not clearly paler than '
+            f'Redguard {luma:.0f}')
+
+    def test_race_skin_tones_are_authored_colors(self):
+        """Each race's skin tone must match Oblivion's authored appearance.
+
+        High Elf, Redguard, Nord, Breton and Imperial all share
+        Characters\\Imperial\\HeadHuman.dds and are differentiated ONLY by the
+        RACE record's own FGTS vector, so a converter that ignores race FGTS
+        gives all five the same tan.  These assertions pin the distinctions
+        that FGTS is responsible for.
+        """
+        import colorsys
+        from tes5_import.npc_face_mapper import _pick_skin_tone
+
+        def tone(race, gender='Male'):
+            _, rgb, _ = _pick_skin_tone(race, gender, 0x00000500)
+            h, s, _v = colorsys.rgb_to_hsv(*[c / 255.0 for c in rgb])
+            luma = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
+            return rgb, h * 360.0, s, luma
+
+        # High Elf reads GOLD: yellow-shifted hue, well away from skin-tan.
+        _rgb, hue, sat, _l = tone('HighElf')
+        assert 38 <= hue <= 70, f'High Elf hue {hue:.0f} is not gold'
+        assert sat > 0.45, f'High Elf saturation {sat:.2f} too washed out'
+
+        # Dark Elf reads GREY: near-zero saturation is its defining trait.
+        _rgb, _hue, sat, _l = tone('DarkElf')
+        assert sat < 0.20, f'Dark Elf saturation {sat:.2f} is not grey'
+
+        # Orc reads GREEN: green channel dominates.
+        rgb, _hue, _sat, _l = tone('Orc')
+        assert rgb[1] > rgb[0] and rgb[1] > rgb[2], f'Orc {rgb} is not green'
+
+        # Ordering: Redguard clearly darkest of the human races, Nord palest.
+        lumas = {r: tone(r)[3]
+                 for r in ('Redguard', 'Imperial', 'Breton', 'Nord')}
+        assert lumas['Redguard'] < lumas['Imperial'] < lumas['Nord'], lumas
+        assert lumas['Redguard'] < 95, lumas
+        assert lumas['Nord'] > 150, lumas
+
+        # Imperials must NOT be dark.  The reported bug was pale-skinned
+        # Imperials converting to a near-black tone.
+        assert lumas['Imperial'] > 110, (
+            f"Imperial luma {lumas['Imperial']:.0f} is too dark")
 
     def test_skin_tone_qnam_blends_toward_mid_grey(self):
         """QNAM blends the tint toward 127, not toward white.
@@ -554,6 +626,125 @@ class TestConverters:
         result = convert_CREA(rec)
         sig = result[:4].decode('ascii')
         assert sig == 'NPC_'
+
+    def test_crea_spells_are_emitted(self):
+        """CREA spells must reach SPLO — convert_CREA emitted NONE, so all
+        600 spell-carrying Oblivion creatures shipped unable to cast."""
+        rec = {'Signature': 'CREA', 'FormID': '0003E9CB', 'RecordFlags': '0',
+               'EditorID': 'CreatureScampStunted', 'FULL': 'Stunted Scamp',
+               'ACBS.Flags': '0', 'ACBS.Level': '3', 'ACBS.CalcMin': '1',
+               'ACBS.CalcMax': '10', 'ACBS.BarterGold': '0',
+               'FactionCount': '0', 'ItemCount': '0', 'AIPackageCount': '0',
+               'AIDT.Aggression': '0', 'AIDT.Confidence': '30',
+               'AIDT.Services': '0',
+               'SpellCount': '2',
+               'Spell[0]': '0002B543', 'Spell[1]': '0005D4A2',
+               'DATA.CombatSkill': '30', 'DATA.MagicSkill': '25',
+               'DATA.StealthSkill': '20', 'DATA.Health': '20',
+               'DATA.Strength': '30', 'DATA.Intelligence': '10'}
+        result = convert_CREA(rec)
+        spct = self._get_subrecord_data(result, 'SPCT')
+        assert struct.unpack('<I', spct)[0] == 2
+        # both spells present, in authored order; an LVSP target is legal
+        # (xEdit types SPLO as [SPEL, SHOU, LVSP])
+        splos = [struct.unpack('<I', d)[0]
+                 for s, d in self._iter_subrecords(result) if s == 'SPLO']
+        assert len(splos) == 2
+        assert [f & 0x00FFFFFF for f in splos] == [0x02B543, 0x05D4A2]
+
+    def test_offensive_spells_are_classified(self):
+        """Delivery classification drives the two cast paths: an aimed spell
+        is offensive (cast through SPLO + the graph's FireForget chain), a
+        passive Ability is neither (the scamp's AbDaedricResistWeak is a
+        self-buff), and only a pure TOUCH spell becomes the melee ATKD
+        'Attack Spell' (the flame atronach idiom)."""
+        from tes5_import import creature_races as cr
+        cr.load_creature_item_index({
+            'SPEL': [
+                {'Signature': 'SPEL', 'FormID': '0002B543',
+                 'SPIT.Type': '4', 'EffectCount': '1',
+                 'Effect[0].Type': 'Self'},
+                {'Signature': 'SPEL', 'FormID': '000A97DF',
+                 'SPIT.Type': '0', 'EffectCount': '1',
+                 'Effect[0].Type': 'Target'},
+                {'Signature': 'SPEL', 'FormID': '000A97E0',
+                 'SPIT.Type': '0', 'EffectCount': '1',
+                 'Effect[0].Type': 'Touch'},
+            ],
+            'LVSP': [
+                {'Signature': 'LVSP', 'FormID': '0005D4A2',
+                 'EntryCount': '1', 'Entry[0].FormID': '000A97DF'},
+            ],
+        })
+        try:
+            scamp = {'Signature': 'CREA', 'SpellCount': '2',
+                     'Spell[0]': '0002B543', 'Spell[1]': '0005D4A2'}
+            # the ability is passive; the LEVELED spell resolves offensive
+            assert cr.creature_has_offensive_spell([scamp])
+            assert not cr._spell_is_offensive(0x02B543)
+            assert cr._spell_is_offensive(0x05D4A2)
+            # an aimed spell must NOT ride the melee attacks...
+            assert cr.creature_touch_attack_spell([scamp]) == 0
+            # ...but a pure touch spell must
+            toucher = {'Signature': 'CREA', 'SpellCount': '1',
+                       'Spell[0]': '000A97E0'}
+            assert cr.creature_touch_attack_spell(
+                [toucher]) & 0x00FFFFFF == 0x0A97E0
+        finally:
+            cr.load_creature_item_index({})
+
+    def test_atkd_carries_the_attack_spell(self):
+        """ATKD field 3 is 'Attack Spell' (xEdit: [SPEL, SHOU, NULL]) — the
+        vanilla melee-caster idiom (109 vanilla attack entries; the flame
+        atronach's four attacks each name a fire spell)."""
+        from tes5_import.creature_races import _atkd
+        data = _atkd(spell=0x0105D4A2)
+        assert len(data) == 44
+        dmg, chance, spell, flags = struct.unpack_from('<ffII', data, 0)
+        assert spell == 0x0105D4A2
+        assert abs(chance - 1.0) < 1e-6
+        # a plain melee attack must still write a NULL spell
+        assert struct.unpack_from('<ffII', _atkd(), 0)[2] == 0
+
+    def test_crea_spells_follow_rnam(self):
+        """Order is RNAM -> SPCT -> SPLO[] -> COCT/CNTO (verified against the
+        xEdit TES5 NPC_ definition and real Skyrim.esm records)."""
+        rec = {'Signature': 'CREA', 'FormID': '0003E9CC', 'RecordFlags': '0',
+               'EditorID': 'TestCaster',
+               'ACBS.Flags': '0', 'ACBS.Level': '3', 'ACBS.CalcMin': '1',
+               'ACBS.CalcMax': '10', 'ACBS.BarterGold': '0',
+               'FactionCount': '0', 'ItemCount': '0', 'AIPackageCount': '0',
+               'AIDT.Aggression': '0', 'AIDT.Confidence': '30',
+               'AIDT.Services': '0', 'SpellCount': '1',
+               'Spell[0]': '0002B543',
+               'DATA.CombatSkill': '15', 'DATA.MagicSkill': '10',
+               'DATA.StealthSkill': '20', 'DATA.Health': '20',
+               'DATA.Strength': '30', 'DATA.Intelligence': '10'}
+        order = [s for s, _d in self._iter_subrecords(convert_CREA(rec))]
+        assert order.index('RNAM') < order.index('SPCT') < order.index('SPLO')
+        for after in ('AIDT', 'PKID'):
+            if after in order:
+                assert order.index('SPLO') < order.index(after)
+
+    def test_crea_null_spell_ids_are_dropped(self):
+        """A null FormID must never reach SPLO, and SPCT must match what was
+        actually written."""
+        rec = {'Signature': 'CREA', 'FormID': '0003E9CD', 'RecordFlags': '0',
+               'EditorID': 'TestNullSpell',
+               'ACBS.Flags': '0', 'ACBS.Level': '3', 'ACBS.CalcMin': '1',
+               'ACBS.CalcMax': '10', 'ACBS.BarterGold': '0',
+               'FactionCount': '0', 'ItemCount': '0', 'AIPackageCount': '0',
+               'AIDT.Aggression': '0', 'AIDT.Confidence': '30',
+               'AIDT.Services': '0', 'SpellCount': '2',
+               'Spell[0]': '00000000', 'Spell[1]': '0002B543',
+               'DATA.CombatSkill': '15', 'DATA.MagicSkill': '10',
+               'DATA.StealthSkill': '20', 'DATA.Health': '20',
+               'DATA.Strength': '30', 'DATA.Intelligence': '10'}
+        result = convert_CREA(rec)
+        assert struct.unpack('<I', self._get_subrecord_data(result,
+                                                            'SPCT'))[0] == 1
+        assert len([1 for s, _d in self._iter_subrecords(result)
+                    if s == 'SPLO']) == 1
 
     def test_crea_base_scale_to_nam6(self):
         """TES4 CREA BNAM 'Base Scale' -> TES5 NPC_ NAM6 'Height'.
@@ -830,7 +1021,7 @@ class TestDoorSounds:
     xEdit: wbFormIDCk(SNAM, 'Sound - Open', [SNDR]); Skyrim.esm agrees —
     WRDragonSideDoor01's SNAM 0005AFC9 is the SNDR DRSWoodImperialDouble01OpenSD.
     Doors are written in Phase 1, before the descriptors exist, so the SOUN id
-    is a placeholder that patch_door_sounds resolves.
+    is a placeholder that patch_sound_descriptor_slots resolves.
     """
 
     @staticmethod
@@ -864,12 +1055,13 @@ class TestDoorSounds:
 
     def test_slots_resolve_to_descriptors(self):
         from tes5_import.record_types import dialog_misc
-        from tes5_import.record_types.items import patch_door_sounds
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
         dialog_misc.reset_sound_descriptors()
         dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
         dialog_misc.record_sndr_for_soun(0x0105C424, 0x01190F01)
         w = self._Writer([self._door('D', SNAM=0x0105C423, ANAM=0x0105C424)])
-        assert patch_door_sounds(w, {0x05C423, 0x05C424}) == 1
+        assert patch_sound_descriptor_slots(
+            w, 'DOOR', {0x05C423, 0x05C424}) == 1
         assert self._slots(w._top_groups['DOOR'][0]) == {
             'SNAM': 0x01190F00, 'ANAM': 0x01190F01}
 
@@ -877,11 +1069,12 @@ class TestDoorSounds:
         """A SOUN with no FNAM mints no SNDR; a slot pointing at the SOUN
         would be a wrong-typed reference, so it goes."""
         from tes5_import.record_types import dialog_misc
-        from tes5_import.record_types.items import patch_door_sounds
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
         dialog_misc.reset_sound_descriptors()
         dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
         w = self._Writer([self._door('D', SNAM=0x0105C423, BNAM=0x0105C425)])
-        assert patch_door_sounds(w, {0x05C423, 0x05C425}) == 1
+        assert patch_sound_descriptor_slots(
+            w, 'DOOR', {0x05C423, 0x05C425}) == 1
         assert self._slots(w._top_groups['DOOR'][0]) == {'SNAM': 0x01190F00}
 
     def test_master_override_slots_untouched(self):
@@ -889,23 +1082,23 @@ class TestDoorSounds:
         whose slots already name the MASTER's SNDRs. Rewriting or dropping
         those would strip door sound out of every dependent plugin."""
         from tes5_import.record_types import dialog_misc
-        from tes5_import.record_types.items import patch_door_sounds
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
         dialog_misc.reset_sound_descriptors()
         dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
         w = self._Writer([self._door('M', SNAM=0x00190AAA, ANAM=0x00190AAB)])
-        assert patch_door_sounds(w, {0x05C423}) == 0
+        assert patch_sound_descriptor_slots(w, 'DOOR', {0x05C423}) == 0
         assert self._slots(w._top_groups['DOOR'][0]) == {
             'SNAM': 0x00190AAA, 'ANAM': 0x00190AAB}
 
     def test_patch_is_idempotent(self):
         from tes5_import.record_types import dialog_misc
-        from tes5_import.record_types.items import patch_door_sounds
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
         dialog_misc.reset_sound_descriptors()
         dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
         w = self._Writer([self._door('D', SNAM=0x0105C423)])
-        assert patch_door_sounds(w, {0x05C423}) == 1
+        assert patch_sound_descriptor_slots(w, 'DOOR', {0x05C423}) == 1
         first = w._top_groups['DOOR'][0]
-        assert patch_door_sounds(w, {0x05C423}) == 0
+        assert patch_sound_descriptor_slots(w, 'DOOR', {0x05C423}) == 0
         assert w._top_groups['DOOR'][0] == first
 
     def test_mesh_authored_sound_fills_empty_slots(self):
@@ -943,6 +1136,245 @@ class TestDoorSounds:
             items._DOOR_MODEL_SOUNDS.clear()
         assert slots['SNAM'] == 0x0105C400
         assert slots['ANAM'] == 0x0105C424
+
+
+class TestLightSoundDescriptors:
+    """LIGH SNAM is a sound DESCRIPTOR slot in TES5, not a SOUN.
+
+    xEdit's TES5 LIGH is `wbFormIDCk(SNAM, 'Sound', [SNDR])`, and Skyrim.esm's
+    one sounded light resolves to an SNDR. Left as a SOUN id the engine puts a
+    non-pointer into the audio manager's emitter table and BSAudioManagerThread
+    faults dereferencing it (`mov ecx, [r8+0x48]`), so every lit torch in the
+    plugin arms an audio-thread crash. Lights are written in Phase 1, before the
+    descriptors exist, so the SOUN id is a placeholder
+    patch_sound_descriptor_slots resolves.
+    """
+
+    @staticmethod
+    def _snam(blob):
+        pos = 24
+        assert struct.unpack_from('<I', blob, 4)[0] == len(blob) - 24
+        while pos + 6 <= len(blob):
+            sig = blob[pos:pos + 4]
+            size = struct.unpack_from('<H', blob, pos + 4)[0]
+            if sig == b'SNAM' and size == 4:
+                return struct.unpack_from('<I', blob, pos + 6)[0]
+            pos += 6 + size
+        return None
+
+    @staticmethod
+    def _light(edid, snam=0):
+        from tes5_import.record_types.common import (pack_float_subrecord,
+                                                     pack_formid_subrecord,
+                                                     pack_string_subrecord)
+        subs = pack_string_subrecord('EDID', edid)
+        subs += pack_float_subrecord('FNAM', 1.0)
+        if snam:
+            subs += pack_formid_subrecord('SNAM', snam)
+        return pack_record('LIGH', 0x01000001, 0, subs)
+
+    class _Writer:
+        def __init__(self, records):
+            self._top_groups = {'LIGH': records}
+
+    def test_snam_resolves_to_descriptor(self):
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+        dialog_misc.reset_sound_descriptors()
+        dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
+        w = self._Writer([self._light('L', snam=0x0105C423)])
+        assert patch_sound_descriptor_slots(w, 'LIGH', {0x05C423}) == 1
+        assert self._snam(w._top_groups['LIGH'][0]) == 0x01190F00
+
+    def test_slot_without_descriptor_is_dropped(self):
+        """A SOUN with no FNAM mints no SNDR; leaving the slot pointing at the
+        SOUN is exactly the wrong-typed reference that crashes the audio
+        thread, so the slot goes instead."""
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+        dialog_misc.reset_sound_descriptors()
+        w = self._Writer([self._light('L', snam=0x0105C425)])
+        assert patch_sound_descriptor_slots(w, 'LIGH', {0x05C425}) == 1
+        assert self._snam(w._top_groups['LIGH'][0]) is None
+
+    def test_master_owned_soun_resolves_via_master(self):
+        """Morrowind_ob's torches point at Oblivion.esm's AMBTorchMountedLP, a
+        SOUN the plugin never overrides. Without the master lookup the largest
+        group of lights would lose its ambience — master-export blindness."""
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+        dialog_misc.reset_sound_descriptors()
+        w = self._Writer([self._light('L', snam=0x01085837)])
+        assert patch_sound_descriptor_slots(
+            w, 'LIGH', set(),
+            lambda fid: 0x0158689D if fid == 0x01085837 else 0) == 1
+        assert self._snam(w._top_groups['LIGH'][0]) == 0x0158689D
+
+    def test_master_override_slot_untouched(self):
+        """An override build's LIGH group also holds the master's converted
+        records, whose SNAM already names the MASTER's SNDR."""
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+        dialog_misc.reset_sound_descriptors()
+        dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
+        w = self._Writer([self._light('M', snam=0x0058689D)])
+        assert patch_sound_descriptor_slots(
+            w, 'LIGH', {0x05C423}, lambda fid: 0) == 0
+        assert self._snam(w._top_groups['LIGH'][0]) == 0x0058689D
+
+    def test_patch_is_idempotent(self):
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+        dialog_misc.reset_sound_descriptors()
+        dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
+        w = self._Writer([self._light('L', snam=0x0105C423)])
+        assert patch_sound_descriptor_slots(w, 'LIGH', {0x05C423}) == 1
+        first = w._top_groups['LIGH'][0]
+        assert patch_sound_descriptor_slots(w, 'LIGH', {0x05C423}) == 0
+        assert w._top_groups['LIGH'][0] == first
+
+    def test_light_without_sound_untouched(self):
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+        w = self._Writer([self._light('L')])
+        first = w._top_groups['LIGH'][0]
+        assert patch_sound_descriptor_slots(w, 'LIGH', {0x05C423}) == 0
+        assert w._top_groups['LIGH'][0] == first
+
+
+class TestSoundDescriptorSlotCoverage:
+    """Every TES5 slot xEdit types as [SNDR] must be patched, not just DOOR.
+
+    An unpatched slot is not a cosmetic wrong-sound bug: the engine registers
+    the SOUN id in the audio manager's emitter table and BSAudioManagerThread
+    faults dereferencing it. ACTI (Dwemer steam machines), CONT (every chest
+    and barrel) and LIGH (every torch) all carry live slots.
+    """
+
+    @staticmethod
+    def _rec(sig, **slots):
+        from tes5_import.record_types.common import (pack_formid_subrecord,
+                                                     pack_string_subrecord)
+        subs = pack_string_subrecord('EDID', 'X')
+        for name, fid in slots.items():
+            subs += pack_formid_subrecord(name, fid)
+        return pack_record(sig, 0x01000001, 0, subs)
+
+    @staticmethod
+    def _slot(blob, name):
+        pos = 24
+        assert struct.unpack_from('<I', blob, 4)[0] == len(blob) - 24
+        want = name.encode()
+        while pos + 6 <= len(blob):
+            sig = blob[pos:pos + 4]
+            size = struct.unpack_from('<H', blob, pos + 4)[0]
+            if sig == want and size == 4:
+                return struct.unpack_from('<I', blob, pos + 6)[0]
+            pos += 6 + size
+        return None
+
+    def test_every_xedit_sndr_slot_is_covered(self):
+        """Guards against a record type being added with an unpatched slot.
+
+        MSTT and TACT type SNAM as [SNDR] too, but are deliberately absent: no
+        MSTT or TACT we write can carry a placeholder. MSTT exists only as
+        convert_STAT's havok retype and TES4 STAT has no sound field at all
+        (0 SNAM keys across Oblivion's 6,014 and Nehrim's 7,205 STATs); TACT is
+        synthesized only by speaker_activators, which writes VNAM, never SNAM.
+        """
+        from tes5_import.record_types.items import _SNDR_SLOTS
+        assert _SNDR_SLOTS == {
+            'ACTI': (b'SNAM', b'VNAM'),
+            'CONT': (b'SNAM', b'QNAM'),
+            'DOOR': (b'SNAM', b'ANAM', b'BNAM'),
+            'LIGH': (b'SNAM',),
+        }
+
+    def test_tact_vnam_is_never_treated_as_a_sound_slot(self):
+        """VNAM is [SNDR] on ACTI but [VTYP] on TACT (xEdit 3324 vs 3348).
+
+        A TACT entry here would rewrite every speaker activator's voice type
+        into a sound descriptor and mute the speak-as lines, so TACT must stay
+        out of the table entirely -- listing it with only SNAM is not enough of
+        a guard, because the next slot added would sit beside ACTI's VNAM.
+        """
+        from tes5_import.record_types.items import _SNDR_SLOTS
+        assert 'TACT' not in _SNDR_SLOTS
+        assert 'MSTT' not in _SNDR_SLOTS
+
+    def test_speaker_activator_vnam_survives_the_patch(self):
+        """A real synthesized TACT must come through byte-identical."""
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+        from tes5_import.speaker_activators import _pack_tact
+
+        class W:
+            def __init__(self, groups):
+                self._top_groups = groups
+
+        dialog_misc.reset_sound_descriptors()
+        dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
+        tact = _pack_tact(0x01000001, 'TES4Voice_x', 0x0105C423, 'Speaker')
+        w = W({'TACT': [tact]})
+        # TACT is not a patched type at all, so the loop never reaches it.
+        for sig in ('ACTI', 'CONT', 'DOOR', 'LIGH'):
+            patch_sound_descriptor_slots(w, sig, {0x05C423})
+        assert w._top_groups['TACT'][0] == tact
+        assert self._slot(tact, 'VNAM') == 0x0105C423
+
+    def test_activator_and_container_slots_resolve(self):
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+
+        class W:
+            def __init__(self, groups):
+                self._top_groups = groups
+
+        dialog_misc.reset_sound_descriptors()
+        dialog_misc.record_sndr_for_soun(0x0105C423, 0x01190F00)
+        dialog_misc.record_sndr_for_soun(0x0105C424, 0x01190F01)
+        w = W({'ACTI': [self._rec('ACTI', SNAM=0x0105C423)],
+               'CONT': [self._rec('CONT', SNAM=0x0105C423,
+                                  QNAM=0x0105C424)]})
+        own = {0x05C423, 0x05C424}
+        assert patch_sound_descriptor_slots(w, 'ACTI', own) == 1
+        assert patch_sound_descriptor_slots(w, 'CONT', own) == 1
+        assert self._slot(w._top_groups['ACTI'][0], 'SNAM') == 0x01190F00
+        assert self._slot(w._top_groups['CONT'][0], 'SNAM') == 0x01190F00
+        assert self._slot(w._top_groups['CONT'][0], 'QNAM') == 0x01190F01
+
+    def test_master_owned_slots_resolve_through_master(self):
+        """Morrowind_ob's containers point at Oblivion.esm sounds it never
+        overrides; without the master resolver ~2,400 slots stay wrong-typed."""
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+
+        class W:
+            def __init__(self, groups):
+                self._top_groups = groups
+
+        dialog_misc.reset_sound_descriptors()
+        w = W({'CONT': [self._rec('CONT', SNAM=0x01085837)]})
+        n = patch_sound_descriptor_slots(
+            w, 'CONT', set(),
+            lambda fid: 0x0158689D if fid == 0x01085837 else 0)
+        assert n == 1
+        assert self._slot(w._top_groups['CONT'][0], 'SNAM') == 0x0158689D
+
+    def test_unresolvable_master_slot_left_alone(self):
+        """An override build's own converted records already hold real SNDR
+        ids; rewriting or dropping them would strip sound from the plugin."""
+        from tes5_import.record_types import dialog_misc
+        from tes5_import.record_types.items import patch_sound_descriptor_slots
+
+        class W:
+            def __init__(self, groups):
+                self._top_groups = groups
+
+        dialog_misc.reset_sound_descriptors()
+        w = W({'CONT': [self._rec('CONT', SNAM=0x0058689D)]})
+        assert patch_sound_descriptor_slots(w, 'CONT', set(),
+                                            lambda fid: 0) == 0
+        assert self._slot(w._top_groups['CONT'][0], 'SNAM') == 0x0058689D
 
 
 # ---------------------------------------------------------------------------
@@ -1071,7 +1503,6 @@ class TestSkyrimRecordFormat:
 # Voice file naming tests
 # ---------------------------------------------------------------------------
 
-import re
 from asset_convert.audio_converter import _VOICE_FILENAME_RE, _TES4_VOICE_TYPE_MAP
 
 
@@ -3258,7 +3689,6 @@ class TestSayLineDurations:
 
     def test_mp3_duration_reads_frame_headers(self, tmp_path):
         """A silent MPEG-1 Layer III CBR stream of known length."""
-        import struct
         from script_convert.say_durations import mp3_duration
         # 128kbps, 44100Hz, no padding -> 417-byte frames of 1152 samples
         frame = bytes([0xFF, 0xFB, 0x90, 0x00]) + b'\x00' * 413
@@ -3468,7 +3898,13 @@ class TestWeatherConversion:
         assert rgb(0) == (0, 1, 2)        # Sky-Upper
         assert rgb(1) == (10, 11, 12)     # Fog -> Fog Near
         assert rgb(3) == (30, 31, 32)     # Ambient
-        assert rgb(6) == (60, 61, 62)     # Stars
+        # Stars is blanked here because the fixture is Rainy — see
+        # test_stars_are_blanked_under_rain_and_snow.  A Pleasant weather
+        # passes the authored value through.
+        clear = _find_subrecord(
+            self._convert(self._rec(**{'DATA.Classification': '1'})), b'NAM0')
+        o = (6 * 4 + 1) * 4
+        assert tuple(clear[o:o + 3]) == (60, 61, 62)   # Stars
         assert rgb(8) == (80, 81, 82)     # Horizon
         # Cloud LOD Diffuse/Ambient (10/11) stay BLACK: vanilla ships 0 in
         # both (median AND p90, all four times); Oblivion's tints there lit
@@ -3521,7 +3957,7 @@ class TestWeatherConversion:
         assert d[0] == 25                        # wind speed
         assert (d[1], d[2]) == (0, 0)            # TES5 padding (was cloud speed)
         assert d[3] == round(3 * 125 / 255)      # trans delta, rescaled
-        assert d[4] == 153                       # sun glare 255 -> vanilla p90
+        assert d[4] == 255                       # sun glare passes through
         assert d[5] == 200                       # sun damage
         assert (d[6], d[7]) == (5, 6)            # precipitation fades
         assert (d[8], d[9]) == (7, 8)            # thunder fades
@@ -3536,7 +3972,6 @@ class TestWeatherConversion:
         thunderstorms are 188/132/100/24.  Inverting it here would make clear
         skies thunder constantly.
         """
-        from tes5_import.record_types.dialog_misc import convert_WTHR
         clear = self._convert(self._rec(**{'DATA.ThunderFrequency': '255'}))
         assert _find_subrecord(clear, b'DATA')[10] == 255
 
@@ -3544,16 +3979,203 @@ class TestWeatherConversion:
         out = self._convert(self._rec(**{'DATA.Classification': '0'}))
         assert _find_subrecord(out, b'DATA')[11] == 0x01
 
-    def test_only_unused_cloud_layers_are_disabled(self):
-        """NAM1=0xFFFFFFFF disabled layers 0/1 too, blanking every sky."""
-        nam1 = struct.unpack('<I', _find_subrecord(self._convert(self._rec()), b'NAM1'))[0]
-        assert nam1 & 0b11 == 0
-        assert nam1 == 0xFFFFFFFC
+    def test_sheets_land_on_the_two_square_uv_dome_shapes(self):
+        """Layer indices bind to shapes in VANILLA's hardcoded Clouds.nif, and
+        those shapes are NOT interchangeable -- each has its own UV tiling.
+
+        Measured UV spans of the shipped 29-shape dome:
+            L11 09_CDTop     U 1.58 V 1.58   ~1:1 projection
+            L27 14_CDLower   U 2.27 V 2.27   ~1:1 projection
+            L 8 07_CDDome_Horizon   U 6.00   tiles 6x around the horizon
+            L15-26 12_/13_CDHorizon_*  V 0.25   narrow V-sliced strips
+            L28 15_CDFog     U 21.00          tiles 21x, horizon wash
+
+        Oblivion authors its two sheets as single FULL-DOME projections
+        (CloudDome:0 3.35x3.35, CloudDome:1 2.97x2.97, both 0..90 deg), so 11
+        and 27 are the only structural matches.  Confirmed in game: a variant
+        using 8/9/10 put all the cloud around the horizon instead of over the
+        sky.
+        """
+        from tes5_import.record_types.dialog_misc import (
+            _wthr_cloud_sig, _WTHR_UPPER_LAYER, _WTHR_LOWER_LAYER)
+        assert (_WTHR_UPPER_LAYER, _WTHR_LOWER_LAYER) == (11, 27)
+        out = self._convert(self._rec())
+        upper = _find_subrecord(out, _wthr_cloud_sig(_WTHR_UPPER_LAYER))
+        lower = _find_subrecord(out, _wthr_cloud_sig(_WTHR_LOWER_LAYER))
+        assert upper.rstrip(b'\x00').lower().endswith(b'upper.dds')
+        assert lower.rstrip(b'\x00').lower().endswith(b'lower.dds')
+
+    def test_only_the_two_authored_layers_are_enabled(self):
+        """Vanilla ships DEDICATED art per layer role -- SkyrimCloudsHorizon01
+        on the strips (50 of 50 times) and SkyrimCloudsFill on the wash (156
+        of 157).  We have neither, so every other layer stays empty rather
+        than being padded with a full-dome sheet that would tile wrongly."""
+        from tes5_import.record_types.dialog_misc import (
+            _WTHR_UPPER_LAYER, _WTHR_LOWER_LAYER)
+        out = self._convert(self._rec())
+        nam1 = struct.unpack('<I', _find_subrecord(out, b'NAM1'))[0]
+        enabled = {L for L in range(32) if not (nam1 >> L) & 1}
+        assert enabled == {_WTHR_UPPER_LAYER, _WTHR_LOWER_LAYER}, enabled
+
+        textured = set()
+        body = out[24:]
+        i = 0
+        while i + 6 <= len(body):
+            sig = body[i:i + 4]
+            sz = struct.unpack('<H', body[i + 4:i + 6])[0]
+            if len(sig) == 4 and sig[1:] == b'0TX':
+                textured.add(sig[0] - 0x30 if sig[0] <= 0x40
+                             else 17 + (sig[0] - 0x41))
+            i += 6 + sz
+        assert textured == enabled, (textured, enabled)
 
     def test_weather_with_no_cloud_textures_disables_all_layers(self):
+        """No authored sheet means no cloud layer at all."""
         rec = self._rec(**{'CNAM.LowerCloudLayer': '', 'DNAM.UpperCloudLayer': ''})
-        out = self._convert(rec)
-        assert struct.unpack('<I', _find_subrecord(out, b'NAM1'))[0] == 0xFFFFFFFF
+        nam1 = struct.unpack('<I', _find_subrecord(self._convert(rec), b'NAM1'))[0]
+        assert nam1 == 0xFFFFFFFF
+
+    def test_lnam_spans_every_authored_layer(self):
+        """LNAM is an INDEX CLAMP into RNAM/QNAM/JNAM, not a layer count.
+
+        Disassembled from SkyrimSE.exe -- all three readers of
+        TESWeather+0x7D0 (Clouds::Update at 0x3c5485 and 0x3c54ff, and the
+        JNAM alpha getter at 0x2c1eb0) do
+            idx = (layer < LNAM) ? layer : 0
+        so a layer at or above LNAM keeps DRAWING but silently reuses layer
+        0's speed and layer 0's alpha.  The draw loops are bounded by
+        Clouds::numLayers and a hard 32, never by LNAM.
+
+        So LNAM must cover every layer we author, and must be > 0 (LNAM <= 0
+        takes the `jle` default of speed 0x33 / alpha 1.0 and throws the
+        authored JNAM away entirely).
+        """
+        out = self._convert(self._rec())
+        lnam = struct.unpack('<I', _find_subrecord(out, b'LNAM'))[0]
+        assert lnam > 0, 'LNAM <= 0 discards authored JNAM alphas'
+
+        textured = []
+        body = out[24:]
+        i = 0
+        while i + 6 <= len(body):
+            sig = body[i:i + 4]
+            sz = struct.unpack('<H', body[i + 4:i + 6])[0]
+            if len(sig) == 4 and sig[1:] == b'0TX':
+                textured.append(sig[0] - 0x30 if sig[0] <= 0x40
+                                else 17 + (sig[0] - 0x41))
+            i += 6 + sz
+        assert textured, 'fixture should author cloud sheets'
+        assert lnam > max(textured), (
+            f'LNAM {lnam} leaves layer {max(textured)} reusing layer 0')
+
+    def test_cloud_drift_is_two_dimensional_and_signed(self):
+        """QNAM/RNAM are SIGNED about 0x7F.
+
+        The engine decodes them as `byte * 0.2/254 - 0.1` (Clouds::Update,
+        0x3c54ad-0x3c54de: xmm4=0.1, xmm3=-0.1, xmm10=1/254), so 0x7F is
+        exactly stationary.  Leaving QNAM at 0x7F means the clouds never drift
+        horizontally at all; vanilla authors nonzero X drift on 557 of 2656
+        layer entries and negative drift on 77 of them.
+        """
+        out = self._convert(self._rec())
+        rnam = _find_subrecord(out, b'RNAM')
+        qnam = _find_subrecord(out, b'QNAM')
+        assert len(rnam) == 32 and len(qnam) == 32
+
+        lnam = struct.unpack('<I', _find_subrecord(out, b'LNAM'))[0]
+        live = range(lnam)
+        assert any(qnam[L] != 0x7F for L in live), 'no horizontal drift at all'
+        # the fixture authors forward Y speeds, so X must differ in sign
+        assert any(qnam[L] < 0x7F for L in live), 'X drift is never negative'
+        assert any(rnam[L] > 0x7F for L in live), 'Y drift lost its direction'
+
+    def test_stars_are_blanked_under_rain_and_snow(self):
+        """Stars is a visibility SWITCH in vanilla, not a continuous tint.
+
+        Censused over the 165 vanilla weathers carrying a full NAM0:
+        Pleasant 91.4% pure white, Rainy 95.7% black, Snow 77.8% black.
+        Oblivion authors a continuous value on every weather, so a converted
+        rainstorm otherwise keeps a starfield burning through the overcast.
+        Cloudy is left alone -- vanilla is genuinely split there (60/18).
+        """
+        def stars(cls):
+            nam0 = _find_subrecord(
+                self._convert(self._rec(**{'DATA.Classification': cls})),
+                b'NAM0')
+            o = (6 * 4 + 3) * 4          # Stars, Night
+            return tuple(nam0[o:o + 3])
+
+        assert stars('4') == (0, 0, 0), 'rain must hide the stars'
+        assert stars('8') == (0, 0, 0), 'snow must hide the stars'
+        assert stars('1') != (0, 0, 0), 'pleasant keeps its stars'
+        assert stars('2') != (0, 0, 0), 'cloudy is left as authored'
+
+    def test_fog_curve_reproduces_oblivions_linear_ramp(self):
+        """Oblivion's fog is fixed-function D3DFOG_LINEAR.
+
+        Established by disassembling all 123 vertex shaders in
+        Data/Shaders/shaderpackage001.sdp: NOT ONE writes oFog (RASTOUT#1),
+        and the weather's near/far go straight into a BSFogProperty
+        (Atmosphere::Update 0x53b318..0x53b34c).
+
+        Skyrim computes min(Max, pow(t, Power)) (Lighting.hlsl:271).  With
+        Power=1 and Max=1 that is exactly t -- Oblivion's ramp.  The previous
+        0.4/0.9 were vanilla MEDIANS and are wrong by up to +0.32 fog
+        mid-ramp and -0.10 at the far plane.
+        """
+        fnam = _find_subrecord(self._convert(self._rec()), b'FNAM')
+        assert len(fnam) == 32
+        (_dn, _df, _nn, _nf,
+         day_power, night_power, day_max, night_max) = struct.unpack('<8f', fnam)
+        assert day_power == 1.0 and night_power == 1.0, 'fog must stay linear'
+        assert day_max == 1.0 and night_max == 1.0, (
+            'Max < 1 leaves the far plane permanently unfogged')
+
+    def test_negative_fog_near_plane_is_clamped(self):
+        """A negative near plane starts the fog ramp BEHIND the camera.
+
+        Every visible pixel is then past the ramp's start, so fog renders at
+        full density with no gradient -- worst along the LONGEST view rays,
+        i.e. the horizon.  That is view-dependent, which is why the sky reads
+        fine facing the ground and the horizon flares when you look up.
+
+        Oblivion AUTHORS these (18 of Oblivion.esm's 37 weathers; SETestAsh
+        -750, SEThunderstorm night -6500) but 0 of the 84 vanilla Skyrim
+        records ship one, so the vanilla floor of 0 is the target.
+        """
+        rec = self._rec(**{'FNAM.FogDayNear': '-750.0',
+                           'FNAM.FogDayFar': '10000.0',
+                           'FNAM.FogNightNear': '-6500.0',
+                           'FNAM.FogNightFar': '12000.0'})
+        f = struct.unpack('<8f', _find_subrecord(self._convert(rec), b'FNAM'))
+        assert f[0] == 0.0, f'day near {f[0]}'
+        assert f[2] == 0.0, f'night near {f[2]}'
+        # the authored far planes must survive untouched
+        assert f[1] == pytest.approx(10000.0)
+        assert f[3] == pytest.approx(12000.0)
+
+    def test_positive_fog_near_plane_passes_through(self):
+        """The clamp must not disturb weathers that authored a sane ramp."""
+        rec = self._rec(**{'FNAM.FogDayNear': '4096.0',
+                           'FNAM.FogDayFar': '170000.0',
+                           'FNAM.FogNightNear': '4096.0',
+                           'FNAM.FogNightFar': '130000.0'})
+        f = struct.unpack('<8f', _find_subrecord(self._convert(rec), b'FNAM'))
+        assert f[0] == pytest.approx(4096.0)
+        assert f[1] == pytest.approx(170000.0)
+        assert f[2] == pytest.approx(4096.0)
+        assert f[3] == pytest.approx(130000.0)
+
+    def test_zero_width_fog_ramp_is_widened(self):
+        """A far plane at or inside the near plane snaps fog to full density."""
+        from tes5_import.record_types.dialog_misc import _WTHR_FOG_MIN_RAMP
+        rec = self._rec(**{'FNAM.FogDayNear': '5000.0',
+                           'FNAM.FogDayFar': '5000.0',
+                           'FNAM.FogNightNear': '5000.0',
+                           'FNAM.FogNightFar': '1000.0'})
+        f = struct.unpack('<8f', _find_subrecord(self._convert(rec), b'FNAM'))
+        assert f[1] == pytest.approx(5000.0 + _WTHR_FOG_MIN_RAMP)
+        assert f[3] == pytest.approx(5000.0 + _WTHR_FOG_MIN_RAMP)
 
     def test_cloud_speed_uses_the_shared_physical_scale(self):
         """Both engines cap cloud drift at 0.1 units.
@@ -3575,23 +4197,52 @@ class TestWeatherConversion:
         assert all(0x7F <= conv(v) <= 0xFE for v in range(256))
 
     def test_cloud_speed_lands_in_rnam_layers(self):
-        from tes5_import.record_types.dialog_misc import convert_WTHR
+        """Each dome layer drifts with the speed authored for the sheet it came from."""
+        from tes5_import.record_types.dialog_misc import (
+            _WTHR_LOWER_PLAN, _WTHR_UPPER_PLAN)
         rnam = _find_subrecord(self._convert(self._rec()), b'RNAM')
-        assert rnam[0] == 0x94 and rnam[1] == 0x88   # TES4 42 / 19
-        assert set(rnam[2:]) == {0x7F}               # untouched layers neutral
+        for layer, _a in _WTHR_UPPER_PLAN:
+            assert rnam[layer] == 0x88, layer   # TES4 CloudSpeedUpper 19
+        for layer, _a in _WTHR_LOWER_PLAN:
+            assert rnam[layer] == 0x94, layer   # TES4 CloudSpeedLower 42
+        planned = {L for L, _a in _WTHR_UPPER_PLAN} | {L for L, _a in _WTHR_LOWER_PLAN}
+        assert set(rnam[L] for L in range(32) if L not in planned) == {0x7F}
 
-    def test_only_textured_layers_are_opaque(self):
-        """A blanket alpha 1.0 draws 30 opaque empty layers over the sky."""
+    def test_cloud_layers_are_translucent_not_opaque_planes(self):
+        """ALPHA IS THE SCALAR THAT WAS MISSING.
+
+        Writing 1.0 on both layers made layer 0 an opaque plane painted over
+        the sky gradient at full strength, with layer 1 completely occluded
+        behind it -- the cloud sheet BECAME the sky, which is what bleached
+        the horizon.  Vanilla composites translucent sheets: the per-time
+        medians over every vanilla weather that enables the layer are
+        0.50-0.60 on layer 0.  This finding is independent of dome geometry
+        and survived the layer-plan revert.
+        """
+        from tes5_import.record_types.dialog_misc import (
+            _WTHR_LOWER_PLAN, _WTHR_UPPER_PLAN, _WTHR_UPPER_LAYER)
         jnam = struct.unpack('<128f', _find_subrecord(self._convert(self._rec()), b'JNAM'))
-        assert jnam[0:4] == (1.0,) * 4      # layer 0 has a texture
-        assert jnam[4:8] == (1.0,) * 4      # layer 1 has a texture
-        assert set(jnam[8:]) == {0.0}       # layers 2..31 do not
+        placed = set()
+        for layer, alphas in _WTHR_UPPER_PLAN + _WTHR_LOWER_PLAN:
+            placed.add(layer)
+            for time in range(4):
+                assert jnam[layer * 4 + time] == pytest.approx(alphas[time])
+        # The upper sheet must NOT be an opaque plane.
+        assert all(jnam[_WTHR_UPPER_LAYER * 4 + t] < 1.0 for t in range(4))
+        # Every layer we do NOT place stays fully transparent.
+        assert set(jnam[L * 4 + t] for L in range(32) if L not in placed
+                   for t in range(4)) == {0.0}
 
     def test_required_subrecords_present(self):
         """LNAM/MNAM/NNAM are .SetRequired in xEdit; LNAM=0 allocated no layers."""
         rec = self._convert(self._rec(**{'DATA.Classification': '1',
                                          'DATA.ThunderFrequency': '255'}))
-        assert struct.unpack('<I', _find_subrecord(rec, b'LNAM'))[0] == 29
+        from tes5_import.record_types.dialog_misc import _WTHR_LOWER_LAYER
+        # LNAM is an index clamp into RNAM/QNAM/JNAM, so it must SPAN the
+        # highest layer we author or that layer silently reuses layer 0's
+        # speed and alpha (SkyrimSE.exe 0x3c5485 / 0x3c54ff / 0x2c1eb0).
+        assert (struct.unpack('<I', _find_subrecord(rec, b'LNAM'))[0]
+                == _WTHR_LOWER_LAYER + 1)
         assert _find_subrecord(rec, b'MNAM') == b'\x00\x00\x00\x00'
         assert _find_subrecord(rec, b'NNAM') == b'\x00\x00\x00\x00'
 
@@ -3642,54 +4293,128 @@ class TestWeatherConversion:
         del rec['NAM0.Data']
         assert len(_find_subrecord(self._convert(rec), b'NAM0')) == 272
 
-    def test_luminance_normalization_lands_plugin_median_on_vanilla(self):
-        """Oblivion authors weather colors far hotter than Skyrim — the Sun
-        slot's midday median is 193 luminance vs vanilla 43 (a 255 disc
-        BLOOMS enormously; Skyrim's sun brightness is HDR, not this slot) —
-        while Ambient is authored at HALF vanilla (92 vs 172), giving blown
-        highlights over black shadows that no imagespace can fix.  The
-        normalization is self-calibrating: the plugin's per-slot median is
-        scaled onto the vanilla median, hue preserved, capped at p90."""
-        from tes5_import.record_types.dialog_misc import (
-            set_nam0_normalization, _NAM0_K)
-        # A synthetic plugin whose Sun (slot 5) day color is flat (200,200,200)
-        # (lum 200) and whose Ambient (slot 3) day is (60,60,60) (lum 60).
+    def _lum(self, c):
+        return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+
+    def _slot(self, nam0, slot, time=1):
+        o = (slot * 4 + time) * 4
+        return tuple(nam0[o:o + 3])
+
+    def test_colours_below_the_knee_pass_through_untouched(self):
+        """Authored colour is the deliverable; only HIGHLIGHTS are compressed.
+
+        The two populations agree at the bottom (TES4 p50 76.9 vs vanilla
+        83.8) and diverge only at the top (p90 204.6 vs 168.0), so a uniform
+        scale darkens midtones to fix highlights.  A previous revision did
+        exactly that and made the day sky dull.  Anything under the knee must
+        come out BIT-IDENTICAL.
+        """
         raw = bytearray(160)
         for time in range(4):
-            o5 = (5 * 4 + time) * 4
-            raw[o5:o5 + 3] = bytes((200, 200, 200))
-            o3 = (3 * 4 + time) * 4
-            raw[o3:o3 + 3] = bytes((60, 60, 60))
-        recs = [self._rec(**{'NAM0.Data': bytes(raw).hex().upper(),
-                             'FormID': f'{0x300 + i:08X}'}) for i in range(6)]
-        try:
-            set_nam0_normalization(recs)
-            out = self._convert(recs[0])
-            nam0 = _find_subrecord(out, b'NAM0')
-            o = (5 * 4 + 1) * 4          # Sun, day
-            sun = nam0[o:o + 3]
-            lum = 0.299 * sun[0] + 0.587 * sun[1] + 0.114 * sun[2]
-            assert abs(lum - 43.0) < 2.0, 'plugin Sun median must land on vanilla 43'
-            o = (3 * 4 + 1) * 4          # Ambient, day: scaled UP 60 -> 172
-            amb = nam0[o:o + 3]
-            lum = 0.299 * amb[0] + 0.587 * amb[1] + 0.114 * amb[2]
-            assert abs(lum - 172.2) < 2.0, 'dark Oblivion ambient must scale up'
-        finally:
-            _NAM0_K.clear()
+            for slot, rgb in ((0, (100, 141, 191)),   # lum 134, under knee
+                              (7, (80, 110, 150)),    # lum 106
+                              (8, (60, 90, 120))):    # lum  85
+                o = (slot * 4 + time) * 4
+                raw[o:o + 3] = bytes(rgb)
+        nam0 = _find_subrecord(
+            self._convert(self._rec(**{'NAM0.Data': bytes(raw).hex().upper()})),
+            b'NAM0')
+        assert self._slot(nam0, 0) == (100, 141, 191)
+        assert self._slot(nam0, 7) == (80, 110, 150)
+        assert self._slot(nam0, 8) == (60, 90, 120)
 
-    def test_without_normalization_colors_still_capped_at_vanilla_p90(self):
-        """Unit conversions (no pre-pass) still cap: a 255-white Sun cannot
-        exceed vanilla's day p90 of 121."""
+    def test_highlights_are_compressed_with_hue_preserved(self):
+        """Above the knee, luminance is remapped into knee..ceiling and all
+        three channels scale together, so only brightness moves."""
+        from tes5_import.record_types.dialog_misc import (_NAM0_KNEE,
+                                                          _NAM0_KNEE_CEILING)
+        raw = bytearray(160)
+        src = (255, 220, 180)            # lum 226, well above the knee
+        for time in range(4):
+            o = (0 * 4 + time) * 4
+            raw[o:o + 3] = bytes(src)
+        nam0 = _find_subrecord(
+            self._convert(self._rec(**{'NAM0.Data': bytes(raw).hex().upper()})),
+            b'NAM0')
+        out = self._slot(nam0, 0)
+        assert _NAM0_KNEE < self._lum(out) <= _NAM0_KNEE_CEILING + 1
+        # hue: channel ratios survive
+        for a, b in ((0, 1), (1, 2)):
+            assert abs(src[a] / src[b] - out[a] / out[b]) < 0.02
+
+    def test_the_knee_has_no_time_axis(self):
+        """The authored day/night curve must survive EXACTLY.
+
+        Oblivion authors night at 7-12% of day.  The old per-time scale
+        pushed that to 22-55%, which is what made nights read as a saturated
+        blue instead of dark.  The same colour must convert the same way at
+        every time of day.
+        """
+        raw = bytearray(160)
+        day, night = (200, 210, 230), (14, 15, 20)
+        for slot in (0, 7, 8, 1):
+            for time, rgb in ((0, day), (1, day), (2, day), (3, night)):
+                o = (slot * 4 + time) * 4
+                raw[o:o + 3] = bytes(rgb)
+        nam0 = _find_subrecord(
+            self._convert(self._rec(**{'NAM0.Data': bytes(raw).hex().upper()})),
+            b'NAM0')
+        authored = self._lum(night) / self._lum(day)
+        for slot in (0, 7, 8):
+            same = {self._slot(nam0, slot, t) for t in (0, 1, 2)}
+            assert len(same) == 1, f'slot {slot} converted differently by time'
+            # NIGHT is under the knee, so it must be bit-identical — this is
+            # the property the old per-time scale destroyed (it multiplied
+            # night by 1.9-3.1x).
+            assert self._slot(nam0, slot, 3) == night, 'night was rescaled'
+            # The ratio does move a little when DAY is above the knee, because
+            # compressing a highlight necessarily raises night's share.  That
+            # is inherent to highlight compression and is small: here the
+            # authored 0.073 becomes 0.085 (+16%), against the +246% the
+            # per-time normalisation produced.
+            ratio = self._lum(self._slot(nam0, slot, 3)) / \
+                self._lum(self._slot(nam0, slot, 1))
+            assert ratio >= authored, 'night must never get DARKER relatively'
+            assert ratio < authored * 1.35, (
+                f'slot {slot} day/night ratio moved too far '
+                f'{authored:.3f} -> {ratio:.3f}')
+
+    def test_the_sun_disc_gets_its_own_hard_knee(self):
+        """Sun is the one genuine outlier: TES4 day median 193.4 vs vanilla
+        42.5 (4.55x, where no other slot exceeds 1.7x).  Skyrim's sun
+        brightness comes from the glare pass and the imagespace, not this
+        colour, so a near-white disc here is a pure bloom source."""
+        from tes5_import.record_types.dialog_misc import _NAM0_SUN_CEILING
         raw = bytearray(160)
         for time in range(4):
             o = (5 * 4 + time) * 4
             raw[o:o + 3] = bytes((255, 255, 255))
-        out = self._convert(self._rec(**{'NAM0.Data': bytes(raw).hex().upper()}))
-        nam0 = _find_subrecord(out, b'NAM0')
-        o = (5 * 4 + 1) * 4
-        sun = nam0[o:o + 3]
-        lum = 0.299 * sun[0] + 0.587 * sun[1] + 0.114 * sun[2]
-        assert lum <= 122.0
+        nam0 = _find_subrecord(
+            self._convert(self._rec(**{'NAM0.Data': bytes(raw).hex().upper()})),
+            b'NAM0')
+        assert self._lum(self._slot(nam0, 5)) <= _NAM0_SUN_CEILING + 1
+
+    def test_conversion_does_not_depend_on_the_rest_of_the_plugin(self):
+        """The old normalisation was a PLUGIN-population statistic, so the
+        same weather converted differently depending on what shipped
+        alongside it.  The knee is a pure function of one colour."""
+        raw = bytearray(160)
+        for time in range(4):
+            o = (0 * 4 + time) * 4
+            raw[o:o + 3] = bytes((100, 141, 191))
+        rec = self._rec(**{'NAM0.Data': bytes(raw).hex().upper()})
+        alone = _find_subrecord(self._convert(rec), b'NAM0')
+
+        # convert it again as if the plugin were full of very bright weathers
+        hot = bytearray(160)
+        for slot in range(10):
+            for time in range(4):
+                o = (slot * 4 + time) * 4
+                hot[o:o + 3] = b'\xff\xff\xff'
+        for _ in range(8):
+            self._convert(self._rec(**{'NAM0.Data': bytes(hot).hex().upper()}))
+        after = _find_subrecord(self._convert(rec), b'NAM0')
+        assert alone == after
 
     def test_ambience_loops_land_in_the_amb_audio_category(self):
         """A 2D looping TES4 sound is an ambience bed; filed under
@@ -3799,6 +4524,138 @@ class TestClimateConversion:
         assert 'WTHR' not in IMPORT_DISPATCH
         assert 'REGN' not in SKIP_TYPES
         assert 'REGN' in IMPORT_DISPATCH
+
+
+class TestSunlessSkies:
+    """Oblivion realms must have no sun.
+
+    Oblivion says "no sun" with the CLMT sun SPRITE alone (Sky\\Void.dds), but
+    Skyrim's sun is a sprite PLUS a directional light (NAM0 slot 4) PLUS a
+    glare pass (slot 15), so the void sprite alone leaves both burning.
+    Vanilla BlackreachClimate/BlackreachWeather is the authored reference:
+    FNAM=GNAM=Black.dds, Sunlight zeroed, Sun zeroed.
+    """
+
+    def _clmt(self, **over):
+        rec = {
+            'Signature': 'CLMT', 'FormID': '00032E16', 'RecordFlags': '0',
+            'EditorID': 'Obliviondefaultclimate',
+            'WeatherCount': '1',
+            'Weather[0].FormID': '00032E15', 'Weather[0].Chance': '100',
+            'FNAM.SunTexture': 'Sky\\Void.dds',
+            'GNAM.GlareTexture': 'Sky\\VoidGlare.dds',
+            'TNAM.SunriseBegin': '23', 'TNAM.SunriseEnd': '42',
+            'TNAM.SunsetBegin': '102', 'TNAM.SunsetEnd': '127',
+            'TNAM.Volatility': '255', 'TNAM.MoonsPhaseLength': '3',
+        }
+        rec.update(over)
+        return rec
+
+    def _wthr(self, sunlight=(193, 130, 87), ambient=(124, 65, 50)):
+        """A realm weather: TES4 NAM0 is 10 slots x 4 times x RGBA."""
+        nam0 = bytearray(160)
+        for time in range(4):
+            off = (3 * 4 + time) * 4
+            nam0[off:off + 3] = bytes(ambient)
+            off = (4 * 4 + time) * 4
+            nam0[off:off + 3] = bytes(sunlight)
+        return {
+            'Signature': 'WTHR', 'FormID': '00032E15', 'RecordFlags': '0',
+            'EditorID': 'Obliviondefault',
+            'NAM0.Data': nam0.hex().upper(),
+            'DATA.Classification': '0', 'DATA.WindSpeed': '0',
+        }
+
+    def _register(self, clmt):
+        from tes5_import.record_types.dialog_misc import (
+            record_sunless_climate, reset_sunless_climates)
+        reset_sunless_climates()
+        record_sunless_climate(clmt)
+
+    def _slot(self, nam0, slot, time=1):
+        off = (slot * 4 + time) * 4
+        return tuple(nam0[off:off + 3])
+
+    def test_void_sun_climate_writes_vanilla_black(self):
+        """Black.dds is a VANILLA path — it must not take the tes4\\ prefix,
+        and the GLARE must be black too (VoidGlare.dds is a real sprite)."""
+        from tes5_import.record_types.dialog_misc import convert_CLMT
+        out = convert_CLMT(self._clmt())
+        assert _find_subrecord(out, b'FNAM') == b'Black.dds\x00'
+        assert _find_subrecord(out, b'GNAM') == b'Black.dds\x00'
+
+    def test_climate_with_no_fnam_is_sunless(self):
+        """ClimateSigil / MQ14OblivionClimate author no FNAM at all —
+        Oblivion draws nothing, which is the same authored intent as Void."""
+        from tes5_import.record_types.dialog_misc import convert_CLMT
+        rec = self._clmt()
+        del rec['FNAM.SunTexture']
+        del rec['GNAM.GlareTexture']
+        assert _find_subrecord(convert_CLMT(rec), b'FNAM') == b'Black.dds\x00'
+
+    def test_real_sun_climate_is_untouched(self):
+        from tes5_import.record_types.dialog_misc import convert_CLMT
+        out = convert_CLMT(self._clmt(**{
+            'FNAM.SunTexture': 'Sky\\Sun.dds',
+            'GNAM.GlareTexture': 'Sky\\SunGlare.dds'}))
+        assert _find_subrecord(out, b'FNAM') == b'tes4\\Sky\\Sun.dds\x00'
+        assert _find_subrecord(out, b'GNAM') == b'tes4\\Sky\\SunGlare.dds\x00'
+
+    def test_sunless_weather_zeroes_sun_sunlight_and_glare(self):
+        """The whole point: slot 5 (disc), slot 4 (directional light) and
+        slot 15 (glare) all go to zero, at every time of day."""
+        from tes5_import.record_types.dialog_misc import _wthr_nam0
+        self._register(self._clmt())
+        nam0 = _wthr_nam0(self._wthr())
+        for time in range(4):
+            assert self._slot(nam0, 5, time) == (0, 0, 0)
+            assert self._slot(nam0, 4, time) == (0, 0, 0)
+            assert self._slot(nam0, 15, time) == (0, 0, 0)
+
+    def test_sunlight_folds_into_ambient_not_dropped(self):
+        """The Deadlands' red fill lives in TES4 Sunlight while the sun
+        sprite is voided.  Zeroing it outright (as Blackreach can, being a
+        cave) would black out the realm; half of it folds into Ambient."""
+        from tes5_import.record_types.dialog_misc import _wthr_nam0
+        self._register(self._clmt())
+        plain = _wthr_nam0(self._wthr(sunlight=(0, 0, 0)))
+        folded = _wthr_nam0(self._wthr(sunlight=(200, 100, 60)))
+        base = self._slot(plain, 3)
+        lit = self._slot(folded, 3)
+        assert lit != base
+        assert lit == (min(255, base[0] + 100), min(255, base[1] + 50),
+                       min(255, base[2] + 30))
+
+    def test_dalc_object_lighting_gets_the_same_fold(self):
+        """DALC lights OBJECTS.  With the directional light gone it must get
+        the same Sunlight fold as NAM0 Ambient, or the sky glows red while
+        everything under it stays dim.  Vanilla BlackreachWeather's DALC
+        faces track its NAM0 Ambient ~1:1, so vanilla does not compensate
+        DALC separately -- it authors Ambient and lets DALC follow."""
+        from tes5_import.record_types.dialog_misc import _wthr_dalc
+        self._register(self._clmt())
+        dark = _wthr_dalc(self._wthr(sunlight=(0, 0, 0)))
+        lit = _wthr_dalc(self._wthr(sunlight=(200, 100, 60)))
+        # Second DALC subrecord (day): 6-byte header + 32-byte payload each.
+        face_dark = tuple(dark[6 + 38:6 + 38 + 3])
+        face_lit = tuple(lit[6 + 38:6 + 38 + 3])
+        assert face_lit > face_dark
+
+    def test_normal_weather_keeps_its_sun(self):
+        """A weather not reachable from a sunless climate is untouched."""
+        from tes5_import.record_types.dialog_misc import _wthr_nam0
+        from tes5_import.record_types.dialog_misc import reset_sunless_climates
+        reset_sunless_climates()
+        nam0 = _wthr_nam0(self._wthr())
+        assert self._slot(nam0, 4) != (0, 0, 0)
+
+    def test_registry_resets_between_plugins(self):
+        from tes5_import.record_types.dialog_misc import (
+            _SUNLESS_WEATHER_FIDS, reset_sunless_climates)
+        self._register(self._clmt())
+        assert _SUNLESS_WEATHER_FIDS
+        reset_sunless_climates()
+        assert not _SUNLESS_WEATHER_FIDS
 
 
 class TestWorldspaceClimate:
@@ -4166,16 +5023,57 @@ class TestWeatherImageSpace:
         assert abs(h[4] - 0.625) < 1e-6     # Receive Bloom Threshold
         assert abs(h[5] - 1.0) < 1e-6       # White — NOT 0.88
 
-    def test_sky_scale_tracks_sky_brightness(self):
-        """Sky Scale is the sky's contribution to exposure and TES4 has no
-        equivalent.  Vanilla: ~0.025 for a dark night sky, ~0.20 for a lit
-        one.  A flat value washes the day sky out to near-white."""
+    def test_sky_scale_never_derives_from_sky_colour(self):
+        """Sky Scale lands as an ADDITIVE term in Skyrim's sky pixel shader
+        (`input.Color * baseColor + skyScale`), so deriving it from the
+        weather's own sky luminance scales an additive floor in proportion to
+        the multiplicative colour — a feedback loop that reads as bloom.
+
+        It must depend only on authored classification + time.  Doubling every
+        sky colour must therefore not move it at all.
+        """
+        import copy
+        from tes5_import.record_types.dialog_misc import _wthr_imgs
+
+        base = self._rec()
+        bright = copy.deepcopy(base)
+        raw = bytearray(bytes.fromhex(base['NAM0.Data']))
+        for i in range(0, len(raw), 4):
+            raw[i] = min(255, raw[i] * 2)
+            raw[i + 1] = min(255, raw[i + 1] * 2)
+            raw[i + 2] = min(255, raw[i + 2] * 2)
+        bright['NAM0.Data'] = bytes(raw).hex().upper()
+
+        for time in range(4):
+            a = struct.unpack_from(
+                '<9f', _find_subrecord(_wthr_imgs(base, 1, time), b'HNAM'))[7]
+            b = struct.unpack_from(
+                '<9f', _find_subrecord(_wthr_imgs(bright, 1, time),
+                                       b'HNAM'))[7]
+            assert a == b, f'sky scale moved with sky colour at time {time}'
+
+    def test_sky_scale_comes_from_classification(self):
+        """Vanilla keys Sky Scale off classification x time (R2 = 0.434)
+        rather than sky luminance (R2 = 0.166), measured over the 332
+        weather/time rows in Skyrim.esm + Update + Dawnguard + Dragonborn.
+        Night is near zero for every class."""
+        def scales(cls):
+            _w, imgs = self._convert(
+                self._rec(**{'DATA.Classification': cls}))
+            return [round(self._hnam(b)[7], 3) for b in imgs]
+
+        assert scales('1') == [0.08, 0.12, 0.10, 0.02]   # Pleasant
+        assert scales('2') == [0.05, 0.10, 0.05, 0.00]   # Cloudy
+        assert scales('4') == [0.09, 0.10, 0.10, 0.06]   # Rainy
+        assert scales('8') == [0.10, 0.05, 0.05, 0.05]   # Snow
+
+        # An unclassified weather keeps vanilla's flat unclassified value
+        # instead of being promoted to Pleasant — 10 of Oblivion's 37 are
+        # unclassified, including the Deadlands skies.
+        assert scales('0') == [0.05] * 4
+        # ...which is also what the base fixture (no DATA at all) gets.
         _w, imgs = self._convert(self._rec())
-        day = self._hnam(imgs[self.DAY])[7]
-        night = self._hnam(imgs[self.NIGHT])[7]
-        assert night < 0.06, 'night sky scale must be near zero'
-        assert day > 0.15, 'day sky scale must be the lit value'
-        assert day > night
+        assert [round(self._hnam(b)[7], 3) for b in imgs] == [0.05] * 4
 
     def test_eye_adapt_varies_by_time_of_day(self):
         """Vanilla per-slot medians: speed 37/40/37/45, strength 15/5/15/20."""
@@ -4254,7 +5152,7 @@ class TestWeatherImageSpace:
 class TestVanillaMgefDataSize:
     """The vanilla MGEF DATA table must hold FULL 152-byte structs.
 
-    tools/gen_vanilla_mgef_table.py used to read the Skyrim.esm dump with
+    tools/generators/gen_vanilla_mgef_table.py used to read the Skyrim.esm dump with
     `line.split('...')[0]`, and the dump truncated hex at 96 bytes — so every
     committed blob was 96 bytes and every synthesized aimed-variant MGEF
     shipped a DATA missing its last 14 fields (HitEffectArt, ImpactData,

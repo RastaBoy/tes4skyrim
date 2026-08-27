@@ -107,6 +107,39 @@ and `bsarchPath` (an explicit BSArch.exe location) are also read from here —
 see [Running off Windows](#running-off-windows) for why these matter more on
 Linux/Mac than on Windows.
 
+<a id="run-logs"></a>
+### Run logs
+
+Every run writes its console output to a rotating file in `logs/`, newest
+first, so the record of a run survives closing the GUI (whose scrollback was
+previously the only copy) and starting the next one:
+
+```
+logs/run-1.log   # most recent
+logs/run-2.log
+logs/run-3.log
+```
+
+`logRunsKept` in `conversion_config.json` sets how many are kept (default 3);
+`0` disables run logging entirely. Names are fixed rather than timestamped so
+"the last run" is always `run-1.log` — the wall-clock time, version, and the
+command/steps are in the header inside the file. Tools ▸ Open Logs Folder
+opens the directory, and each run prints its own log path into the log.
+
+**The run's OWNER rotates, never each process.** A GUI run is usually several
+`convert.py` invocations (one per step), so rotating per process would leave
+the "last 3 runs" holding the last 3 *steps* of one run. The GUI rotates once,
+writes every line through its own sink, and sets `TESCONV_RUN_LOG` in the child
+environment; a child seeing that variable neither rotates nor writes, so the
+file has exactly one writer. A bare `python convert.py` sees no such variable,
+so there the process is the run and it rotates for itself.
+
+Lines are flushed as they are written — a log that only reaches disk on clean
+exit is empty exactly when it matters most. A run that is killed or hangs
+therefore keeps its output and simply has no `# Finished:` footer, which is
+itself the signal that it did not terminate cleanly. Logging never fails a
+conversion: every filesystem step degrades to "no logging" rather than raising.
+
 <a id="running-off-windows"></a>
 ### Running off Windows (Linux / Mac, via Wine)
 
@@ -233,8 +266,8 @@ topic binding is patched in after Phase 5. Read the phase comments in
 Every converted script compiles against Bethesda's own `.psc` sources, passed
 to the compiler as `-h`. The CK ships them one of three ways, and
 `convert._find_skyrim_source_scripts()` is the single lookup every caller uses
-(the Scripts phase, `preflight._papyrus_headers`, `tools/ck_compile_check.py`,
-`tools/compile_papyrus.py`) so the dependency check can never pass while the
+(the Scripts phase, `preflight._papyrus_headers`, `tools/script/ck_compile_check.py`,
+`tools/script/compile_papyrus.py`) so the dependency check can never pass while the
 phase then fails to find them:
 
 1. `Data/Source/Scripts/` — the modern layout.
@@ -306,6 +339,9 @@ TESConversion/
   convert.py              # pipeline orchestrator (all stages)
   gui.py / gui.pyw        # GUI front-end
   conversion_config.json  # file list and settings
+  run_log.py              # rotating per-run logs (see Run logs)
+
+  logs/                   # run-1/2/3.log, newest first (gitignored)
 
   tes4_export/            # TES4 binary -> KEY=VALUE text (pure dump)
     tes4_reader.py        # mmap-based binary reader
@@ -350,7 +386,7 @@ TESConversion/
   output/                 # WORKING area (gitignored)
     <plugin>/             #   one folder per converted plugin...
     <Mod Label>/          #   ...or one per imported mod (mirrors export/)
-    AutoConvertLOD/       #   the baked LOD mod (tools/create_lod.py)
+    AutoConvertLOD/       #   the baked LOD mod (tools/release/create_lod.py)
     Finished Mods/        #   everything the user INSTALLS -- see below
 ```
 
@@ -410,7 +446,7 @@ Two consequences worth knowing:
   deletes the payload only when the plugin being removed is the last one
   registered in its group.
 
-`tools/migrate_group_layout.py` moves mods imported under the old layout.
+`tools/esm/migrate_group_layout.py` moves mods imported under the old layout.
 
 ### `output/Finished Mods/`
 
@@ -425,8 +461,8 @@ Everything installable is collected in `output/Finished Mods/` instead:
 | Artefact | Written by |
 |---|---|
 | `<plugin>.zip` | `convert.py --pack-zip-only` (`phase_pack_zip`) |
-| `AutoConvertLOD.zip` | `tools/pack_lod.py` |
-| `TESGameSelect.zip` | `tools/package_start_mod.py` |
+| `AutoConvertLOD.zip` | `tools/release/pack_lod.py` |
+| `TESGameSelect.zip` | `tools/release/package_start_mod.py` |
 | `Slot44 Patch.esp` | `convert.py --modify-body-meshes` (loose — one plugin with no assets is not worth an archive) |
 
 The folder name lives in `output_layout.py` (`FINISHED_DIR_NAME`), spelled once

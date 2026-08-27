@@ -7,6 +7,8 @@ from ..constants import DEFAULT_RACE, RACE_MAP, TES4_SKILL_TO_TES5, TES5_SKILL_O
 from ..npc_face_mapper import build_face_tail_subs, build_pnam_subs
 from ..outfits import split_inventory
 from ..packages import (
+    CLAS_CREATURE_CASTER,
+    CLAS_CREATURE_PREDATOR,
     CSTY_ANIMAL,
     CSTY_DEFAULT,
     DPLT_CREATURE_LIST,
@@ -139,6 +141,15 @@ def patch_actor_sounds(writer) -> int:
 
     A CSDI whose SOUN produced no descriptor is dropped along with its CSDT/
     CSDC, rather than left pointing at a record that does not exist.
+
+    An OVERRIDE of a master's actor is different: its bytes come from the
+    master's already-converted record, so the CSDI already holds a real SNDR
+    in the MASTER's id space.  `sndr_map` is keyed on the low 24 bits only, so
+    masking such an id looks it up in the wrong space, finds nothing, and the
+    whole CSDT/CSDI/CSDC group is dropped -- which silently stripped the sound
+    block from all six creature-derived NPC_ overrides in Knights.esp
+    (CreatureWolf's `CSDI 016D9202` is `TES4_NPCWolfInjured_SNDR`).  A CSDI
+    whose index byte names a MASTER is already resolved and is left alone.
     """
     from .dialog_misc import sndr_map
     mapping = sndr_map()
@@ -148,6 +159,9 @@ def patch_actor_sounds(writer) -> int:
     # An already-resolved CSDI must survive a second pass untouched, so treat
     # every descriptor id as mapping to itself.
     resolved = {v for v in mapping.values()}
+    # Index bytes below our own slot belong to a master; anything there was
+    # resolved when that master was converted.
+    own_index = writer.own_index
     patched = 0
     for i, blob in enumerate(records):
         if b'CSDI' not in blob:
@@ -179,8 +193,11 @@ def patch_actor_sounds(writer) -> int:
                 drop_csdc = False
             elif sig == b'CSDI' and cur_type:
                 soun = struct.unpack_from('<I', chunk, 6)[0]
-                sndr = (soun if soun in resolved
-                        else mapping.get(soun & 0x00FFFFFF, 0))
+                if soun and (soun >> 24) < own_index:
+                    sndr = soun          # master-owned, already an SNDR
+                else:
+                    sndr = (soun if soun in resolved
+                            else mapping.get(soun & 0x00FFFFFF, 0))
                 if sndr:
                     cur_pairs += chunk[:6] + struct.pack('<I', sndr)
                     drop_csdc = False
@@ -536,8 +553,14 @@ def _crea_acbs(rec: dict) -> bytes:
     # the creature's whole TES4 pool. See creature_health_offset.
     from ..creature_races import creature_health_offset
     health_offset = creature_health_offset(rec)
+    # Magicka: the generated race's starting magicka is 0 (shared race), so
+    # the actor's whole TES4 SpellPoints pool rides here. Without it a
+    # spell-knowing creature has 0 magicka, cannot pay any cast cost, and
+    # never casts — vanilla's atronach carries the same split (race base +
+    # ACBS.MagickaOffset 50).
+    magicka_offset = min(get_int(rec, 'ACBS.SpellPoints', 0), 32767)
     return struct.pack('<IhhHHHHhHhH',
-                       tes5_flags, 0, 0, tes5_level,
+                       tes5_flags, magicka_offset, 0, tes5_level,
                        min(calc_min, 65535), min(calc_max, 65535),
                        100, 0, 0, health_offset, 0)
 
@@ -1359,13 +1382,24 @@ def convert_NPC_(rec: dict, writer=None) -> bytes:
     subs += pack_subrecord('DNAM', _npc_skills_dnam(rec))
 
     # PNAM[] — Head parts: hair HDPT + eyes HDPT
-    subs += build_pnam_subs(rec, race_edid, gender)
+    subs += build_pnam_subs(rec, race_edid, gender, writer)
 
-    # HCLF — Hair color (mapped to closest Skyrim CLFM)
+    # HCLF — Hair color.  Oblivion authors a FREE RGB per NPC (2,482 actors,
+    # 571 distinct colors spanning the whole cube), while Skyrim's HCLF is a
+    # FormID into CLFM and vanilla ships only 15 swatches, all dark and
+    # desaturated.  Snapping to the nearest vanilla swatch loses the authored
+    # color badly (measured over Oblivion.esm: mean RGB error 26.9, max 274.5),
+    # so the authored color gets its own generated CLFM instead and the vanilla
+    # table is only the fallback when no writer is available.
     hclr_r = get_int(rec, 'HCLR.R', 100)
     hclr_g = get_int(rec, 'HCLR.G', 80)
     hclr_b = get_int(rec, 'HCLR.B', 60)
-    subs += pack_formid_subrecord('HCLF', map_hair_color(hclr_r, hclr_g, hclr_b))
+    if writer is not None:
+        subs += pack_formid_subrecord(
+            'HCLF', hair_color_formid(writer, hclr_r, hclr_g, hclr_b))
+    else:
+        subs += pack_formid_subrecord(
+            'HCLF', map_hair_color(hclr_r, hclr_g, hclr_b))
 
     # ZNAM — Combat style. CSTY is skipped, so the TES4 reference would
     # dangle; the vanilla default combat style keeps combat AI functional.
@@ -1399,11 +1433,40 @@ def convert_NPC_(rec: dict, writer=None) -> bytes:
     return pack_record('NPC_', get_formid(rec, 'FormID'), get_int(rec, 'RecordFlags'), subs)
 
 
+def _crea_vmad(rec: dict, packed: bytes) -> bytes:
+    """The creature's VMAD subrecord, plus TES4_GhostDissolve when it applies.
+
+    A creature whose AUTHORED death animation dissolves it (ghost, wraith: the
+    death.kf hides `SkinAttachment` via NiVisController rather than dropping
+    the body) carries TES4_GhostDissolve alongside any converted TES4 script.
+    The script reproduces the effect with Skyrim's native ash pile; without it
+    the corpse stands upright in mid-air for ever, because those visibility
+    channels cannot survive into a Havok clip.
+
+    `packed` is a packed VMAD subrecord (or b''), so it is unwrapped, extended
+    and repacked -- build_vmad_object_script writes a fixed "1 attached
+    script" count, which append_vmad_object_script bumps.
+    """
+    from ..creature_races import creature_dissolve_info
+    dissolve = creature_dissolve_info(get_formid(rec, 'FormID'))
+    if dissolve is None:
+        return packed
+
+    from script_convert.pipeline import append_vmad_object_script
+    ash_pile, death_secs = dissolve
+    raw = packed[6:] if packed else b''      # strip 'VMAD' + u16 length
+    raw = append_vmad_object_script(
+        raw, 'TES4_GhostDissolve',
+        object_props={'AshPile': ash_pile},
+        value_props={'DeathAnimSeconds': ('float', death_secs or 1.2)})
+    return pack_subrecord('VMAD', raw)
+
+
 def convert_CREA(rec: dict, writer=None) -> bytes:
     """CREA → NPC_ (creatures become NPCs in TES5).
 
     Same subrecord order as NPC_: EDID OBND ACBS SNAM INAM VTCK RNAM
-    COCT/CNTO AIDT PKID FULL DATA DNAM ZNAM DOFT DPLT
+    SPCT SPLO[] COCT/CNTO AIDT PKID FULL DATA DNAM ZNAM DOFT DPLT
     """
     subs = b''
     edid = get_str(rec, 'EditorID')
@@ -1413,7 +1476,7 @@ def convert_CREA(rec: dict, writer=None) -> bytes:
     # VMAD — converted TES4 creature script (SCRI), attached to the base so
     # every placed reference gets an instance (mirrors TES4 semantics).
     from ..object_scripts import get_object_vmad
-    subs += get_object_vmad(get_formid(rec, 'FormID'))
+    subs += _crea_vmad(rec, get_object_vmad(get_formid(rec, 'FormID')))
 
     subs += pack_obnd(-12, -12, 0, 12, 12, 60)  # NPC_ default bounds
 
@@ -1479,6 +1542,32 @@ def convert_CREA(rec: dict, writer=None) -> bytes:
     # RNAM — Race (after VTCK per TES5 NPC_ definition)
     subs += pack_formid_subrecord('RNAM', crea_race_fid)
 
+    # SPCT + SPLO — Spells. Creatures carry their magic through SPLO exactly
+    # like NPCs do (the stunted scamp's fireball, a summoner's summon, an
+    # atronach's touch attack); convert_CREA simply never emitted them, so
+    # ALL 600 of the 914 Oblivion CREA that know a spell shipped with none
+    # and could not cast whatever the behavior graph offered them.
+    #
+    # Order is RNAM -> SPCT -> SPLO[] -> COCT -> CNTO, verified against BOTH
+    # the xEdit TES5 definition (wbDefinitionsTES5.pas: wbSPCT, wbSPLOs
+    # directly after RNAM) and real Skyrim.esm records.
+    #
+    # The target may be a SPEL, a SHOU or an LVSP — xEdit types SPLO as
+    # [SPEL, SHOU, LVSP], so a TES4 leveled spell (LVSP survives conversion
+    # via convert_LVSP) is referenced directly rather than unrolled. The
+    # scamp above is exactly that case: its fireball arrives through
+    # LL2CreatureScampStunted100.
+    crea_spell_count = get_int(rec, 'SpellCount')
+    if crea_spell_count > 0:
+        crea_spells = [get_formid(rec, f'Spell[{i}]')
+                       for i in range(crea_spell_count)]
+        crea_spells = [s for s in crea_spells if s]
+        if crea_spells:
+            subs += pack_subrecord('SPCT',
+                                   struct.pack('<I', len(crea_spells)))
+            for sfid in crea_spells:
+                subs += pack_formid_subrecord('SPLO', sfid)
+
     # Items — carried inventory and outfit are disjoint (see convert_NPC_).
     # Creature inventories are mostly loot leveled-lists, which belong in CNTO;
     # only the armed/armored ones (skeletons, dremora) yield an outfit at all.
@@ -1510,7 +1599,21 @@ def convert_CREA(rec: dict, writer=None) -> bytes:
     # DefaultMasterPackageCreature — give converted creatures the same hookup.
     subs += pack_formid_subrecord('PKID', PKID_CREATURE_MASTER)
 
-    # FULL — Name (after PKID in TES5 NPC_ order)
+    # CNAM — Class. 5118/5118 vanilla NPC_ carry one; a creature never did.
+    # Under ACBS AutoCalc (set above) the engine derives the actor's skills
+    # and attribute growth from the CLASS weights, so a classless actor is a
+    # skill-less one — and the class is where a vanilla caster's magic
+    # profile lives: EncAtronachFlame uses EncClassBanditWizard (Magicka
+    # weight 3, Destruction 3), EncHagraven its own mage class, while the
+    # wolf/sabrecat/skeever/spriggan/wisp share EncClassAnimalPredator
+    # (Magicka weight 0). A creature that knows an offensive spell gets the
+    # atronach's class; everything else the predators'.
+    from ..creature_races import creature_has_offensive_spell
+    subs += pack_formid_subrecord(
+        'CNAM', CLAS_CREATURE_CASTER if creature_has_offensive_spell([rec])
+        else CLAS_CREATURE_PREDATOR)
+
+    # FULL — Name (after CNAM in TES5 NPC_ order)
     if full:
         subs += pack_string_subrecord('FULL', full)
 
@@ -1704,9 +1807,274 @@ def convert_EYES(rec: dict) -> bytes:
     pass
 
 
-def convert_HAIR(rec: dict) -> bytes:
-    # Map to TES5 record formIDs instead
-    pass
+# HDPT.PNAM 'Type' enum (xEdit wbDefinitionsTES5): 3 = Hair.
+HDPT_TYPE_HAIR = 3
+
+# HDPT.DATA flag bits: 0 Playable, 1 Male, 2 Female, 3 IsExtraPart,
+# 4 UseSolidTint.  Vanilla hair is overwhelmingly Playable+Male (3, x93) or
+# Playable+Female (5, x76) out of 204 hair HDPTs, so gender-restrict when the
+# TES4 record says so and leave both flags set when it does not.
+HDPT_FLAG_PLAYABLE = 0x01
+HDPT_FLAG_MALE = 0x02
+HDPT_FLAG_FEMALE = 0x04
+
+# HDPT.NAM0 'Part Type': 0 Race Morph, 1 Tri, 2 Chargen Morph.  All 123
+# vanilla hair HDPTs that carry a part use NAM0=1.  A NAM0=0 races tri was
+# tried on converted hair and THE ENGINE DOES NOT APPLY IT to type-3 (Hair)
+# parts (vanilla only ships one on heads, type 1, and beards, type 4; in
+# game the hair rendered unmorphed).  Per-race conformance is instead BAKED:
+# one mesh per race GROUP, gated by RNAM race lists — vanilla hair's own
+# architecture.
+HDPT_PART_TRI = 1
+
+# RNAM — Valid Races FLST.  Skyrim gates which races may wear a head part on
+# this list, and getting it wrong makes the hair INVISIBLE in the race menu for
+# every race not on it.
+#
+# 000A8023 is HeadPartsHumansandVampires -- HUMANS ONLY, despite the name this
+# constant used to carry.  Pointing every converted hair at it is why only Nords
+# and the other human races saw the new hairstyles and Argonian/Khajiit/Orc/Elf
+# saw none of theirs.  The FLST names below are read out of Skyrim.esm.
+HDPT_RNAM_HUMANS = 0x000A8023          # HeadPartsHumansandVampires
+HDPT_RNAM_ELVES = 0x000A8024           # HeadPartsElvesandVampires
+HDPT_RNAM_ORC = 0x000A8032             # HeadPartsOrcandVampire
+HDPT_RNAM_ARGONIAN = 0x000A8039        # HeadPartsArgonianandVampire
+HDPT_RNAM_KHAJIIT = 0x000A8036         # HeadPartsKhajiitandVampire
+HDPT_RNAM_REDGUARD = 0x000A803B        # HeadPartsRedguardandVampire
+HDPT_RNAM_DREMORA = 0x000A8027         # HeadPartsDremora
+HDPT_RNAM_ALL_MINUS_BEAST = 0x000A803F  # HeadPartsAllRacesMinusBeast (19 races)
+
+# Which list an Oblivion hair belongs on, matched on its EditorID.  Oblivion
+# names every hair for the race it was authored for, and the mesh filename
+# agrees with the EditorID on all 57 records (checked), so this is the
+# plugin's own statement rather than a guess.  Order matters: 'DarkElf' and
+# 'HighElf'/'WoodElf' must be tested before the bare 'Elf' substring.
+#
+# Vanilla routes its own hair exactly this way -- censused over Skyrim.esm's
+# hair HDPTs: every Khajiit hair uses 000A8036 (x21), every Orc 000A8032
+# (x43), every Elf 000A8024 (x36), every Argonian 000A8039, Dremora 000A8027.
+_HDPT_RNAM_BY_EDID = (
+    ('argonian', HDPT_RNAM_ARGONIAN),
+    ('khajiit', HDPT_RNAM_KHAJIIT),
+    ('orc', HDPT_RNAM_ORC),
+    ('dremora', HDPT_RNAM_DREMORA),
+    ('darkelf', HDPT_RNAM_ELVES),
+    ('highelf', HDPT_RNAM_ELVES),
+    ('woodelf', HDPT_RNAM_ELVES),
+    ('elf', HDPT_RNAM_ELVES),
+    ('redguard', HDPT_RNAM_REDGUARD),
+)
+
+
+def _hdpt_valid_races(edid: str) -> int:
+    """The Valid Races FLST for a converted Oblivion hair.
+
+    Race-specific hair goes on that race's list; anything Oblivion did not name
+    for a race (Cropped, Ponytail, MediumLength, Blindfold, the styleNN set)
+    is generic and goes on HeadPartsAllRacesMinusBeast, matching how Oblivion
+    offered those styles to every non-beast race.
+    """
+    low = (edid or '').lower()
+    for token, flst in _HDPT_RNAM_BY_EDID:
+        if token in low:
+            return flst
+    # Explicitly human-named styles stay on the human list.
+    for token in ('nord', 'imperial', 'breton'):
+        if token in low:
+            return HDPT_RNAM_HUMANS
+    return HDPT_RNAM_ALL_MINUS_BEAST
+
+# GENERIC hair (no race in its EDID) is emitted once per race GROUP: the
+# in-game head = base mesh + the wearer race's races-tri morph, and the
+# scalp measurements split cleanly (head_fit.GROUP_MORPHS): all five human
+# races + Dremora wear the BASE scalp (morphs <= 0.15 there), the three elf
+# races share one shape (2.6 off base), Orc its own (1.5).  Each group entry:
+# (group key for formids/naming, hair_pipeline group name, RNAM FLST).
+# The human mesh serves two HDPTs — the humans+vampires list and the
+# one-race Dremora list (same base scalp).
+HDPT_GROUPS = (
+    ('',  None,     HDPT_RNAM_HUMANS),      # base mesh, keeps existing ids
+    ('D', None,     HDPT_RNAM_DREMORA),     # base mesh, Dremora list
+    ('E', 'elves',  HDPT_RNAM_ELVES),
+    ('O', 'orc',    HDPT_RNAM_ORC),
+)
+
+# CLFM.FNAM 'Playable' — vanilla hair colors are all playable.
+_CLFM_PLAYABLE = 1
+
+
+def hair_color_formid(writer, r: int, g: int, b: int) -> int:
+    """CLFM FormID for an authored Oblivion hair color, generating it once.
+
+    Skyrim reads an NPC's hair color from HCLF -> CLFM.CNAM, so carrying
+    Oblivion's authored RGB across only needs a CLFM holding that exact color.
+    The record is tiny (EDID + CNAM + FNAM), and NPCs share colors heavily
+    (2,482 actors use 571 distinct values in Oblivion.esm), so one record per
+    DISTINCT color is far cheaper than one per actor.
+
+    Keyed on the authored RGB itself, which is authored TES4 data -- the same
+    color always lands on the same id, on every machine and in every build.
+    """
+    r = max(0, min(255, int(r)))
+    g = max(0, min(255, int(g)))
+    b = max(0, min(255, int(b)))
+    key = (r, g, b)
+    fid = writer.derive_formid('CLFM_HAIR', key)
+
+    cache = getattr(writer, '_tes4_hair_colors', None)
+    if cache is None:
+        cache = set()
+        writer._tes4_hair_colors = cache
+    if key in cache:
+        return fid
+    cache.add(key)
+
+    subs = pack_string_subrecord('EDID', 'TES4HairColor%02X%02X%02X' % key)
+    subs += pack_string_subrecord('FULL', 'Hair %02X%02X%02X' % key)
+    # CNAM is a byte RGBA; vanilla hair colors all carry alpha 0.
+    subs += pack_subrecord('CNAM', struct.pack('<4B', r, g, b, 0))
+    subs += pack_subrecord('FNAM', struct.pack('<I', _CLFM_PLAYABLE))
+    writer.add_record('CLFM', pack_record('CLFM', fid, 0, subs))
+    return fid
+
+
+def hair_variant_formid(writer, source_fid: int, bucket: int,
+                        female: bool, base_female: bool,
+                        group: str = '') -> int:
+    """The HDPT FormID for one (hair, bucket, gender, race group) variant.
+
+    The BASE variant -- bucket 0 of the hair's base gender in the human
+    group -- keeps the SOURCE FormID, so an NPC whose LNAM is 0 resolves
+    straight through its HNAM.  Every other variant derives from authored
+    data only: the masked source id, the LNAM bucket, the gender ('F') and
+    the race group tag ('D'/'E'/'O') -- see HDPT_GROUPS.
+    """
+    if bucket <= 0 and female == base_female and not group:
+        return source_fid
+    key = (source_fid & 0x00FFFFFF, bucket)
+    if female:
+        key = key + ('F',)
+    if group:
+        key = key + (group,)
+    return writer.derive_formid('HDPT_HAIR', key)
+
+
+def convert_HAIR(rec: dict, *, writer=None) -> bytes:
+    """HAIR -> HDPT (Type 3 / Hair), one per (length, gender) variant.
+
+    Returns the base record (unmorphed mesh, base gender, source FormID) and
+    side-emits an HDPT for every other variant the plugin's NPCs ask for:
+
+    LENGTH   Skyrim has no per-NPC hair-length field, so NPC_.LNAM is baked
+             into the mesh per quantized bucket (asset_convert.hair_pipeline).
+    GENDER   every mesh is FITTED to the Skyrim head (asset_convert.head_fit)
+             and the male and female Skyrim skulls differ by up to 1.23 units
+             over the scalp, so each allowed gender gets its own mesh + HDPT,
+             exactly as vanilla genders every hairstyle.  TES4's NotMale /
+             NotFemale restriction picks which genders exist at all.
+    """
+    from asset_convert.hair_pipeline import (_fit_group_lock, hair_genders,
+                                             output_model_path,
+                                             output_tri_path, variant_edid)
+    from asset_convert.head_fit import fit_race_for_hair
+    from ..hair_variants import hair_buckets_for, hair_has_tri
+
+    model = get_str(rec, 'Model.MODL')
+    source_fid = get_formid(rec, 'FormID')
+    edid = get_str(rec, 'EditorID')
+    # A few Oblivion hairs ship no .tri; naming a NAM1 we never wrote makes
+    # the CK report a missing file for each one.
+    want_tri = bool(model) and hair_has_tri(source_fid)
+    # Generic hair (not race-named, not a beast head) is emitted once per
+    # race GROUP — see HDPT_GROUPS; race-named hair keeps its single HDPT.
+    generic = (fit_race_for_hair(edid) is None
+               and _fit_group_lock(edid) is None)
+    groups = HDPT_GROUPS if generic else (('', None, 0),)
+
+    genders = hair_genders(get_int(rec, 'DATA.Flags'))
+    base_female = genders[0]
+
+    def build(bucket, female, tag, name_grp, rnam, fid_override=0):
+        edid_grp = {'E': 'elves', 'O': 'orc', 'D': 'dremora'}.get(tag)
+        return _build_hdpt(
+            rec,
+            model_override=output_model_path(model, bucket, female, name_grp)
+            if model else '',
+            tri_path=output_tri_path(model, bucket, female, name_grp)
+            if want_tri else '',
+            edid_override=variant_edid(edid, bucket, female, edid_grp),
+            fid_override=fid_override,
+            female=female,
+            rnam_override=rnam)
+
+    base = build(0, base_female, '', None, groups[0][2])
+    if writer is None:
+        return base
+
+    for female in genders:
+        for bucket in hair_buckets_for(source_fid):
+            for tag, name_grp, rnam in groups:
+                if bucket <= 0 and female == base_female and not tag:
+                    continue                      # that is `base`
+                vid = hair_variant_formid(writer, source_fid, bucket,
+                                          female, base_female, tag)
+                writer.add_record('HDPT', build(bucket, female, tag,
+                                                name_grp, rnam, vid))
+    return base
+
+
+def _build_hdpt(rec: dict, *, model_override: str = '',
+                tri_path: str = '', edid_override: str = '',
+                fid_override: int = 0, female: bool = False,
+                rnam_override: int = 0) -> bytes:
+    """Pack one HDPT (Type 3 / Hair).
+
+    Oblivion's HAIR is a head part in all but name: a model, an icon and a
+    playable/gender flag byte.  Skyrim's HDPT wants the same information plus
+    an explicit Type and a valid-races list.
+
+    `tri_path` names the emitted Skyrim .tri (the SkinnyMorph slot the engine
+    reads for head parts).  123 of the 204 vanilla hair HDPTs carry one.
+    """
+    subs = b''
+
+    edid = edid_override or get_str(rec, 'EditorID')
+    if edid:
+        subs += pack_string_subrecord('EDID', edid)
+
+    full = get_str(rec, 'FULL')
+    if full:
+        subs += pack_string_subrecord('FULL', full)
+
+    model = model_override or get_str(rec, 'Model.MODL')
+    if model:
+        subs += pack_string_subrecord('MODL', _prefix_path(model))
+        # MODT stub (version 2, no texture hashes) — the same form the GRAS
+        # and CLMT converters emit.
+        subs += pack_subrecord('MODT', struct.pack('<III', 2, 0, 0))
+
+    # DATA — flags.  Each variant's mesh is fitted to ONE gender's head, so
+    # the record is single-gender by construction (vanilla hair HDPTs are
+    # Playable+Male x93 / Playable+Female x76 out of 204 for the same reason).
+    flags = HDPT_FLAG_PLAYABLE | (
+        HDPT_FLAG_FEMALE if female else HDPT_FLAG_MALE)
+    subs += pack_uint8_subrecord('DATA', flags)
+
+    # PNAM — Type.  Required; without it the CK rejects the record.
+    subs += pack_uint32_subrecord('PNAM', HDPT_TYPE_HAIR)
+
+    # NAM0/NAM1 — the .tri part.
+    if tri_path:
+        subs += pack_uint32_subrecord('NAM0', HDPT_PART_TRI)
+        subs += pack_string_subrecord('NAM1', _prefix_path(tri_path))
+
+    # RNAM — Valid Races.  Group variants carry their group's list; race-
+    # named hair keys off the SOURCE record's EditorID as before.
+    subs += pack_formid_subrecord(
+        'RNAM', rnam_override or _hdpt_valid_races(get_str(rec, 'EditorID')))
+
+    fid = fid_override or get_formid(rec, 'FormID')
+    return pack_record('HDPT', fid, get_int(rec, 'RecordFlags'), subs)
 
 
 def convert_CLAS(rec: dict, *, override_fid: int = 0, override_edid: str = '',

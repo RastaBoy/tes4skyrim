@@ -11,7 +11,7 @@ byte-identical plugin, and a bad run is fixed by re-running, never by undoing.
     python patch_folder/pipeline.py --only skin     # one pass
     python patch_folder/pipeline.py --seed 7        # different random draw
 
-Each pass is `tools/assign_*.py`, which can also be run on its own; this script
+Each pass is `tools/patch/assign_*.py`, which can also be run on its own; this script
 prints the exact command it runs so a pass can be repeated or tweaked by hand.
 The passes compose -- each rewrites only its own fields and carries the rest of
 the record through -- so their order here is not load-bearing.
@@ -102,7 +102,7 @@ def main():
         print(f'building from {src_plugin}')
 
     if 'outfits' in passes:
-        argv = [REPO / 'tools' / 'assign_female_outfits.py',
+        argv = [REPO / 'tools' / 'patch' / 'assign_female_outfits.py',
                 '--source', npc_source,
                 '--patch', current,
                 '--out', out_plugin,
@@ -119,7 +119,7 @@ def main():
             current = out_plugin
 
     if 'hair' in passes:
-        argv = [REPO / 'tools' / 'assign_npc_hair.py',
+        argv = [REPO / 'tools' / 'patch' / 'assign_npc_hair.py',
                 '--source', npc_source,
                 '--patch', current,
                 '--out', out_plugin,
@@ -133,7 +133,7 @@ def main():
         else:
             print('!! Skyrim.esm not found; vanilla head parts cannot be '
                   'classified and will be left in place. Pass --hdpt-from to '
-                  'tools/assign_npc_hair.py by hand if that matters.')
+                  'tools/patch/assign_npc_hair.py by hand if that matters.')
         for race in EXCLUDE_RACES:
             argv += ['--exclude-race', race]
         if args.dry_run:
@@ -144,7 +144,7 @@ def main():
             current = out_plugin
 
     if 'skin' in passes:
-        argv = [REPO / 'tools' / 'assign_skin_tone.py',
+        argv = [REPO / 'tools' / 'patch' / 'assign_skin_tone.py',
                 '--source', npc_source,
                 '--patch', current,
                 '--out', out_plugin,

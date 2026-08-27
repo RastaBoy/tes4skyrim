@@ -27,6 +27,8 @@ PKID_NPC_SANDBOX = 0x000BFB6B       # PACK DefaultSandboxCurrentLocation1024
 DPLT_NPC_LIST = 0x00021E81          # FLST DefaultMasterPackageList
 CSTY_DEFAULT = 0x0000003D           # CSTY DefaultCombatstyle
 CSTY_ANIMAL = 0x00057BE8            # CSTY csWolf (vanilla wolf/dog ZNAM)
+CLAS_CREATURE_PREDATOR = 0x000131E6  # CLAS EncClassAnimalPredator (wolf...)
+CLAS_CREATURE_CASTER = 0x00039D30    # CLAS EncClassBanditWizard (atronach)
 
 # fid_low24 -> TES4 PKDT.Type, built once per import run (Phase 0g)
 _PACK_TYPES = {}
@@ -76,6 +78,19 @@ def set_quest_packages(pack_fids) -> None:
     """Register the packages that are attached via QUST aliases."""
     _QUEST_PACKAGES.clear()
     _QUEST_PACKAGES.update(pack_fids)
+
+
+def is_quest_package(pack_fid: int) -> bool:
+    """True if this package reaches its actor through a QUST alias (ALPC).
+
+    Such a package must NEVER appear in an NPC's PKID list -- xEdit rejects it
+    outright ("package is owned by quest <X> and cannot be assigned to an npc
+    record") and the engine wedges at the main menu resolving it.  Read by
+    both the normal converter (npc_packages) and the OVERRIDE path
+    (override_builder._rebuild_packages), which cannot derive the answer from
+    the master for a package the plugin itself newly quest-owns.
+    """
+    return pack_fid in _QUEST_PACKAGES
 
 
 # source pack fid -> [chain pack fid, ...]: a hunt expanded into a Follow
