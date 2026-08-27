@@ -4,7 +4,7 @@ description: >-
   Build and extend MyCosmeticTamrielPatch.esp — the hand-authored ESP in
   patch_folder/ that restyles the converted Oblivion NPCs (outfits, hair, and
   whatever comes next) by writing NPC_ override records straight into a binary
-  TES5 plugin. Covers the patch's architecture (tools/plugin_patch.py plus one
+  TES5 plugin. Covers the patch's architecture (tools/patch/plugin_patch.py plus one
   assign_*.py pass per feature, driven by patch_folder/pipeline.py), the
   measured binary facts an override plugin must respect (HEDR record count,
   top-level GRUP order, canonical NPC_ field order, the NPC_ FormID field map,
@@ -80,7 +80,7 @@ every edit intact.
 
 ### 2. Passes compose, and every pass is idempotent
 
-`Patch` (in `tools/plugin_patch.py`) loads the patch's existing `NPC_` group and
+`Patch` (in `tools/patch/plugin_patch.py`) loads the patch's existing `NPC_` group and
 hands each pass the record that is already there, if there is one. So:
 
 - running pass B after pass A keeps A's edits;

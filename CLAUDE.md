@@ -76,7 +76,7 @@ caching, skipped record types, the export text format, and the directory layout.
   catalogue is [docs/python_tools_reference.md](docs/python_tools_reference.md).
   They live in `tools/<folder>/`: `generators` (code imports their output —
   never delete blind), `release`, `validate`, `audit`, `live`, `disasm`, `nif`,
-  `creature`, `dialog`, `script`, `lod`, `esm`, `navmesh`, `misc`.
+  `creature`, `dialog`, `script`, `lod`, `esm`, `navmesh`, `patch`, `misc`.
   The order is:
   1. **Use** the existing tool.
   2. If it *almost* fits, **extend or fix it** — new flags, wider output. Never

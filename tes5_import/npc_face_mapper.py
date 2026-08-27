@@ -253,7 +253,7 @@ def load_race_skin_tones(by_type: dict, export_dirs=None) -> None:
 
 # Blending the skin-tone tint toward MID-GREY, not toward white.
 #
-# Measured from Skyrim.esm (tools/census_npc_skin.py --qnam): every one of the
+# Measured from Skyrim.esm (tools/generators/gen_npc_skin_table.py --qnam): every one of the
 # 15,354 vanilla QNAM channel values is exactly N/255 for an integer N, and for
 # an NPC carrying a skin-tone tint layer that N is
 #

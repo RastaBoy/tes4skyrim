@@ -1,6 +1,6 @@
 # Adding a pass
 
-A pass owns one field family. Copy `tools/assign_npc_hair.py` — it is the more
+A pass owns one field family. Copy `tools/patch/assign_npc_hair.py` — it is the more
 complete of the two — and change the middle.
 
 ## 1. Decide what the pass OWNS

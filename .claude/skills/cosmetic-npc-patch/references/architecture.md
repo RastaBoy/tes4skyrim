@@ -1,6 +1,6 @@
 # Architecture
 
-## `tools/plugin_patch.py` — the library
+## `tools/patch/plugin_patch.py` — the library
 
 ### `SourcePlugin(path, want_types)`
 
@@ -54,7 +54,7 @@ See `binary-facts.md` for the `AFTER_DOFT` / `AFTER_PNAM` successor tuples.
 
 ## A pass
 
-Each `tools/assign_*.py` is a standalone argparse CLI:
+Each `tools/patch/assign_*.py` is a standalone argparse CLI:
 
 1. `Patch(--patch)` → masters, existing overrides, and the lookup tables the
    pass needs from the patch's own records (e.g. OTFT by EditorID).

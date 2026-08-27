@@ -1,6 +1,6 @@
 # Measured TES5 binary facts
 
-Everything here was **measured** while building `tools/plugin_patch.py`
+Everything here was **measured** while building `tools/patch/plugin_patch.py`
 (2026-08-27), against the converted `Oblivion.esm`, the real
 `Skyrim.esm`, `KS Hairdo's.esp`, `Apachii_DivineEleganceStore.esm`,
 `ElsweyrAnequina.esp` and `MyCosmeticTamrielPatch.esp`. Do not re-derive; if you

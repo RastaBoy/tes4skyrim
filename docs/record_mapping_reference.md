@@ -215,7 +215,7 @@ QNAM_channel = floor(127 * (1 - TINV/100) + TINC_channel * TINV/100) / 255
   why the existing unit test passed through it.
 
 Now `npc_face_mapper.skin_tone_qnam()`, the single source of truth shared with
-`tools/assign_skin_tone.py`. Guarded by
+`tools/patch/assign_skin_tone.py`. Guarded by
 `tests/test_import.py::test_skin_tone_qnam_blends_toward_mid_grey`.
 
 **Which tint layer is the skin tone** is authored, not guessed: the RACE record
@@ -233,7 +233,7 @@ on the older formula, which has the identical `255.0` base.
 
 ### Binary facts for authoring an override plugin (measured 2026-08-27)
 
-Established while building `tools/plugin_patch.py` (see
+Established while building `tools/patch/plugin_patch.py` (see
 [python_tools_reference.md](python_tools_reference.md)); all measured against
 this repo's converted `Oblivion.esm`, the real `Skyrim.esm`, and three
 third-party plugins.

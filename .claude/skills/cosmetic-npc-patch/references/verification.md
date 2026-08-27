@@ -3,7 +3,7 @@
 ## The gate
 
 ```bash
-python tools/verify_npc_patch.py \
+python tools/patch/verify_npc_patch.py \
     --patch    patch_folder/output/MyCosmeticTamrielPatch.esp \
     --original patch_folder/sources/MyCosmeticTamrielPatch.esp \
     --source   output/Oblivion.esm/Oblivion.esm \
