@@ -3931,3 +3931,59 @@ class TestQuestStartDoesNotClobberSeededWrites:
     def test_comparison_is_not_mistaken_for_a_write(self, converter):
         body = ['  If Arena.ReadyMatch == 1', '  Arena.Start()']
         assert self._hoist(converter, body) == body
+
+
+class TestLowProcessPoll:
+    """TES4's low process: a poll that must survive its cell detaching.
+
+    SafeGameModeGate stops an object/actor poll when the reference's cell
+    detaches.  A body whose whole job is to notice something that happens
+    WHILE THE PLAYER IS AWAY then never observes it -- an inn room rented for
+    one night stayed the player's forever.  Those bodies re-arm slowly on the
+    gate's Else branch instead of stopping.
+
+    See docs/papyrus_conversion_notes.md, "The LOW PROCESS".
+    """
+
+    def test_stored_clock_qualifies(self):
+        # `set renthour to GameHour` -- the "remember when this started"
+        # idiom (PublicanBrumaJerallViewHafid counts 24 hours from it).
+        assert ScriptConverter._needs_low_process_poll(
+            ['if ( setup == 0 )', '  set renthour to GameHour',
+             'else', '  if ( HoursPassed >= 24 )'])
+
+    def test_stored_day_qualifies(self):
+        # The other 29 publicans stamp GameDay/GameMonth at rental time.
+        assert ScriptConverter._needs_low_process_poll(
+            ['set rentday to GameDay', 'set rentmonth to GameMonth'])
+
+    def test_player_elsewhere_test_qualifies(self):
+        # Unanswerable from a poll that only runs while the player is here.
+        assert ScriptConverter._needs_low_process_poll(
+            ['if ( Player.GetinCell BrumaOlavsTapandTack == 0 )',
+             '  if ( Cleanup == 1 )', '    set Cleanup to 2'])
+
+    def test_bare_clock_read_does_not_qualify(self):
+        # streetlightscript: 213 placed instances, and its decision is
+        # recomputed from scratch every pass, so it self-corrects the moment
+        # the cell attaches.  Polling these while unloaded buys nothing and
+        # costs ~74 Papyrus passes/second.
+        assert not ScriptConverter._needs_low_process_poll(
+            ['if gamehour >= 18 || gamehour < 7', '  enable',
+             'else', '  disable', 'endif'])
+
+    def test_clock_window_test_does_not_qualify(self):
+        # BellTowerScript compares GameHour against a window; it stores the
+        # hour nowhere.
+        assert not ScriptConverter._needs_low_process_poll(
+            ['if ( GameHour >= 23.98 ) || ( GameHour <= 0.02 )',
+             '  PlaySound3d AMBBellTower'])
+
+    def test_player_in_cell_positive_does_not_qualify(self):
+        # "is the player HERE" is answerable from an attached-only poll.
+        assert not ScriptConverter._needs_low_process_poll(
+            ['if ( Player.GetInCell TestCell == 1 )', '  set x to 1'])
+
+    def test_ordinary_body_does_not_qualify(self):
+        assert not ScriptConverter._needs_low_process_poll(
+            ['if ( doOnce == 0 )', '  MessageBox "hi"', '  set doOnce to 1'])

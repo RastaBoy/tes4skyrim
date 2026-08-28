@@ -74,6 +74,16 @@ def _new_scan_out() -> dict:
         'global_types': {}, 'global_values': {},
         'pack_type': {}, 'actor_packages': {},
         'record_model': {},
+        # NPC_/CREA FormID -> AIDT.Services bitmask, and base-actor FormID ->
+        # the XMRC merchant container on its placed reference. Together these
+        # answer "is this actor a vendor, and which chest does the barter menu
+        # read for him" -- see merchant_chest_for().
+        'actor_services': {}, 'merchant_chest': {},
+        # CONT FormID -> [(item FormID, count), ...] straight off CNTO. The
+        # AUTHORED stock list, which is what lets a generated script re-fill a
+        # merchant's shelf without enumerating a container at runtime (that
+        # needs SKSE) -- see container_stock().
+        'cont_items': {},
         # CELL geometry, for GetInCell: {formid: (is_interior, wrld_fid, x, y)}.
         # An EXTERIOR cell cannot back a Papyrus `Cell` property (see
         # get_cell_family), so its membership test is made from these instead.
@@ -96,6 +106,9 @@ def _scan_record_lines(sig: str, lines: list, out: dict):
     spel_effects: list[tuple[str, int]] = []
     pkdt_type = None
     ai_packages: list[str] = []
+    ai_services = None
+    merch_chest = None
+    cont_items: dict = {}
     cell_flags = None
     cell_wrld = None
     cell_x = cell_y = None
@@ -158,6 +171,26 @@ def _scan_record_lines(sig: str, lines: list, out: dict):
                 pkdt_type = int(line[10:])
             except ValueError:
                 pass
+        elif sig in ('NPC_', 'CREA') and line.startswith('AIDT.Services='):
+            try:
+                ai_services = int(line[14:].strip())
+            except ValueError:
+                pass
+        elif (sig in ('ACHR', 'ACRE')
+                and line.startswith('XMRC.MerchantContainer=')):
+            merch_chest = line[23:].strip()
+        elif sig == 'CONT' and line.startswith('Item['):
+            m = re.match(r'Item\[(\d+)\]\.(FormID|Count)=(.+)$', line)
+            if m:
+                idx, field, val = int(m.group(1)), m.group(2), m.group(3)
+                slot = cont_items.setdefault(idx, ['', 1])
+                if field == 'FormID':
+                    slot[0] = val.strip()
+                else:
+                    try:
+                        slot[1] = int(val)
+                    except ValueError:
+                        pass
         elif sig in ('NPC_', 'CREA') and line.startswith('AIPackage['):
             m = re.match(r'AIPackage\[\d+\]=(\w+)', line)
             if m:
@@ -210,6 +243,16 @@ def _scan_record_lines(sig: str, lines: list, out: dict):
         out['npc_formids'].add(formid)
         if ai_packages:
             out['actor_packages'][formid] = ai_packages
+        if ai_services is not None:
+            out['actor_services'][formid] = ai_services
+    if sig in ('ACHR', 'ACRE') and merch_chest and name_fid:
+        # setdefault semantics belong to the merge, not here: a scan range only
+        # ever sees each record once, and the merge is last-wins like the rest.
+        out['merchant_chest'][name_fid] = merch_chest
+    if sig == 'CONT' and cont_items:
+        out['cont_items'][formid] = [tuple(cont_items[i])
+                                     for i in sorted(cont_items)
+                                     if cont_items[i][0]]
     if sig == 'PACK' and pkdt_type is not None:
         out['pack_type'][formid] = pkdt_type
     if sig == 'MGEF' and edid:
@@ -337,6 +380,15 @@ class CrossRefGraph:
         self.pack_type: dict[str, int] = {}
         # NPC_/CREA FormID -> [PACK FormID, ...] in AIPackage[n] order.
         self.actor_packages: dict[str, list] = {}
+        # NPC_/CREA FormID -> AIDT.Services bitmask, and base-actor FormID ->
+        # the merchant container its placed reference names in XMRC. Backs
+        # merchant_chest_for(), which is what lets a TES4 `SetOwnership` on a
+        # merchant's hidden stock container also move that stock into the chest
+        # Skyrim's barter menu actually reads.
+        self.actor_services: dict[str, int] = {}
+        self.merchant_chest: dict[str, str] = {}
+        # CONT FormID -> [(item FormID, count), ...]; see container_stock().
+        self.cont_items: dict[str, list] = {}
 
     def load_from_export(self, export_dir: str, workers: int = None):
         """Load cross-reference data from all export .txt files.
@@ -398,6 +450,9 @@ class CrossRefGraph:
         self.record_scri.update(out['record_scri'])
         self.record_base.update(out['record_base'])
         self.record_type.update(out['record_type'])
+        self.actor_services.update(out['actor_services'])
+        self.merchant_chest.update(out['merchant_chest'])
+        self.cont_items.update(out['cont_items'])
         self.record_model.update(out['record_model'])
         self.cell_geom.update(out['cell_geom'])
         self.enchanted_books.update(out['enchanted_books'])
@@ -719,6 +774,56 @@ class CrossRefGraph:
         if base_fid:
             return self.record_type.get(base_fid, '')
         return self.record_type.get(fid, '')
+
+    def merchant_chest_for(self, actor_name: str) -> str:
+        """FormID (source hex) of the chest a VENDOR's barter menu reads, or ''.
+
+        Oblivion lets a merchant sell from any container he OWNS; Skyrim sells
+        exactly one container, the `VENC` on his vendor faction, which the
+        importer fills from the `XMRC` on his placed reference. So a TES4
+        script that puts stock on sale with `SetOwnership` has to be told where
+        that stock now belongs -- see the SetOwnership handler in converter.py.
+
+        Both halves are authored: `AIDT.Services` says he is a vendor at all
+        (the training/recharge/repair bits do not count, hence `_vendor_bits`,
+        shared with the importer so the two cannot disagree), and `XMRC` names
+        the chest. Returns '' for a non-vendor, or for a vendor whose placed
+        reference has no merchant container.
+
+        The FormID is returned rather than the EditorID because the emitted
+        call resolves the chest at RUNTIME through `Game.GetFormFromFile`, not
+        through a script property -- a property would have to be filled in the
+        plugin's VMAD, and a scripts-only rebuild does not write VMAD.
+        """
+        from tes5_import.record_types.actors import _vendor_bits
+
+        fid = self.edid_to_formid.get((actor_name or '').lower(), '')
+        if not fid:
+            return ''
+        if not _vendor_bits(self.actor_services.get(fid, 0)):
+            return ''
+        return self.merchant_chest.get(fid, '')
+
+    def container_stock(self, ref_name: str) -> list:
+        """[(item FormID, count), ...] a placed CONTAINER holds, or [].
+
+        The AUTHORED stock list, read off the base CONT's CNTO. A generated
+        script cannot enumerate a container at runtime -- `GetNumItems` /
+        `GetNthForm` are SKSE, and the pipeline compiles against the vanilla
+        headers only -- so a script that has to put a merchant's shelf BACK
+        (after the container was emptied, or after a respawning vendor chest
+        reset) has to carry the list itself. This is where it comes from.
+
+        The COUNT keeps its TES4 sign, which is meaningful: negative means
+        "the merchant always has this many for sale" (a restocking shelf),
+        positive means a finite pile. Measured over Oblivion.esm's 11
+        hand-over containers: the 63 house receipts are all +1, and
+        Sinderion's four chests are all negative (-1, -2, -3, -5).
+        """
+        fid = self.edid_to_formid.get((ref_name or '').lower(), '')
+        if not fid:
+            return []
+        return self.cont_items.get(self.record_base.get(fid, fid), [])
 
     def needs_havok_release(self, name: str) -> bool:
         """True if *name*'s mesh ships bodies HELD until a script releases them.

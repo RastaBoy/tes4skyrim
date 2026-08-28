@@ -461,4 +461,6 @@ relevant doc when working in that area.
 | `cosmetic-npc-patch` | `patch_folder/` — authoring NPC_ overrides in a binary ESP |
 | `ineed-patch` | `MyOwnTamrieliNeedPatch.esp` — Oblivion food/drink in iNeed's FormLists (it has NO classifier), and the vanilla job factions its water dialogue gates on |
 | `sailable-ship-port` | `MyOwnTamrielShipPatch.esp` — Sailable Ship's sea route lands in OUR Cyrodiil; a gate's script properties ARE the destination, the addon table is 23 hardcoded slots and all are full, and reaching a gate needs `bBorderRegionsEnabled=0` plus widened Tamriel bounds |
-| `house-upgrade-fix` | DIAGNOSED, unfixed: house furnishings unbuyable — TES4 sells from an OWNED container, TES5 only from the vendor faction's VENC |
+| `house-upgrade-fix` | FIXED: house furnishings were unbuyable — TES4 sells from an OWNED container, TES5 only from the vendor faction's VENC; `script_convert` now also moves the stock, shipped by `--patch house` |
+| `animated-mesh-accum-root` | FIXED: doors swung through their own hinge into the wall — the clip re-applies the accum root's pose, so leaving it in the scene graph applies it twice; `nif_converter` sinks it onto `NonAccum` (58 shipped meshes) |
+| `inn-room-rental` | FIXED: every inn said "you lack the funds" (gold conditions named our inert Gold001 copy) and rented rooms never expired (no low process, so the player-has-left latch and the GameHour counter never ran) |

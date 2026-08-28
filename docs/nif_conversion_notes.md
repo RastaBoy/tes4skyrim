@@ -554,6 +554,66 @@ matched nothing and was dropped.  Creature/actor sounds still correctly use
 
 `_convert_sound_text_keys` is therefore a documented no-op returning 0.
 
+### An accum root's transform must be SUNK onto NonAccum (2026-08-28)
+
+**Symptom (user report):** in some Oblivion interiors a door swings into the
+wall or stands rotated well away from its frame, while most doors in the same
+cell are fine.  Reported for Five Claws Lodge (Leyawiin) and Olav's Tap and
+Tack (Bruma).
+
+**Mechanism.**  Oblivion's exporter splits an animated object's pose in two.
+The scene graph carries the pose on the node named by the sequence's
+`target_name` (the *accum root*); the clip drives `<accum> NonAccum` with the
+**absolute** transform and hands the accum root an IDENTITY pose so its own
+transform is cancelled while the clip runs.  Verified on three doors: the
+NonAccum curve at the closed frame reproduces the accum root's authored
+transform exactly (`doorfulllower02` root `Rz -179.78°` vs NonAccum
+`Rx180·Ry180·Rz0.22 = Rz 180.22°`; `LeyawinDoorLowerINT01` accum node `+74.76°`
+vs NonAccum `-285.24° ≡ +74.76°`; `BravilLoadDoorLowerINT01` `+90°` /
+`T(0,-42.7,12)` on both sides).
+
+Neither of the two ways that reaches Skyrim survives:
+
+* **accum root == the SCENE ROOT** (5 of 258 Oblivion door models).  Its
+  identity-pose entry is *deleted* by `_process_controller_manager` — it must
+  be, a root-targeting entry crashes `BGSGamebryoSequenceGenerator` — so
+  nothing zeroes the node, and the rotation-wrap pass re-hangs the same
+  transform on the inner wrapper.  `doorfulllower02` (both doors in Olav's Tap
+  and Tack): leaf at `(50.58, 3.43)` in Oblivion at the closed frame,
+  `(-50.57, -3.62)` after conversion — mirrored through its own hinge.
+* **accum root == a CHILD node** (8 of 258, incl. every Leyawiin and Bravil
+  interior door — all three doors in Five Claws Lodge).  The entry survives,
+  but it is the sequence's ROOT-MOTION channel; if the engine consumes it for
+  accumulation rather than writing it to the node, the pose is applied twice:
+  the Leyawiin door lands `+74.75°` and `~41` units off, the Bravil load door
+  `90°` and `42` units off.
+
+**Fix — `_sink_accum_root_transform` (nif_converter.py), run right after
+`_process_controller_manager` at both call sites.**  For a `'transferred'`
+accum root with a non-identity transform and a `NonAccum` child, push the
+node's transform down into every one of its children (world poses, and so the
+rest pose, unchanged), bake it into its own collision body if it has one, and
+leave the node identity.  The NonAccum child then holds exactly what the clip
+writes — which is also how vanilla Skyrim authors its animated doors — so the
+result is correct **whichever way the engine reads the accum entry**.  That
+ambiguity is why the fix is structural rather than another entry rewrite: the
+arena-crowd finding (`_accum_root_mode`, verified live 2026-08-18) says the
+pose IS applied, the door geometry says it is not, and sinking satisfies both.
+
+Skinned meshes are excluded (an actor rig's `Bip01` pose is its bind pose and
+its clips go through the behaviour graph).  Measured scope in Oblivion.esm: 92
+meshes, of which 58 ship (the rest are `menus/` and `creatures/`, both in
+`SKIP_PATHS`) — doors, gates, portcullises, sconces, traps, Root/SI props.
+Verified with `tools/nif/anim_pose_diff.py -f Oblivion.esm --list <hits>
+--both` (world-pose comparison of source vs output at REST and at every
+sequence's end frame, under both readings of the accum entry): 0 regressions.
+The 8 shipped meshes that still differ (billboard-bearing Flames of Agnon /
+fire column / wargate / siege sigil) differ IDENTICALLY in the pre-fix output,
+i.e. they are the separate, pre-existing billboard axis behaviour.
+
+Rebuild just these with
+`python tools/nif/convert_meshes_subset.py -f <plugin> --list <hits>`.
+
 ### DOOR sound records: SNAM/ANAM must name an SNDR (2026-08-05)
 
 Separate defect found in the same investigation.  TES5 `DOOR` SNAM (open) /

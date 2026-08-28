@@ -4,6 +4,7 @@ import re
 from typing import Optional
 
 from script_convert.constants import (
+    OWNED_CONTAINER_MARKER,
     BLOCK_MAP, BLOCK_FILTER_PARAM, TYPE_MAP, ACTOR_VALUE_MAP, KNOWN_GLOBALS,
     TES4_ATTRIBUTES, ATTRIBUTE_STUB_VALUE,
     _ACTOR_VALUE_FUNCTIONS, _ACTOR_VALUE_READ_FUNCTIONS,
@@ -299,6 +300,12 @@ class ScriptConverter:
     # the two can never disagree about which INFOs carry a fragment.
     say_topics: set = set()
 
+    # File name of the plugin being converted, e.g. "Oblivion.esm". Set once
+    # per run by the pipeline from the export directory's own name. Emitted
+    # code that has to resolve one of this plugin's OWN records at runtime
+    # names it here -- see the SetOwnership handler.
+    plugin_file: str = ''
+
     # DIAL EditorID (lower) -> `TES4Unlock_<topic>` GlobalVariable name, from
     # tes5_import.dialog_unlocks.build_unlock_plan. Populated once per run by
     # the pipeline. `AddTopic X` on a GATED topic opens that topic's gate, the
@@ -342,6 +349,10 @@ class ScriptConverter:
         # Per-script: a latch registered while converting one script must not
         # leak a declaration into the next (see _guard_stage_timer).
         self._stage_latches = {}
+        # `TES4Polyfill.SellFromOwnedContainer(...)` calls emitted while
+        # converting the GameMode body, repeated outside their latching
+        # branch at the end of the poll (see the SetOwnership handler).
+        self._owned_container_transfers: list = []
         # Set while a GameMode poll body is being converted: the arm a TES4
         # `return` must emit before `Return` (see the OnUpdate emitter).
         self._poll_return_prefix = ''
@@ -1282,6 +1293,7 @@ class ScriptConverter:
                 out.append(f'Float TES4_SecondsPassed = {interval}')
                 out.append('Float TES4_LastTick = 0.0')
                 out.append('')
+            _poll_decl_idx = len(out)
             out.append('Event OnUpdate()')
             # Arm the poll TWICE: an insurance arm at the TOP and the real
             # re-arm at the BOTTOM.
@@ -1312,23 +1324,43 @@ class ScriptConverter:
             # so a pass schedules the next tick `interval` after the body
             # FINISHES — period = interval + execution time, and passes never
             # overlap.
+            # See _needs_low_process_poll: a body that watches the clock, or
+            # waits for the player to LEAVE, has to keep ticking once the cell
+            # detaches or the thing it waits for can never be observed.
+            low_process = (load_gated
+                           and self._needs_low_process_poll(gamemode_body))
+
             def _emit_arm(indent='  ', secs=None):
                 secs = interval if secs is None else secs
-                if load_gated:
+                if not load_gated or (low_process
+                                      and secs == self._LOW_PROCESS_INTERVAL):
+                    # Nothing to gate: the arm is the same either way (the top
+                    # insurance arm of a low-process script already ticks at
+                    # the detached rate).
+                    out.append(f'{indent}RegisterForSingleUpdate({secs})')
+                else:
                     out.append(f'{indent}If ({self._GAMEMODE_GATE})')
                     out.append(f'{indent}  RegisterForSingleUpdate({secs})')
+                    if low_process:
+                        out.append(f'{indent}Else  ; TES4 low process — this '
+                                   'body must keep running while the player '
+                                   'is away')
+                        out.append(f'{indent}  RegisterForSingleUpdate'
+                                   f'({self._LOW_PROCESS_INTERVAL})')
                     out.append(f'{indent}EndIf')
-                else:
-                    out.append(f'{indent}RegisterForSingleUpdate({secs})')
             _emit_arm(secs='5.0')
             # A TES4 `return` inside the polled body ends THIS pass only; the
             # converted `Return` must re-arm at the real interval itself,
             # since it skips the bottom arm and the top arm is 5s now.
             if load_gated:
+                _low_else = ('' if not low_process else
+                             f'  Else\n'
+                             f'    RegisterForSingleUpdate'
+                             f'({self._LOW_PROCESS_INTERVAL})\n')
                 self._poll_return_prefix = (
                     f'If ({self._GAMEMODE_GATE})\n'
                     f'    RegisterForSingleUpdate({interval})\n'
-                    f'  EndIf\n  ')
+                    f'{_low_else}  EndIf\n  ')
             else:
                 self._poll_return_prefix = f'RegisterForSingleUpdate({interval})\n  '
             if quest_gated:
@@ -1406,9 +1438,42 @@ class ScriptConverter:
                 out.append(f'    TES4_SecondsPassed = {interval}')
                 out.append('  EndIf')
                 out.append('  TES4_LastTick = TES4_Now')
+            self._owned_container_transfers = []
             for bline in gamemode_body:
                 converted = self._convert_line(bline, extends)
                 out.append(f'  {converted}')
+            # A merchant's hidden stock container, swept OUTSIDE the
+            # branch that handed it over.
+            #
+            # That branch is written `if <gate> && MerchSetup == 0 ... set
+            # MerchSetup to 1`, and the variable lives in the SAVE.  So on
+            # any save that already reached the gate it is dead forever,
+            # and a transfer emitted only inside it can never run there --
+            # for the seven player houses, every save that already bought
+            # the house.  The sweep cannot jump the gate either: the stock
+            # container is flagged Initially Disabled and the SAME branch
+            # `Enable()`s it one line before the hand-over (measured: all
+            # 15 sites), which is what the polyfill tests.
+            #
+            # It runs on a COUNTDOWN, not every pass: the poll ticks at
+            # 0.25-0.5s and a sweep costs a few natives per item.  The
+            # counter is a plain script variable, so it starts at 0 in a
+            # save that has never seen it and the first pass after
+            # installing sweeps immediately.
+            _restock = list(self._owned_container_transfers)
+            self._owned_container_transfers = []
+            if _restock:
+                _every = max(1, int(round(60.0 / float(interval))))
+                out.insert(_poll_decl_idx, '')
+                out.insert(_poll_decl_idx,
+                           f'Int TES4_StockTick = 0  ; sweep every {_every} '
+                           'passes (~60s)')
+                out.append('  If TES4_StockTick <= 0')
+                out.append(f'    TES4_StockTick = {_every}')
+                out.append('    TES4_RestockMerchants()')
+                out.append('  Else')
+                out.append('    TES4_StockTick -= 1')
+                out.append('  EndIf')
             # Stage-arrival latches: record the stage each guarded quest is on
             # NOW, so the next pass can tell "we have already seen this stage"
             # from "it just arrived".  Emitted at the very END of the body so
@@ -1423,6 +1488,8 @@ class ScriptConverter:
             _emit_arm()
             out.append('EndEvent')
             out.append('')
+            if _restock:
+                out.extend(self._emit_restock_function(_restock))
 
         # Sleep-idiom MenuMode bodies become real Papyrus sleep listeners.
         # Oblivion ran the body every menu frame while the player slept; the
@@ -2976,6 +3043,63 @@ class ScriptConverter:
             return 'Scroll'
         return ptype
 
+    # Papyrus caps an array at 128 entries; the biggest hand-over container
+    # in Oblivion.esm holds 15. A larger one is truncated rather than emitting
+    # a script that will not compile.
+    _RESTOCK_MAX = 128
+
+    def _emit_restock_function(self, transfers: list) -> list:
+        """The sweep that keeps a converted merchant's shelf stocked.
+
+        `transfers` is [(stock reference expression, chest local FormID,
+        ((item FormID, count), ...)), ...] collected by the SetOwnership
+        handler while the poll body was converted.
+
+        Everything here is authored data read straight off the export: the
+        chest is the `XMRC` on the merchant's placed reference, and the items
+        are the base CONT's own CNTO with their TES4 counts and SIGNS intact
+        (negative = Oblivion's restocking shelf). Nothing is inferred from a
+        name, and nothing is read at runtime -- a script cannot enumerate a
+        container without SKSE, which the pipeline does not compile against.
+
+        Both FormIDs are emitted as low 24 bits and resolved through
+        `Game.GetFormFromFile`, never as script properties: a property's value
+        lives in the plugin's VMAD, which a scripts-only rebuild does not
+        write, so it would arrive as None.
+        """
+        out = ['; Keep every merchant shelf this script hands over STOCKED.',
+               ';',
+               '; The hand-over branch above latches on a save variable and the',
+               '; destination chest respawns, so neither the transfer nor the',
+               '; items in it are permanent. This runs outside that branch,',
+               '; gated on the stock container being ENABLED -- which is what',
+               '; the authored hand-over does one line before handing it over,',
+               '; so nothing goes on sale before the player earns it.',
+               'Function TES4_RestockMerchants()']
+        for n, (ref, chest, stock) in enumerate(transfers):
+            stock = list(stock)[:self._RESTOCK_MAX]
+            out.append(f'  ; {ref} -> chest 0x{chest:06X}, '
+                       f'{len(stock)} authored item(s)')
+            if not stock:
+                # No CNTO to restore (or the base was not found): the move is
+                # still worth doing -- that is the latching branch's job.
+                out.append(f'  TES4Polyfill.SellFromOwnedContainer({ref}, '
+                           f'0x{chest:06X}, "{self.plugin_file}")'
+                           f'  ; {OWNED_CONTAINER_MARKER} (swept)')
+                continue
+            out.append(f'  Int[] items{n} = new Int[{len(stock)}]')
+            out.append(f'  Int[] counts{n} = new Int[{len(stock)}]')
+            for i, (fid, count) in enumerate(stock):
+                out.append(f'  items{n}[{i}] = '
+                           f'0x{int(fid, 16) & 0xFFFFFF:06X}')
+                out.append(f'  counts{n}[{i}] = {count}')
+            out.append(f'  TES4Polyfill.StockMerchant({ref}, 0x{chest:06X}, '
+                       f'"{self.plugin_file}", items{n}, counts{n})'
+                       f'  ; {OWNED_CONTAINER_MARKER} (swept)')
+        out.append('EndFunction')
+        out.append('')
+        return out
+
     def _script_type_binds(self, ptype: str, fid: str) -> bool:
         """Whether an attached script class may stand in for `ptype` HERE.
 
@@ -3043,6 +3167,10 @@ class ScriptConverter:
         # Per-script: a latch registered while converting one script must not
         # leak a declaration into the next (see _guard_stage_timer).
         self._stage_latches = {}
+        # `TES4Polyfill.SellFromOwnedContainer(...)` calls emitted while
+        # converting the GameMode body, repeated outside their latching
+        # branch at the end of the poll (see the SetOwnership handler).
+        self._owned_container_transfers: list = []
         # Set while a GameMode poll body is being converted: the arm a TES4
         # `return` must emit before `Return` (see the OnUpdate emitter).
         self._poll_return_prefix = ''
@@ -3223,6 +3351,50 @@ class ScriptConverter:
     # 1,111 converted scripts gate their poll re-arm on this, so a throw here
     # is a silent, permanent loop death across the whole plugin.
     _GAMEMODE_GATE = 'TES4Polyfill.SafeGameModeGate(Self)'
+
+    # TES4's LOW PROCESS: a persistent actor's GameMode block kept running
+    # while its cell was unloaded, just slowly.  SafeGameModeGate drops the
+    # poll instead.  That is right for the overwhelming majority of scripts
+    # (they only describe what happens in front of the player) and WRONG for
+    # the ones whose whole job is to notice something that happens WHILE THE
+    # PLAYER IS AWAY.  Those re-arm slowly on the Else branch instead of
+    # stopping — the low process, restored.
+    #
+    # Two authored signals, both measured over Oblivion.esm's 2,031 object
+    # scripts with source — 46 scripts on 59 placed instances, so the extra
+    # polling is bounded at ~12 passes/sec worst case:
+    #   * the body STORES a clock global in a script variable (`set renthour
+    #     to GameHour`).  That is the "remember when this started" idiom, and
+    #     the elapsed time it measures is not re-derivable on the next attach.
+    #     Merely READING the clock is NOT enough and must not qualify: it is
+    #     what 213 streetlights and 60 exterior lights do (`if gamehour >= 18
+    #     enable else disable`), a decision recomputed from scratch every pass
+    #     that self-corrects the moment the cell attaches — polling those while
+    #     unloaded would have cost 372 instances instead of 59, for nothing.
+    #   * the body tests THE PLAYER BEING ELSEWHERE (`Player.GetInCell <x>
+    #     == 0`).  A gate that only runs while the player is here can never
+    #     answer it — the old code could catch it only on the single trailing
+    #     tick after a cell transition, racing the loading screen.
+    #
+    # Both appear in the inn-room rentals, which is where this was found: 32
+    # publican scripts hold a room for one day.  29 latch on `Player.GetInCell
+    # <inn> == 0`; Bruma's Jerall View instead counts GameHour boundaries to
+    # 24, and that counter advances at most ONE hour per pass, so with passes
+    # only while the player stands in the inn it never reached 24 and the room
+    # stayed rented forever.  See docs/papyrus_conversion_notes.md.
+    _LOW_PROCESS_INTERVAL = '5.0'
+    _LOW_PROCESS_CLOCK_RE = re.compile(
+        r'\bset\s+\w+\s+to\b[^;\n]*'
+        r'\b(?:gamehour|gameday|gamemonth|gameyear|gamedayspassed)\b', re.I)
+    _LOW_PROCESS_ELSEWHERE_RE = re.compile(
+        r'\bplayer\s*\.\s*getincell\s+\S+\s*(?:==\s*0|!=\s*1|<\s*1)', re.I)
+
+    @classmethod
+    def _needs_low_process_poll(cls, body_lines) -> bool:
+        """Does this polled body depend on time passing away from the player?"""
+        body = '\n'.join(body_lines)
+        return bool(cls._LOW_PROCESS_CLOCK_RE.search(body)
+                    or cls._LOW_PROCESS_ELSEWHERE_RE.search(body))
 
     def _get_update_interval(self) -> str:
         if self._uses_getsecondspassed:
@@ -8289,8 +8461,51 @@ class ScriptConverter:
                 pref_type = self._property_refs.get(arg, self._property_refs.get(_safe_property_name(args_str.strip()), ''))
                 if arg_rtype == 'FACT' or pref_type == 'Faction':
                     return f'{ref}.SetFactionOwner({arg})'
-                else:
-                    return f'{ref}.SetActorOwner({arg}.GetActorBase())'
+                owner_call = f'{ref}.SetActorOwner({arg}.GetActorBase())'
+                # A TES4 merchant sells from any container he OWNS. Skyrim
+                # sells exactly one container -- the VENC on his vendor
+                # faction -- and SetActorOwner only marks property, so a
+                # faithful one-for-one conversion silently takes the stock off
+                # sale. That is how Oblivion's house upgrades work: the quest
+                # enables a hidden CONT of receipt BOOKs and hands it to the
+                # shopkeeper at the stage where the house is bought.
+                #
+                # Keyed on authored data, never on names: the reference must
+                # resolve to a CONT, and the new owner must carry vendor bits
+                # in AIDT.Services and have an XMRC chest. Beds fail the first
+                # test, which is what keeps the 35 `Publican*RentBed` calls --
+                # SetOwnership on a BED so sleeping there is not trespass --
+                # out of this. The GATE is untouched: this runs exactly where
+                # the ownership call already ran.
+                chest = (self.xref.merchant_chest_for(args_str.strip())
+                         if self.xref else '')
+                if (chest and ref_name and self.plugin_file
+                        and self.xref.get_base_signature(ref_name) == 'CONT'):
+                    # The chest is named by FormID and resolved at RUNTIME, not
+                    # bound as a script property: a property is filled from the
+                    # plugin's VMAD, which `--scripts-only` does not rewrite, so
+                    # it would be None -- and RemoveAllItems(None) DESTROYS the
+                    # stock rather than moving it. The polyfill guards both.
+                    local = int(chest, 16) & 0xFFFFFF
+                    call = (f'TES4Polyfill.SellFromOwnedContainer({ref}, '
+                            f'0x{local:06X}, "{self.plugin_file}")')
+                    # The AUTHORED stock list travels with it: the poll
+                    # has to be able to put the shelf BACK, and a script
+                    # cannot read a container at runtime without SKSE.
+                    stock = self.xref.container_stock(ref_name)
+                    site = (ref, local, tuple(stock))
+                    if site not in self._owned_container_transfers:
+                        self._owned_container_transfers.append(site)
+                    # The branch this sits in LATCHES (`MerchSetup == 0`),
+                    # so on a save that already passed it no fix here can
+                    # ever run.  That is why the site is remembered: the
+                    # poll emitter builds a sweep OUTSIDE the latch, gated
+                    # on the container's own ENABLED state -- which the
+                    # authored hand-over sets one line above, in all 15
+                    # sites -- so an existing save repairs itself.
+                    return (f'{owner_call}\n'
+                            f'  {call}  ; {OWNED_CONTAINER_MARKER}')
+                return owner_call
             return f'{ref}.SetActorOwner(Game.GetPlayer().GetActorBase())'
 
         # IsOwner [owner] — the read side of SetOwnership.  Written bare it asks

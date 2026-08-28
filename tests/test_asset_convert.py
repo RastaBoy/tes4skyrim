@@ -4289,3 +4289,107 @@ class TestCollisionWindingRepair:
                 assert len(normals) == len(soup[0])
                 checked += 1
         assert checked, 'expected a mesh collision shape in seisland.nif'
+
+
+class TestAccumRootTransformSunk:
+    """An accum root must reach Skyrim with NO transform of its own.
+
+    Oblivion splits an animated object's pose: the accum root node carries it
+    in the scene graph, and the clip re-applies the SAME pose as the absolute
+    transform of "<accum> NonAccum" while zeroing the accum root through an
+    identity pose.  Whether Skyrim honours that identity pose or consumes the
+    entry as root motion, leaving the node's transform in place applies the
+    pose TWICE -- doors swung through their own hinge into the wall (Olav's
+    Tap and Tack, Five Claws Lodge).  So the converter sinks the transform
+    onto the children and the accum root ships identity.
+
+    See docs/nif_conversion_notes.md, "An accum root's transform must be SUNK
+    onto NonAccum".
+    """
+
+    # (mesh, accum root node name) -- one scene-root accum and two child
+    # accums, the two shapes the defect takes.
+    CASES = [
+        ('architecture/lowerclass/doorfulllower02.nif', b'door'),
+        ('architecture/leyawiin/leyawindoorlowerint01.nif',
+         b'Leyawiin Door L C IINT 01'),
+        ('architecture/bravil/bravilloaddoorlowerint01.nif', b'DoorLowerINT01'),
+    ]
+
+    @staticmethod
+    def _find(root, name):
+        for block in root.tree():
+            if (hasattr(block, 'rotation') and hasattr(block, 'translation')
+                    and bytes(getattr(block, 'name', b'') or b'') == name):
+                return block
+        return None
+
+    @staticmethod
+    def _local(node):
+        m = node.rotation
+        return ([[m.m_11, m.m_12, m.m_13],
+                 [m.m_21, m.m_22, m.m_23],
+                 [m.m_31, m.m_32, m.m_33]],
+                (node.translation.x, node.translation.y, node.translation.z),
+                float(node.scale))
+
+    @pytest.mark.skipif(not EXPORT_MESHES.exists(),
+                        reason='Export meshes not available')
+    @pytest.mark.parametrize('rel_path,accum', CASES)
+    def test_accum_root_identity_and_pose_moved_to_nonaccum(
+            self, rel_path, accum, tmp_path):
+        from pyffi.formats.nif import NifFormat
+
+        src = EXPORT_MESHES / rel_path
+        if not src.exists():
+            pytest.skip(f'{src} not found')
+
+        def load(path):
+            data = NifFormat.Data()
+            with open(path, 'rb') as fh:
+                data.read(fh)
+            return data.roots[0]
+
+        src_root = load(src)
+        src_accum = self._find(src_root, accum)
+        assert src_accum is not None, f'{accum!r} not in the source tree'
+        src_R, src_T, src_S = self._local(src_accum)
+        # The case only exists because the source node carries a real pose.
+        assert (max(abs(v) for v in src_T) > 1e-3
+                or abs(src_R[0][1]) > 1e-3 or abs(src_R[0][0] - 1.0) > 1e-3), \
+            'source accum root is already identity — pick another mesh'
+
+        dst = tmp_path / 'out.nif'
+        result = convert_nif(str(src), str(dst))
+        assert result['converted'], f"Conversion failed: {result.get('error')}"
+
+        out_root = load(dst)
+        # The wrapper the rotation-wrap pass builds carries the ROOT's name, so
+        # search from the deepest match backwards is not needed: the accum node
+        # keeps its own distinct name in every case but the scene-root one,
+        # where an identity root and an identity wrapper are equally fine.
+        out_accum = None
+        for block in out_root.tree():
+            if (hasattr(block, 'rotation')
+                    and bytes(getattr(block, 'name', b'') or b'') == accum):
+                out_accum = block
+                R, T, S = self._local(block)
+                assert abs(R[0][0] - 1.0) < 1e-4 and abs(R[1][1] - 1.0) < 1e-4, \
+                    f'{accum!r} still carries a rotation after conversion'
+                assert abs(R[0][1]) < 1e-4 and abs(R[1][0]) < 1e-4
+                assert max(abs(v) for v in T) < 1e-3, \
+                    f'{accum!r} still carries a translation after conversion'
+                assert abs(S - 1.0) < 1e-4
+        assert out_accum is not None, f'{accum!r} vanished from the output'
+
+        # ...and the rest pose is unchanged, because NonAccum absorbed it.
+        na = self._find(out_root, accum + b' NonAccum')
+        assert na is not None, 'NonAccum child missing from the output'
+        na_R, na_T, na_S = self._local(na)
+        for i in range(3):
+            for j in range(3):
+                assert abs(na_R[i][j] - src_R[i][j]) < 1e-3, \
+                    'NonAccum did not absorb the accum root rotation'
+            assert abs(na_T[i] - src_T[i]) < 1e-2, \
+                'NonAccum did not absorb the accum root translation'
+        assert abs(na_S - src_S) < 1e-4

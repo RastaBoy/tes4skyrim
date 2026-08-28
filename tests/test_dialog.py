@@ -1961,3 +1961,53 @@ class TestDropNonActorSpeakerCtdas:
         blob = pack_subrecord('CTDA',
                               self._ctda(sorted(_NON_ACTOR_SPEAKER_DROP)[0]))
         assert _drop_non_actor_speaker_ctdas(blob) == b''
+
+
+class TestGoldConditionParam:
+    """`GetItemCount Gold001` must count SKYRIM's gold, not our copy.
+
+    Skyrim hardcodes 0x0F as currency, so the player's money is always
+    Skyrim.esm's Gold001; the converted Oblivion copy at 0x0100000F is a valid
+    but inert MISC that nothing hands out.  Remapping the condition param to it
+    made every "can you pay?" gate read 0 -- 88 conditions in the built plugin,
+    including all 31 innkeepers of the BedRental quest.
+
+    See docs/dialogue_conversion_notes.md.
+    """
+
+    GOLD001 = 0x0000000F
+
+    def test_gold_param_resolves_to_skyrims_copy(self):
+        from tes5_import import dialog_conditions as dc
+        assert dc._remap_formid(self.GOLD001, 1) == self.GOLD001
+
+    def test_neighbouring_oblivion_record_still_shifts(self):
+        """0x0B is DASkeletonKey — an ordinary Oblivion record that must move.
+        The substitution is a one-entry table, not "everything below 0x100"."""
+        from tes5_import import dialog_conditions as dc
+        assert dc._remap_formid(0x0000000B, 1) == 0x0100000B
+
+    def test_player_forms_still_pass_through(self):
+        from tes5_import import dialog_conditions as dc
+        assert dc._remap_formid(0x00000014, 1) == 0x00000014   # PlayerRef
+        assert dc._remap_formid(0x00000007, 1) == 0x00000007   # Player base
+
+    def test_substitution_cannot_corrupt_a_non_formid_param(self):
+        """0x0F -> 0x0F is the identity, so a param that is an index rather
+        than a FormID is unchanged either way."""
+        from tes5_import import dialog_conditions as dc
+        assert dc._remap_formid(self.GOLD001, 0) == self.GOLD001
+
+    def test_get_item_count_gold_condition_round_trips(self):
+        """End to end through convert_ctda: the emitted param is 0x0F."""
+        import struct
+        from tes5_import import dialog_conditions as dc
+        raw = (struct.pack('<Bxxx', 0x62)          # >= , run-on-target bit
+               + struct.pack('<f', 10.0)
+               + struct.pack('<I', 47)             # GetItemCount
+               + struct.pack('<I', self.GOLD001)
+               + struct.pack('<I', 0)
+               + b'\x00' * 4)
+        out = dc.convert_ctda(raw, offset=1)
+        assert out is not None
+        assert struct.unpack_from('<I', out, 12)[0] == self.GOLD001

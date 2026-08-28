@@ -19,6 +19,7 @@ conditions reference for the methodology.
 import struct
 
 from .constants import ENGINE_GLOBAL_FORMIDS
+from .skyrim_overrides import TES4_ITEM_FORMID_TO_SKYRIM as _ITEM_SUBSTITUTIONS
 from .ctda_param_types import CTDA_FORMID_PARAMS
 from .text_reader import (_ENGINE_FIXED_FORMIDS, get_formid_index_offset,
                           remap_formid)
@@ -336,6 +337,19 @@ def _remap_formid(fid: int, offset: int) -> int:
     text_reader.remap_formid (whose record-field contract is the opposite:
     references to the CONVERTED player copy 0x0100xxxx must keep shifting).
 
+    ITEM SUBSTITUTIONS apply here exactly as they do to record fields
+    (text_reader.get_formid): a condition parameter naming an engine-hardcoded
+    base object must resolve to SKYRIM's copy. Gold001 is the whole table and
+    the whole point — `GetItemCount Gold001 >= 10` is how Oblivion asks "can
+    you pay?", and remapped to 0x0100000F it counts our converted MISC copy,
+    which is inert money the player can never hold, so the check reads 0 and
+    the answer is always no. Measured in the shipped Oblivion.esm before this
+    was added: 88 GetItemCount conditions on 0x0100000F, including every
+    innkeeper's "I'm afraid you lack the funds to rent a room" (the BedRental
+    quest gates 31 publicans on it) plus bribes, tolls and training fees.
+    The scripts already did this (object_scripts, dialog_converter); only the
+    conditions were left reading the dead copy.
+
     Everything else delegates to text_reader.remap_formid so conditions shift
     identically to record fields — including overrides, which keep their
     master's index.
@@ -357,6 +371,9 @@ def _remap_formid(fid: int, offset: int) -> int:
     """
     if (fid >> 24) == 0 and (fid & 0x00FFFFFF) in _CONDITION_PASSTHROUGH_FIDS:
         return fid
+    sub = _ITEM_SUBSTITUTIONS.get(fid)
+    if sub is not None:
+        return sub
     return remap_formid(fid, offset)
 
 

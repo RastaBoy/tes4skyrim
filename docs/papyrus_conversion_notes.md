@@ -4,6 +4,127 @@ Linked from [CLAUDE.md](../CLAUDE.md). TES4 script → Papyrus conversion
 learnings. Implemented in `script_convert/`. For the original scope analysis and
 record counts see [Script_Conversion_Plan.md](Script_Conversion_Plan.md).
 
+## SetOwnership on a merchant's container is also a TRANSFER (2026-08-28)
+
+Oblivion lets a merchant sell from **any container he owns**; Skyrim sells
+exactly one, the `VENC` on his vendor faction. `SetActorOwner` marks property
+and nothing else, so a faithful one-for-one conversion of
+`<ref>.SetOwnership <actor>` silently takes stock off sale. That is how the
+seven player-house upgrade quests work (a hidden CONT of receipt BOOKs handed
+over at the stage the house is bought) and how Sinderion's four skill-gated
+chests work in MS39.
+
+The rule, keyed on authored data only:
+
+> when the reference resolves to a **CONT** and the new owner carries vendor
+> bits in `AIDT.Services` and has an `XMRC` merchant container, emit the
+> ownership call **and** `RemoveAllItems(<that chest>)`.
+
+Implemented in the `setownership` branch of `converter.py`; the two lookups are
+`CrossRefGraph.merchant_chest_for()`, which shares `_vendor_bits` with the
+importer. The gate survives untouched because the transfer runs exactly where
+the ownership call already ran.
+
+### 🛑 A NEW SCRIPT PROPERTY IS NOT FREE — `--scripts-only` cannot fill it
+
+The first version of this emitted `<stock>.RemoveAllItems(<chest>)` with the
+chest as an ordinary `ObjectReference Property ... Auto`. It failed in game, and
+the reason generalises to every future change:
+
+**A property's VALUE lives in the PLUGIN's VMAD, not in the script.** The
+importer fills it by running a full ScriptConverter pass at import time
+(`tes5_import/object_scripts.py`), so a property the script gained after the
+last `--import-only` is simply **None** at runtime. Measured: the converted
+`HouseBruma` QUST fills 21 properties for `TES4_HouseBrumaFurnScript`, and
+`NovaromaSuurootanChest` was not one of them.
+
+That silence is worse than an error here, because
+**`ObjectReference.RemoveAllItems(None)` DESTROYS the inventory** rather than
+moving it — the Bruma receipts were deleted the moment the quest hit stage 10.
+
+So the emitted code resolves the chest at RUNTIME and guards both halves:
+
+```papyrus
+TES4Polyfill.SellFromOwnedContainer(HouseBrumaAddonsRef, 0x0377B9, "Oblivion.esm")
+```
+
+`ScriptConverter.plugin_file` carries the file name (set by the pipeline from
+the export directory's own name), and the converted record keeps its TES4
+FormID, so the low 24 bits address it directly — verified:
+`NovaromaSuurootanChest` is `000377B9` in the export and `010377B9` in the
+output. The polyfill returns early on either an unresolved chest or an absent
+stock, so the destructive case cannot happen again.
+
+**The rule for any new pass: if it adds a script property, it needs
+`--import-only` too. If it must work from `--scripts-only` alone — which is what
+a loose-script patch ships — resolve the form at runtime instead.**
+
+### The hand-over branch LATCHES, so the poll also SWEEPS
+
+The TES4 idiom is `if <gate> && MerchSetup == 0 ... set MerchSetup to 1`, and
+that variable lives in the SAVE. A transfer emitted only inside that branch is
+therefore dead on every save that already reached the gate -- for the seven
+player houses, every save that already bought the house. The first shipped
+version did exactly that and could not fix a single existing playthrough.
+
+So the emitter also generates `TES4_RestockMerchants()`, called from the poll on
+a countdown (~60s; the counter is a plain script variable, so it starts at 0 in
+a save that has never seen it and the first pass sweeps immediately). It is
+gated on the stock container's own `IsEnabled()`, which IS the authored gate:
+the container is flagged Initially Disabled and the hand-over branch `Enable()`s
+it **one line before** the ownership call -- measured over Oblivion.esm, all 15
+sites have that shape, so a sweep can never put stock on sale early.
+
+### The sweep carries the AUTHORED item list, because the shelf does not keep
+
+Moving the stock is not enough, because it does not stay moved:
+
+* the FIRST build resolved the chest through a script property `--scripts-only`
+  could not fill, and `RemoveAllItems(None)` DESTROYED the stock;
+* **the vendor chest RESPAWNS.** Measured over the export: `CONT.DATA.Flags`
+  splits 437 x 0 / 436 x 2, with 2 on every vendor chest, drawer and clutter
+  barrel and 0 on unique and quest containers -- i.e. bit `0x02` is Respawns,
+  and `convert_CONT` copies it straight through to the TES5 flag of the same
+  value. All seven house merchants' `XMRC` chests carry it. The addons
+  containers do NOT (flags=0), which is why Oblivion never had this exposure:
+  there the stock stayed put and ownership alone sold it.
+
+Neither is recoverable from the source container -- it is empty by then -- and a
+script cannot read a container's contents either: `GetNumItems`/`GetNthForm` are
+SKSE and the pipeline compiles against the vanilla headers only. So the sweep
+carries the list. `CrossRefGraph.container_stock()` reads the base CONT's own
+CNTO at conversion time and the emitter writes it into the script as literals:
+
+```papyrus
+Int[] items0 = new Int[9]
+Int[] counts0 = new Int[9]
+items0[0] = 0x0B1593
+counts0[0] = 1
+...
+TES4Polyfill.StockMerchant(HouseBrumaAddonsRef, 0x0377B9, "Oblivion.esm", items0, counts0)
+```
+
+**The TES4 count's SIGN is the rule**, and it is authored data:
+
+| count | meaning in TES4 | what StockMerchant does |
+|---|---|---|
+| `> 0` | a finite pile | add it while neither the chest nor the player has it |
+| `< 0` | "the merchant always has N for sale" | keep the chest topped up to `N`, whatever the player does |
+
+Measured: the 63 house receipts are all `+1`; Sinderion's four chests are all
+negative (`-1, -2, -3, -5`). The negative branch also repairs a second, older
+gap -- `MS39SinderionChest` has flags=0, so his converted stock never restocked
+through the respawn flag Skyrim uses, and the authored `-5` was lost.
+
+Emitted counts for Oblivion.esm: 8 scripts, 15 in-branch transfers, 11 swept
+containers, 73 authored items, 0 of the 35 bed rentals.
+
+The CONT test is what excludes the 35 `Publican*RentBed` calls — `SetOwnership`
+on a BED so sleeping there is not trespass — and it is doing real work, not
+coasting: several of those publicans are vendors with their own XMRC chest.
+Measured over Oblivion.esm: 8 scripts, 15 transfer sites, 0 bed rentals.
+
+
 ## Language mapping basics
 
 TES4 uses an imperative scripting language with event blocks (GameMode,
@@ -540,6 +661,51 @@ The poll is armed at three places, each for a different reason (2026-08-16):
   is not running need not poll faster); the dialogue gate re-arms at 0.5s.
 * **bottom of the body: `RegisterForSingleUpdate(<interval>)`** — the cadence,
   measured from the END of the pass, so passes never overlap.
+
+### The LOW PROCESS: a poll that must survive its cell detaching (2026-08-28)
+
+**Symptom (user report):** an inn room rented for one night stays the player's
+forever.
+
+`SafeGameModeGate` stops an object/actor poll once the reference's cell
+detaches. That is right for almost every script — they only describe what
+happens in front of the player — and **wrong for a script whose whole job is
+to notice something that happens WHILE THE PLAYER IS AWAY.** TES4 ran a
+persistent actor's `GameMode` block in the LOW PROCESS with its cell unloaded,
+just slowly; our gate has no low process at all.
+
+The 32 inn-room rentals are the family this was found on, and they fail in two
+different ways for the same reason:
+
+* 29 publicans (`PublicanBrumaOlavsTapandTackOlav`, `PublicanRoxeyMalene`, …)
+  latch on `if ( Player.GetInCell <inn> == 0 ) / if Cleanup == 1 / set Cleanup
+  to 2`. That question is unanswerable from a poll that only runs while the
+  player is *here*: the only pass that could ever see it is the single
+  trailing tick after the cell transition, racing the loading screen.
+* Bruma's **Jerall View** (`PublicanBrumaJerallViewHafid`) instead counts
+  `GameHour` boundaries to 24 — and the counter advances by **at most one hour
+  per pass** (`if ( renthour + 1 ) < GameHour / set HoursPassed to HoursPassed
+  + 1`). In Oblivion its `MenuMode` twin counted through the wait/sleep menu as
+  time flowed; in Skyrim a sleep jumps the clock in one step, so eight hours of
+  sleep score 1, and with passes only while the player stands in the inn the
+  count never reached 24. The room never expired.
+
+**Fix — `_needs_low_process_poll` (script_convert/converter.py).** A qualifying
+body re-arms on the `Else` branch of the gate at `_LOW_PROCESS_INTERVAL` (5s)
+instead of stopping. Two AUTHORED signals, no name matching:
+
+1. the body **stores** a clock global in a script variable (`set renthour to
+   GameHour`) — the "remember when this started" idiom, whose elapsed time is
+   not re-derivable on the next attach;
+2. the body tests the **player being elsewhere** (`Player.GetInCell <x> == 0`).
+
+🛑 **Merely READING the clock must NOT qualify.** That is what `streetlightscript`
+and `ExteriorLightScript` do (`if gamehour >= 18 / enable / else / disable`) —
+a decision recomputed from scratch every pass that self-corrects the instant
+the cell attaches. Including reads took the set from 46 scripts on **59** placed
+instances to 73 on **372** (213 streetlights + 60 exterior lights), i.e. ~74
+Papyrus passes/second forever, for no behavioural gain. Measured over
+Oblivion.esm's 2,031 object scripts with source.
 
 ### `begin MenuMode` — the BARE form is not the menu-ID form (2026-07-31)
 

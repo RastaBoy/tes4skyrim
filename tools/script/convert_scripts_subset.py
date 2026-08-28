@@ -128,7 +128,8 @@ def main(argv=None) -> int:
 
     if args.compile:
         import subprocess
-        cmd = [sys.executable, str(ROOT / 'tools' / 'compile_papyrus.py'),
+        cmd = [sys.executable,
+               str(ROOT / 'tools' / 'script' / 'compile_papyrus.py'),
                '--src', out, '--out', os.path.join(out, 'pex')]
         print('  ' + ' '.join(cmd))
         return subprocess.call(cmd)

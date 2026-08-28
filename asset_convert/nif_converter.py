@@ -2031,6 +2031,34 @@ def _iter_controllers(mgr):
 _NO_VALUE = -3.4028234663852886e+38   # Gamebryo's "channel has no value"
 
 
+def _make_cb_name_resolver(palette):
+    """Build the controlled-block name lookup for one NiControllerManager.
+
+    Controlled-block names live EITHER in the bytes field OR, when the
+    sequence carries a NiStringPalette, at an offset into that palette.
+
+    Oblivion NIFs written with a palette leave the bytes field EMPTY and put
+    the name in <attr>_offset.  Reading only the bytes field therefore
+    returned '' for every entry, and _process_controller_manager's "drop
+    blocks with an empty node name" rule then deleted the ENTIRE sequence --
+    16 of 108 sampled animated meshes lost 100% of their animation this way
+    (candles, light sconces, the gnarl spawner, Cameron's Paradise bricks).
+    Prefer the bytes, fall back to the palette offset.
+    """
+    def _resolve_name(blk, seq, attr):
+        val = getattr(blk, attr, b'')
+        if isinstance(val, bytes) and val:
+            return val
+        if isinstance(val, int) and val and palette is not None:
+            try:
+                return palette.get_string(val)
+            except Exception:
+                pass
+        return _palette_lookup(_palette_bytes(getattr(seq, 'string_palette', None)),
+                               getattr(blk, attr + '_offset', None))
+    return _resolve_name
+
+
 def _accum_root_mode(seq, root, resolve_name):
     """How the sequence's accum-root controlled block must be converted.
 
@@ -2120,6 +2148,130 @@ def _accum_root_mode(seq, root, resolve_name):
     # rotation at all (the identity pose then only zeroes what NonAccum
     # re-applies).
     return 'transferred' if na_rot_animated else 'orphan'
+
+
+def _compose_local(child, parent):
+    """Compose two node-local transforms, child-first (row-vector convention).
+
+    Each argument is (Matrix33 rotation, (tx, ty, tz), scale); the result is
+    the single local transform equivalent to applying *child* then *parent*.
+    """
+    Rc, Tc, Sc = child
+    Rp, Tp, Sp = parent
+    c = [[Rc.m_11, Rc.m_12, Rc.m_13],
+         [Rc.m_21, Rc.m_22, Rc.m_23],
+         [Rc.m_31, Rc.m_32, Rc.m_33]]
+    p = [[Rp.m_11, Rp.m_12, Rp.m_13],
+         [Rp.m_21, Rp.m_22, Rp.m_23],
+         [Rp.m_31, Rp.m_32, Rp.m_33]]
+    m = NifFormat.Matrix33()
+    prod = [[sum(c[i][k] * p[k][j] for k in range(3)) for j in range(3)]
+            for i in range(3)]
+    (m.m_11, m.m_12, m.m_13) = prod[0]
+    (m.m_21, m.m_22, m.m_23) = prod[1]
+    (m.m_31, m.m_32, m.m_33) = prod[2]
+    rot = [sum(Tc[k] * p[k][j] for k in range(3)) for j in range(3)]
+    t = tuple(rot[j] * Sp + Tp[j] for j in range(3))
+    return m, t, Sc * Sp
+
+
+def _sink_accum_root_transform(node, palette, stats=None):
+    """Move an accum root's authored transform DOWN onto its children.
+
+    Oblivion's exporter splits an animated object's pose in two: the accum
+    root carries the authored transform in the scene graph, while the
+    sequence drives "<accum> NonAccum" with the ABSOLUTE transform and hands
+    the accum root an identity pose (the root-motion channel -- see
+    _accum_root_mode).  Playing the clip therefore has to ZERO the accum root
+    for the NonAccum value to land where it was authored.
+
+    Skyrim does not do that for us, in either of the two ways the entry can
+    reach it:
+
+      * accum root == the SCENE ROOT (5 of 258 Oblivion door models, e.g.
+        `Architecture/LowerClass/doorfulllower02.NIF`).  Its identity-pose
+        entry is DELETED by _process_controller_manager -- it has to be, since
+        a root-targeting entry crashes BGSGamebryoSequenceGenerator and 0
+        vanilla sequences ship one -- so nothing zeroes the node and the
+        rotation-wrap pass then re-hangs the same transform on the inner
+        wrapper.  Measured: doorfulllower02's leaf sits at (50.58, 3.43) in
+        Oblivion at the CLOSED frame and at (-50.57, -3.62) after conversion,
+        i.e. mirrored through its own hinge and driven into the wall.
+      * accum root == a CHILD node (8 of 258, e.g. the Leyawiin and Bravil
+        interior doors).  The entry survives, but it is the sequence's
+        root-motion channel, which the engine consumes for accumulation
+        instead of writing to the node.
+
+    Both collapse to the same defect -- the accum root's transform applied
+    TWICE -- and both disappear if the node simply has no transform to apply.
+    So push it down: every child of the accum root absorbs it (world poses,
+    and therefore the rest pose, are unchanged), the accum root's own
+    collision body absorbs it, and the node itself becomes identity.  The
+    NonAccum child then holds exactly the transform the clip writes, which is
+    also how vanilla Skyrim authors its animated doors.
+
+    Only 'transferred' accum roots qualify: those are the ones whose NonAccum
+    entry demonstrably re-applies the node's transform.  'orphan' roots (where
+    nothing else carries it) keep theirs -- zeroing those would collapse the
+    node.  Skinned meshes are excluded: an actor rig's Bip01 pose is the bind
+    pose, and its clips go through the behaviour graph, not this path.
+    """
+    mgr = node.controller
+    if not isinstance(mgr, NifFormat.NiControllerManager):
+        return 0
+    if any(isinstance(b, NifFormat.NiSkinInstance) for b in node.tree()):
+        return 0
+    resolve = _make_cb_name_resolver(palette)
+    accums = set()
+    for seq in mgr.controller_sequences:
+        try:
+            if _accum_root_mode(seq, node, resolve) != 'transferred':
+                continue
+        except Exception:
+            continue
+        nm = getattr(seq, 'target_name', b'') or b''
+        nm = nm.encode('latin-1') if isinstance(nm, str) else bytes(nm)
+        if nm:
+            accums.add(nm)
+    if not accums:
+        return 0
+
+    sunk = 0
+    for anode in list(node.tree()):
+        nm = getattr(anode, 'name', None)
+        if nm is None or bytes(nm) not in accums:
+            continue
+        if not hasattr(anode, 'children') or not hasattr(anode, 'rotation'):
+            continue
+        L = (anode.rotation,
+             (anode.translation.x, anode.translation.y, anode.translation.z),
+             float(anode.scale))
+        if (_is_identity(L[0]) and max(abs(v) for v in L[1]) < 1e-4
+                and abs(L[2] - 1.0) < 1e-4):
+            continue
+        # The split only exists when the exporter wrote the NonAccum child.
+        if not any(c is not None and bytes(getattr(c, 'name', b'') or b'')
+                   == bytes(nm) + b' NonAccum' for c in anode.children):
+            continue
+        for child in anode.children:
+            if child is None or not hasattr(child, 'rotation'):
+                continue
+            cR, cT, cS = _compose_local(
+                (child.rotation,
+                 (child.translation.x, child.translation.y, child.translation.z),
+                 float(child.scale)), L)
+            child.rotation = cR
+            child.translation.x, child.translation.y, child.translation.z = cT
+            child.scale = cS
+        if getattr(anode, 'collision_object', None) is not None:
+            bake_node_transform_into_body(anode.collision_object, anode)
+        anode.rotation = _identity_matrix()
+        anode.translation.x = anode.translation.y = anode.translation.z = 0.0
+        anode.scale = 1.0
+        sunk += 1
+    if sunk and stats is not None:
+        stats['accum_roots_sunk'] = stats.get('accum_roots_sunk', 0) + sunk
+    return sunk
 
 
 def _property_ctrl_index(root):
@@ -2235,28 +2387,7 @@ def _process_controller_manager(node, palette):
     mgr = node.controller
     root_name = node.name
 
-    def _resolve_name(blk, seq, attr):
-        """Controlled-block names live EITHER in the bytes field OR, when the
-        sequence carries a NiStringPalette, at an offset into that palette.
-
-        Oblivion NIFs written with a palette leave the bytes field EMPTY and
-        put the name in <attr>_offset.  Reading only the bytes field therefore
-        returned '' for every entry, and the "drop blocks with an empty node
-        name" rule below then deleted the ENTIRE sequence -- 16 of 108 sampled
-        animated meshes lost 100% of their animation this way (candles, light
-        sconces, the gnarl spawner, Cameron's Paradise bricks).  Prefer the
-        bytes, fall back to the palette offset.
-        """
-        val = getattr(blk, attr, b'')
-        if isinstance(val, bytes) and val:
-            return val
-        if isinstance(val, int) and val and palette is not None:
-            try:
-                return palette.get_string(val)
-            except Exception:
-                pass
-        return _palette_lookup(_palette_bytes(getattr(seq, 'string_palette', None)),
-                               getattr(blk, attr + '_offset', None))
+    _resolve_name = _make_cb_name_resolver(palette)
 
     prop_index = None      # id(property ctrl) -> shapes; built on first use
     for seq in mgr.controller_sequences:
@@ -4315,6 +4446,9 @@ def _walk_node(parent, node, fix_textures, stats):
                     palette = block.palette
                     break
             _process_controller_manager(node, palette)
+            # An accum root's authored transform must not survive into
+            # Skyrim -- the clip re-applies it through the NonAccum child.
+            _sink_accum_root_transform(node, palette, stats)
 
         # Recurse into children.  Non-root NiBillboardNodes get the Skyrim
         # billboard treatment on the way back up (axis correction, or demotion
@@ -5990,6 +6124,10 @@ def _convert_nif(data, fix_textures=True, src_path='', weight=0,
         if (root.controller is not None and
                 isinstance(root.controller, NifFormat.NiControllerManager)):
             _process_controller_manager(root, None)
+            # Must run BEFORE the rotation-wrap pass below: sinking the
+            # transform leaves the root identity, so no wrapper is built to
+            # re-apply what the clip already carries.
+            _sink_accum_root_transform(root, None, stats)
 
         # If root has non-identity rotation (non-skinned), wrap all geometry children
         # in a new inner NiNode that carries the rotation and translation, then zero

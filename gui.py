@@ -190,6 +190,14 @@ PATCH_ACTIONS = [
      "factions iNeed checks - which is what brings back the 'refill my "
      "waterskin' and 'sell me water' options. Build it AFTER Outfits & Hair: "
      "it shares 220 merchants with that patch and loads last"),
+    ("house", "House upgrades", "MyOwnTamrielHousePatch",
+     "house furnishings and Sinderion's stock actually on sale",
+     "Fixes buying a house's furnishings. Oblivion let a merchant sell from "
+     "any container he OWNED, and the house quest hands him a hidden crate of "
+     "receipts once you own the house; Skyrim sells only the one chest its "
+     "vendor faction names, so the receipts were never for sale. This ships "
+     "the eight fixed scripts as loose files - no plugin, and no re-deploying "
+     "the whole converted mod. Rebuild it after 'Convert scripts'"),
     ("ship", "Sailable Ship (Cyrodiil route)", "MyOwnTamrielShipPatch.esp",
      "the Cyrodiil sea route lands in OUR Cyrodiil",
      "Needs the Sailable Ship mod. Its 'Cyrodiil Route' was built for Rigmor "

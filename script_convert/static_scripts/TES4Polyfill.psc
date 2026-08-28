@@ -1300,3 +1300,90 @@ Float Function SpeakAsLineNoWait(ObjectReference akSpeaker, Float afFallbackLeng
   SpeakAs(akSpeaker, abInHead, akTopic)
   Return afFallbackLength
 EndFunction
+
+; ==========================================================================
+; Merchant stock
+; ==========================================================================
+
+; Oblivion lets a merchant sell from ANY container he owns; Skyrim sells only
+; the one container his vendor faction names in VENC. So a converted
+; `<stock>.SetOwnership <merchant>` has to MOVE the stock, and this is where
+; the destination is resolved.
+;
+; The chest is looked up at RUNTIME instead of through a script property on
+; purpose: a property has to be filled in the plugin's VMAD, and a scripts-only
+; rebuild does not write VMAD -- the property would be None, and
+; RemoveAllItems(None) DESTROYS the stock instead of moving it. Both guards
+; below exist for exactly that reason: a chest that fails to resolve must leave
+; the stock where it is.
+;
+; It is called TWICE per script: once where the TES4 hand-over branch ran, and
+; once per poll pass outside it. That branch LATCHES on a save variable, so on
+; a save that already reached the gate it is dead forever and only the repeat
+; can still put the stock on sale. The repeat cannot jump the gate: the stock
+; container is flagged Initially Disabled and the authored hand-over `Enable()`s
+; it one line before handing it over, so ENABLED is exactly the TES4 gate.
+Function SellFromOwnedContainer(ObjectReference akStock, Int aiChestID, String asPlugin) Global
+  If !akStock || !akStock.IsEnabled()
+    Return
+  EndIf
+  ObjectReference chest = Game.GetFormFromFile(aiChestID, asPlugin) as ObjectReference
+  If !chest
+    Debug.Trace("TES4Polyfill: SellFromOwnedContainer could not resolve chest " + aiChestID + " in " + asPlugin)
+    Return
+  EndIf
+  akStock.RemoveAllItems(chest)
+EndFunction
+
+; Put the merchant's shelf BACK, from the list the converter carried over.
+;
+; RemoveAllItems above MOVES the authored items, which leaves nothing to repair
+; with when they later go missing -- and they do, two ways:
+;   * the first, broken build of this fix resolved the chest through a script
+;     property a scripts-only rebuild could not fill, and RemoveAllItems(None)
+;     DESTROYED the stock instead of moving it;
+;   * the vendor chest RESPAWNS (measured: TES4 CONT flag 0x02, on every one of
+;     the seven house merchants' chests), so a cell reset restores it to its
+;     base inventory and anything a script added is gone.
+; Neither is recoverable from the source container, because it is empty by
+; then. A script cannot read a container's contents either -- GetNumItems /
+; GetNthForm are SKSE and the pipeline compiles against the vanilla headers --
+; so the AUTHORED CNTO list is passed in instead.
+;
+; The COUNT keeps its TES4 sign, and that sign is the whole rule:
+;   count > 0  a finite pile: on sale until the chest or the player has it.
+;   count < 0  Oblivion's restocking shelf ("always N for sale"): keep the
+;              chest topped up to N whatever the player does. This is also
+;              what brings Sinderion's four skill-gated shelves back, whose
+;              chest does NOT carry the respawn flag that Skyrim restocks by.
+Function StockMerchant(ObjectReference akStock, Int aiChestID, String asPlugin, Int[] aiItems, Int[] aiCounts) Global
+  ; The same gate as SellFromOwnedContainer: the stock container is flagged
+  ; Initially Disabled and the authored hand-over enables it, so DISABLED means
+  ; the player has not reached the gate and nothing may go on sale yet.
+  If !akStock || !akStock.IsEnabled()
+    Return
+  EndIf
+  ObjectReference chest = Game.GetFormFromFile(aiChestID, asPlugin) as ObjectReference
+  If !chest
+    Debug.Trace("TES4Polyfill: StockMerchant could not resolve chest " + aiChestID + " in " + asPlugin)
+    Return
+  EndIf
+  akStock.RemoveAllItems(chest)
+  Actor player = Game.GetPlayer()
+  Int i = 0
+  While i < aiItems.Length
+    Form item = Game.GetFormFromFile(aiItems[i], asPlugin)
+    If item
+      Int want = aiCounts[i]
+      Int have = chest.GetItemCount(item)
+      If want < 0
+        If have < -want
+          chest.AddItem(item, -want - have, True)
+        EndIf
+      ElseIf have == 0 && player.GetItemCount(item) == 0
+        chest.AddItem(item, want, True)
+      EndIf
+    EndIf
+    i += 1
+  EndWhile
+EndFunction

@@ -89,6 +89,10 @@ PATCHES = {
                   'Oblivion food and drink for iNeed, and who refills water'),
     'ship':      ('MyOwnTamrielShipPatch.esp',
                   'Sailable Ship: the Cyrodiil sea route lands in OUR Cyrodiil'),
+    # The only patch that ships no plugin: the fix is in the converted scripts
+    # themselves (see build_house), so what it packages is loose .pex files.
+    'house':     ('MyOwnTamrielHousePatch',
+                  "house upgrades and Sinderion's stock actually on sale"),
 }
 
 # Patches whose records a later patch has to CARRY THROUGH, in load order.
@@ -331,6 +335,214 @@ def verify(patch_key, plugins, output_dir, esp_path):
     run('verify', argv, dry_run=False)
 
 
+HOUSE_SCRIPT_DIR = 'house_scripts'
+
+
+def _receipt_batch(plugins, output_dir, found, index='XX'):
+    """Console lines that stock every merchant chest by hand, as a `bat` file.
+
+Nothing should need it any more: the converted script sweeps every
+    shelf it hands over and re-adds what is missing from the authored CNTO
+    list, so a latched save, a container the first broken build emptied, and a
+    respawned vendor chest all repair themselves. It is written to
+    `patch_folder/output/` as the manual escape hatch and is NOT shipped in the
+    archive -- a console batch has to sit next to SkyrimSE.exe, and the archive
+    root is Data.
+
+    It also doubles as the 10-second test of whether items in a vendor chest
+    are saleable at all, which is the load-bearing assumption of the whole fix.
+
+    Everything is derived, nothing named: the emitted call gives the chest
+    FormID, the reference it names gives the stock container, and the
+    container's own CNTO list gives the receipts.
+
+    `index` is the plugin's LOAD-ORDER byte, which only the player's own load
+    order knows -- the console reads a bare `0377B4` as `000377B4`, a Skyrim.esm
+    record. It defaults to the literal `XX` so the file is obviously unfinished
+    rather than quietly wrong; pass `--plugin-index` to emit a runnable one.
+    """
+    import re as _re
+    from tools.patch.patch_builder import ChainedSource
+    from tools.patch.plugin_patch import first as _first, zstring as _zstring
+
+    call = _re.compile(r'SellFromOwnedContainer\(\s*(\w+)\s*,\s*0x([0-9A-Fa-f]+)')
+    lines, total = [], 0
+    for plugin in plugins:
+        converted = find_converted(str(output_dir), plugin)
+        if converted is None:
+            continue
+        src = ChainedSource(converted, {'REFR', 'CONT'})
+        by_edid = {}
+        for sig in ('REFR', 'CONT'):
+            for fid, (_h, subs) in src.by_type[sig].items():
+                e = _first(subs, 'EDID')
+                if e:
+                    by_edid[_zstring(e)] = fid
+        scripts = Path(converted).parent / 'scripts' / 'source'
+        seen = set()
+        for pex, _sites, _pl in found:
+            psc = scripts / (pex.stem + '.psc')
+            if not psc.is_file():
+                continue
+            for stock_name, chest_hex in call.findall(
+                    psc.read_text(encoding='utf-8', errors='replace')):
+                key = (stock_name, chest_hex)
+                if key in seen:
+                    continue
+                seen.add(key)
+                stock = by_edid.get(stock_name)
+                if stock is None:
+                    continue
+                base = _first(src.by_type['REFR'][stock][1], 'NAME')
+                cont = src.by_type['CONT'].get(
+                    struct.unpack('<I', base)[0]) if base else None
+                if not cont:
+                    continue
+                items = [struct.unpack('<Ii', p)[0]
+                         for s, p in cont[1] if s == 'CNTO']
+                if not items:
+                    continue
+                lines.append(f'; {stock_name}: {len(items)} into '
+                             f'chest {index}{int(chest_hex, 16):06X}')
+                for item in items:
+                    lines.append(f'{index}{int(chest_hex, 16):06X}.additem '
+                                 f'{index}{item & 0xFFFFFF:06X} 1')
+                total += len(items)
+    return lines, total
+
+
+def build_house(plugins, output_dir, dry_run=False, no_zip=False,
+                plugin_index=''):
+    """Package the converted scripts that put a merchant's hidden stock on sale.
+
+    This patch has NO plugin, and that is the whole point. Oblivion lets a
+    merchant sell from any container he OWNS, so the house-upgrade quests enable
+    a hidden CONT of receipt BOOKs and hand it to the shopkeeper at the stage
+    where the house is bought. Skyrim sells exactly one container -- the VENC on
+    the vendor faction -- so the converted script marked the stock as his
+    property and nothing was ever for sale.
+
+    An ESP cannot fix it: a vendor faction has ONE VENC, so re-pointing it would
+    replace the shop's ordinary stock, a second vendor faction does not merge in
+    the barter menu, and moving the receipts into the vendor chest statically
+    destroys the gate -- the furnishings would be buyable before the house is.
+    The fix is one extra line in `script_convert`, which runs exactly where the
+    ownership call already ran and so keeps the gate intact.
+
+    So this ships the FIXED SCRIPTS as loose files, which win over the copies in
+    the converted mod's BSA. That saves re-deploying a multi-gigabyte converted
+    plugin to change eight scripts.
+
+    The scripts are found by the marker the converter stamps on the line it
+    adds, never by a hardcoded list, so a plugin whose merchants differ (or a
+    future script the same rule touches) is packaged without editing this.
+    """
+    sys.path.insert(0, str(REPO))
+    from script_convert.constants import OWNED_CONTAINER_MARKER
+
+    found = []
+    for plugin in plugins:
+        converted = find_converted(str(output_dir), plugin)
+        if converted is None:
+            raise SystemExit(f'{plugin} is not built in {output_dir} -- '
+                             'convert it first')
+        scripts = Path(converted).parent / 'scripts'
+        if not (scripts / 'source').is_dir():
+            print(f'  {plugin}: no scripts/source -- skipped')
+            continue
+        for psc in sorted((scripts / 'source').glob('*.psc')):
+            try:
+                text = psc.read_text(encoding='utf-8', errors='replace')
+            except OSError:
+                continue
+            if OWNED_CONTAINER_MARKER not in text:
+                continue
+            pex = scripts / (psc.stem + '.pex')
+            if not pex.is_file():
+                raise SystemExit(
+                    f'{psc.name} carries the fix but {pex.name} is missing -- '
+                    'run `convert.py -f <plugin> --scripts-only` first')
+            sites = text.count(OWNED_CONTAINER_MARKER)
+            found.append((pex, sites, plugin))
+
+    # The emitted call lives in the shared polyfill, so the patch is incomplete
+    # without it -- and it carries no marker of its own, so it is named here.
+    for plugin in plugins if found else ():
+        converted = find_converted(str(output_dir), plugin)
+        polyfill = Path(converted).parent / 'scripts' / 'TES4Polyfill.pex'
+        if polyfill.is_file() and not any(p.name == polyfill.name
+                                          for p, _s, _pl in found):
+            found.append((polyfill, 0, plugin))
+            break
+
+    if not found:
+        raise SystemExit(
+            'no converted script carries "' + OWNED_CONTAINER_MARKER
+            + '".\n'
+            'Either the plugins have no merchant whose stock a script '
+            'hands over, or the scripts predate the fix -- run\n'
+            '  python convert.py -f <plugin> --scripts-only')
+
+    total = sum(sites for _p, sites, _pl in found)
+    print(f'  {len(found)} scripts, {total} transfer sites:')
+    for pex, sites, plugin in found:
+        label = f'{sites} site(s)' if sites else 'the shared runtime'
+        print(f'    {pex.name:44} {label:16} [{plugin}]')
+
+    if dry_run:
+        print('\nDRY RUN -- nothing written')
+        return 0
+
+    batch, receipts = _receipt_batch(plugins, output_dir, found,
+                                     plugin_index or 'XX')
+    if batch:
+        print(f'  escape-hatch batch: {receipts} receipts across '
+              f'{sum(1 for ln in batch if ln.startswith(";"))} containers')
+
+    stage = OUT_DIR / HOUSE_SCRIPT_DIR
+    if stage.is_dir():
+        for old in stage.glob('*.pex'):
+            old.unlink()
+    stage.mkdir(parents=True, exist_ok=True)
+    for pex, _sites, _plugin in found:
+        (stage / pex.name).write_bytes(pex.read_bytes())
+    print(f'  staged -> {stage}')
+
+    if no_zip:
+        return 0
+    batch_path = OUT_DIR / 'house_receipts.txt'
+    if batch:
+        header = ['; Stock every merchant chest by hand.',
+                  ';',
+                  '; Put this file in the SKYRIM INSTALL FOLDER, next to',
+                  '; SkyrimSE.exe -- the console looks for a batch there, NOT',
+                  '; in Data.  Then, in the console:  bat house_receipts',
+                  ';',
+                  '; You should NOT need this at all.  The converted scripts',
+                  '; now sweep every merchant shelf they hand over and put back',
+                  "; whatever is missing, from the plugin's own authored item",
+                  '; list -- so a latched save, a destroyed container and a',
+                  '; respawned vendor chest all repair themselves within a',
+                  '; minute of loading.  This file is the manual escape hatch',
+                  '; if that ever fails, and is deliberately NOT shipped in the',
+                  '; patch archive.',
+                  ';',
+                  "; XX (if present) = the converted plugin's load-order",
+                  '; byte in hex; replace it before running.', '']
+        batch_path.write_text('\n'.join(header + batch) + '\n',
+                              encoding='ascii', newline='\r\n')
+
+    target = finished_dir(Path(output_dir)) / 'MyOwnTamrielHousePatch.zip'
+    with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as zf:
+        for pex, _sites, _plugin in found:
+            zf.write(pex, arcname=f'Scripts/{pex.name}')
+    print(f'\nPackaged -> {target} ({target.stat().st_size:,} bytes)')
+    print('Install it like any other converted mod: the archive root is the '
+          'Data folder. It must WIN over the converted plugin, so give it the '
+          'later position in the mod manager.')
+    return 0
+
+
 def package(esp_path, out_root, extras=()):
     """Zip the ESP the way every converted mod is zipped: root == Data.
 
@@ -378,6 +590,13 @@ def main():
                     help='skip the ship gate (it is cheap; only for debugging)')
     ap.add_argument('--dry-run', action='store_true',
                     help='report only; write nothing')
+    ap.add_argument('--plugin-index', default='',
+                    metavar='NN',
+                    help="house only: the converted plugin's load-order byte "
+                         "in hex (0E), so the recovery batch is runnable as "
+                         "written. Without it the file carries an XX "
+                         "placeholder, because only the player's load order "
+                         "knows the answer")
     ap.add_argument('--list', action='store_true',
                     help='list the patches and exit')
     args = ap.parse_args()
@@ -406,6 +625,10 @@ def main():
     print(f'  {name}  --  {what}')
     print(f'  plugins: {", ".join(args.plugins)}')
     print('=' * 70)
+
+    if args.patch == 'house':
+        return build_house(args.plugins, args.output_dir, args.dry_run,
+                           args.no_zip, args.plugin_index)
 
     if args.patch == 'cosmetic':
         build_cosmetic(args.plugins, args.output_dir, out_path, args.seed,

@@ -86,7 +86,7 @@ def _script_worker_init(xref, output_dir, info_reveals, service_topics,
                         quest_edid_by_fid=None, topic_unlock_globals=None,
                         message_menus=None, mesh_bounds_cache=None,
                         chargen_menus=None, say_topics=None,
-                        music_cues=None):
+                        music_cues=None, plugin_file=''):
     # Windows spawns workers, so module-level caches loaded in the parent do
     # NOT carry over — each worker reloads the mesh-bounds cache or every
     # needs_havok_release() lookup answers 0 and no trap gets its release.
@@ -108,6 +108,9 @@ def _script_worker_init(xref, output_dir, info_reveals, service_topics,
     # scripts does not survive into the child, and an empty set here would
     # make info_needs_fragment() drop the timing fragments that SayLine needs.
     ScriptConverter.say_topics = set(say_topics or ())
+    # The plugin being converted, for emitted code that has to resolve one of
+    # its OWN records at runtime -- Game.GetFormFromFile needs the file name.
+    ScriptConverter.plugin_file = plugin_file or ''
     # DIAL EditorID -> unlock global, so a script `AddTopic X` opens the same
     # gate the INFO/QUST fragments do.
     ScriptConverter.topic_unlock_globals = topic_unlock_globals or {}
@@ -426,7 +429,8 @@ def build_script_context(export_dir: str, output_dir: str) -> dict:
                 unlock_plan['stage_reveals'], say_durations,
                 quest_script_vars, quest_edid_by_fid, topic_unlock_globals,
                 message_menus, _bounds_cache, chargen_menus, say_topics,
-                _load_music_cues(output_dir))
+                _load_music_cues(output_dir),
+                os.path.basename(os.path.normpath(export_dir)))
     return {'initargs': initargs, 'scpt_work': scpt_work,
             'info_work': info_work, 'qust_work': qust_work, 'stats': stats}
 

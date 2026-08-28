@@ -1651,3 +1651,11 @@ def _record_type_to_base_papyrus(rtype: str) -> str:
         return 'Form'
     return mapped
 
+
+
+# Trailing comment the SetOwnership handler stamps on the line that moves an
+# owned container's stock into the merchant chest Skyrim's barter menu reads
+# (converter.py). `tools/patch/build_patch.py --patch house` finds the affected
+# scripts by searching for it, so the two must never drift apart -- a patch
+# built from a stale marker would ship an empty archive and look like it worked.
+OWNED_CONTAINER_MARKER = 'TES4: an owned container was merchandise'
