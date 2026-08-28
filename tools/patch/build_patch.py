@@ -63,6 +63,21 @@ HAIR_PLUGIN = SOURCES / "KS Hairdo's.esp"
 APACHII = 'Apachii_DivineEleganceStore.esm'
 CONSTANTS = SOURCES / 'constants.py'
 
+# The ship patch ships a replacement for one of Sailable Ship's own compiled
+# scripts. It has to reach the game as a LOOSE file under Data/Scripts/, which
+# is what wins over the copy in the mod's BSA.
+SHIP_PLUGIN = 'Sailable Ship.esm'
+SHIP_SCRIPT_DIR = 'ship_scripts'
+EXTRA_FILES = {
+    'ship': [(OUT_DIR / SHIP_SCRIPT_DIR / 'aaaShipUtilityScript.pex',
+              'Scripts/aaaShipUtilityScript.pex'),
+             # Skyrim reads Data/<plugin>.ini for every plugin it loads. This
+             # one carries bBorderRegionsEnabled=0, without which Skyrim's
+             # border wall stands between the player and every sea gate.
+             (OUT_DIR / 'MyOwnTamrielShipPatch.ini',
+              'MyOwnTamrielShipPatch.ini')],
+}
+
 PATCHES = {
     'cosmetic':  ('MyOwnTamrielCosmeticPatch.esp',
                   'NPC outfits, hair and skin tone'),
@@ -70,6 +85,22 @@ PATCHES = {
                   'vanilla Skyrim creatures, and the removals'),
     'horses':    ('MyOwnTamrielHorsePatch.esp',
                   'mounts: vanilla horse race, coat and saddle'),
+    'ineed':     ('MyOwnTamrieliNeedPatch.esp',
+                  'Oblivion food and drink for iNeed, and who refills water'),
+    'ship':      ('MyOwnTamrielShipPatch.esp',
+                  'Sailable Ship: the Cyrodiil sea route lands in OUR Cyrodiil'),
+}
+
+# Patches whose records a later patch has to CARRY THROUGH, in load order.
+# Two plugins that override the same record do not merge -- the later one wins
+# the whole record -- so a patch built over actors an earlier patch already
+# restyled must copy the earlier patch's version and master it. The iNeed
+# patch and the cosmetic patch share 220 merchants; before this, whichever
+# loaded second erased the other's work on all of them.
+STACK_ON = {
+    'ineed': ['MyOwnTamrielCosmeticPatch.esp',
+              'MyOwnTamrielCreaturePatch.esp',
+              'MyOwnTamrielHorsePatch.esp'],
 }
 
 # Subrecords each patch is allowed to change. The ship gate proves every OTHER
@@ -85,18 +116,36 @@ OWNED_FIELDS = {
     'cosmetic':  'DOFT,PNAM,QNAM',
     'creatures': ','.join(sorted(_ALL_NPC_FIELDS - set(CLONE_KEEP))),
     'horses':    'RNAM,WNAM,ATKR,VTCK,ZNAM,CNAM,DPLT,DOFT,KSIZ,KWDA',
+    # The iNeed patch APPENDS a faction and the vendor base stock to an actor;
+    # everything else about the record has to come through untouched.
+    'ineed':     'SNAM,CNTO,COCT',
+    # The ship patch rewrites three script properties on ONE placed reference;
+    # VMAD is the only subrecord it may touch. assign_ship_port.py checks the
+    # property values themselves, which the NPC-shaped gate cannot.
+    'ship':      'VMAD',
 }
 
 # Outfit list per placement keyword; first match wins, rest get the default.
 DEFAULT_OUTFITS = 'OUTFITS_TO_CHOOSE'
 OUTFIT_RULES = [('bruma', 'BRUMA_OUTFITS_TO_CHOOSE')]
+# Outfit list per NPC-identity keyword -- her EditorID/name, her class, or any
+# faction she belongs to. Checked BEFORE the placement rules and before the
+# per-source default, because a bandit is a bandit wherever she camps and
+# whichever plugin she came from.
+OUTFIT_NPC_RULES = [('bandit', 'FEMALE_BANDITS_OUTFITS')]
 # Per-source default, for a plugin whose NPCs should not wear the Tamriel set.
 # ELSW_OUTFITS_TO_CHOOSE has existed in constants.py unused since the cosmetic
 # patch could only ever read one source plugin; now that a build covers several,
 # it is reachable.
 SOURCE_OUTFITS = {'ElsweyrAnequina.esp': 'ELSW_OUTFITS_TO_CHOOSE'}
-# Races to leave alone even though they carry a FaceGen head, as hex FormIDs.
-EXCLUDE_RACES: list = []
+# Races to leave alone even though they carry a FaceGen head, by RACE EditorID
+# (an 8-digit FormID also works). The beast races wear their hair as part of the
+# head mesh -- horns, mane, spines -- so a KS Hairdo's style on one of them is a
+# human wig on a lizard. Both converted plugins put every beast NPC on the
+# VANILLA Skyrim race (measured 2026-08-28: ArgonianRace 00013740, KhajiitRace
+# 00013745; Elsweyr's own TES4ANQ* races are all creatures with no FaceGen
+# head), so naming the two vanilla records covers every source plugin.
+EXCLUDE_RACES: list = ['ArgonianRace', 'KhajiitRace']
 
 
 def find_skyrim_esm():
@@ -179,48 +228,66 @@ def build_cosmetic(plugins, output_dir, out_path, seed, dry_run):
     if not COSMETIC_TEMPLATE.is_file():
         raise SystemExit(f'{COSMETIC_TEMPLATE} is missing -- it supplies the '
                          'outfit records the patch assigns')
-    if dry_run:
-        # The passes need a real file to read, but a dry run must not touch the
-        # patch already sitting in output/ -- so the seed goes to a scratch file
-        # that is removed on the way out.
-        out_path = Path(out_path).with_suffix('.dryrun.esp')
+    # The passes need a real file to read, and the seed that starts them is an
+    # EMPTY patch -- so it is built beside the real one and moved into place
+    # only once every pass has succeeded. A pass that aborts (a constants list
+    # naming an OTFT the template does not carry, say) then leaves the last
+    # good patch where it was instead of replacing it with a 1 KB stub.
+    final = Path(out_path)
+    out_path = final.with_suffix('.dryrun.esp' if dry_run else '.building.esp')
     print('\n=== seed ' + '=' * 61)
     build_cosmetic_seed(plugins, output_dir, out_path)
     REPORTS.mkdir(parents=True, exist_ok=True)
     skyrim = find_skyrim_esm()
 
-    for plugin in plugins:
-        source = find_converted(str(output_dir), plugin)
-        tag = plugin.replace('.', '_')
+    try:
+        for plugin in plugins:
+            source = find_converted(str(output_dir), plugin)
+            tag = plugin.replace('.', '_')
 
-        argv = [PATCH_DIR.parent / 'tools' / 'patch' / 'assign_female_outfits.py',
-                '--source', source, '--patch', out_path, '--out', out_path,
-                '--constants', CONSTANTS, '--default-outfits',
-                SOURCE_OUTFITS.get(plugin, DEFAULT_OUTFITS),
-                '--seed', seed, '--report', REPORTS / f'outfits_{tag}.tsv']
-        for keyword, listname in OUTFIT_RULES:
-            argv += ['--match-outfits', f'{keyword}={listname}']
-        run(f'outfits: {plugin}', argv, dry_run)
+            argv = [PATCH_DIR.parent / 'tools' / 'patch' / 'assign_female_outfits.py',
+                    '--source', source, '--patch', out_path, '--out', out_path,
+                    '--constants', CONSTANTS, '--default-outfits',
+                    SOURCE_OUTFITS.get(plugin, DEFAULT_OUTFITS),
+                    '--seed', seed, '--report', REPORTS / f'outfits_{tag}.tsv']
+            for keyword, listname in OUTFIT_RULES:
+                argv += ['--match-outfits', f'{keyword}={listname}']
+            for keyword, listname in OUTFIT_NPC_RULES:
+                argv += ['--match-npc-outfits', f'{keyword}={listname}']
+            if OUTFIT_NPC_RULES:
+                # Every selected plugin, in load order: the factions an
+                # NPC belongs to usually live in a MASTER, not in the
+                # plugin she is declared in.
+                for other in plugins:
+                    argv += ['--names-from', find_converted(str(output_dir), other)]
+            run(f'outfits: {plugin}', argv, dry_run)
 
-        argv = [PATCH_DIR.parent / 'tools' / 'patch' / 'assign_npc_hair.py',
-                '--source', source, '--patch', out_path, '--out', out_path,
-                '--hair-plugin', HAIR_PLUGIN, '--constants', CONSTANTS,
-                '--seed', seed, '--report', REPORTS / f'hair_{tag}.tsv']
-        if skyrim:
-            argv += ['--hdpt-from', skyrim]
-        for race in EXCLUDE_RACES:
-            argv += ['--exclude-race', race]
-        run(f'hair: {plugin}', argv, dry_run)
+            argv = [PATCH_DIR.parent / 'tools' / 'patch' / 'assign_npc_hair.py',
+                    '--source', source, '--patch', out_path, '--out', out_path,
+                    '--hair-plugin', HAIR_PLUGIN, '--constants', CONSTANTS,
+                    '--seed', seed, '--report', REPORTS / f'hair_{tag}.tsv']
+            if skyrim:
+                argv += ['--hdpt-from', skyrim]
+            for race in EXCLUDE_RACES:
+                argv += ['--exclude-race', race]
+            run(f'hair: {plugin}', argv, dry_run)
 
-        argv = [PATCH_DIR.parent / 'tools' / 'patch' / 'assign_skin_tone.py',
-                '--source', source, '--patch', out_path, '--out', out_path,
-                '--report', REPORTS / f'skin_{tag}.tsv']
-        if skyrim:
-            argv += ['--race-plugin', skyrim]
-        run(f'skin tone: {plugin}', argv, dry_run)
+            argv = [PATCH_DIR.parent / 'tools' / 'patch' / 'assign_skin_tone.py',
+                    '--source', source, '--patch', out_path, '--out', out_path,
+                    '--report', REPORTS / f'skin_{tag}.tsv']
+            if skyrim:
+                argv += ['--race-plugin', skyrim]
+            run(f'skin tone: {plugin}', argv, dry_run)
+
+    except BaseException:
+        # A pass aborted: take the half-built scratch with it.
+        Path(out_path).unlink(missing_ok=True)
+        raise
 
     if dry_run:
         Path(out_path).unlink(missing_ok=True)
+    else:
+        os.replace(out_path, final)
 
 
 # ---------------------------------------------------------------------------
@@ -236,8 +303,20 @@ def verify(patch_key, plugins, output_dir, esp_path):
     """Run the ship gate. A patch that fails structural checks is not zipped."""
     argv = [REPO / 'tools' / 'patch' / 'verify_npc_patch.py',
             '--patch', esp_path, '--owns', OWNED_FIELDS[patch_key]]
-    for plugin in plugins:
-        argv += ['--source', find_converted(str(output_dir), plugin)]
+    if patch_key == 'ship':
+        # The ship patch overrides Sailable Ship's records, not the converted
+        # plugin's, so that is the file its fidelity is measured against. Its
+        # own pass already checked the route values themselves.
+        argv += ['--source', locate_plugin(SHIP_PLUGIN, output_dir)]
+    else:
+        for plugin in plugins:
+            argv += ['--source', find_converted(str(output_dir), plugin)]
+        # A record carried out of an earlier patch is measured against THAT
+        # patch, not against the converted master it no longer matches. The
+        # later --source wins, which is the same rule the game applies.
+        for other in STACK_ON.get(patch_key, ()):
+            if other.lower() in [m.lower() for m in _patch_masters(esp_path)]:
+                argv += ['--source', OUT_DIR / other]
     # Outfits can come from any vanilla master the patch lists -- the horse
     # patch assigns Skyrim.esm's HorseSaddleOutfit, and a cloned elytra brings
     # one from the Creation Club plugin.
@@ -252,12 +331,23 @@ def verify(patch_key, plugins, output_dir, esp_path):
     run('verify', argv, dry_run=False)
 
 
-def package(esp_path, out_root):
-    """Zip the ESP the way every converted mod is zipped: root == Data."""
+def package(esp_path, out_root, extras=()):
+    """Zip the ESP the way every converted mod is zipped: root == Data.
+
+    `extras` are (path, arcname) pairs for anything the patch needs alongside
+    the plugin -- a loose script, say. A missing extra is an error: shipping
+    the ESP without it would be a patch that silently does half its job.
+    """
     esp_path = Path(esp_path)
     target = finished_dir(Path(out_root)) / f'{esp_path.stem}.zip'
     with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as zf:
         zf.write(esp_path, arcname=esp_path.name)
+        for path, arcname in extras:
+            if not Path(path).is_file():
+                raise SystemExit(f'{path} is missing; the patch needs it '
+                                 f'installed as {arcname}')
+            zf.write(path, arcname=arcname)
+            print(f'  + {arcname}')
     print(f'\nPackaged -> {target} ({target.stat().st_size:,} bytes)')
     print('Install it like any other converted mod: the archive root is the '
           'Data folder.')
@@ -279,6 +369,9 @@ def main():
                     help='creatures/horses: apply only exact-tier swaps')
     ap.add_argument('--no-remove', action='store_true',
                     help='creatures: keep the remove-tier creatures in place')
+    ap.add_argument('--landing', nargs=2, type=float, metavar=('X', 'Y'),
+                    help='ship only: where the sea route puts the ship down '
+                         '(default: the coordinates the route already carries)')
     ap.add_argument('--no-zip', action='store_true',
                     help='build the ESP but do not package it')
     ap.add_argument('--no-verify', action='store_true',
@@ -317,6 +410,24 @@ def main():
     if args.patch == 'cosmetic':
         build_cosmetic(args.plugins, args.output_dir, out_path, args.seed,
                        args.dry_run)
+    elif args.patch == 'ship':
+        argv = [REPO / 'tools' / 'patch' / 'assign_ship_port.py',
+                '--plugins'] + list(args.plugins) + [
+                '--output-dir', args.output_dir, '--out', out_path,
+                '--script-dir', OUT_DIR / SHIP_SCRIPT_DIR]
+        if args.landing:
+            argv += ['--landing'] + [str(v) for v in args.landing]
+        run(args.patch, argv, args.dry_run)
+    elif args.patch == 'ineed':
+        argv = [REPO / 'tools' / 'patch' / 'assign_ineed.py',
+                '--plugins'] + list(args.plugins) + [
+                '--output-dir', args.output_dir, '--out', out_path,
+                '--report', REPORTS / 'ineed.tsv']
+        for other in STACK_ON['ineed']:
+            if (OUT_DIR / other).is_file():
+                argv += ['--overlay', OUT_DIR / other]
+        REPORTS.mkdir(parents=True, exist_ok=True)
+        run(args.patch, argv, args.dry_run)
     else:
         scope = 'mounts' if args.patch == 'horses' else 'creatures'
         argv = [REPO / 'tools' / 'patch' / 'assign_creatures.py',
@@ -343,7 +454,7 @@ def main():
     if not args.no_verify:
         verify(args.patch, args.plugins, args.output_dir, out_path)
     if not args.no_zip:
-        package(out_path, args.output_dir)
+        package(out_path, args.output_dir, EXTRA_FILES.get(args.patch, []))
     return 0
 
 

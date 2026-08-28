@@ -182,6 +182,20 @@ PATCH_ACTIONS = [
      "Turn the converted horses (and Elsweyr's zebras and camels) into "
      "vanilla Skyrim horses, which is what makes them rideable again. Coat "
      "and saddle come from the Oblivion record"),
+    ("ineed", "iNeed (food & water)", "MyOwnTamrieliNeedPatch.esp",
+     "Oblivion food and drink for iNeed, and who refills water",
+     "Needs the iNeed mod. Registers converted Oblivion food and drink in "
+     "iNeed's own lists so eating actually feeds you, gives every food shop a "
+     "stock to sell, and puts innkeepers and merchants in the vanilla job "
+     "factions iNeed checks - which is what brings back the 'refill my "
+     "waterskin' and 'sell me water' options. Build it AFTER Outfits & Hair: "
+     "it shares 220 merchants with that patch and loads last"),
+    ("ship", "Sailable Ship (Cyrodiil route)", "MyOwnTamrielShipPatch.esp",
+     "the Cyrodiil sea route lands in OUR Cyrodiil",
+     "Needs the Sailable Ship mod. Its 'Cyrodiil Route' was built for Rigmor "
+     "of Cyrodiil; this points it at the converted Cyrodiil instead, so the "
+     "ship sails out of the Southwest Padomaic Ocean and arrives in Topal "
+     "Bay. Ships a replacement for one of the mod's scripts as a loose file"),
 ]
 
 # ── Colors ───────────────────────────────────────────────────────────────────
@@ -4753,9 +4767,9 @@ def gui_main():
     def _open_patch_panel(key: str):
         """Pick the converted plugins this patch covers, then build it.
 
-        One panel for all three patches: they take the same two inputs (which
-        patch, which plugins), so a per-patch dialog would be three copies of
-        this one. The list is ordered masters-first, which is both the order the
+        One panel for every patch: they take the same two inputs (which patch,
+        which plugins), so a per-patch dialog would be one copy of this per
+        entry in PATCH_ACTIONS. The list is ordered masters-first, which is both the order the
         patch has to declare them in and the order they install in.
         """
         if running.is_set():

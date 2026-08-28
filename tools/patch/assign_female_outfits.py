@@ -9,11 +9,31 @@ override -- xEdit's "copy as override" -- with its FormID references remapped
 into the patch's load order and its DOFT (Default Outfit) replaced by an outfit
 drawn deterministically from a list.
 
-Which list an NPC draws from is decided by where the NPC is PLACED: every ACHR
-in the source that points at the NPC contributes its parent cell, and the cell's
-EditorID / FULL name / parent worldspace EditorID+FULL are matched against the
-`--match-outfits` keywords. First keyword that matches wins; NPCs that match
-nothing use `--default-outfits`.
+Which list an NPC draws from is decided by two families of rules, WHO she is
+first and WHERE she is placed second:
+
+* `--match-npc-outfits KEYWORD=CONSTANT` matches the NPC's own identity: her
+  EditorID, her name, and the EditorID and name of every FACTION she belongs
+  to. `bandit=FEMALE_BANDITS_OUTFITS` therefore catches `BanditFaction`,
+  `VeyondCaveBandits` and `ANQBanditFaction` without naming a single NPC.
+
+  The CLASS is deliberately NOT matched. In Oblivion a class is a stat
+  template, not an identity: `bandit` against the class caught Anequina's 8
+  Dune Soldiers and 12 tribeswomen (they take their skills from
+  `BanditMissile`) and Rona, a Mephala quest NPC -- 21 wrong out of 21 added.
+  Faction membership is the authored answer to "is she a bandit".
+* `--match-outfits KEYWORD=CONSTANT` matches where the NPC is PLACED: every
+  ACHR in the source that points at the NPC contributes its parent cell, and
+  the cell's EditorID / FULL name / parent worldspace EditorID+FULL are
+  matched.
+
+Identity rules are tried before placement rules -- a bandit camped outside
+Bruma is a bandit, not a Bruman -- and within each family the first keyword
+that matches wins. NPCs that match nothing use `--default-outfits`.
+
+Factions usually live in the source's MASTERS rather than in the source itself,
+so pass those plugins with `--names-from`; without them an identity rule is
+blind to every faction an NPC inherits from a master.
 
 An NPC the patch already overrides keeps every other edit it carries -- only
 DOFT is touched -- so this can be run after (or before) the other assign_* tools.
@@ -28,7 +48,9 @@ Usage:
         --out    patch_folder/output/MyCosmeticTamrielPatch.esp \
         --constants patch_folder/sources/constants.py \
         --default-outfits OUTFITS_TO_CHOOSE \
-        --match-outfits bruma=BRUMA_OUTFITS_TO_CHOOSE
+        --match-outfits bruma=BRUMA_OUTFITS_TO_CHOOSE \
+        --match-npc-outfits bandit=FEMALE_BANDITS_OUTFITS \
+        --names-from output/Oblivion.esm/Oblivion.esm
 
     # dry run: print the assignment table, write nothing
     python tools/patch/assign_female_outfits.py ... --dry-run --report temp/outfits.tsv
@@ -57,6 +79,26 @@ def load_constants(path):
     return {k: v for k, v in ns.items() if not k.startswith('_')}
 
 
+def build_name_index(plugins):
+    """(owner plugin, low 24 bits of FormID) -> "EditorID FULL", for FACT.
+
+    Keyed by the OWNER rather than by the FormID because the same faction has a
+    different FormID in every plugin that sees it: Oblivion.esm calls itself
+    `01`, while ElsweyrAnequina calls it `02`. Plugins are read in load order,
+    so one that overrides a master's faction name wins.
+    """
+    index = {}
+    for plug in plugins:
+        owners = [m.lower() for m in plug.masters] + [plug.name.lower()]
+        for fid, (_hdr, subs) in plug.by_type['FACT'].items():
+            idx = fid >> 24
+            if idx >= len(owners):
+                continue
+            index[(owners[idx], fid & 0xFFFFFF)] = (
+                zstring(first(subs, 'EDID')) + ' ' + zstring(first(subs, 'FULL')))
+    return index
+
+
 def main():
     ap = argparse.ArgumentParser(
         description='Give every female NPC of a source plugin a random outfit, '
@@ -74,6 +116,17 @@ def main():
                     help='use CONSTANT for NPCs placed in a cell or worldspace '
                          'whose EditorID/name contains KEYWORD (repeatable, '
                          'first match wins)')
+    ap.add_argument('--match-npc-outfits', action='append', default=[],
+                    metavar='KEYWORD=CONSTANT',
+                    help='use CONSTANT for NPCs whose own EditorID/name, or '
+                         'the EditorID/name of a faction they belong to, '
+                         'contains KEYWORD; tried BEFORE --match-outfits '
+                         '(repeatable, first match wins)')
+    ap.add_argument('--names-from', action='append', default=[],
+                    metavar='PLUGIN',
+                    help='extra plugins, in load order, to read FACT names '
+                         'from -- the masters of the source, whose factions '
+                         'it references but does not contain (repeatable)')
     ap.add_argument('--seed', type=int, default=0,
                     help='RNG seed; the same seed always produces the same plugin')
     ap.add_argument('--report', help='write the full assignment table here')
@@ -103,25 +156,63 @@ def main():
             out.append((n, fid))
         return out
 
-    rules = []
-    for spec in args.match_outfits:
-        if '=' not in spec:
-            raise SystemExit(f'--match-outfits needs KEYWORD=CONSTANT, got {spec!r}')
-        keyword, const = spec.split('=', 1)
-        if const not in consts:
-            raise SystemExit(f'{args.constants} has no list named {const}')
-        rules.append((keyword.strip().lower(), const,
-                      resolve(consts[const], const)))
+    def parse_rules(specs, flag):
+        out = []
+        for spec in specs:
+            if '=' not in spec:
+                raise SystemExit(f'{flag} needs KEYWORD=CONSTANT, got {spec!r}')
+            keyword, const = spec.split('=', 1)
+            if const not in consts:
+                raise SystemExit(f'{args.constants} has no list named {const}')
+            out.append((keyword.strip().lower(), const,
+                        resolve(consts[const], const)))
+        return out
+
+    npc_rules = parse_rules(args.match_npc_outfits, '--match-npc-outfits')
+    rules = parse_rules(args.match_outfits, '--match-outfits')
     if args.default_outfits not in consts:
         raise SystemExit(f'{args.constants} has no list named {args.default_outfits}')
     default_rule = (args.default_outfits,
                     resolve(consts[args.default_outfits], args.default_outfits))
 
-    src = SourcePlugin(args.source, {'NPC_', 'CELL', 'ACHR', 'WRLD'})
+    want = {'NPC_', 'CELL', 'ACHR', 'WRLD'}
+    if args.match_npc_outfits:
+        want.add('FACT')
+    src = SourcePlugin(args.source, want)
     mapping = make_remap(src.masters, patch.masters, src.name)
     print(f'source masters: {src.masters}')
     print('master index remap: '
           + ', '.join(f'{k:02X}->{v:02X}' for k, v in sorted(mapping.items())))
+
+    # Faction names come from the source AND from every plugin it masters --
+    # an ElsweyrAnequina bandit can sit in Oblivion.esm's BanditFaction, so a
+    # source-only index would make an identity rule blind to it.
+    name_paths = list(args.names_from)
+    source_at = Path(args.source).resolve()
+    if not any(Path(x).resolve() == source_at for x in name_paths):
+        name_paths.append(args.source)
+    names = {}
+    if npc_rules:
+        plugins = [src if Path(x).resolve() == source_at
+                   else SourcePlugin(x, {'FACT'}) for x in name_paths]
+        names = build_name_index(plugins)
+        print(f'faction names indexed: {len(names)} '
+              f'from {len(plugins)} plugin(s)')
+    src_owners = [m.lower() for m in src.masters] + [src.name.lower()]
+
+    def name_of(fid):
+        idx = fid >> 24
+        if idx >= len(src_owners):
+            return ''
+        return names.get((src_owners[idx], fid & 0xFFFFFF), '')
+
+    def identity_text(subs):
+        # CNAM (class) is left out on purpose -- see the module docstring.
+        parts = [zstring(first(subs, 'EDID')), zstring(first(subs, 'FULL'))]
+        for sig, payload in subs:
+            if sig == 'SNAM' and len(payload) >= 4:
+                parts.append(name_of(struct.unpack_from('<I', payload, 0)[0]))
+        return ' '.join(parts).lower()
 
     placements = defaultdict(set)
     for fid, (_hdr, subs) in src.by_type['ACHR'].items():
@@ -154,19 +245,27 @@ def main():
     assignments = []
     per_rule = defaultdict(int)
     for fid in females:
-        text = location_text(fid)
+        subs = src.by_type['NPC_'][fid][1]
         rule_name, table = default_rule
-        for keyword, const, resolved in rules:
-            if keyword in text:
+        # WHO she is beats WHERE she is: a bandit camped outside Bruma is a
+        # bandit, not a Bruman.
+        who = identity_text(subs) if npc_rules else ''
+        for keyword, const, resolved in npc_rules:
+            if keyword in who:
                 rule_name, table = const, resolved
                 break
+        else:
+            text = location_text(fid)
+            for keyword, const, resolved in rules:
+                if keyword in text:
+                    rule_name, table = const, resolved
+                    break
         # sha256 of (seed, FormID) rather than the raw FormID: NPCs of one town
         # have consecutive FormIDs, and a Mersenne twister seeded with
         # consecutive small ints is visibly correlated over a short list.
         digest = hashlib.sha256(f'{args.seed}:{fid:08X}'.encode()).digest()
         rng = Random(int.from_bytes(digest[:8], 'little'))
         outfit_edid, outfit_fid = table[rng.randrange(len(table))]
-        subs = src.by_type['NPC_'][fid][1]
         assignments.append((fid, zstring(first(subs, 'EDID')),
                             zstring(first(subs, 'FULL')), rule_name,
                             outfit_edid, outfit_fid))

@@ -271,6 +271,103 @@ def vmad_formid_offsets(vmad):
     return offsets
 
 
+# VMAD property value types, as the format encodes them. Only the scalars a
+# placed reference actually carries are handled -- an array property is walked
+# but never rewritten, because nothing here needs to resize one.
+VMAD_STRING, VMAD_INT, VMAD_FLOAT, VMAD_BOOL = 2, 3, 4, 5
+
+
+def _vmad_encode(ptype, value):
+    if ptype == VMAD_STRING:
+        raw = str(value).encode('cp1252')
+        return struct.pack('<H', len(raw)) + raw
+    if ptype == VMAD_INT:
+        return struct.pack('<i', int(value))
+    if ptype == VMAD_FLOAT:
+        return struct.pack('<f', float(value))
+    if ptype == VMAD_BOOL:
+        return struct.pack('<B', 1 if value else 0)
+    raise SystemExit(f'cannot write VMAD property type {ptype}')
+
+
+def vmad_set_properties(vmad, script_name, values):
+    """`vmad` with `values` written into `script_name`'s properties.
+
+    Rewrites scalar property values in place, resizing the blob when a string
+    changes length. Every name in `values` must already exist on that script
+    and keep its declared type: a property the script does not declare would be
+    ignored by the engine, and one written at the wrong type is read as
+    garbage, so both are errors rather than silent no-ops.
+
+    The walk is the same one `vmad_formid_offsets` does; keep them in step.
+    """
+    ver, objfmt = struct.unpack_from('<hh', vmad, 0)
+    if objfmt not in (1, 2):
+        raise SystemExit(f'VMAD object format {objfmt} not understood')
+    wanted = dict(values)
+    edits = []                          # (start, end, replacement)
+
+    def skip(p, ptype):
+        if ptype == 1:
+            return p + 8
+        if ptype == VMAD_STRING:
+            return _wstring_end(vmad, p)
+        if ptype in (VMAD_INT, VMAD_FLOAT):
+            return p + 4
+        if ptype == VMAD_BOOL:
+            return p + 1
+        raise SystemExit(f'VMAD property type {ptype} not understood')
+
+    pos = 4
+    nscripts = struct.unpack_from('<H', vmad, pos)[0]
+    pos += 2
+    for _ in range(nscripts):
+        start = pos
+        pos = _wstring_end(vmad, pos)
+        name = vmad[start + 2:pos].decode('cp1252')
+        if ver >= 4:
+            pos += 1                                # script flags
+        nprops = struct.unpack_from('<H', vmad, pos)[0]
+        pos += 2
+        for _ in range(nprops):
+            pstart = pos
+            pos = _wstring_end(vmad, pos)
+            pname = vmad[pstart + 2:pos].decode('cp1252')
+            ptype = vmad[pos]
+            pos += 2                                # type + status
+            vstart = pos
+            if ptype <= 5:
+                pos = skip(pos, ptype)
+            elif 11 <= ptype <= 15:
+                count = struct.unpack_from('<I', vmad, pos)[0]
+                pos += 4
+                for _ in range(count):
+                    pos = skip(pos, ptype - 10)
+            else:
+                raise SystemExit(f'VMAD property type {ptype} not understood')
+            if name.lower() != script_name.lower() or pname not in wanted:
+                continue
+            value = wanted.pop(pname)
+            if ptype > 5:
+                raise SystemExit(f'{script_name}.{pname} is an array property; '
+                                 'this writer only handles scalars')
+            edits.append((vstart, pos, _vmad_encode(ptype, value)))
+    if pos != len(vmad):
+        raise SystemExit(f'VMAD walk consumed {pos} of {len(vmad)} bytes')
+    if wanted:
+        raise SystemExit(
+            f'{script_name} does not declare ' + ', '.join(sorted(wanted)) +
+            ' on this record; a property that is not there cannot be set')
+    out = bytearray()
+    at = 0
+    for vstart, vend, payload in edits:
+        out += vmad[at:vstart]
+        out += payload
+        at = vend
+    out += vmad[at:]
+    return bytes(out)
+
+
 def remap_npc_subrecord(sig, payload, mapping):
     if sig in NPC_PLAIN_FIELDS:
         return payload

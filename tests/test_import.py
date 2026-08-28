@@ -1827,6 +1827,76 @@ class TestServiceConversion:
         for fid, svc in ((0x00000501, 132227), (0x00000502, 9216)):
             assert marker in get_vendor_faction_fids_for_actor(fid, svc)
 
+    def test_chest_backed_merchant_has_exactly_one_vendor_faction(self):
+        """A merchant with an Oblivion shop chest must join ONLY its dedicated
+        faction (VEND + VENC), never the shared chest-less one as well.
+
+        The engine resolves ONE vendor faction for the barter menu, and vanilla
+        agrees: 191 of Skyrim.esm's 194 vendor NPCs carry exactly one. When both
+        were written the shared faction came FIRST, so every chest-backed
+        merchant sold its carried inventory instead of its shop stock -- an
+        empty barter menu in game.
+        """
+        from tes5_import.record_types.actors import (
+            create_vendor_factions, get_merchant_faction_fid,
+            get_vendor_faction_fids_for_actor)
+        writer = PluginWriter(masters=['Skyrim.esm'])
+        chested = self._merchant_npc(fid='00000501', services='132227')
+        plain = self._merchant_npc(fid='00000502', services='132227')
+        achr = {'Signature': 'ACHR', 'FormID': '00000601', 'RecordFlags': '0',
+                'NAME': '00000501', 'XMRC.MerchantContainer': '00000701',
+                'DATA.PosX': '0', 'DATA.PosY': '0', 'DATA.PosZ': '0',
+                'DATA.RotX': '0', 'DATA.RotY': '0', 'DATA.RotZ': '0'}
+        create_vendor_factions(
+            {'NPC_': [chested, plain], 'CREA': [], 'ACHR': [achr]}, writer)
+
+        marker = get_merchant_faction_fid()
+        vendor_flag = {}
+        for blob in writer._top_groups['FACT']:
+            subs = self._subrecords(blob)
+            flags = struct.unpack('<I', subs['DATA'][0])[0]
+            vendor_flag[struct.unpack_from('<I', blob, 12)[0]] = bool(flags & 0x4000)
+
+        for fid, svc in ((0x00000501, 132227), (0x00000502, 132227)):
+            fids = get_vendor_faction_fids_for_actor(fid, svc)
+            assert marker in fids
+            vendors = [f for f in fids if vendor_flag.get(f)]
+            assert len(vendors) == 1, (
+                f'{fid:08X} joined {len(vendors)} vendor factions, want 1')
+
+        # ...and the chest-backed one is the faction that carries the VENC.
+        chest_fids = [f for f in get_vendor_faction_fids_for_actor(0x501, 132227)
+                      if vendor_flag.get(f)]
+        blob = next(b for b in writer._top_groups['FACT']
+                    if struct.unpack_from('<I', b, 12)[0] == chest_fids[0])
+        assert 'VENC' in self._subrecords(blob)
+
+    def test_vendor_faction_carries_a_vendor_location(self):
+        """A vendor faction with no PLVD sells NOTHING -- the barter menu
+        opens and is empty, because the engine has no place to test the vendor
+        against. All 145 of Skyrim.esm's vendor factions carry one; ours
+        carried none while copying Eorlund's radius of 700, so every converted
+        merchant had a radius and no reference point to measure it from.
+        """
+        from tes5_import.record_types.actors import create_vendor_factions
+        writer = PluginWriter(masters=['Skyrim.esm'])
+        create_vendor_factions({'NPC_': [self._merchant_npc()]}, writer)
+        checked = 0
+        for blob in writer._top_groups['FACT']:
+            subs = self._subrecords(blob)
+            flags = struct.unpack('<I', subs['DATA'][0])[0]
+            if not (flags & 0x4000):
+                continue            # the marker faction, not a vendor
+            checked += 1
+            assert 'PLVD' in subs, 'vendor faction without a Vendor Location'
+            kind, value, tail = struct.unpack('<iIi', subs['PLVD'][0])
+            assert (kind, value, tail) == (12, 0, 0)
+            venv = subs['VENV'][0]
+            start, end, radius = struct.unpack_from('<HHH', venv, 0)
+            assert (start, end) == (0, 24), 'vendor must be open all day'
+            assert radius == 0, 'a radius with no location cannot be met'
+        assert checked, 'no vendor faction was written'
+
     def test_marker_faction_is_not_a_vendor_faction(self):
         """The marker is a membership tag only. Giving it the Vendor flag would
         make it compete with the real vendor faction the engine resolves for the

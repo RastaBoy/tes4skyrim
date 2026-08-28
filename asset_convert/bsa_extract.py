@@ -28,6 +28,47 @@ from worker_budget import worker_count
 _WORKER_COUNT = worker_count()
 
 
+def list_bsa_files(bsa_path):
+    """Every archive path inside a BSA, lowercased, without extracting anything.
+
+    Needed whenever the question is "what is in here?" rather than "give me this
+    file" -- inspecting a third-party mod dropped into patch_folder/sources, for
+    instance. Shares the header walk with read_bsa_files below; see that
+    docstring for the version differences.
+    """
+    BSA_MAGIC_V = b'BSA' + bytes(1)
+    NULB = bytes(1)
+    SEP = chr(92)
+    out = []
+    with open(bsa_path, 'rb') as fh:
+        head = fh.read(36)
+        if head[:4] != BSA_MAGIC_V:
+            raise ValueError(f'Not a BSA file: {bsa_path}')
+        (version, dir_offset, _flags, folder_count, _file_count, _,
+         total_fname_len, _) = struct.unpack_from('<IIIIIIII', head, 4)
+        fh.seek(dir_offset)
+        folder_counts = []
+        for _ in range(folder_count):
+            if version >= 105:
+                _h, cnt, _unk, _off = struct.unpack('<QIIq', fh.read(24))
+            else:
+                _h, cnt, _off = struct.unpack('<QII', fh.read(16))
+            folder_counts.append(cnt)
+        folders = []
+        for cnt in folder_counts:
+            name_len = fh.read(1)[0]
+            folder = fh.read(name_len).rstrip(NULB).decode('latin-1')
+            fh.read(16 * cnt)          # file records: names come separately
+            folders += [folder] * cnt
+        names = fh.read(total_fname_len).split(NULB)
+        for folder in folders:
+            if not names:
+                break
+            fname = names.pop(0).decode('latin-1')
+            out.append((folder + SEP + fname if folder else fname).lower())
+    return out
+
+
 def read_bsa_files(bsa_path, wanted_names):
     """Read specific files out of a TES4/FO3/Skyrim LE/Skyrim SE BSA
     (versions 103/104/105) without extracting the archive.

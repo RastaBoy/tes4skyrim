@@ -1,10 +1,7 @@
 SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
-020010FA	040010FA	ANQBanditMeleeF2SuthayRaht	Bandit	F	0Leona	0LeonaHL
 020010FB	040010FB	ANQBanditMeleeF3AOrc	Bandit	F	0Leona	0LeonaHL
 020010FC	040010FC	ANQBanditMeleeF3BRedguard	Bandit	F	0Koala	0KoalaHL
-020010FD	040010FD	ANQBanditMeleeF4ASuthayRaht	Bandit	F	0Leona	0LeonaHL
 020010FE	040010FE	ANQBanditMeleeF4BImperial	Bandit	F	0Koala	0KoalaHL
-020010FF	040010FF	ANQBanditMeleeM2SuthayRaht	Bandit	M	0Victor	0VictorHL
 02001100	04001100	ANQBanditMeleeM3AOrc	Bandit	M	0TheTruth	0TheTruthHL
 02001101	04001101	ANQBanditMeleeM3BRedguard	Bandit	M	0RedRobin	0RedRobinHL
 02001102	04001102	ANQBanditMeleeM4ASuthay	Bandit	M	0Victor	0VictorHL
@@ -18,17 +15,14 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02001114	04001114	ANQBanditMissileM3BSuthay	Bandit Bowman	M	0Victor	0VictorHL
 02001117	04001117	ANQBanditMissileM4AOhmes	Bandit Bowman	M	0Victor	0VictorHL
 02001E87	04001E87	ANQCORKisimba	Kisimba	M	0Theo	0TheoHL
-02001FA7	04001FA7	ANQCORYajira	Yajira	F	0Lenore	0LenoreHL
 020028E0	040028E0	ANQALBAyishak	Ayishak	M	0TheTruth	0TheTruthHL
 0200B68C	0400B68C	ANQDUNShanar	Shanar	M	0Victor	0VictorHL
 0200B68E	0400B68E	ANQDUNSalun	Salun	M	0Victor	0VictorHL
-0200C44D	0400C44D	ANQTRBDgazahbaTribesman01	Dgazahba Warrior	M	0RedRobin	0RedRobinHL
 0200E33D	0400E33D	ANQORCJNagasar	J'Nagasar	M	0RedRobin	0RedRobinHL
 0200E3D4	0400E3D4	ANQORCMogadraGuush	Moga dra-Guush	F	0Koala	0KoalaHL
 0200E3D6	0400E3D6	ANQORCAbgoldroLadug	Abgol dro-Ladug	M	0Theo	0TheoHL
 0200F482	0400F482	ANQImperialLegionRiderDarkarn	Imperial Legion Soldier	M	0Victor	0VictorHL
 0200F48F	0400F48F	ANQCaravanMerchant1	Caravan Merchant	M	0Victor	0VictorHL
-0200F497	0400F497	ANQCaravanMerchant2	Caravan Merchant	M	0RedRobin	0RedRobinHL
 0200F4A1	0400F4A1	ANQCaravanMerchant3	Caravan Merchant	M	0TheTruth	0TheTruthHL
 0200FCE0	0400FCE0	ANQORCOrcrestGuardPostDay01	Orcrest Guard	M	0Theo	0TheoHL
 0200FCE1	0400FCE1	ANQORCOrcrestGuardPostNight01	Orcrest Guard	M	0TheTruth	0TheTruthHL
@@ -36,42 +30,31 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 0200FCE5	0400FCE5	ANQORCOrcrestGuardPostDay03	Orcrest Guard	M	0Theo	0TheoHL
 0200FCE6	0400FCE6	ANQORCOrcrestGuardPostNight02	Orcrest Guard	M	0TheTruth	0TheTruthHL
 0200FCE7	0400FCE7	ANQORCOrcrestGuardPostNight03	Orcrest Guard	M	0RedRobin	0RedRobinHL
-0200FCF0	0400FCF0	ANQCORCorintheGuardPostDay01	Corinthe Guard	M	0Theo	0TheoHL
 0200FCF1	0400FCF1	ANQCORCorintheGuardPostDay02	Corinthe Guard	F	0Laurell	0LaurellHL
 0200FCF2	0400FCF2	ANQCORCorintheGuardPostDay03	Corinthe Guard	M	0RedRobin	0RedRobinHL
 0200FCF3	0400FCF3	ANQCORCorintheGuardPostNight01	Corinthe Guard	M	0TheTruth	0TheTruthHL
-0200FCF4	0400FCF4	ANQCORCorintheGuardPostNight02	Corinthe Guard	F	0Koala	0KoalaHL
 0200FCF5	0400FCF5	ANQCORCorintheGuardPostNight03	Corinthe Guard	F	0Koala	0KoalaHL
 0200FE1E	0400FE1E	ANQTRBAzkhanWarChief	Azkhan War Chief	M	0Theo	0TheoHL
 020105AB	040105AB	ANQDUNDuneGuardPostDay01	Dune Guard	M	0TheTruth	0TheTruthHL
-020105AC	040105AC	ANQDUNDuneGuardPostNight01	Dune Guard	M	0Theo	0TheoHL
 020105EC	040105EC	ANQDUNDuneGuardPostDay02	Dune Guard	F	0Lenore	0LenoreHL
 020105ED	040105ED	ANQDUNDuneGuardPostNight02	Dune Guard	M	0Victor	0VictorHL
-020105EE	040105EE	ANQDUNDuneGuardPostDay03	Dune Guard	M	0Theo	0TheoHL
-020105EF	040105EF	ANQDUNDuneGuardPostNight03	Dune Guard	F	0Leona	0LeonaHL
 02011616	04011616	ANQORCBrokumSharzog	Brokum Sharzog	M	0RedRobin	0RedRobinHL
 02011618	04011618	ANQORCRogda	Rogda the Witch	F	0Lamb	0LambHL
 0201161C	0401161C	ANQORCZabobgroDorg	Zabob gro-Dorg	M	0Victor	0VictorHL
-0201161E	0401161E	ANQORCMangySjar	Mangy Sjar	M	0Victor	0VictorHL
 02011620	04011620	ANQORCFodon	Fodon the Tall	M	0Theo	0TheoHL
 0201162C	0401162C	ANQORCEloineBrigette	Eloine Brigette	F	0Lamb	0LambHL
 0201162F	0401162F	ANQORCVaenenDres	Vaenen Dres	F	0Laurell	0LaurellHL
 02011635	04011635	ANQORCBugdala	Bugdala	F	0Leona	0LeonaHL
 02011638	04011638	ANQORCDornagraMorok	Dorna gra-Morok	F	0Lenore	0LenoreHL
-0201163C	0401163C	ANQALBJelunuun	Jelunuun	M	0Theo	0TheoHL
 0201163D	0401163D	ANQTRBAzkhanTribeswoman01	Azkhan Tribeswoman	F	0Lamb	0LambHL
-0201163F	0401163F	ANQTRBAzkhanTribeswoman02	Azkhan Tribeswoman	F	0Laurell	0LaurellHL
 02011640	04011640	ANQORCMensal	Mensal	M	0RedRobin	0RedRobinHL
 02011642	04011642	ANQORCNirasja	Nirasja	F	0Lamb	0LambHL
 02011645	04011645	ANQTRBAzkhanTribeswoman03	Azkhan Tribeswoman	F	0Koala	0KoalaHL
 02011651	04011651	ANQORCDulphoggroNaybek	Dulphog gro-Naybek	M	0Victor	0VictorHL
 02011653	04011653	ANQORCSlave01	Khajiit Slavegirl	F	0Leona	0LeonaHL
-02011655	04011655	ANQORCSlave02	Khajiit Slave	M	0RedRobin	0RedRobinHL
 02011658	04011658	ANQORCSlave03	Khajiit Slavegirl	F	0Lamb	0LambHL
 0201165A	0401165A	ANQORCSlave04	Khajiit Slave	M	0Victor	0VictorHL
-0201165E	0401165E	ANQORCSlave05	Khajiit Slavegirl	F	0Koala	0KoalaHL
 0201179E	0401179E	ANQKNGKingsWalkGuardPostDay01	Caravanserie Guard	M	0RedRobin	0RedRobinHL
-0201179F	0401179F	ANQKNGKingsWalkGuardPostNight01	Caravanserie Guard	M	0RedRobin	0RedRobinHL
 020120C5	040120C5	ANQKNGHilde	Hilde the Fair	F	0Lamb	0LambHL
 020121D7	040121D7	ANQDUNMgada	Mgada the Wise	F	0Lamb	0LambHL
 02012540	04012540	ANQDNCRoelof	Roelof	M	0Theo	0TheoHL
@@ -80,12 +63,7 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02012A13	04012A13	ANQKNGBahdzirr	Bahdzirr	M	0Theo	0TheoHL
 02012A19	04012A19	ANQORCUbaashi	Ubaashi	M	0Theo	0TheoHL
 02012A1E	04012A1E	ANQKNGShabkagraDulfum	Shabka gra-Dulfum	F	0Laurell	0LaurellHL
-02014687	04014687	ANQRHKjaana	K'jaana	F	0Koala	0KoalaHL
-0201468A	0401468A	ANQRHWajabh	Wajabh	M	0Theo	0TheoHL
-02014693	04014693	ANQRHTaneena	Taneena	F	0Lamb	0LambHL
-02014699	04014699	ANQRHZtigi	Z'tigi	M	0Theo	0TheoHL
 02014D79	04014D79	ANQRHWajiq	Wajiq	M	0Theo	0TheoHL
-02014D7B	04014D7B	ANQRHYgraska	Y'graska	F	0Leona	0LeonaHL
 02014F4E	04014F4E	ANQSQ05ValenwoodArcher01	Valenwood Soldier	M	0TheTruth	0TheTruthHL
 02014F51	04014F51	ANQSQ05ValenwoodArcher02	Valenwood Soldier	F	0Lamb	0LambHL
 02014F53	04014F53	ANQSQ05ValenwoodCaptain01	Valenwood Captain	M	0TheTruth	0TheTruthHL
@@ -95,8 +73,6 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02015A9E	04015A9E	ANQRHCorneliaDio	Cornelia Dio	F	0Lenore	0LenoreHL
 02015B8C	04015B8C	ANQCORAshisha	Ashisha	F	0Koala	0KoalaHL
 02015CD5	04015CD5	ANQCORGalwen	Galwen	M	0Victor	0VictorHL
-02015CEE	04015CEE	ANQCOROntWazei	Ont-Wazei	F	0Koala	0KoalaHL
-02015DF0	04015DF0	ANQRenrijraKrinRunner01	Renrijra Krin Runner	F	0Koala	0KoalaHL
 02015DF2	04015DF2	ANQDNCMuraggraLazgarn	Murag gra-Lazgarn	F	0Koala	0KoalaHL
 02015DF5	04015DF5	ANQRenrijraKrinRunner02	Renrijra Krin Runner	M	0Victor	0VictorHL
 02015DF7	04015DF7	ANQRenrijraKrinRunner03	Renrijra Krin Runner	M	0TheTruth	0TheTruthHL
@@ -105,17 +81,12 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02015ECB	04015ECB	ANQCORJinsiraga	Jinsiraga	F	0Laurell	0LaurellHL
 0201664F	0401664F	ANQSQ02GrauushBonekeeper	Gra-uush Bonekeeper	M	0TheTruth	0TheTruthHL
 020166C5	040166C5	ANQSQ09MadukLairBandit01	Bandit	M	0Victor	0VictorHL
-020166C9	040166C9	ANQSQ09MadukLairBandit02	Bandit	M	0Theo	0TheoHL
-020168C0	040168C0	ANQRHHzardirr	Hzardirr	M	0Theo	0TheoHL
-02017481	04017481	ANQTRBRenrijraKrinAgent01	Renrijra Krin Agent	M	0Theo	0TheoHL
 02017D06	04017D06	ANQALBSmasirri	Smasirri	M	0TheTruth	0TheTruthHL
-02017D08	04017D08	ANQALBLamsara	Lamsara	F	0Laurell	0LaurellHL
 02017D0E	04017D0E	ANQALBLamdumaji	Lamdumaji	M	0Theo	0TheoHL
 02017D12	04017D12	ANQALBHaerdica	Haerdica	F	0Lenore	0LenoreHL
 02017D14	04017D14	ANQALBRaskiri	Raskiri	M	0RedRobin	0RedRobinHL
 02018B69	04018B69	ANQMISCAgamanusPriest01	Priest of Agamanus	M	0Victor	0VictorHL
 02018B6B	04018B6B	ANQMISCAgamanusPriest02	Priest of Agamanus	M	0TheTruth	0TheTruthHL
-02018EAB	04018EAB	ANQRHBlaahl	B'laahl the Shepherd	M	0Victor	0VictorHL
 020193C0	040193C0	ANQCORNahdvirr	Nahdvirr	M	0RedRobin	0RedRobinHL
 02019583	04019583	ANQCORFloressaDeMoer	Floressa de Moer	F	0Laurell	0LaurellHL
 02019678	04019678	ANQDNCNisaba	Nisaba	F	0Leona	0LeonaHL
@@ -125,9 +96,7 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 0201ADA1	0401ADA1	ANQBRKLibiaBeltaire	Libia Beltaire	F	0Leona	0LeonaHL
 0201ADB6	0401ADB6	ANQBRKWibbums	Wibbums	M	0TheTruth	0TheTruthHL
 0201ADBA	0401ADBA	ANQBRKSnuggles	Snuggles	M	0TheTruth	0TheTruthHL
-0201ADBD	0401ADBD	ANQBRKFluffball	Fluffball	M	0Victor	0VictorHL
 0201B7CF	0401B7CF	ANQCORSdarasgari	S'darasgari	M	0Theo	0TheoHL
-0201B7D4	0401B7D4	ANQCORZeedEi	Zeed-Ei	M	0Victor	0VictorHL
 0201B7E1	0401B7E1	ANQRHLucDemers	Luc Demers	M	0Theo	0TheoHL
 0201B7E4	0401B7E4	ANQRHLovrynTherano	Lovryn Therano	M	0Theo	0TheoHL
 0201C004	0401C004	ANQORCLaphkaGraLag	Laphka gra-Lag	F	0Lamb	0LambHL
@@ -138,25 +107,19 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 0201C009	0401C009	ANQORCThodradil	Thodradil	M	0Theo	0TheoHL
 0201C00A	0401C00A	ANQORCKoffuttoGroLag	Koffutto gro-Lag	M	0Theo	0TheoHL
 0201C00B	0401C00B	ANQORCSlaabuGroOghdum	Slaabu gro-Oghdum	M	0RedRobin	0RedRobinHL
-0201C00C	0401C00C	ANQORCChibasi	Chibasi	M	0RedRobin	0RedRobinHL
 0201C00D	0401C00D	ANQORCDroZhid	Dro'Zhid	M	0RedRobin	0RedRobinHL
 0201C022	0401C022	ANQORCAlicyaWhitelock	Alicya Whitelock	F	0Lenore	0LenoreHL
-0201C0DF	0401C0DF	ANQRHRiverholdGuardPostDay01	Riverhold Guard	M	0Theo	0TheoHL
 0201C0F2	0401C0F2	ANQRHRiverholdGuardPostNight01	Riverhold Guard	M	0TheTruth	0TheTruthHL
 0201EDBF	0401EDBF	ANQRHJoRasma	Jo'Rasma	F	0Lamb	0LambHL
-0201F4BB	0401F4BB	ANQCORRaWafirr	Ra'Wafirr	M	0Victor	0VictorHL
 0201F509	0401F509	ANQRHJoFaraq	Jo'Faraq	M	0RedRobin	0RedRobinHL
 0201F877	0401F877	ANQRHRiverholdGuardPostDay02	Riverhold Guard	M	0RedRobin	0RedRobinHL
 0201F878	0401F878	ANQRHRiverholdGuardPostNight02	Riverhold Guard	M	0TheTruth	0TheTruthHL
 0201F87F	0401F87F	ANQRHRiverholdGuardPostDay03	Riverhold Guard	F	0Leona	0LeonaHL
-0201F880	0401F880	ANQRHRiverholdGuardPostNight03	Riverhold Guard	F	0Lamb	0LambHL
 0201FFF8	0401FFF8	ANQBanditHighwayman01	The Friendly Highwayman	M	0Theo	0TheoHL
 02020370	04020370	ANQCORJaRisha	Ja'Risha	F	0Laurell	0LaurellHL
 02020450	04020450	ANQCORIulusTarpenius	Iulus Tarpenius	M	0TheTruth	0TheTruthHL
 020206F3	040206F3	ANQRHRiverholdGuardPatrolDay01	Riverhold Guard	M	0RedRobin	0RedRobinHL
-020206F4	040206F4	ANQRHRiverholdGuardPatrolNight01	Riverhold Guard	M	0RedRobin	0RedRobinHL
 020208D1	040208D1	ANQSQ04DeadChild	Dead Boy	M	0Theo	0TheoHL
-02020A5F	04020A5F	ANQRHDeadKhajiit	Dead Khajiit	M	0TheTruth	0TheTruthHL
 02020DEB	04020DEB	ANQRHRiverholdGuardPatrolDay02	Riverhold Guard	F	0Leona	0LeonaHL
 02020DEC	04020DEC	ANQRHRiverholdGuardPatrolNight02	Riverhold Guard	F	0Leona	0LeonaHL
 02020FC4	04020FC4	ANQBRKRarassa	Rarassa the Goatkeep	M	0TheTruth	0TheTruthHL
@@ -165,9 +128,6 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02021385	04021385	ANQMISCAgamanusPriest03	Priest of Agamanus	M	0RedRobin	0RedRobinHL
 02021389	04021389	ANQDNCMansaba	Mansaba	F	0Leona	0LeonaHL
 0202138B	0402138B	ANQCORUbalama	Ubalama	F	0Lamb	0LambHL
-020214DE	040214DE	ANQRHRiverholdGuardPatrolDay03	Riverhold Guard	F	0Lamb	0LambHL
-020214DF	040214DF	ANQRHRiverholdGuardPatrolNight03	Riverhold Guard	F	0Leona	0LeonaHL
-020218FB	040218FB	ANQCORShavaRotTooth	Shava Rot-Tooth	M	0RedRobin	0RedRobinHL
 020218FE	040218FE	ANQCORCaecaRatTongue	Caeca Rat-Tongue	F	0Koala	0KoalaHL
 02021902	04021902	ANQCORScabSkinHaraj	Scab-skin Haraj	M	0TheTruth	0TheTruthHL
 0202219D	0402219D	ANQCORAzhaba	Azhaba	F	0Laurell	0LaurellHL
@@ -179,7 +139,6 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02022EB0	04022EB0	ANQCORCorintheGuardPatrolDay01	Corinthe Guard	F	0Laurell	0LaurellHL
 02022EB4	04022EB4	ANQCORCorintheGuardPatrolNight01	Corinthe Guard	M	0TheTruth	0TheTruthHL
 020231D6	040231D6	ANQCOROgradroBadrak	Ogra dro-Badrak	F	0Leona	0LeonaHL
-02023220	04023220	ANQCORDjari	D'jari	M	0RedRobin	0RedRobinHL
 020235B8	040235B8	ANQCORDungeonMadman01	Bosmer Madman	M	0TheTruth	0TheTruthHL
 02023996	04023996	ANQCORGuidodeMoer	Guido de Moer	M	0Victor	0VictorHL
 02024254	04024254	ANQCORDungeonCannibal02	Cannibal	M	0TheTruth	0TheTruthHL
@@ -187,29 +146,17 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 0202425D	0402425D	ANQCORDungeonCannibal03	Cannibal	M	0Victor	0VictorHL
 020247DD	040247DD	ANQCOREvadeMoer	Eva de Moer	F	0Leona	0LeonaHL
 020247E6	040247E6	ANQCORHzahbi	Hzahbi	M	0RedRobin	0RedRobinHL
-02024927	04024927	ANQDNCEatsFishEyes	Eats-Fish-Eyes	M	0RedRobin	0RedRobinHL
-0202492E	0402492E	ANQORCDancesInSand	Dances-In-Sand	M	0Theo	0TheoHL
-02025417	04025417	ANQDNCHadutsei	Hadutsei	F	0Leona	0LeonaHL
-02025419	04025419	ANQDNCTaRaazi	Ta'Raazi	M	0RedRobin	0RedRobinHL
-0202DF85	0402DF85	ANQRHInghajiTribesman01	Inghaji Tribesman	M	0RedRobin	0RedRobinHL
-0202DF86	0402DF86	ANQRHInghajiTribeswoman01	Inghaji Tribeswoman	F	0Koala	0KoalaHL
 0202DF89	0402DF89	ANQRHVeleucia	Veleucia	F	0Lamb	0LambHL
 0202DF8C	0402DF8C	ANQRHDagokgroMolth	Dagok gro-Molth	M	0RedRobin	0RedRobinHL
 0202E52F	0402E52F	ANQCORJolana	Jolana	F	0Laurell	0LaurellHL
-0202E666	0402E666	ANQRHHdiji	H'diji the Doorman	M	0Victor	0VictorHL
 0202E66A	0402E66A	ANQRHTchala	T'chala the Songstress	F	0Leona	0LeonaHL
-0202E66C	0402E66C	ANQRHPsharRmalakirr	P'shar R'malakirr	M	0TheTruth	0TheTruthHL
 0202E670	0402E670	ANQRHToran	Toran	M	0RedRobin	0RedRobinHL
 0202ED46	0402ED46	ANQRHLomasa	Lomasa	F	0Leona	0LeonaHL
 0202FB02	0402FB02	ANQRHYahsi	Yahsi the Barkeep	M	0RedRobin	0RedRobinHL
-02030915	04030915	ANQCORDungeonSkullSwinger	Skull-Swinger	M	0Theo	0TheoHL
 0203136E	0403136E	ANQORCBrotherLapeo	Brother Lapeo	M	0Victor	0VictorHL
-020324F4	040324F4	ANQRHRiverholdThug01	Renrijra Krin Runner	M	0RedRobin	0RedRobinHL
-020324F8	040324F8	ANQRHRiverholdThug02	Renrijra Krin Runner	M	0RedRobin	0RedRobinHL
 020327B5	040327B5	ANQMNIdhassi	High Priestess Idhassi	F	0Laurell	0LaurellHL
 020327B8	040327B8	ANQMNMShaani	Priestess M'Shaani	F	0Laurell	0LaurellHL
 020327BC	040327BC	ANQMNJjarsa	Priestess J'Jarsa	F	0Lenore	0LenoreHL
-020327C0	040327C0	ANQMNTsiyama	Acolyte Tsiyama	F	0Koala	0KoalaHL
 020327C3	040327C3	ANQMNBahdani	Acolyte Bahdani	F	0Laurell	0LaurellHL
 02032B3F	04032B3F	ANQORCAnakgroMorok	Anak gro-Morok	M	0TheTruth	0TheTruthHL
 02033416	04033416	ANQORCDinhcara	Dinh'cara	F	0Laurell	0LaurellHL
@@ -223,22 +170,16 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02034658	04034658	ANQTRBGbujewaWarChief	Gbujewa War Chief	M	0Victor	0VictorHL
 0203465C	0403465C	ANQTRBDgazahbaTribeswoman01	Dgazahba Tribeswoman	F	0Lamb	0LambHL
 0203466E	0403466E	ANQTRBAzkhanTribesman01	Azkhan Warrior	M	0RedRobin	0RedRobinHL
-02034670	04034670	ANQTRBAzkhanTribesman02	Azkhan Warrior	M	0RedRobin	0RedRobinHL
 02034EF0	04034EF0	ANQORCMaHaffi	Ma'Haffi	M	0Theo	0TheoHL
-020350CD	040350CD	ANQTRBDgazahbaTribeswoman02	Dgazahba Tribeswoman	F	0Laurell	0LaurellHL
 020350D0	040350D0	ANQTRBDgazahbaTribeswoman03	Dgazahba Tribeswoman	F	0Koala	0KoalaHL
 020350D2	040350D2	ANQTRBAzkhanClanMother	Azkhan Clan Mother	F	0Laurell	0LaurellHL
 020365E7	040365E7	ANQSQ09DarshgraMaduk	Darsh gra-Maduk	F	0Lenore	0LenoreHL
-0203685B	0403685B	ANQCORSlaveJsaddha	J'Saddha	M	0Victor	0VictorHL
 02036ABD	04036ABD	ANQORCLurgogroHadagh	Lurgo gro-Hadagh	M	0Victor	0VictorHL
 02036AC6	04036AC6	ANQORCTkajeja	T'kajeja	F	0Laurell	0LaurellHL
 02036ACE	04036ACE	ANQORCInyel	Inyel	M	0Victor	0VictorHL
 02037289	04037289	ANQCORSlaveKhamuzi	Khamuzi	F	0Lenore	0LenoreHL
-0203728B	0403728B	ANQCORSlaveAffri	Affri	F	0Lenore	0LenoreHL
 0203728E	0403728E	ANQCORSlaveSholani	Sholani	M	0Theo	0TheoHL
-02037291	04037291	ANQCORSlaveRivassa	Ri'Vassa	M	0TheTruth	0TheTruthHL
 02037294	04037294	ANQCORTsambadi	Lampkeeper Tsambadi	F	0Koala	0KoalaHL
-020373B6	040373B6	ANQORCRaBandah	Ra'Bandah	M	0Theo	0TheoHL
 02037CF7	04037CF7	ANQORCOyakhaSharzog	Oyakha Sharzog	F	0Lenore	0LenoreHL
 02037DDC	04037DDC	ANQCORLadon	Ladon	M	0RedRobin	0RedRobinHL
 0203884E	0403884E	ANQSQ11Moshi	Moshi	M	0TheTruth	0TheTruthHL
@@ -246,20 +187,15 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02038DB7	04038DB7	ANQBRKImperialLegionSoldierInnDarkarn	Imperial Legion Soldier	M	0Theo	0TheoHL
 0203BC35	0403BC35	ANQRHTylaena	Tylaena	F	0Lenore	0LenoreHL
 0203BC88	0403BC88	ANQDNCGretje	Gretje	F	0Lamb	0LambHL
-0203C30F	0403C30F	ANQRHRasavi	Ra'savi	M	0TheTruth	0TheTruthHL
 0203C8A9	0403C8A9	ANQCORVrydgartheBrazen	Vrydgar the Brazen	M	0Theo	0TheoHL
 0203C8B7	0403C8B7	ANQCORIngaLooseLegs	Inga Loose-Legs	F	0Koala	0KoalaHL
 0203C923	0403C923	ANQORCHidrak	Hidrak the Witch	F	0Koala	0KoalaHL
 0203C931	0403C931	ANQORCGarlag	Garlag the Witch	F	0Leona	0LeonaHL
 0203D349	0403D349	ANQCORMarahd	Marahd	M	0Theo	0TheoHL
 0203D34E	0403D34E	ANQCORSnarriva	Snarriva	F	0Laurell	0LaurellHL
-0203D354	0403D354	ANQCORDrobarzi	Drobarzi	M	0RedRobin	0RedRobinHL
-0203FF62	0403FF62	ANQDUNZedelGwa	Zedel-Gwa	M	0RedRobin	0RedRobinHL
 0203FF67	0403FF67	ANQDUNSabrusha	Sabrusha	F	0Laurell	0LaurellHL
 020417AD	040417AD	ANQCORShedzana	Shedzana	F	0Lamb	0LambHL
 020428AD	040428AD	ANQCORArchmageKreion	Archmage Kreion	M	0TheTruth	0TheTruthHL
-0204311A	0404311A	ANQDUNAhdni	Ahdni	F	0Leona	0LeonaHL
-0204311D	0404311D	ANQDUNJDiwa	J'Diwa	M	0Theo	0TheoHL
 02043126	04043126	ANQDUNRiThibb	Ri'Thibb	M	0TheTruth	0TheTruthHL
 0204388E	0404388E	ANQCORPsharAbtanjana	P'shar Abtanjana	F	0Lamb	0LambHL
 02044172	04044172	ANQORCSlobbyGabsak	Slobby Gabsak	M	0Theo	0TheoHL
@@ -268,38 +204,26 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02045B0E	04045B0E	ANQCORRaevusPalenix	Raevus Palenix	M	0RedRobin	0RedRobinHL
 020464AC	040464AC	ANQCORDhajamuli	Dhajamuli	M	0RedRobin	0RedRobinHL
 02046E44	04046E44	ANQCORPsharDroMalakad	P'shar Dro'Malakad	M	0Victor	0VictorHL
-020478DC	040478DC	ANQCORCorinthePalaceGuardAbtanjana	Corinthe Palace Guard	M	0RedRobin	0RedRobinHL
-02048B67	04048B67	ANQORCChewsOnRats	Chews-On-Rats	M	0RedRobin	0RedRobinHL
 02048EC0	04048EC0	ANQCORCorinthePalaceGuardPostDay01	Corinthe Palace Guard	M	0Victor	0VictorHL
 02048EC2	04048EC2	ANQCORCorinthePalaceGuardPostDay02	Corinthe Palace Guard	F	0Lamb	0LambHL
 02049759	04049759	ANQCORCorinthePalaceGuardPostDay03	Corinthe Palace Guard	M	0TheTruth	0TheTruthHL
 02049FC8	04049FC8	ANQCORCorinthePalaceGuardPostDay04	Corinthe Palace Guard	M	0RedRobin	0RedRobinHL
-02049FCA	04049FCA	ANQCORHuleeya	Huleeya	M	0Theo	0TheoHL
 0204A4EB	0404A4EB	ANQDUNZayiqCherim	Zayiq Cherim	M	0Victor	0VictorHL
-0204A854	0404A854	ANQCORJobasha	Jobasha	M	0Victor	0VictorHL
 0204A859	0404A859	ANQCORImperialLegionSoldier01	Imperial Legion Soldier	M	0Theo	0TheoHL
 0204A85B	0404A85B	ANQCORImperialLegionSoldier02	Imperial Legion Soldier	F	0Lenore	0LenoreHL
 0204B09C	0404B09C	ANQCORPsharZdastari	P'shar Z'dastari	F	0Laurell	0LaurellHL
 0204B1C6	0404B1C6	ANQBRKDeadSquishy	Dead Squishy	M	0RedRobin	0RedRobinHL
-0204B6CD	0404B6CD	ANQRHQueenNaghea	Queen Naghea	F	0Lenore	0LenoreHL
 0204B750	0404B750	ANQORCHorobok	Horobok Ox-Keeper	M	0Victor	0VictorHL
 0204BA69	0404BA69	ANQBRKDeadTickles	Tickles	F	0Leona	0LeonaHL
-0204BDA8	0404BDA8	ANQRHInghajiRoyalGuard01	Inghaji Royal Guard	M	0RedRobin	0RedRobinHL
 0204CBF8	0404CBF8	ANQCORHaskara	Haskara	F	0Koala	0KoalaHL
 0204CBFD	0404CBFD	ANQCORDarothoHlenas	Darotho Hlenas	M	0Theo	0TheoHL
-0204E5C2	0404E5C2	ANQCORCorintheJailor	Corinthe Jailor	F	0Leona	0LeonaHL
 0204E5C7	0404E5C7	ANQRHRiverholdJailor	Riverhold Jailor	M	0Victor	0VictorHL
-0204E5D2	0404E5D2	ANQDUNCherimHallGuard	Cherim Hall Guard	M	0RedRobin	0RedRobinHL
 0204ED7A	0404ED7A	ANQCORTynemwe	Tynemwe	F	0Koala	0KoalaHL
-0204F134	0404F134	ANQCORMaSrikah	Ma'Srikah	M	0Victor	0VictorHL
 0204F61F	0404F61F	ANQCORCommerceOfficeGuard	Commerce Office Guard	M	0TheTruth	0TheTruthHL
-0204FADC	0404FADC	ANQCORCorinthePalaceGuardHall01	Corinthe Palace Guard	M	0TheTruth	0TheTruthHL
 0204FAE2	0404FAE2	ANQCORCorinthePalaceGuardHall02	Corinthe Palace Guard	M	0RedRobin	0RedRobinHL
-0204FAEA	0404FAEA	ANQCORPsharRaSaqida	P'shar Ra'Saqida	M	0Victor	0VictorHL
 02051D31	04051D31	ANQDUNKiraskiri	Kiraskiri	M	0Victor	0VictorHL
 02051D9D	04051D9D	ANQRHRhadmani	Lampkeeper Rhadmani	M	0Theo	0TheoHL
 02051D9F	04051D9F	ANQRHDgazahbiTribeswoman01	Dgazahbi Tribeswoman	F	0Koala	0KoalaHL
-02051DAA	04051DAA	ANQRHDgazahbiTribesman01	Dgazahbi Tribesman	M	0RedRobin	0RedRobinHL
 020522CF	040522CF	ANQCORQuaji	Quaji	M	0TheTruth	0TheTruthHL
 020541CD	040541CD	ANQCORAbradissi	Abradissi	M	0Victor	0VictorHL
 02054944	04054944	ANQORCOrcrestPalaceGuard01	Orcrest Palace Guard	M	0Victor	0VictorHL
@@ -307,40 +231,26 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02054946	04054946	ANQORCOrcrestPalaceGuard03	Orcrest Palace Guard	M	0Theo	0TheoHL
 02054947	04054947	ANQORCOrcrestPalaceGuard04	Orcrest Palace Guard	M	0RedRobin	0RedRobinHL
 020551C3	040551C3	ANQORCGrandVizierMaZahn	Grand Vizier Ma'Zahn	M	0Victor	0VictorHL
-020551C5	040551C5	ANQORCJJirra	J'Jirra	F	0Lenore	0LenoreHL
 020551C9	040551C9	ANQORCHakshala	Hakshala	F	0Koala	0KoalaHL
 020551CC	040551CC	ANQORCHergdolg	Hergdolg	M	0TheTruth	0TheTruthHL
 020551CF	040551CF	ANQORCJMada	J'Mada	M	0RedRobin	0RedRobinHL
 02057670	04057670	ANQCORPulliaSybatis	Pullia Sybatis	F	0Leona	0LeonaHL
 02057673	04057673	ANQCORYsamirr	Y'samirr	M	0TheTruth	0TheTruthHL
-02057ECD	04057ECD	ANQCORMatasmar	Matasmar	M	0Victor	0VictorHL
 02057F08	04057F08	ANQRHShomdroMagrok	Shom dro-Magrok	M	0RedRobin	0RedRobinHL
 02057F09	04057F09	ANQRHAzkhanTribesman01	Azkhan Tribesman	M	0TheTruth	0TheTruthHL
-02057F0A	04057F0A	ANQRHAzkhanTribeswoman01	Azkhan Tribeswoman	F	0Lamb	0LambHL
 02057F0B	04057F0B	ANQRHBenrick	Benrick	M	0Victor	0VictorHL
 02057F0C	04057F0C	ANQRHJliqa	J'liqa	F	0Lamb	0LambHL
-02057F0D	04057F0D	ANQRHNdrissi	Clan Mother N'drissi	F	0Lenore	0LenoreHL
-02057F0E	04057F0E	ANQRHNdek	N'dek	M	0Victor	0VictorHL
-02057F0F	04057F0F	ANQRHNZiiim	N'Ziim	M	0Victor	0VictorHL
 020588A6	040588A6	ANQORCOrcrestArcherOrcF03	Orcrest Archer	F	0Laurell	0LaurellHL
 020588D2	040588D2	ANQORCOrcrestSoldierOrcM01	Orcrest Soldier	M	0Theo	0TheoHL
 020588E7	040588E7	ANQORCOrcrestSoldierOrcM02	Orcrest Soldier	M	0RedRobin	0RedRobinHL
-020588EA	040588EA	ANQORCOrcrestSoldierKhajiitM01	Orcrest Soldier	M	0TheTruth	0TheTruthHL
 020588EC	040588EC	ANQORCOrcrestSoldierKhajiitF01	Orcrest Soldier	F	0Leona	0LeonaHL
 020588F1	040588F1	ANQORCOrcrestSoldierOrcF01	Orcrest Soldier	F	0Lenore	0LenoreHL
-020593AE	040593AE	ANQORCOrcrestSoldierKhajiitM02	Orcrest Soldier	M	0Victor	0VictorHL
 020593B1	040593B1	ANQORCOrcrestSoldierOrcM03	Orcrest Soldier	M	0RedRobin	0RedRobinHL
 020593B4	040593B4	ANQORCOrcrestSoldierOrcM04	Orcrest Soldier	M	0Theo	0TheoHL
 020593BA	040593BA	ANQORCOrcrestSoldierOrcM05	Orcrest Soldier	M	0RedRobin	0RedRobinHL
-020593C4	040593C4	ANQORCOrcrestArcherKhajiitF01	Orcrest Archer	F	0Koala	0KoalaHL
-0205AE0E	0405AE0E	ANQCORDungeonPrisonerBandit01M	Prisoner	M	0RedRobin	0RedRobinHL
 0205AE0F	0405AE0F	ANQCORDungeonPrisonerBandit05M	Prisoner	M	0RedRobin	0RedRobinHL
-0205AE10	0405AE10	ANQCORDungeonPrisonerBandit01F	Prisoner	F	0Leona	0LeonaHL
-0205AE11	0405AE11	ANQCORDungeonPrisonerBandit02M	Prisoner	M	0TheTruth	0TheTruthHL
 0205AE12	0405AE12	ANQCORDungeonPrisonerBandit03M	Prisoner	M	0Victor	0VictorHL
 0205AE13	0405AE13	ANQCORDungeonPrisonerBandit04M	Prisoner	M	0TheTruth	0TheTruthHL
-0205AE14	0405AE14	ANQCORDungeonPrisonerBandit06M	Prisoner	M	0RedRobin	0RedRobinHL
-0205AE15	0405AE15	ANQCORDungeonPrisonerMarauder01M	Prisoner	M	0TheTruth	0TheTruthHL
 0205AE16	0405AE16	ANQCORDungeonPrisonerMarauder03M	Prisoner	M	0TheTruth	0TheTruthHL
 0205AE17	0405AE17	ANQCORDungeonPrisonerMarauder02M	Prisoner	M	0RedRobin	0RedRobinHL
 0205AE18	0405AE18	ANQCORDungeonPrisonerMarauder04M	Prisoner	M	0TheTruth	0TheTruthHL
@@ -349,16 +259,11 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 0205C0B7	0405C0B7	ANQCORShotherr	Shotherr	M	0Victor	0VictorHL
 0205C145	0405C145	ANQCORProphetKsharra	Prophet of K'sharra	M	0RedRobin	0RedRobinHL
 0205C251	0405C251	ANQCORDungeonBahdpura	Bahdpura	M	0TheTruth	0TheTruthHL
-02060FF2	04060FF2	ANQCORDungeonGwatul	Gwatul	M	0Victor	0VictorHL
 02060FF8	04060FF8	ANQCORDungeonTyss	Tyss	M	0RedRobin	0RedRobinHL
 02062BE9	04062BE9	ANQCORGlyciaFulgentius	Glycia Fulgentius	F	0Lenore	0LenoreHL
 02063CC0	04063CC0	ANQCORMeraendil	Meraendil	F	0Laurell	0LaurellHL
 02063CC1	04063CC1	ANQCORMaerendil	Maerendil	M	0Victor	0VictorHL
 0206564D	0406564D	ANQCORBaroFulgentius	Baro Fulgentius	M	0TheTruth	0TheTruthHL
-020677AD	040677AD	ANQTribalHunterM01ASuthayRaht	Tribal Hunter	M	0Victor	0VictorHL
-020677B0	040677B0	ANQTribalHunterM01DSuthayRaht	Tribal Hunter	M	0TheTruth	0TheTruthHL
-020677B1	040677B1	ANQTribalHunterF01ASuthayRaht	Tribal Hunter	F	0Lamb	0LambHL
-020677B2	040677B2	ANQTribalHunterF01BSuthayRaht	Tribal Hunter	F	0Koala	0KoalaHL
 020677B3	040677B3	ANQTribalHunterM02ASuthay	Tribal Hunter	M	0RedRobin	0RedRobinHL
 020677B4	040677B4	ANQTribalHunterM02BSuthay	Tribal Hunter	M	0RedRobin	0RedRobinHL
 020677B5	040677B5	ANQTribalHunterF02ASuthay	Tribal Hunter	F	0Lenore	0LenoreHL
@@ -367,8 +272,6 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 020677B8	040677B8	ANQTribalHunterM03BOhmesRaht	Tribal Hunter	M	0Victor	0VictorHL
 020677B9	040677B9	ANQTribalHunterF03AOhmesRaht	Tribal Hunter	F	0Lenore	0LenoreHL
 020677BA	040677BA	ANQTribalHunterF03BOhmesRaht	Tribal Hunter	F	0Koala	0KoalaHL
-020677BB	040677BB	ANQTribalHunterM01BSuthayRaht	Tribal Hunter	M	0Victor	0VictorHL
-020677BC	040677BC	ANQTribalHunterM01CSuthayRaht	Tribal Hunter	M	0TheTruth	0TheTruthHL
 020677BD	040677BD	ANQTribalHunterM02CSuthay	Tribal Hunter	M	0Theo	0TheoHL
 020677BE	040677BE	ANQTribalHunterM02DSuthay	Tribal Hunter	M	0TheTruth	0TheTruthHL
 02067817	04067817	ANQCOROldKharzu	Old Kharzu	M	0TheTruth	0TheTruthHL
@@ -383,7 +286,6 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 0206F6D5	0406F6D5	ANQRMNRimmenGuardKingEscort	King's Bodyguard	M	0RedRobin	0RedRobinHL
 0206F6FC	0406F6FC	ANQRMNRimmenGuardPostDay05	Rimmen Guard	M	0Victor	0VictorHL
 0206F6FD	0406F6FD	ANQRMNRimmenGuardPostNight05	Rimmen Guard	M	0Victor	0VictorHL
-02070833	04070833	ANQRMNSkoomaAddictCrazed01	Crazed Skooma Addict	M	0TheTruth	0TheTruthHL
 02073810	04073810	ANQSQ08DremoraOfTheLamp	Dremora of the Lamp	F	0Koala	0KoalaHL
 02073818	04073818	ANQTribalShamanM01OhmesRaht	Tribal Shaman	M	0TheTruth	0TheTruthHL
 0207381B	0407381B	ANQTribalShamanM02Suthay	Tribal Shaman	M	0Victor	0VictorHL
@@ -397,11 +299,9 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 0207CC8F	0407CC8F	ANQSQ07Highwayman	Highwayman	M	0TheTruth	0TheTruthHL
 0207DCEB	0407DCEB	ANQSQ08LoveMan	Love	M	0TheTruth	0TheTruthHL
 0207DCEC	0407DCEC	ANQSQ08LoveWoman	Love	F	0Lenore	0LenoreHL
-0207DCF7	0407DCF7	ANQSQ08DeadKhajiit	Dead Khajiit	M	0Theo	0TheoHL
 0207E3E4	0407E3E4	ANQRMNIlengar	Ilengar	M	0Victor	0VictorHL
 0207E3E7	0407E3E7	ANQRMNRishaya	Rishaya	F	0Koala	0KoalaHL
 0207E3E8	0407E3E8	ANQRMNJShambar	J'Shambar	M	0TheTruth	0TheTruthHL
-0207EFE1	0407EFE1	ANQDUNWaterKeeper	Water Keeper	M	0TheTruth	0TheTruthHL
 02080E28	04080E28	ANQSQ05Gjuna	G'juna	M	0RedRobin	0RedRobinHL
 020826C8	040826C8	ANQSQ06OrcPilgrim01	Orc Pilgrim	M	0TheTruth	0TheTruthHL
 020826CB	040826CB	ANQSQ06OrcPilgrim02	Orc Pilgrim	M	0Theo	0TheoHL
@@ -425,48 +325,35 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02088122	04088122	ANQSQ05ValenwoodScout02	Valenwood Scout	M	0RedRobin	0RedRobinHL
 02088125	04088125	ANQSQ05ValenwoodScout03	Valenwood Scout	F	0Lamb	0LambHL
 0208812F	0408812F	ANQTRBGbujewaClanMother	Gbujewa Clan Mother	F	0Lenore	0LenoreHL
-02088130	04088130	ANQTRBGbujewaTribesman01	Gbujewa Warrior	M	0RedRobin	0RedRobinHL
 02088131	04088131	ANQTRBGbujewaTribesman02	Gbujewa Warrior	M	0TheTruth	0TheTruthHL
 02088132	04088132	ANQTRBGbujewaTribesman03	Gbujewa Warrior	M	0RedRobin	0RedRobinHL
 02088133	04088133	ANQTRBGbujewaTribeswoman01	Gbujewa Tribeswoman	F	0Lamb	0LambHL
-02088134	04088134	ANQTRBGbujewaTribeswoman02	Gbujewa Tribeswoman	F	0Laurell	0LaurellHL
 02088135	04088135	ANQTRBGbujewaTribeswoman03	Gbujewa Tribeswoman	F	0Leona	0LeonaHL
-02088B16	04088B16	ANQHG05DeadKhajiit	Dead Khajiit	F	0Lenore	0LenoreHL
-0208A717	0408A717	ANQTRBQwazaniTribesman01	Q'wazani Warrior	M	0Victor	0VictorHL
 0208A718	0408A718	ANQTRBQwazaniTribesman03	Q'wazani Warrior	M	0RedRobin	0RedRobinHL
 0208A719	0408A719	ANQTRBQwazaniTribesman02	Q'wazani Warrior	M	0Theo	0TheoHL
 0208A71A	0408A71A	ANQTRBQwazaniTribeswoman01	Q'wazani Tribeswoman	F	0Lamb	0LambHL
-0208A71B	0408A71B	ANQTRBQwazaniTribeswoman02	Q'wazani Tribeswoman	F	0Laurell	0LaurellHL
 0208A71C	0408A71C	ANQTRBQwazaniTribeswoman03	Q'wazani Tribeswoman	F	0Koala	0KoalaHL
 0208B55A	0408B55A	ANQTRVTravellerM01	Traveller	M	0TheTruth	0TheTruthHL
 0208B55B	0408B55B	ANQTRVTravellerM02	Traveller	M	0Theo	0TheoHL
-0208B55C	0408B55C	ANQTRVTravellerM03	Traveller	M	0RedRobin	0RedRobinHL
 0208B55D	0408B55D	ANQTRVPilgrimF01	Pilgrim	F	0Laurell	0LaurellHL
 0208B55E	0408B55E	ANQTRVPilgrimM01	Pilgrim	M	0RedRobin	0RedRobinHL
 0208B55F	0408B55F	ANQTRVPilgrimM02	Pilgrim	M	0TheTruth	0TheTruthHL
 0208B561	0408B561	ANQTRVMadProphetM01	Mad Doom Prophet	M	0Victor	0VictorHL
-0208B562	0408B562	ANQTRVMadProphetM02	Mad Doom Prophet	M	0TheTruth	0TheTruthHL
-0208B565	0408B565	ANQTRVHarvesterF01	Harvester	F	0Koala	0KoalaHL
 0208B567	0408B567	ANQTRVHarvesterF02	Harvester	F	0Lamb	0LambHL
 0208B568	0408B568	ANQTRVHarvesterF03	Harvester	F	0Leona	0LeonaHL
 0208B569	0408B569	ANQTRVOldHagF01	Old Hag	F	0Laurell	0LaurellHL
-0208B56A	0408B56A	ANQTRVGoatherdM01	Goatherd	M	0TheTruth	0TheTruthHL
 0208B56B	0408B56B	ANQTRVGoatherdM02	Goatherd	M	0RedRobin	0RedRobinHL
-0208B56C	0408B56C	ANQTRVGoatherdM03	Goatherd	M	0RedRobin	0RedRobinHL
 0208B56D	0408B56D	ANQTRVTravellerF01	Traveller	F	0Laurell	0LaurellHL
 0208B56E	0408B56E	ANQTRVImperialLegionSoldier01	Imperial Legion Soldier	M	0Theo	0TheoHL
 0208B56F	0408B56F	ANQTRVImperialLegionSoldier02	Imperial Legion Soldier	M	0Theo	0TheoHL
 0208B570	0408B570	ANQTRVPeddlerM01	Peddler	M	0TheTruth	0TheTruthHL
 0208B571	0408B571	ANQTRVPeddlerF01	Peddler	F	0Leona	0LeonaHL
-0208C62D	0408C62D	ANQTRVMinerM01	Miner	M	0Victor	0VictorHL
 0208C62E	0408C62E	ANQTRVMinerM02	Miner	M	0Theo	0TheoHL
 020913BF	040913BF	ANQRMNChibilha	Chibilha	F	0Laurell	0LaurellHL
 020913C8	040913C8	ANQRMNBossMaTombosi	Boss Ma'Tombosi	M	0Theo	0TheoHL
 02092F29	04092F29	ANQORCAgorak	Agorak	M	0Theo	0TheoHL
 02092F9F	04092F9F	ANQRMNGhakgroShub	Ghak gro-Shub	M	0RedRobin	0RedRobinHL
 0209591E	0409591E	ANQDUNBahmarra	Bahmarra	F	0Laurell	0LaurellHL
-020963E2	040963E2	ANQDUNCherimWorker01	Cherim Worker	F	0Leona	0LeonaHL
-020963E4	040963E4	ANQDUNCherimWorker04	Cherim Worker	F	0Koala	0KoalaHL
 020963E6	040963E6	ANQDUNCherimWorker02	Cherim Worker	F	0Laurell	0LaurellHL
 020963E8	040963E8	ANQDUNCherimWorker05	Cherim Worker	F	0Leona	0LeonaHL
 02097ED8	04097ED8	ANQORCOrcrestArcherOrcF01	Orcrest Archer	F	0Laurell	0LaurellHL
@@ -476,8 +363,6 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 02099070	04099070	ANQSQ02BhorlarzAvenger01	Ubal gro-Yambak	M	0RedRobin	0RedRobinHL
 02099071	04099071	ANQSQ02BhorlarzAvenger02	Ugarka dra-Labag	F	0Koala	0KoalaHL
 02099076	04099076	ANQORCFalargadraSharka	Falarga dra-Sharka	F	0Lamb	0LambHL
-0209B94A	0409B94A	ANQRMNSkoomaAddict02	Skooma Addict	M	0Victor	0VictorHL
-0209B94E	0409B94E	ANQRMNSkoomaAddict03	Skooma Addict	F	0Koala	0KoalaHL
 0209B952	0409B952	ANQRMNSkoomaAddict04	Skooma Addict	M	0Victor	0VictorHL
 0209B953	0409B953	ANQRMNSkoomaAddict05	Skooma Addict	M	0TheTruth	0TheTruthHL
 0209B954	0409B954	ANQRMNSkoomaAddict06	Skooma Addict	F	0Leona	0LeonaHL
@@ -492,7 +377,6 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 020A6C09	040A6C09	ANQDUNClayd	Clayd	M	0RedRobin	0RedRobinHL
 020A6C11	040A6C11	ANQDUNLeba	Leba	F	0Lamb	0LambHL
 020A741B	040A741B	ANQCORChaeVarseu	Chae-Varseu	F	0Lamb	0LambHL
-020A7614	040A7614	ANQRMNSkeetelJei	Skeetel-Jei	M	0Theo	0TheoHL
 020A848E	040A848E	ANQRHHnassa	H'nassa	F	0Koala	0KoalaHL
 020A88D7	040A88D7	ANQRMNLinJiao	Lin-Jiao	F	0Koala	0KoalaHL
 020A88D8	040A88D8	ANQRMNMarette	Marette	F	0Leona	0LeonaHL
@@ -511,14 +395,9 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 020A9E80	040A9E80	ANQLGNHirsidiusAllentus	Hirsidius Allentus	M	0RedRobin	0RedRobinHL
 020A9E82	040A9E82	ANQLGNRhabus	Rhabus Stablemaster	M	0Victor	0VictorHL
 020A9E84	040A9E84	ANQLGNMuniciaBellisarius	Municia Bellisarius	F	0Lamb	0LambHL
-020AB2A0	040AB2A0	ANQDUNWasbhaji	Wasbhaji	M	0Victor	0VictorHL
 020AC3AB	040AC3AB	ANQDUNBatiaArastius	Batia Arastius	F	0Lenore	0LenoreHL
-020AD91B	040AD91B	ANQWaiqtheLiar	W'aiq the Liar	M	0Victor	0VictorHL
 020AE4B6	040AE4B6	ANQCORCorinthePalaceGuardZdastari	Corinthe Palace Guard	M	0RedRobin	0RedRobinHL
-020AFAB6	040AFAB6	ANQRMNKhajiitBeggar01	Khajiit Beggar	F	0Leona	0LeonaHL
-020AFAB8	040AFAB8	ANQRMNKhajiitBeggar02	Khajiit Beggar	M	0Theo	0TheoHL
 020AFBDB	040AFBDB	ANQDUNDuneJailor	Dune Jailor	M	0Victor	0VictorHL
-020B03F9	040B03F9	ANQRMNDancesInLight	Dances-In-Light	F	0Laurell	0LaurellHL
 020B03FA	040B03FA	ANQRMNTanparion	Tanparion	M	0RedRobin	0RedRobinHL
 020B0C99	040B0C99	ANQRMNNagahni	Nagahni	F	0Lamb	0LambHL
 020B0CCC	040B0CCC	ANQDUNMarvysDralor	Marvys Dralor	M	0Victor	0VictorHL
@@ -545,32 +424,20 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 020B9091	040B9091	ANQRMNHestaScalpinius	Hesta Scalpinius	F	0Laurell	0LaurellHL
 020B90B8	040B90B8	ANQRMNCardusScalpinius	Cardus Scalpinius	M	0TheTruth	0TheTruthHL
 020B9240	040B9240	ANQORCYashada	Yashada	F	0Leona	0LeonaHL
-020B9270	040B9270	ANQORCMerchantsGuildGuard	Merchants Guild Guard	F	0Leona	0LeonaHL
 020B9294	040B9294	ANQDUNJagan	Jagan	M	0TheTruth	0TheTruthHL
 020BB57E	040BB57E	ANQRMNSorosaDorvayn	Sorosa Dorvayn	F	0Lenore	0LenoreHL
 020BB5EA	040BB5EA	ANQRMNBrathasRelvani	Brathas Relvani	M	0RedRobin	0RedRobinHL
-020BD16E	040BD16E	ANQRMNSkoomaAddict01	Skooma Addict	M	0TheTruth	0TheTruthHL
 020BDE0B	040BDE0B	ANQImperialLegionRiderRiverhold	Imperial Legion Soldier	M	0Theo	0TheoHL
 020BDE19	040BDE19	ANQTG02Courier	Courier	F	0Koala	0KoalaHL
 020BDFEC	040BDFEC	ANQDUNYarna	Yarna	F	0Laurell	0LaurellHL
-020BE685	040BE685	ANQTARYsaani	Ysaani	F	0Koala	0KoalaHL
 020C56D7	040C56D7	ANQDUNTochka	Tochka	F	0Lenore	0LenoreHL
-020C56DE	040C56DE	ANQDUNRdozi	R'dozi	M	0RedRobin	0RedRobinHL
-020CC992	040CC992	ANQDUNGreenFootman01	Dune Soldier	M	0TheTruth	0TheTruthHL
-020CC993	040CC993	ANQDUNRedFootman01	Dune Soldier	M	0TheTruth	0TheTruthHL
-020CC9C1	040CC9C1	ANQDUNGreenBowman01	Dune Soldier	F	0Leona	0LeonaHL
-020CC9C2	040CC9C2	ANQDUNRedBowman01	Dune Soldier	F	0Leona	0LeonaHL
-020CD22E	040CD22E	ANQDUNGreenFootman02	Dune Soldier	M	0TheTruth	0TheTruthHL
 020CD22F	040CD22F	ANQDUNGreenFootman03	Dune Soldier	M	0RedRobin	0RedRobinHL
 020CD230	040CD230	ANQDUNGreenFootman04	Dune Soldier	M	0RedRobin	0RedRobinHL
 020CD231	040CD231	ANQDUNGreenFootman05	Dune Soldier	M	0TheTruth	0TheTruthHL
-020CD232	040CD232	ANQDUNGreenBowman02	Dune Soldier	F	0Lenore	0LenoreHL
 020CD233	040CD233	ANQDUNGreenBowman03	Dune Soldier	F	0Laurell	0LaurellHL
 020CD234	040CD234	ANQDUNGreenBowman04	Dune Soldier	F	0Laurell	0LaurellHL
-020CD235	040CD235	ANQDUNRedBowman02	Dune Soldier	F	0Lamb	0LambHL
 020CD236	040CD236	ANQDUNRedBowman03	Dune Soldier	F	0Lamb	0LambHL
 020CD237	040CD237	ANQDUNRedBowman04	Dune Soldier	F	0Lenore	0LenoreHL
-020CD238	040CD238	ANQDUNRedFootman02	Dune Soldier	M	0RedRobin	0RedRobinHL
 020CD239	040CD239	ANQDUNRedFootman03	Dune Soldier	M	0Victor	0VictorHL
 020CD23A	040CD23A	ANQDUNRedFootman04	Dune Soldier	M	0Theo	0TheoHL
 020CD23B	040CD23B	ANQDUNRedFootman05	Dune Soldier	M	0Victor	0VictorHL
@@ -581,16 +448,4 @@ SOURCE_FORMID	PATCH_FORMID	EDITORID	NAME	SEX	HAIR	HL
 020DF534	040DF534	ANQ0CORPsharAbtanjanaTEMP	P'shar Abtanjana	F	0Koala	0KoalaHL
 021F4A7B	041F4A7B	ANQLL1WildernessSwamp_Lvl		M	0Victor	0VictorHL
 023E494D	043E494D	ANQLL1BanditMissile100_Lvl		M	0Victor	0VictorHL
-02457067	04457067	ANQLL1RoadSwamp_Lvl		M	0RedRobin	0RedRobinHL
 02546036	04546036	ANQLL0TribalShaman50_Lvl		M	0TheTruth	0TheTruthHL
-0264262B	0464262B	ANQLL0TribalHunter50_Lvl		M	0Theo	0TheoHL
-02734D69	04734D69	ANQLL0DuneGreenFootman_Lvl		M	0Victor	0VictorHL
-02845B62	04845B62	ANQLL0RoadTraveller50_Lvl		M	0Theo	0TheoHL
-028470E0	048470E0	ANQLL0DuneRedFootman_Lvl		M	0Theo	0TheoHL
-0285BB1F	0485BB1F	ANQLL0DuneRedBowman_Lvl		M	0TheTruth	0TheTruthHL
-028F4862	048F4862	ANQLL0RimmenSkoomaAddicts_Lvl		M	0Victor	0VictorHL
-02A4F76B	04A4F76B	ANQLL1RoadBandit_Lvl		M	0RedRobin	0RedRobinHL
-02B77D32	04B77D32	ANQLL2BanditCamp100_Lvl		M	0Victor	0VictorHL
-02B97924	04B97924	ANQLL0DuneGreenBowman_Lvl		M	0TheTruth	0TheTruthHL
-02BB2D97	04BB2D97	ANQLL1CorinthePrison100_Lvl		M	0TheTruth	0TheTruthHL
-02C8C74A	04C8C74A	ANQLL2BanditCamp50_Lvl		M	0RedRobin	0RedRobinHL

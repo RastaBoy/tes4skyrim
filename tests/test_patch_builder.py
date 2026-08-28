@@ -17,8 +17,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.patch.patch_builder import (          # noqa: E402
     FLAG_INITIALLY_DISABLED, GT_CELL_CHILDREN, GT_INTERIOR_BLOCK,
     GT_INTERIOR_SUBBLOCK, GT_PERSISTENT, GT_TEMPORARY, GT_TOP,
-    GT_WORLD_CHILDREN, PatchPlugin, expand_masters, order_masters,
-    remap_chain, remap_record, set_field,
+    GT_WORLD_CHILDREN, PatchPlugin, SourceStack, expand_masters,
+    order_masters, overlay_contributors, remap_chain, remap_record, set_field,
 )
 from tools.patch.patch_builder import iter_records_chained   # noqa: E402
 from tools.patch.plugin_patch import (           # noqa: E402
@@ -245,6 +245,46 @@ def test_two_refs_in_one_cell_share_the_group(tmp_path):
     assert cells == [cell]          # one CELL override, not two
 
 
+def test_flat_and_nested_records_share_one_top_level_group(tmp_path):
+    """A WRLD override plus a ref hanging under another WRLD is ONE group.
+
+    The ship patch needs both at once: it re-asserts Tamriel's object bounds as
+    a plain top-level WRLD record, and nests the sea gate under the ocean
+    worldspace. Two GRUPs with the same label would leave only one of them --
+    they collide on the label -- and the record that vanished is the one nobody
+    would think to check.
+    """
+    patch = PatchPlugin(MASTERS)
+    bounded = patch.fid('Skyrim.esm', 0x00003C)
+    patch.add('WRLD', bounded, *_wrld(bounded))
+
+    wrld = patch.fid('ElsweyrAnequina.esp', 0x0009B7)
+    cell = patch.fid('ElsweyrAnequina.esp', 0x01262E)
+    patch.add_parent('WRLD', wrld, *_wrld(wrld))
+    patch.add_parent('CELL', cell, *_cell(cell))
+    ref = patch.fid('ElsweyrAnequina.esp', 0x0228B2)
+    patch.add_nested(_exterior_chain(wrld, cell), 'ACHR', ref,
+                     *_achr(ref, cell))
+
+    out = tmp_path / 'P.esp'
+    patch.write(out)
+    buf = out.read_bytes()
+
+    hsize = struct.unpack_from('<I', buf, 4)[0]
+    pos = REC_HDR + hsize
+    tops = []
+    while pos < len(buf):
+        size, label, gtype = struct.unpack_from('<I4si', buf, pos + 4)
+        tops.append((label, gtype))
+        pos += size
+    assert tops.count((b'WRLD', GT_TOP)) == 1, tops
+
+    worlds = [fid for _s, fid, _f, _h, _d, _c
+              in iter_records_chained(buf, {'WRLD'})]
+    assert sorted(worlds) == sorted([bounded, wrld])
+    assert _tiles(buf)
+
+
 def test_remap_moves_master_indexes_and_chain_labels():
     mapping = {0: 0, 1: 4, 2: 5}
     header, subs = _achr(0x0200ABCD, 0x0100BEEF)
@@ -388,3 +428,79 @@ def test_hdpt_part_type_is_an_enum_not_a_formid():
                               {0: 0, 1: 2, 2: 3})
     assert struct.unpack('<I', subs[0][1])[0] == 3
     assert struct.unpack('<I', subs[1][1])[0] == 0x02000777
+
+
+# ---------------------------------------------------------------------------
+# Stacking one patch on another
+#
+# Two plugins that override the same record do NOT merge: the later one wins
+# the whole record. The cosmetic patch and the iNeed patch shared 220
+# merchants, and the one that loaded second erased the other's work on all of
+# them -- in game, every faction and every item of vendor stock. A later patch
+# has to COPY the earlier one's version, which is what SourceStack is for.
+# ---------------------------------------------------------------------------
+
+def _npc(fid, snam):
+    """One NPC_ carrying a single faction, so a copy is easy to tell apart."""
+    return _header('NPC_', fid), [('EDID', b'TestNPC\0'),
+                                  ('SNAM', struct.pack('<Ii', snam, 0))]
+
+
+def _plugin(path, masters, records):
+    patch = PatchPlugin(masters)
+    for fid, snam in records:
+        patch.add('NPC_', fid, *_npc(fid, snam))
+    patch.write(path)
+    return path
+
+
+@pytest.fixture
+def stacked(tmp_path):
+    """A source plugin, a patch over it, and a patch that shares nothing."""
+    src = _plugin(tmp_path / 'Src.esm', ['Skyrim.esm'],
+                  [(0x01000ABC, 0x00000111), (0x01000DEF, 0x00000111)])
+    # Overrides the FIRST record only. Its own index for Src.esm is 1 as well,
+    # which is exactly the trap: the same FormID means different things here.
+    over = _plugin(tmp_path / 'Over.esp', ['Skyrim.esm', 'Src.esm'],
+                   [(0x01000ABC, 0x00000222)])
+    other = _plugin(tmp_path / 'Other.esp', ['Skyrim.esm', 'Src.esm'],
+                    [(0x01000999, 0x00000333)])
+    return src, over, other
+
+
+def _snam(layer, fid):
+    subs = layer.by_type['NPC_'][fid][1]
+    return struct.unpack_from('<I', dict(subs)['SNAM'], 0)[0]
+
+
+def test_stack_takes_the_last_override_of_a_shared_record(stacked):
+    src, over, _other = stacked
+    stack = SourceStack(src, [over], {'NPC_'})
+    layer, fid = stack.latest('NPC_', 'Src.esm', 0xABC)
+    assert layer.name == 'Over.esp'
+    assert _snam(layer, fid) == 0x00000222
+
+
+def test_stack_falls_back_to_the_base_plugin(stacked):
+    src, over, _other = stacked
+    stack = SourceStack(src, [over], {'NPC_'})
+    layer, fid = stack.latest('NPC_', 'Src.esm', 0xDEF)
+    assert layer.name == 'Src.esm'
+    assert _snam(layer, fid) == 0x00000111
+
+
+def test_stack_keys_by_owner_not_by_formid(stacked):
+    """0x01000ABC is Src.esm's own record in one file and a master's in the
+    other. Keying by the raw FormID would confuse the two."""
+    src, over, _other = stacked
+    stack = SourceStack(src, [over], {'NPC_'})
+    assert stack.latest('NPC_', 'Skyrim.esm', 0xABC) is None
+    assert stack.latest('NPC_', 'Src.esm', 0xABC) is not None
+
+
+def test_an_overlay_that_shares_nothing_is_not_mastered(stacked):
+    """Mastering a file the patch never reads makes it refuse to load for
+    everyone who does not have that file."""
+    _src, over, other = stacked
+    keys = {('src.esm', 0xABC)}
+    assert overlay_contributors([over, other], {'NPC_'}, keys) == [over]

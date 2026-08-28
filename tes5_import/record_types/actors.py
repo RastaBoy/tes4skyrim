@@ -994,19 +994,33 @@ def _write_vendor_faction(writer, edid: str, flst_fid: int, venc_fid: int = 0) -
     # VEND — Vendor buy/sell list → FLST
     subs += pack_formid_subrecord('VEND', flst_fid)
     # VENC — Merchant Container → the actor's Oblivion merchant chest REFR. When
-    # present the barter menu stocks this container; order is VEND, VENC, VENV.
+    # present the barter menu stocks this container; vanilla field order is
+    # VEND, VENC, VENV, PLVD.
     if venc_fid:
         subs += pack_formid_subrecord('VENC', venc_fid)
-    # VENV — Vendor values (matches vanilla ServicesWhiterunEorlund): available
-    # 0..23h, radius 700, no stolen-only, sell+buy. StartHour(U16) + EndHour(U16)
-    # + Radius(U16) + Unused(2B) + OnlyBuyStolen(U8) + NotSellBuy(U8) + Unused(2B).
+    # VENV — Vendor values: StartHour(U16) + EndHour(U16) + Radius(U16) +
+    # Unused(2B) + OnlyBuyStolen(U8) + NotSellBuy(U8) + Unused(2B). Open the
+    # full day (0..24, what 45 vanilla factions use) and radius 0.
     subs += pack_subrecord('VENV', struct.pack('<HHH BB BB BB',
-                                               0, 23, 700, 0, 0, 0, 0, 0, 0))
+                                               0, 24, 0, 0, 0, 0, 0, 0, 0))
+    # PLVD — Vendor Location. int32 type + u32 value + int32 (always 0 in all
+    # 145 vanilla vendor factions). WITHOUT THIS A MERCHANT SELLS NOTHING: the
+    # barter menu opens and is empty, because the engine has nowhere to test
+    # the vendor against. Every one of Skyrim.esm's 145 vendor factions
+    # carries a PLVD; ours carried none while copying Eorlund's radius of 700,
+    # so all 124 had a radius and no reference point to measure it from.
+    #
+    # Type 12 with value 0 is "near self, no fixed place" -- what the roaming
+    # Khajiit caravans use (ServicesThievesGuildCaravan*, 17 factions with
+    # radius 0). Type 1 + a CELL is more common (77) but needs the shop's cell
+    # per merchant, and getting that wrong is a merchant who refuses to trade;
+    # "wherever the merchant is standing" can never be wrong.
+    subs += pack_subrecord('PLVD', struct.pack('<iIi', 12, 0, 0))
     writer.add_record('FACT', pack_record('FACT', fact_fid, 0, subs))
     return fact_fid
 
 
-def create_vendor_factions(by_type: dict, writer) -> None:
+def create_vendor_factions(by_type: dict, writer, master_index=None) -> None:
     """Phase 0c: Pre-scan NPC_/CREA for services and create vendor FACTs + FLSTs.
 
     Two kinds of vendor faction are produced:
@@ -1019,9 +1033,26 @@ def create_vendor_factions(by_type: dict, writer) -> None:
 
     Both share one FLST per service bitmask. The NPC/CREA converters call
     get_vendor_faction_fid(actor_fid, services) to pick the right one.
+
+    A DEPENDENT plugin ADOPTS the shared factions, their FLSTs and the marker
+    from its master instead of minting duplicates -- the master already made
+    them, and a duplicate competes with the original its overrides use. Only
+    the per-merchant chest factions, and any service bitmask the master never
+    saw, are authored here. This whole phase used to be skipped for dependent
+    plugins, which left every one of ElsweyrAnequina's 75 merchants with no
+    vendor faction at all and no marker faction for the Barter topic to gate
+    on -- none of them could trade.
     """
     _vendor_faction_cache.clear()
     _merchant_faction_by_npc.clear()
+
+    def adopt(sig: bytes, edid: str) -> int:
+        if master_index is None:
+            return 0
+        try:
+            return master_index.edid_map(sig).get(edid, 0)
+        except Exception:
+            return 0
 
     chest_by_npc = _build_merchant_chest_map(by_type)
 
@@ -1042,18 +1073,28 @@ def create_vendor_factions(by_type: dict, writer) -> None:
 
     # One shared FLST per service bitmask, reused by both faction kinds.
     flst_by_svc: dict[int, int] = {}
+    adopted = 0
     for svc_mask in sorted(unique_services):
         if not _keywords_for_services(svc_mask):
             continue
-        flst_fid = writer.derive_formid('VENDOR_FLST', svc_mask)
-        writer.add_record('FLST', pack_record('FLST', flst_fid, 0,
-                                              _vendor_flst_subs(svc_mask)))
+        flst_fid = adopt(b'FLST', f'TES4VendorList_{svc_mask:06X}')
+        if flst_fid:
+            adopted += 1
+        else:
+            flst_fid = writer.derive_formid('VENDOR_FLST', svc_mask)
+            writer.add_record('FLST', pack_record('FLST', flst_fid, 0,
+                                                  _vendor_flst_subs(svc_mask)))
         flst_by_svc[svc_mask] = flst_fid
 
     # Shared (chest-less) faction per service bitmask.
     for svc_mask, flst_fid in flst_by_svc.items():
-        _vendor_faction_cache[svc_mask] = _write_vendor_faction(
-            writer, f'TES4VendorFaction_{svc_mask:06X}', flst_fid)
+        edid = f'TES4VendorFaction_{svc_mask:06X}'
+        fact_fid = adopt(b'FACT', edid)
+        if fact_fid:
+            adopted += 1
+        else:
+            fact_fid = _write_vendor_faction(writer, edid, flst_fid)
+        _vendor_faction_cache[svc_mask] = fact_fid
 
     # Dedicated faction per merchant that owns a chest.
     n_chest = 0
@@ -1062,8 +1103,10 @@ def create_vendor_factions(by_type: dict, writer) -> None:
         flst_fid = flst_by_svc.get(bits)
         if not chest or not flst_fid:
             continue
-        _merchant_faction_by_npc[actor_fid] = _write_vendor_faction(
-            writer, f'TES4Merchant_{actor_fid & 0xFFFFFF:06X}', flst_fid, chest)
+        edid = f'TES4Merchant_{actor_fid & 0xFFFFFF:06X}'
+        existing = adopt(b'FACT', edid)
+        _merchant_faction_by_npc[actor_fid] = existing or _write_vendor_faction(
+            writer, edid, flst_fid, chest)
         n_chest += 1
 
     # The single "is a merchant" faction the Barter topic gates on. Not a vendor
@@ -1071,6 +1114,12 @@ def create_vendor_factions(by_type: dict, writer) -> None:
     # marker, so it can never compete with the real vendor faction the engine
     # resolves for the barter menu.
     global _merchant_marker_faction_fid
+    inherited = adopt(b'FACT', 'TES4MerchantFaction')
+    if inherited:
+        _merchant_marker_faction_fid = inherited
+        print(f'  Vendor factions: adopted {adopted + 1} from the master(s), '
+              f'{n_chest} per-merchant chest factions written')
+        return
     _merchant_marker_faction_fid = writer.derive_formid('FACT', 'TES4MerchantFaction')
     marker = pack_string_subrecord('EDID', 'TES4MerchantFaction')
     marker += pack_string_subrecord('FULL', 'Merchant')
@@ -1095,12 +1144,20 @@ def get_vendor_faction_fids_for_actor(actor_fid: int, services: int) -> list[int
     all the vendor factions.
     """
     fids = []
-    shared = _vendor_faction_cache.get(_vendor_bits(services), 0)
-    if shared:
-        fids.append(shared)
+    # EXACTLY ONE vendor faction per actor. The engine resolves a single vendor
+    # faction for the barter menu, and vanilla agrees: 191 of Skyrim.esm's 194
+    # vendor NPCs carry exactly one (the 3 exceptions are hand-authored). Adding
+    # the shared chest-less faction ALONGSIDE the dedicated one put it FIRST in
+    # the list, so all 99 chest-backed merchants traded out of their carried
+    # inventory -- 1 sellable item for 98 of them, 0 for 7 -- instead of the
+    # Oblivion shop chest their dedicated faction's VENC points at.
     dedicated = _merchant_faction_by_npc.get(actor_fid)
     if dedicated:
         fids.append(dedicated)
+    else:
+        shared = _vendor_faction_cache.get(_vendor_bits(services), 0)
+        if shared:
+            fids.append(shared)
     if fids and _merchant_marker_faction_fid:
         fids.append(_merchant_marker_faction_fid)
     return fids

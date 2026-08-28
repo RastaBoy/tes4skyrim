@@ -423,6 +423,8 @@ relevant doc when working in that area.
 | [creature_race_equivalence.md](docs/creature_race_equivalence.md) | Oblivion creature ↔ vanilla Skyrim race map (exact/near tiers) for a possible "use the vanilla creature" option; which creatures have NO equivalent |
 | [vanilla_creature_swap_plan.md](docs/vanilla_creature_swap_plan.md) | PLAN (unimplemented): override-ESP + GUI to swap exact-match creatures to vanilla; race identity = (folder, NIFZ body set), NOT folder |
 | [vanilla_item_swap_plan.md](docs/vanilla_item_swap_plan.md) | PLAN (unimplemented): item/ingredient/clutter **and WEATHER** swap; model-swap vs full-reference modes, OBND size+orientation gate, PIL preview renderer |
+| [ineed_food_water.md](docs/ineed_food_water.md) | iNeed (hunger/thirst/sleep): the needs model and rates, why it has NO food classifier (empty lists + a 76 KB hardcoded per-mod table), the per-tier nutrition values, that it accepts INGR as well as ALCH, water/sleep/spoilage, and what the converted world needs. Table: `patch_folder/sources/food_changes.py` |
+| [sailable_ship_port.md](docs/sailable_ship_port.md) | Sailable Ship (sea travel): the Papyrus `translateTo` sailing loop, the METAR wind model, how a sea gate's script properties ARE the destination, the 23-slot hardcoded addon-worldspace table (all full), the runtime-built return gate; Rigmor's Cyrodiil vs ours and the two literals that had to change. Built by `tools/patch/assign_ship_port.py` |
 | [item_swap_table.md](docs/item_swap_table.md) | Per-item MISC/INGR swap recommendations with measured size ratios and verdicts (OK/SCALE/ROT/REJECT) |
 | [horse_rideability_plan.md](docs/horse_rideability_plan.md) | Rideable horses: RACE Mount Data, horse/rider graph pair, rider-animation sourcing |
 | [npc_skin_tone_conversion.md](docs/npc_skin_tone_conversion.md) | Skin color = RACE part textures + **race FGTS** via the `.egt` basis; per-NPC FGTS is negligible (sd 1/255); the `.egt` format; why a Skyrim census pick made Imperials dark |
@@ -457,4 +459,6 @@ relevant doc when working in that area.
 | `skyrim-dialog-system` | Vanilla TES5 dialogue/voice/quest records |
 | `oblivion-to-skyrim-dialog` | TES4→TES5 dialogue/quest/voice mapping |
 | `cosmetic-npc-patch` | `patch_folder/` — authoring NPC_ overrides in a binary ESP |
+| `ineed-patch` | `MyOwnTamrieliNeedPatch.esp` — Oblivion food/drink in iNeed's FormLists (it has NO classifier), and the vanilla job factions its water dialogue gates on |
+| `sailable-ship-port` | `MyOwnTamrielShipPatch.esp` — Sailable Ship's sea route lands in OUR Cyrodiil; a gate's script properties ARE the destination, the addon table is 23 hardcoded slots and all are full, and reaching a gate needs `bBorderRegionsEnabled=0` plus widened Tamriel bounds |
 | `house-upgrade-fix` | DIAGNOSED, unfixed: house furnishings unbuyable — TES4 sells from an OWNED container, TES5 only from the vendor faction's VENC |

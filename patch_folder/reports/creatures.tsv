@@ -1,4 +1,259 @@
 plugin	formid	editorid	name	group	action	tier	target	coat	saddled	mount	note
+ElsweyrAnequina.esp	010585	ANQCreatureRagasha1	Ragasha	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	010586	ANQCreatureRagasha1Archer	Ragasha	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	010587	ANQCreatureRagasha2Skirmisher	Ragasha Skirmisher	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	010588	ANQCreatureRagasha2SkirmisherArcher	Ragasha Skirmisher	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	010589	ANQCreatureRagasha3Berserker	Ragasha Berserker	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	01058A	ANQCreatureRagasha3BerserkerArcher	Ragasha Berserker	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	0017B7	ANQCreatureRagasha4Shaman	Ragasha Shaman	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	0017B9	ANQCreatureRagasha5Warlord	Ragasha Warlord	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	01058E	ANQCreatureRagasha5WarlordArcher	Ragasha Warlord	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	0017BA	ANQCreatureRagasha6Seer	Ragasha Seer	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	03DAE6	ANQORCCreatureHouseRagashaShaman	Ragasha Shaman	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	03DAE5	ANQORCCreatureHouseRagashaSkirmisher01	Ragasha	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	018DCC	ANQORCCreatureHouseRagashaSkirmisher02	Ragasha	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	010D2E	ANQORCCreatureTownRagashaShaman	Desert Goblin	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	010D2B	ANQORCCreatureTownRagashaSkirmisher	Desert Goblin	anequinaragasha	swap	near	FalmerRace				
+ElsweyrAnequina.esp	05AF10	ANQCreatureSpiderDesert01	Giant Desert Spider	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	037087	ANQCreatureSpiderDesert02	Giant Desert Spider	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	037088	ANQCreatureSpiderDesert03	Giant Desert Spider	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	000FE7	ANQCreatureSpiderDesert04	Giant Desert Spider	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	032783	ANQCreatureSpiderMahdahsa	Mahdahsa	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	05AF15	ANQCreatureTarantulaBlack01	Giant Tarantula	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	05AF14	ANQCreatureTarantulaIvory01	Giant Tarantula	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	05AF11	ANQCreatureTarantulaIvory02	Giant Tarantula	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	037080	ANQCreatureTarantulaRedKnee01	Giant Tarantula	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	05AF13	ANQCreatureTarantulaRedKnee02	Giant Tarantula	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	05AF12	ANQCreatureTarantulaRedLeg01	Giant Tarantula	anequinaspider	swap	exact	FrostbiteSpiderRace				
+ElsweyrAnequina.esp	001B9F	ANQCreatureBoarBlack	Black Jungle Boar	boar	swap	exact	DLC2BoarRace				
+ElsweyrAnequina.esp	001BA0	ANQCreatureBoarRed	Giant Red Boar	boar	swap	exact	DLC2BoarRace				
+ElsweyrAnequina.esp	076988	ANQHG02BoarRedSow	Giant Red Sow	boar	swap	exact	DLC2BoarRace				
+ElsweyrAnequina.esp	08E862	ANQHG02Piglet	Piglet	boar	swap	exact	DLC2BoarRace				
+ElsweyrAnequina.esp	017299	ANQCamelMount	Camel	camel/mount	swap	near	HorseRace	SkinHorsePalominoHide		yes	
+ElsweyrAnequina.esp	0AE9CC	ANQCamelPC	My Camel	camel/mount	swap	near	HorseRace	SkinHorsePalominoHide		yes	
+ElsweyrAnequina.esp	01727C	ANQCreatureCamel	Camel	camel/wild	swap	near	HorseRace	SkinHorseGreyHide			
+ElsweyrAnequina.esp	04024E	ANQCreatureLizardNequinal	Nequinal Lizard	clannfear	keep	none					Nequinal Lizard on the clannfear rig
+ElsweyrAnequina.esp	040241	ANQCreatureAntelopeAddax	Desert Antelope	deer/antelope	swap	near	DeerRace				
+ElsweyrAnequina.esp	0A7425	ANQCreatureSkeletonShark	Sload Abomination	deer/sload_abomination	keep	none					anequinaskeletonshark.nif on the deer skeleton
+ElsweyrAnequina.esp	07698A	ANQHG04StagWhite	Great White Stag	deer/whitestag	swap	exact	WhiteStagRace				
+ElsweyrAnequina.esp	05B097	ANQCreatureDurzogBlack	Black Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	05B096	ANQCreatureDurzogGreen	Green Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	05B095	ANQCreatureDurzogGrey	Grey Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	05B098	ANQCreatureDurzogRed	Red Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	0593F0	ANQORCCreatureTownDurzogBlack	Black Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	0593F1	ANQORCCreatureTownDurzogGreen	Green Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	0593F2	ANQORCCreatureTownDurzogGrey	Grey Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	043A21	ANQORCCreatureTownDurzogRed	Red Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	08C98A	ANQORCDurzogPrisonGuard	Guard Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	04EAEC	ANQORCDurzogRedStable	Red Durzog	dog/durzog	swap	near	DLC1DeathHoundRace				
+ElsweyrAnequina.esp	000CE9	ANQCreatureWolfRed	Red Wolf	dog/redwolf	swap	exact	WolfRace				
+ElsweyrAnequina.esp	078246	ANQHG01WolfRed	Red Wolf	dog/redwolf	swap	exact	WolfRace				
+ElsweyrAnequina.esp	076987	ANQHG01WolfRedLeader	Red Wolf Pack Leader	dog/redwolf	swap	exact	WolfRace				
+ElsweyrAnequina.esp	018949	ANQCORElephantPack	Pack Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	05AF0A	ANQElephantCorralBull	Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	00582B	ANQElephantCorralCow	Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	0017C1	ANQElephantMerchant	Merchant's Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	00F48E	ANQElephantMerchant1	Merchant's Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	00F496	ANQElephantMerchant2	Merchant's Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	00F4A2	ANQElephantMerchant3	Merchant's Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	05AF07	ANQElephantMount	Elephant Mount	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	05AF09	ANQElephantPC	My Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	001C85	ANQElephantPack	Pack Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	001C87	ANQElephantWar	War Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	001C86	ANQElephantWarAxe	War Elephant	elephant/mount	keep	none					DECIDED 2026-08-27: leave converted for now. MammothRace is the right look (a ma
+ElsweyrAnequina.esp	0030F7	ANQCreatureElephantBull	Bull Elephant	elephant/wild	keep	none					DECIDED 2026-08-27: left with the mounts so the herd stays visually consistent -
+ElsweyrAnequina.esp	0030F9	ANQCreatureElephantCalf	Elephant Calf	elephant/wild	keep	none					DECIDED 2026-08-27: left with the mounts so the herd stays visually consistent -
+ElsweyrAnequina.esp	0030F8	ANQCreatureElephantCow	Elephant Cow	elephant/wild	keep	none					DECIDED 2026-08-27: left with the mounts so the herd stays visually consistent -
+ElsweyrAnequina.esp	07698F	ANQHG09ElephantBull	The Great Bull Elephant	elephant/wild	keep	none					DECIDED 2026-08-27: left with the mounts so the herd stays visually consistent -
+ElsweyrAnequina.esp	02EAFF	ANQCORCreatureBabyGhost	Ghost of Infant	ghost	swap	near	WispShadeRace				
+ElsweyrAnequina.esp	040253	ANQCreatureApeTenmar	Tenmar Ape	goblin/ape	keep	none					Monkey / Tenmar Ape -- folder says goblin, meshes say anequinaape*. No primate e
+ElsweyrAnequina.esp	03C544	ANQSQ18Monkey01	Monkey	goblin/ape	keep	none					Monkey / Tenmar Ape -- folder says goblin, meshes say anequinaape*. No primate e
+ElsweyrAnequina.esp	03C545	ANQSQ18Monkey02	Monkey	goblin/ape	keep	none					Monkey / Tenmar Ape -- folder says goblin, meshes say anequinaape*. No primate e
+ElsweyrAnequina.esp	03C546	ANQSQ18Monkey03	Monkey	goblin/ape	keep	none					Monkey / Tenmar Ape -- folder says goblin, meshes say anequinaape*. No primate e
+ElsweyrAnequina.esp	03C547	ANQSQ18Monkey04	Monkey	goblin/ape	keep	none					Monkey / Tenmar Ape -- folder says goblin, meshes say anequinaape*. No primate e
+ElsweyrAnequina.esp	00F483	ANQImpLegionHorseDarkarn	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+ElsweyrAnequina.esp	0BDE0C	ANQImpLegionHorseRiverhold	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+ElsweyrAnequina.esp	0B5DAC	ANQLGNHorseRiverkeep	Imperial Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse	yes	yes	
+ElsweyrAnequina.esp	0BDE28	ANQTG02HorseBay	Udakhu's Legion Horse	horse/mount	swap	exact	HorseRace	SkinHorse		yes	
+ElsweyrAnequina.esp	0BDE20	ANQTG02HorseBlack	Udakhu's Courier Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide		yes	
+ElsweyrAnequina.esp	0BDE18	ANQTG02HorseBlackCourier	Black Courier's Horse	horse/mount	swap	exact	HorseRace	SkinHorseBlackHide	yes	yes	
+ElsweyrAnequina.esp	0B196A	ANQTG02HorseOldNag	Flea-Bitten Nag	horse/mount	swap	exact	HorseRace	SkinHorseBlacknWhiteHide		yes	
+ElsweyrAnequina.esp	0BDE2D	ANQTG02HorseWhite	Marius Caro's Horse	horse/mount	swap	exact	HorseRace	SkinHorseGreyHide		yes	
+ElsweyrAnequina.esp	0BDE17	ANQTG02MariusCarosHorse	Marius Caro's Stallion	horse/mount	swap	exact	HorseRace	SkinHorseGreyHide	yes	yes	
+ElsweyrAnequina.esp	000FF3	ANQCreatureZebra	Zebra	horse/zebra	swap	near	HorseRace	SkinHorse			
+ElsweyrAnequina.esp	076989	ANQHG03ZebraStallion	Zebra Stallion	horse/zebra	swap	near	HorseRace	SkinHorse	yes	yes	
+ElsweyrAnequina.esp	0BE66D	ANQZebraPC	My Zebra	horse/zebra	swap	near	HorseRace	SkinHorse	yes	yes	
+ElsweyrAnequina.esp	001C93	ANQCreatureMinotaurBlack01	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AEFB	ANQCreatureMinotaurBlack01Weapon	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	001C94	ANQCreatureMinotaurBlack02	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AEFC	ANQCreatureMinotaurBlack02Weapon	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	001C95	ANQCreatureMinotaurBlack03	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AEFD	ANQCreatureMinotaurBlack03Weapon	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	03FD38	ANQCreatureMinotaurChieftain	Minotaur Chieftain	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	03FD37	ANQCreatureMinotaurCow01	Minotaur Cow	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	048462	ANQCreatureMinotaurCow02	Minotaur Cow	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	048466	ANQCreatureMinotaurCow03	Minotaur Cow	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	04846A	ANQCreatureMinotaurCow04	Minotaur Cow	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	001C90	ANQCreatureMinotaurGold01	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	000CEF	ANQCreatureMinotaurGold01Weapon	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	001C91	ANQCreatureMinotaurGold02	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AEF9	ANQCreatureMinotaurGold02Weapon	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	001C92	ANQCreatureMinotaurGold03	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AEFA	ANQCreatureMinotaurGold03Weapon	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AF01	ANQCreatureMinotaurLordBlack	Black Minotaur Lord	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AF04	ANQCreatureMinotaurLordBlackWeapon	Black Minotaur Lord	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AF02	ANQCreatureMinotaurLordGold	Golden Minotaur Lord	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	05AF05	ANQCreatureMinotaurLordGoldWeapon	Golden Minotaur Lord	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	046823	ANQHG08MinotaurBull01	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	046824	ANQHG08MinotaurBull02	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	046825	ANQHG08MinotaurBull03	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	046826	ANQHG08MinotaurBull04	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	046827	ANQHG08MinotaurBull05	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	046828	ANQHG08MinotaurBull06	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	046829	ANQHG08MinotaurBull07	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	04682A	ANQHG08MinotaurBull08	Minotaur Bull	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	07698E	ANQHG08MinotaurChampion	Minotaur Bull Champion	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	03DAEF	ANQORCCreatureHouseMinotaurBlack01	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	03DAEB	ANQORCCreatureHouseMinotaurBlack02	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	03DAEA	ANQORCCreatureHouseMinotaurGold	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	010D28	ANQORCCreatureTownMinotaurBlack	Black Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	02118F	ANQORCCreatureTownMinotaurCow	Minotaur Cow	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	00247C	ANQORCCreatureTownMinotaurGold	Golden Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	02118C	ANQORCCreatureTownMinotaurOx	Minotaur Ox	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	04C029	ANQORCHorobokOxUnyoked	Minotaur Ox	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	04C028	ANQORCHorobokOxYoked	Minotaur Ox	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	035DCD	ANQSQ15BullChild	The Bull Child	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	03540A	ANQSQ15EloinesMinotaur01	Eloine's Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	03540C	ANQSQ15EloinesMinotaur02	Eloine's Minotaur	minotaur	swap	near	GiantRace				
+ElsweyrAnequina.esp	0228B0	ANQBRKAlfiqSgiiq	S'giiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	015D93	ANQCORAlfiqAhzii	Ahzii	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	019367	ANQCORAlfiqGuard	Alfiq Guard	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	001E8A	ANQCORAlfiqKvigi	K'vigi	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	03209B	ANQCORAlfiqShanii	Shanii	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	03209A	ANQCORAlfiqShaza	Shaza	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	05A5F5	ANQCreatureAlfiqBlack	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	000FCC	ANQCreatureAlfiqBrown	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	0121EC	ANQCreatureAlfiqBrownSummon	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	05AF0F	ANQCreatureAlfiqGrey	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	0AC3D9	ANQDUNAlfiq01	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	0AC3DB	ANQDUNAlfiq02	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	012126	ANQKNGKingsWalkAlfiq	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	08F0B1	ANQMCG01JazaskasAlfiq	Jazaska's Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	00B42D	ANQMNAlfiqSqa	S'qa	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	012CF9	ANQORCAlfiqHissa	Hissa	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	04C82C	ANQORCAlfiqNipper	Nipper	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	012CF8	ANQORCAlfiqNirr	Nirr	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	032BD0	ANQRHAlfiqDroq	Droq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	032BD2	ANQRHAlfiqGraq	Graq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	057F10	ANQRHAlfiqNriq	N'riq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	020366	ANQRHAlfiqYmli	Y'mli	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	0153A3	ANQRHAlfiqZlil	Z'lil	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	07F53C	ANQRMNJShambarAlfiq	J'Shani	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	09C1D4	ANQRMNSkoomaCat01	Skooma Cat	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	011636	ANQTRBAzkhanAlfiqBrown	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	08A72D	ANQTRBQwazaniAlfiqBrown	Alfiq	mountainlion/alfiq	remove	remove					
+ElsweyrAnequina.esp	0247EC	ANQCORLeopardCaged	Leopard	mountainlion/leopard	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0AE4F3	ANQCORZdastariLeopard	Leopard	mountainlion/leopard	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	01F466	ANQCreatureLeopard	Leopard	mountainlion/leopard	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0121EB	ANQCreatureLeopardSummon	Leopard	mountainlion/leopard	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	040251	ANQCreatureLion	Lion	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	05AF0B	ANQCreatureLioness	Lioness	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	041AFE	ANQCreatureLionessSummon	Lioness	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	088B0F	ANQHG05LionCub	Lion Cub	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	07698B	ANQHG05LionessManEating	Man-Eating Lioness	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	03635E	ANQRHAlfiqKriq	Kriq	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	057F12	ANQRHAlfiqNdirr	N'dirr	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	050232	ANQRHAlfiqRoyal01	Royal Alfiq	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	05091D	ANQRHAlfiqRoyal02	Royal Alfiq	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	057F11	ANQRHAlfiqThabib	T'habib	mountainlion/lion	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	02DDE5	ANQCORPantherCaged	Black Panther Cub	mountainlion/panther	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	01F468	ANQCreaturePanther	Black Panther	mountainlion/panther	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	053061	ANQCreaturePantherSummon	Black Panther	mountainlion/panther	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	036E19	ANQSQ10BCreatureSporeCat	Spore Cat	mountainlion/sporecat	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	036E1B	ANQSQ10BCreatureSporePahmer	Spore Cat	mountainlion/sporecat	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0A741F	ANQSQ10CreatureSporeCat	Spore Cat	mountainlion/sporecat	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	033CFF	ANQCreatureSencheTiger	Senche-Tiger	mountainlion/tiger	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	01F467	ANQCreatureTiger	Tiger	mountainlion/tiger	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	076990	ANQHG10SencheTiger	Rabid Senche-Tiger	mountainlion/tiger	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	05A5BB	ANQCreatureSandCrab	Red Sand Crab	mudcrab	swap	exact	MudcrabRace				
+ElsweyrAnequina.esp	05F48C	ANQCreatureSandCrabLarge	Red Sand Crab	mudcrab	swap	exact	MudcrabRace				
+ElsweyrAnequina.esp	05F48D	ANQCreatureSandCrabSmall	Red Sand Crab	mudcrab	swap	exact	MudcrabRace				
+ElsweyrAnequina.esp	040245	ANQCreatureSandCrawler	Sand Crawler	mudcrab	swap	exact	MudcrabRace				
+ElsweyrAnequina.esp	0417A9	ANQCORRoyalPahmer	Royal Pahmer	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	03F8CF	ANQCreaturePahmer	Pahmer	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0121ED	ANQCreaturePahmerSummon	Pahmer	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0CD245	ANQDUNGreenPahmer01	Dune Pahmer	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0B1FA6	ANQDUNKayem	Kayem	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0121DB	ANQDUNPahmerNyari	Ny'ari	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	0CD246	ANQDUNRedPahmer01	Dune Pahmer	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	011648	ANQMNPahmerGnarr	G'narr	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	05F6D7	ANQSQ15TombGuardian	Tomb Guardian	pahmer	swap	near	SabreCatRace				
+ElsweyrAnequina.esp	040244	ANQCreatureGlyptodon	Glyptodon	rat/glyptodon	keep	none					armadillo; nothing close
+ElsweyrAnequina.esp	04413F	ANQORCCreatureTownRat	Rat	rat/rat	swap	near	SkeeverRace				
+ElsweyrAnequina.esp	032B37	ANQORCGraMorokRat	Rat	rat/rat	swap	near	SkeeverRace				
+ElsweyrAnequina.esp	031383	ANQSQ16BigRat	Big Rat	rat/rat	swap	near	SkeeverRace				
+ElsweyrAnequina.esp	062918	ANQSlarjeiMount	Slarjei	runningbird/mount	swap	near	DogRace			yes	
+ElsweyrAnequina.esp	06EAB4	ANQCreatureSlarjeiBird	Slarjei Bird	runningbird/wild	swap	near	DogRace				
+ElsweyrAnequina.esp	08A71D	ANQTRBQwazaniSlarjeiBird	Slarjei Bird	runningbird/wild	swap	near	DogRace				
+ElsweyrAnequina.esp	0193CA	ANQCORDjarisGoatBrown	Nanny Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	0193CE	ANQCORDjarisGoatWhite	Nanny Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	0247F0	ANQCORGoatBillyBrownMarket	Billy Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	0247ED	ANQCORGoatNannyWhiteMarket	Nanny Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	01F465	ANQCreatureGoatBillyBrown	Billy Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	01FC32	ANQCreatureGoatNannyBrown	Nanny Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	01F464	ANQCreatureGoatNannyWhite	Nanny Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	02219A	ANQDeadGoat	Dead Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	01D585	ANQSQ01GoatBillyGruff	Billy Goat Gruff	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	01BD94	ANQTRBDgazahbiGoat	Nanny Goat	sheep/goat	swap	exact	GoatRace				
+ElsweyrAnequina.esp	018EB0	ANQRHBlaahlSheep	Sheep	sheep/sheep	swap	near	GoatRace				
+ElsweyrAnequina.esp	018EAF	ANQRHBlaahlSheepRam	Sheep	sheep/sheep	swap	near	GoatRace				
+ElsweyrAnequina.esp	07F533	ANQRMNJShambarSheep	Sheep	sheep/sheep	swap	near	GoatRace				
+ElsweyrAnequina.esp	07F534	ANQRMNJShambarSheepRam	Sheep	sheep/sheep	swap	near	GoatRace				
+ElsweyrAnequina.esp	035AE9	ANQSQ09SkeletonWeaversCave	Skeleton	skeleton	swap	exact	SkeletonRace				
+ElsweyrAnequina.esp	08B547	ANQCreatureFishAngelShark	Angel Shark	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B549	ANQCreatureFishBlueMarlin	Blue Marlin	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B548	ANQCreatureFishBluefinTuna	Bluefin Tuna	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B54A	ANQCreatureFishBocaccio	Bocaccio	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B54B	ANQCreatureFishClownfish	Clownfish	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B54C	ANQCreatureFishCod	Cod	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B54D	ANQCreatureFishGuitarfish	Guitarfish	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B54E	ANQCreatureFishHumpbackSnapper	Humpback Red Snapper	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B54F	ANQCreatureFishHumpheadWrasse	Humphead Wrasse	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	087082	ANQCreatureFishLeopardShark	Leopard Shark	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B550	ANQCreatureFishLiveSharksucker	Live Sharksucker	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B551	ANQCreatureFishPaletteSurgeon	Palette Surgeon	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B552	ANQCreatureFishRedParrotfish	Red Parrotfish	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B557	ANQCreatureFishRedSnapper	Red Snapper	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	0912FB	ANQCreatureFishSandbarSharkLarge	Large Sandbar Shark	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08708C	ANQCreatureFishSandbarSharkSmall	Sandbar Shark	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B553	ANQCreatureFishSheepHead	Sheep Head Fish	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B554	ANQCreatureFishSkipjackTuna	Skipjack Tuna	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	08B555	ANQCreatureFishYellowfinTuna	Yellowfin Tuna	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	0A7422	ANQCreatureLamia	Sea Lamia	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	0A7423	ANQCreatureSkeletonFish	Sload Abomination	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	02541F	ANQDNCCreatureFish	Skipjack Tuna	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	019673	ANQDeadFish	Fish	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	0199C5	ANQHG06SharkDread	Dread Shark	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	043656	ANQSQ18LamiaQueen	Lamia Queen	slaughterfish	keep	none					DECIDED 2026-08-27: keep converted. 25 records of real-world fish (tuna, cod, wr
+ElsweyrAnequina.esp	035AFC	ANQCreatureSprigganGrotto	Spriggan of the Grotto	spriggan	swap	exact	SprigganRace				
+ElsweyrAnequina.esp	05A5F7	ANQCreatureSprigganJungle	Jungle Spriggan	spriggan	swap	exact	SprigganRace				
+ElsweyrAnequina.esp	025DE4	ANQCORTrollCaged	Troll	troll	swap	exact	TrollRace				
+ElsweyrAnequina.esp	000EF2	ANQCreatureTrollDesert	Desert Troll	troll	swap	exact	TrollRace				
+ElsweyrAnequina.esp	01D582	ANQSQ01TrollBridge	Bridge Troll	troll	swap	exact	TrollRace				
+ElsweyrAnequina.esp	03F8D1	ANQCreatureCrocodilion	Crocodilion	werecrocodile	swap	near	WerewolfBeastRace				
+ElsweyrAnequina.esp	07698D	ANQHG07CrocodilionKing	King of the Mere	werecrocodile	swap	near	WerewolfBeastRace				
+ElsweyrAnequina.esp	0A8D9D	ANQSQ14CreatureWindEastBlight	Spirit of the East Wind	willothewisp	swap	exact	WitchlightRace				
+ElsweyrAnequina.esp	0A8D9B	ANQSQ14CreatureWindNorthFrost	Spirit of the North Wind	willothewisp	swap	exact	WitchlightRace				
+ElsweyrAnequina.esp	0A8D9C	ANQSQ14CreatureWindSouthStorm	Spirit of the South Wind	willothewisp	swap	exact	WitchlightRace				
+ElsweyrAnequina.esp	0A8D9A	ANQSQ14CreatureWindWestFire	Spirit of the East Wind	willothewisp	swap	exact	WitchlightRace				
+ElsweyrAnequina.esp	0826DF	ANQSQ06OrcZombie01	Orc Zombie	zombie	swap	near	DraugrRace				
+ElsweyrAnequina.esp	0826E0	ANQSQ06OrcZombie02	Orc Zombie	zombie	swap	near	DraugrRace				
+ElsweyrAnequina.esp	0826D9	ANQSQ06OrcZombieDread01	Dread Orc Zombie	zombie	swap	near	DraugrRace				
+ElsweyrAnequina.esp	0826DB	ANQSQ06OrcZombieDread02	Dread Orc Zombie	zombie	swap	near	DraugrRace				
+ElsweyrAnequina.esp	0826DD	ANQSQ06OrcZombieDread03	Dread Orc Zombie	zombie	swap	near	DraugrRace				
+ElsweyrAnequina.esp	0826DE	ANQSQ06OrcZombieDread04	Dread Orc Zombie	zombie	swap	near	DraugrRace				
+ElsweyrAnequina.esp	0826DC	ANQSQ06OrcZombieHeadless01	Headless Orc Zombie	zombie	swap	near	DraugrRace				
+ElsweyrAnequina.esp	0826E1	ANQSQ06OrcZombieHeadless02	Headless Orc Zombie	zombie	swap	near	DraugrRace				
 Oblivion.esm	07131B	MS06UndeadEtheralTemplate		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these
 Oblivion.esm	09407C	MS16OgreCreatureTemplate		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these
 Oblivion.esm	068BBB	MS18TemplateWave01		_template	keep	none					5 records with no model at all -- levelled/template shells. Never swap these

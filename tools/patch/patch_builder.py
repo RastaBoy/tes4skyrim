@@ -112,6 +112,25 @@ FORMID_FIELDS = {
     'HDPT': {'HNAM': (0, 4), 'TNAM': (0, 4), 'RNAM': (0, 4), 'CNAM': (0, 4)},
     'TXST': {},
     'RELA': {},
+    # A form list is nothing but its entries: one LNAM FormID each.
+    'FLST': {'LNAM': (0, 4)},
+    # Measured against the real Skyrim.esm on 2026-08-28: CNTO is FormID +
+    # count u32 (9,597/9,597 resolve to items, and offset 4 is the count --
+    # 8,702 of them are 1); SNAM/QNAM are the open/close SOUNDS (137/137 and
+    # 135/135 resolve to SNDR). COED is deliberately ABSENT: Skyrim.esm ships
+    # exactly one and it does not resolve, so an unexpected one must abort
+    # rather than be copied with a stale master index.
+    'CONT': {'CNTO': (0, 8), 'SNAM': (0, 4), 'QNAM': (0, 4)},
+    # LVLI is LVLN's shape without the model. Same measurement: LVLO
+    # 20,340/20,340 resolve at offset 4, LVLG 65/65 to GLOB.
+    'LVLI': {'LVLO': (4, 12), 'LVLG': (0, 4)},
+    # Only the vendor half of FACT is mapped, because that is the only half
+    # this repo overrides. VEND is the sell-what FormList, VENC the merchant
+    # container. PLVD is STRUCTURED, not plain: its value field is a FormID
+    # only for some location types (see plvd_formid_offsets).
+    # XNAM is a relation: target FormID + int32 modifier + u32 combat
+    # reaction, 12 bytes. Measured 1,036/1,036 resolve in Skyrim.esm.
+    'FACT': {'VEND': (0, 4), 'VENC': (0, 4), 'XNAM': (0, 12)},
 }
 
 PLAIN_FIELDS = {
@@ -127,12 +146,31 @@ PLAIN_FIELDS = {
              'NAMA', 'DATA', 'NAM0', 'NAM9', 'NAM4', 'PNAM', 'ICON', 'WCTR',
              'MHDT', 'OFST', 'XXXX', 'TNAM', 'UNAM', 'XWEM'},
     'OTFT': {'EDID'},
+    'FLST': {'EDID', 'OBND'},
+    'CONT': {'EDID', 'OBND', 'FULL', 'MODL', 'MODT', 'MODS', 'DATA', 'COCT'},
+    'LVLI': {'EDID', 'OBND', 'LVLD', 'LVLF', 'LLCT'},
+    'FACT': {'EDID', 'FULL', 'DATA', 'CRVA', 'VENV', 'RNAM', 'MNAM', 'FNAM'},
     'HDPT': {'EDID', 'FULL', 'MODL', 'MODT', 'MODS', 'DATA', 'PNAM', 'NAM0',
              'NAM1'},
     'TXST': {'EDID', 'OBND', 'TX00', 'TX01', 'TX02', 'TX03', 'TX04', 'TX05',
              'TX06', 'TX07', 'DODT', 'DNAM'},
     'RELA': {'EDID'},
 }
+
+
+def plvd_formid_offsets(data):
+    """FACT PLVD (Vendor Location): int32 type, u32 value, int32 (always 0).
+
+    The value is a FormID only for the types that name one -- measured over
+    Skyrim.esm's 145 vendor factions: type 1 points at a CELL (77 of them),
+    type 0 at a REFR (35), and type 12 means "near self" with the value
+    always 0 (23). Declaring the field a plain FormID would rewrite that 0
+    into `masterIndex << 24` and invent a reference out of nothing.
+    """
+    if len(data) != 12:
+        raise SystemExit(f'FACT PLVD is {len(data)} bytes, expected 12')
+    kind, value, _tail = struct.unpack('<iIi', data)
+    return [4] if kind in (0, 1) and value else []
 
 
 def rela_formid_offsets(data):
@@ -164,6 +202,8 @@ STRUCTURED_FIELDS = {
     'ACHR': {'VMAD': vmad_formid_offsets},
     'REFR': {'VMAD': vmad_formid_offsets},
     'CELL': {'VMAD': vmad_formid_offsets},
+    'CONT': {'VMAD': vmad_formid_offsets},
+    'FACT': {'PLVD': plvd_formid_offsets},
     'WRLD': {'RNAM': wrld_rnam_formid_offsets},
     'RELA': {'DATA': rela_formid_offsets},
 }
@@ -259,6 +299,95 @@ class ChainedSource:
             if s == 'EDID':
                 return zstring(payload)
         return ''
+
+
+class SourceStack:
+    """The converted plugin, plus the patches already built on top of it.
+
+    Two plugins that override the same record do NOT merge in game: the later
+    one wins the WHOLE record. A patch that copies its records straight off the
+    converted master therefore REVERTS every earlier patch's change to any
+    record they share -- silently, and only for the ones they have in common.
+    Measured case: the cosmetic patch and the iNeed patch both override the
+    same 220 merchant NPCs, so whichever loaded second erased the other's work.
+
+    Reading through the stack instead -- the base plugin first, then each
+    earlier patch in load order -- makes the later patch CARRY the earlier
+    ones' fields, which is what last-one-wins requires. The patch must then
+    master every overlay it reads a record from, so the load order can never
+    put it first.
+    """
+
+    def __init__(self, base_path, overlay_paths, want_types):
+        self.layers = [ChainedSource(p, want_types)
+                       for p in [base_path, *overlay_paths]]
+        self.base = self.layers[0]
+        self.overlays = self.layers[1:]
+        # The base plugin's own attributes, so a caller that only wants the
+        # converted plugin can treat a stack as the ChainedSource it replaces.
+        self.path = self.base.path
+        self.name = self.base.name
+        self.masters = self.base.masters
+        self.own_index = self.base.own_index
+        self.by_type = self.base.by_type
+        self.chains = self.base.chains
+        self.index = {}
+        for layer in self.layers:
+            owners = [m.lower() for m in layer.masters] + [layer.name.lower()]
+            for sig, table in layer.by_type.items():
+                for fid in table:
+                    i = fid >> 24
+                    if i < len(owners):
+                        self.index[(sig, owners[i], fid & 0xFFFFFF)] = (layer,
+                                                                        fid)
+
+    def latest(self, sig, owner, low):
+        """(layer, fid) for the WINNING version of one record, or None.
+
+        `owner` is the plugin that DEFINES the record and `low` its object id,
+        because a FormID's high byte means something different in every file
+        that names it.
+        """
+        return self.index.get((sig, owner.lower(), low & 0xFFFFFF))
+
+    def contributors(self, sig, keys):
+        """The overlays that override any of `keys` -- [(owner, low), ...].
+
+        A patch should master an overlay only when it actually reads a record
+        from it: mastering one it never uses makes the patch refuse to load for
+        everyone who does not have that file.
+        """
+        out = []
+        for layer in self.overlays:
+            owners = [m.lower() for m in layer.masters] + [layer.name.lower()]
+            hit = False
+            for fid in layer.by_type.get(sig, ()):
+                i = fid >> 24
+                if i < len(owners) and (owners[i], fid & 0xFFFFFF) in keys:
+                    hit = True
+                    break
+            if hit:
+                out.append(layer.name)
+        return out
+
+
+def overlay_contributors(paths, want_types, keys):
+    """Which of `paths` override any of `keys` -- read without a base plugin.
+
+    The master list has to be settled BEFORE any record is added, but which
+    overlays are worth mastering is only knowable by reading them, so this
+    answers that question on its own.
+    """
+    out = []
+    for path in paths:
+        layer = ChainedSource(path, want_types)
+        owners = [m.lower() for m in layer.masters] + [layer.name.lower()]
+        for sig, table in layer.by_type.items():
+            if any((owners[fid >> 24], fid & 0xFFFFFF) in keys
+                   for fid in table if (fid >> 24) < len(owners)):
+                out.append(path)
+                break
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -359,7 +488,12 @@ def locate_plugin(name, output_dir=None, repo=None):
     order even when this machine cannot point at them.
     """
     repo = Path(repo) if repo else Path(__file__).resolve().parents[2]
-    candidates = [repo / 'patch_folder' / 'sources' / name]
+    sources = repo / 'patch_folder' / 'sources'
+    candidates = [sources / name]
+    # A third-party mod usually arrives as a FOLDER (patch_folder/sources/iNeed/
+    # iNeed.esp), so look one level down as well.
+    if sources.is_dir():
+        candidates += [d / name for d in sorted(sources.iterdir()) if d.is_dir()]
     out_root = Path(output_dir) if output_dir else repo / 'output'
     if out_root.is_dir():
         candidates.append(out_root / name / name)
@@ -589,8 +723,7 @@ class PatchPlugin:
         out = OrderedDict()
         for top, chains in by_top.items():
             body = self._emit_level(chains, 1)
-            out[top[1].decode('ascii', 'replace')] = self._group(
-                top[1], top[0], body)
+            out[top[1].decode('ascii', 'replace')] = (top[0], top[1], body)
         return out
 
     def _emit_level(self, chains, depth):
@@ -625,15 +758,26 @@ class PatchPlugin:
 
     def write(self, out_path):
         """Serialize the patch. Returns (size, records, groups)."""
-        groups = OrderedDict()
+        # label -> (group type, raw label, body). A top-level signature can get
+        # records from BOTH sides: the ship patch overrides Tamriel's WRLD
+        # record itself and hangs a reference under another worldspace, and the
+        # two have to end up in ONE top-level WRLD group -- a second group with
+        # the same label would silently replace the first.
+        bodies = OrderedDict()
         for sig, table in self.flat.items():
             body = bytearray()
             for fid, (hdr, subs) in table.items():
                 body += self._record_bytes(fid, hdr, subs)
             if body:
-                groups[sig] = self._group(sig, GT_TOP, bytes(body))
-        for label, blob in self._build_nested().items():
-            groups[label] = blob
+                bodies[sig] = (GT_TOP, sig.encode('ascii'), body)
+        for label, (gtype, raw, body) in self._build_nested().items():
+            if label in bodies:
+                bodies[label][2].extend(body)
+            else:
+                bodies[label] = (gtype, raw, bytearray(body))
+        groups = OrderedDict(
+            (label, self._group(raw, gtype, bytes(body)))
+            for label, (gtype, raw, body) in bodies.items())
 
         def rank(label):
             return (GROUP_ORDER.index(label) if label in GROUP_ORDER

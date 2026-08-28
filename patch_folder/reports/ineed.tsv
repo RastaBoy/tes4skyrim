@@ -1,0 +1,415 @@
+kind	plugin	formid	name	record	category
+item	Oblivion.esm	0B1200	Ale	ALCH	drink
+item	Oblivion.esm	0B1202	Beer	ALCH	drink
+item	Oblivion.esm	08E48C	Bernice's Alley Wine	ALCH	drink
+item	Oblivion.esm	08E490	Bernice's Roofwater Wine	ALCH	drink
+item	Oblivion.esm	08E48E	Bernice's Summer Wine	ALCH	drink
+item	Oblivion.esm	037F7F	Cheap Wine	ALCH	drink
+item	Oblivion.esm	033569	Cyrodilic Brandy	ALCH	drink
+item	Oblivion.esm	08E48F	Fellmoor Red Wine	ALCH	drink
+item	Oblivion.esm	08E48D	Fellmoor Spore Wine	ALCH	drink
+item	Oblivion.esm	08E48B	Fellmoor Swamp Wine	ALCH	drink
+item	Oblivion.esm	07FC0F	Mead	ALCH	drink
+item	Oblivion.esm	0B1201	Mead	ALCH	drink
+item	Oblivion.esm	0B1241	Newheim's Special Brew	ALCH	drink
+item	Oblivion.esm	0B97EA	Rosethorn Mead	ALCH	drink
+item	Oblivion.esm	185DCD	Shadowbanish Wine	ALCH	drink
+item	Oblivion.esm	037F84	Surilie Brothers Vintage 399	ALCH	drink
+item	Oblivion.esm	037F82	Surilie Brothers Vintage 415	ALCH	drink
+item	Oblivion.esm	037F80	Surilie Brothers Wine	ALCH	drink
+item	Oblivion.esm	037F7E	Tamika Vintage 399	ALCH	drink
+item	Oblivion.esm	037F83	Tamika Vintage 415	ALCH	drink
+item	Oblivion.esm	037F81	Tamika's West Weald Wine	ALCH	drink
+item	Oblivion.esm	033669	Cheese Wheel	INGR	heavy
+item	Oblivion.esm	177A29	S'jirra's Famous Potato Bread	INGR	heavy
+item	Oblivion.esm	0B97E9	Shepherd's Pie	INGR	heavy
+item	Oblivion.esm	03365C	Alkanet Flower	INGR	ignore
+item	Oblivion.esm	01AE7A	Alocasia Fruit	INGR	ignore
+item	Oblivion.esm	0A7924	Aloe Vera Leaves	INGR	ignore
+item	Oblivion.esm	0704A0	Ambrosia	INGR	ignore
+item	Oblivion.esm	03365E	Arrowroot	INGR	ignore
+item	Oblivion.esm	081A68	Ashen Remains	INGR	ignore
+item	Oblivion.esm	0977DD	Ashes of Hindaril	INGR	ignore
+item	Oblivion.esm	01B035	Aster Bloom Core	INGR	ignore
+item	Oblivion.esm	0A7933	Bergamot Seeds	INGR	ignore
+item	Oblivion.esm	03BABD	Black Tar	INGR	ignore
+item	Oblivion.esm	043430	Blind Watcher's Eye	INGR	ignore
+item	Oblivion.esm	04340E	Blind Watcher's Eye	INGR	ignore
+item	Oblivion.esm	01F3AA	Blister Pod Cap	INGR	ignore
+item	Oblivion.esm	033664	Bloodgrass	INGR	ignore
+item	Oblivion.esm	08446C	Bog Beacon Asco Cap	INGR	ignore
+item	Oblivion.esm	044E61	Bone Marrow	INGR	ignore
+item	Oblivion.esm	052443	Bone Shard	INGR	ignore
+item	Oblivion.esm	048734	Bonemeal	INGR	ignore
+item	Oblivion.esm	01EBFF	Bonemeal	INGR	ignore
+item	Oblivion.esm	06251E	Cairn Bolete Cap	INGR	ignore
+item	Oblivion.esm	08529C	Cinnabar Polypore Red Cap	INGR	ignore
+item	Oblivion.esm	08529B	Cinnabar Polypore Yellow Cap	INGR	ignore
+item	Oblivion.esm	03366A	Clannfear Claws	INGR	ignore
+item	Oblivion.esm	084472	Clouded Funnel Cap	INGR	ignore
+item	Oblivion.esm	0A7925	Columbine Root Pulp	INGR	ignore
+item	Oblivion.esm	0402E9	Congealed Putrescence	INGR	ignore
+item	Oblivion.esm	01EC8F	Daedra Heart	INGR	ignore
+item	Oblivion.esm	033670	Daedra Silk	INGR	ignore
+item	Oblivion.esm	033671	Daedra Venin	INGR	ignore
+item	Oblivion.esm	033672	Daedroth Teeth	INGR	ignore
+item	Oblivion.esm	043432	Deformed Swamp Tentacle	INGR	ignore
+item	Oblivion.esm	043410	Deformed Swamp Tentacle	INGR	ignore
+item	Oblivion.esm	071FC8	Dog Food	INGR	ignore
+item	Oblivion.esm	025039	Dragon's Tongue	INGR	ignore
+item	Oblivion.esm	033673	Dreugh Wax	INGR	ignore
+item	Oblivion.esm	08529D	Dryad Saddle Polypore Cap	INGR	ignore
+item	Oblivion.esm	01EBFE	Ectoplasm	INGR	ignore
+item	Oblivion.esm	08529E	Elf Cup Cap	INGR	ignore
+item	Oblivion.esm	044E5D	Elytra Ichor	INGR	ignore
+item	Oblivion.esm	08529F	Emetic Russula Cap	INGR	ignore
+item	Oblivion.esm	013186	Felldew	INGR	ignore
+item	Oblivion.esm	0A7926	Fennel Seeds	INGR	ignore
+item	Oblivion.esm	033675	Fire Salts	INGR	ignore
+item	Oblivion.esm	097613	Flame Stalk	INGR	ignore
+item	Oblivion.esm	01B6AE	Flame Stalk	INGR	ignore
+item	Oblivion.esm	0A7927	Flax Seeds	INGR	ignore
+item	Oblivion.esm	084471	Fly Amanita Cap	INGR	ignore
+item	Oblivion.esm	033687	Foxglove Nectar	INGR	ignore
+item	Oblivion.esm	022E5B	Frost Salts	INGR	ignore
+item	Oblivion.esm	019529	Fungus Stalk	INGR	ignore
+item	Oblivion.esm	033678	Ginkgo Leaf	INGR	ignore
+item	Oblivion.esm	033679	Ginseng	INGR	ignore
+item	Oblivion.esm	01EBE8	Glow Dust	INGR	ignore
+item	Oblivion.esm	044E5E	Gnarl Bark	INGR	ignore
+item	Oblivion.esm	08446A	Green Stain Cup Cap	INGR	ignore
+item	Oblivion.esm	08529A	Green Stain Shelf Cap	INGR	ignore
+item	Oblivion.esm	05589A	Greenmote	INGR	ignore
+item	Oblivion.esm	03367D	Harrada	INGR	ignore
+item	Oblivion.esm	04A863	Heart of Order	INGR	ignore
+item	Oblivion.esm	044E62	Hound Tooth	INGR	ignore
+item	Oblivion.esm	0CD51C	Human Heart	INGR	ignore
+item	Oblivion.esm	071F36	Human Heart	INGR	ignore
+item	Oblivion.esm	071F35	Human Skin	INGR	ignore
+item	Oblivion.esm	044E60	Hunger Tongue	INGR	ignore
+item	Oblivion.esm	03BAD3	Hydnum Azure Giant Spore	INGR	ignore
+item	Oblivion.esm	0549BE	Imp Fluid	INGR	ignore
+item	Oblivion.esm	02EE72	Imp Gall	INGR	ignore
+item	Oblivion.esm	03367E	Ironwood Nut	INGR	ignore
+item	Oblivion.esm	0A7928	Lady's Mantle Leaves	INGR	ignore
+item	Oblivion.esm	0A7929	Lady's Smock Leaves	INGR	ignore
+item	Oblivion.esm	0A792A	Lavender Sprig	INGR	ignore
+item	Oblivion.esm	03E632	Letifer Orca Digestive Slime	INGR	ignore
+item	Oblivion.esm	07049E	Lichor	INGR	ignore
+item	Oblivion.esm	033683	Mandrake Root	INGR	ignore
+item	Oblivion.esm	0A792C	Milk Thistle Seeds	INGR	ignore
+item	Oblivion.esm	033568	Minotaur Horn	INGR	ignore
+item	Oblivion.esm	0A792E	Monkshood Root Pulp	INGR	ignore
+item	Oblivion.esm	0A792F	Morning Glory Root Pulp	INGR	ignore
+item	Oblivion.esm	033685	Mort Flesh	INGR	ignore
+item	Oblivion.esm	0A7930	Motherwort Sprig	INGR	ignore
+item	Oblivion.esm	0A7931	Mugwort Seeds	INGR	ignore
+item	Oblivion.esm	081EA5	Mute Screaming Maw	INGR	ignore
+item	Oblivion.esm	081E9A	Mute Screaming Maw	INGR	ignore
+item	Oblivion.esm	033688	Nightshade	INGR	ignore
+item	Oblivion.esm	04E940	Nirnroot	INGR	ignore
+item	Oblivion.esm	033689	Ogre's Teeth	INGR	ignore
+item	Oblivion.esm	09209E	Painted Troll Fat	INGR	ignore
+item	Oblivion.esm	0A7932	Peony Seeds	INGR	ignore
+item	Oblivion.esm	0CBD45	Pinarus' Prize Minotaur Horn	INGR	ignore
+item	Oblivion.esm	0918F0	Poisoned Apple	INGR	ignore
+item	Oblivion.esm	0A7934	Primrose Leaves	INGR	ignore
+item	Oblivion.esm	026B08	Rat Poison	INGR	ignore
+item	Oblivion.esm	01A16E	Red Kelp Gas Bladder	INGR	ignore
+item	Oblivion.esm	02503A	Redwort Flower	INGR	ignore
+item	Oblivion.esm	022F1A	Refined Frost Salts	INGR	ignore
+item	Oblivion.esm	033691	Root Pulp	INGR	ignore
+item	Oblivion.esm	01B6B2	Rot Scale	INGR	ignore
+item	Oblivion.esm	185FE2	Rumare Slaughterfish Scales	INGR	ignore
+item	Oblivion.esm	0A7936	Sacred Lotus Seeds	INGR	ignore
+item	Oblivion.esm	033692	Scales	INGR	ignore
+item	Oblivion.esm	044E5F	Scalon Fin	INGR	ignore
+item	Oblivion.esm	033693	Scamp Skin	INGR	ignore
+item	Oblivion.esm	01B6B0	Screaming Maw	INGR	ignore
+item	Oblivion.esm	033696	Somnalius Frond	INGR	ignore
+item	Oblivion.esm	033697	Spiddal Stick	INGR	ignore
+item	Oblivion.esm	0A7939	St. Jahn's Wort Nectar	INGR	ignore
+item	Oblivion.esm	08446B	Steel-Blue Entoloma Cap	INGR	ignore
+item	Oblivion.esm	08446D	Stinkhorn Cap	INGR	ignore
+item	Oblivion.esm	084470	Summer Bolete Cap	INGR	ignore
+item	Oblivion.esm	0413DC	Swamp Tentacle	INGR	ignore
+item	Oblivion.esm	0AF06E	Taproot	INGR	ignore
+item	Oblivion.esm	01B6B1	Thorn Hook	INGR	ignore
+item	Oblivion.esm	0A792B	Tiger Lily Nectar	INGR	ignore
+item	Oblivion.esm	08446F	Tinder Polypore Cap	INGR	ignore
+item	Oblivion.esm	03369D	Tobacco	INGR	ignore
+item	Oblivion.esm	026B5C	Troll Fat	INGR	ignore
+item	Oblivion.esm	01EC5B	Unicorn Horn	INGR	ignore
+item	Oblivion.esm	077AD9	Unrefined Greenmote	INGR	ignore
+item	Oblivion.esm	04872C	Vampire Dust	INGR	ignore
+item	Oblivion.esm	009182	Vampire Dust	INGR	ignore
+item	Oblivion.esm	0A793B	Viper's Bugloss Leaves	INGR	ignore
+item	Oblivion.esm	044E5C	Void Essence	INGR	ignore
+item	Oblivion.esm	03369F	Void Salts	INGR	ignore
+item	Oblivion.esm	01B6AF	Watcher's Eye	INGR	ignore
+item	Oblivion.esm	0A793C	Water Hyacinth Nectar	INGR	ignore
+item	Oblivion.esm	040CAF	Water Root Pod Pit	INGR	ignore
+item	Oblivion.esm	0336A2	White Seed Pod	INGR	ignore
+item	Oblivion.esm	07D04E	Wisp Core	INGR	ignore
+item	Oblivion.esm	06251F	Wisp Stalk Caps	INGR	ignore
+item	Oblivion.esm	01B6B3	Withering Moon	INGR	ignore
+item	Oblivion.esm	01B5AA	Worm's Head Cap	INGR	ignore
+item	Oblivion.esm	0A793E	Wormwood Leaves	INGR	ignore
+item	Oblivion.esm	052F85	Apple	INGR	light
+item	Oblivion.esm	040CC0	Apple	INGR	light
+item	Oblivion.esm	03365D	Apple	INGR	light
+item	Oblivion.esm	033663	Blackberry	INGR	light
+item	Oblivion.esm	033666	Carrot	INGR	light
+item	Oblivion.esm	082DE2	Carrot of Seeing	INGR	light
+item	Oblivion.esm	033668	Cheese Wedge	INGR	light
+item	Oblivion.esm	052F87	Corn	INGR	light
+item	Oblivion.esm	03366B	Corn	INGR	light
+item	Oblivion.esm	033674	Flour	INGR	light
+item	Oblivion.esm	033677	Garlic	INGR	light
+item	Oblivion.esm	03367B	Grapes	INGR	light
+item	Oblivion.esm	01AE82	Grummite Eggs	INGR	light
+item	Oblivion.esm	033680	Leek	INGR	light
+item	Oblivion.esm	033681	Lettuce	INGR	light
+item	Oblivion.esm	03368A	Onion	INGR	light
+item	Oblivion.esm	07588E	Orange	INGR	light
+item	Oblivion.esm	03368B	Pear	INGR	light
+item	Oblivion.esm	03368C	Potato	INGR	light
+item	Oblivion.esm	03368D	Pumpkin	INGR	light
+item	Oblivion.esm	03368E	Radish	INGR	light
+item	Oblivion.esm	033690	Rice	INGR	light
+item	Oblivion.esm	033699	Strawberry	INGR	light
+item	Oblivion.esm	03369E	Tomato	INGR	light
+item	Oblivion.esm	0336A0	Watermelon	INGR	light
+item	Oblivion.esm	0336A1	Wheat Grain	INGR	light
+item	Oblivion.esm	03365F	Beef	INGR	med
+item	Oblivion.esm	033665	Boar Meat	INGR	med
+item	Oblivion.esm	023D89	Bread Loaf	INGR	med
+item	Oblivion.esm	03366C	Crab Meat	INGR	med
+item	Oblivion.esm	03367C	Ham	INGR	med
+item	Oblivion.esm	177A2A	Jumbo Potato	INGR	med
+item	Oblivion.esm	033686	Mutton	INGR	med
+item	Oblivion.esm	03368F	Rat Meat	INGR	med
+item	Oblivion.esm	07D048	Smoked Baliwog Leg	INGR	med
+item	Oblivion.esm	03369A	Sweetcake	INGR	med
+item	Oblivion.esm	03369B	Sweetroll	INGR	med
+item	Oblivion.esm	02229B	Venison	INGR	med
+actor	ElsweyrAnequina.esp	01ADBA	ANQBRKSnuggles	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	02219D	ANQCORAzhaba	NPC_	merchant
+actor	ElsweyrAnequina.esp	0A741B	ANQCORChaeVarseu	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0464AC	ANQCORDhajamuli	NPC_	food merchant
+actor	ElsweyrAnequina.esp	023220	ANQCORDjari	NPC_	food merchant
+actor	ElsweyrAnequina.esp	023996	ANQCORGuidodeMoer	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0221A1	ANQCORHagulDroMagrush	NPC_	food merchant
+actor	ElsweyrAnequina.esp	015ECB	ANQCORJinsiraga	NPC_	food merchant
+actor	ElsweyrAnequina.esp	04A854	ANQCORJobasha	NPC_	merchant
+actor	ElsweyrAnequina.esp	02E52F	ANQCORJolana	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	033CAF	ANQCORLlaveraSovalu	NPC_	merchant
+actor	ElsweyrAnequina.esp	045B0D	ANQCORLorrieneTarelle	NPC_	merchant
+actor	ElsweyrAnequina.esp	063CC1	ANQCORMaerendil	NPC_	merchant
+actor	ElsweyrAnequina.esp	063CC0	ANQCORMeraendil	NPC_	food merchant
+actor	ElsweyrAnequina.esp	069C4B	ANQCORMoonPriestess01	NPC_	merchant
+actor	ElsweyrAnequina.esp	02219F	ANQCORNarinaPortius	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0231D6	ANQCOROgradroBadrak	NPC_	merchant
+actor	ElsweyrAnequina.esp	045B0C	ANQCORSayadra	NPC_	merchant
+actor	ElsweyrAnequina.esp	03D34E	ANQCORSnarriva	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	0221A3	ANQCORWilrick	NPC_	merchant
+actor	ElsweyrAnequina.esp	057673	ANQCORYsamirr	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	019678	ANQDNCNisaba	NPC_	food merchant
+actor	ElsweyrAnequina.esp	09591E	ANQDUNBahmarra	NPC_	merchant
+actor	ElsweyrAnequina.esp	0AC3AB	ANQDUNBatiaArastius	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0B6F2C	ANQDUNCalenoora	NPC_	merchant
+actor	ElsweyrAnequina.esp	09E326	ANQDUNFarrus	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	0B6F24	ANQDUNHenriRoudeau	NPC_	merchant
+actor	ElsweyrAnequina.esp	0B0CCC	ANQDUNMarvysDralor	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0121D7	ANQDUNMgada	NPC_	merchant
+actor	ElsweyrAnequina.esp	043126	ANQDUNRiThibb	NPC_	merchant
+actor	ElsweyrAnequina.esp	03FF67	ANQDUNSabrusha	NPC_	merchant
+actor	ElsweyrAnequina.esp	0C56D7	ANQDUNTochka	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0AB2A0	ANQDUNWasbhaji	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	07EFE1	ANQDUNWaterKeeper	NPC_	merchant
+actor	ElsweyrAnequina.esp	0BDFEC	ANQDUNYarna	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0120C5	ANQKNGHilde	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	0A9E84	ANQLGNMuniciaBellisarius	NPC_	merchant
+actor	ElsweyrAnequina.esp	0B5C99	ANQLGNQuartermasterHabius	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0B5DA1	ANQLGNQuartermasterJosidus	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0327BC	ANQMNJjarsa	NPC_	food merchant
+actor	ElsweyrAnequina.esp	00E3D6	ANQORCAbgoldroLadug	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	011616	ANQORCBrokumSharzog	NPC_	merchant
+actor	ElsweyrAnequina.esp	011651	ANQORCDulphoggroNaybek	NPC_	food merchant
+actor	ElsweyrAnequina.esp	01162C	ANQORCEloineBrigette	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	01C00A	ANQORCKoffuttoGroLag	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	01C004	ANQORCLaphkaGraLag	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	011640	ANQORCMensal	NPC_	food merchant
+actor	ElsweyrAnequina.esp	011642	ANQORCNirasja	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	011618	ANQORCRogda	NPC_	food merchant
+actor	ElsweyrAnequina.esp	012A19	ANQORCUbaashi	NPC_	food merchant
+actor	ElsweyrAnequina.esp	057F0B	ANQRHBenrick	NPC_	merchant
+actor	ElsweyrAnequina.esp	02E666	ANQRHHdiji	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0168C0	ANQRHHzardirr	NPC_	food merchant
+actor	ElsweyrAnequina.esp	01F509	ANQRHJoFaraq	NPC_	food merchant
+actor	ElsweyrAnequina.esp	01EDBF	ANQRHJoRasma	NPC_	food merchant
+actor	ElsweyrAnequina.esp	01B7E1	ANQRHLucDemers	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	02E670	ANQRHToran	NPC_	food merchant
+actor	ElsweyrAnequina.esp	02FB02	ANQRHYahsi	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0913BF	ANQRMNChibilha	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0B03F9	ANQRMNDancesInLight	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0A88DF	ANQRMNDaxu	NPC_	merchant
+actor	ElsweyrAnequina.esp	092F9F	ANQRMNGhakgroShub	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0A88D9	ANQRMNGluntiusBobatus	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0B9091	ANQRMNHestaScalpinius	NPC_	merchant
+actor	ElsweyrAnequina.esp	0A88DC	ANQRMNJShahb	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	0A88DB	ANQRMNKhanoud	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0A88D7	ANQRMNLinJiao	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0A88D8	ANQRMNMarette	NPC_	merchant
+actor	ElsweyrAnequina.esp	0B4F49	ANQRMNMeiZhong	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	0B0C99	ANQRMNNagahni	NPC_	innkeeper+merchant
+actor	ElsweyrAnequina.esp	0A88DA	ANQRMNSanbal	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0A7614	ANQRMNSkeetelJei	NPC_	food merchant
+actor	ElsweyrAnequina.esp	0BB57E	ANQRMNSorosaDorvayn	NPC_	merchant
+actor	ElsweyrAnequina.esp	0A88E0	ANQRMNThedimir	NPC_	merchant
+actor	ElsweyrAnequina.esp	07720E	ANQRMNTsunChi	NPC_	merchant
+actor	Oblivion.esm	0389B8	Abhuki	NPC_	innkeeper+merchant
+actor	Oblivion.esm	02950A	AdrienneBerene	NPC_	merchant
+actor	Oblivion.esm	02D028	Agata	NPC_	merchant
+actor	Oblivion.esm	028F9B	AgnetethePickled	NPC_	merchant
+actor	Oblivion.esm	0222B8	AlbericLitte	NPC_	merchant
+actor	Oblivion.esm	02D027	AlvesUvenim	NPC_	food merchant
+actor	Oblivion.esm	030FDB	AndreasDraconis	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0234BB	Angalmo	NPC_	food merchant
+actor	Oblivion.esm	02D01B	Ardaline	NPC_	food merchant
+actor	Oblivion.esm	0234BA	Athragar	NPC_	merchant
+actor	Oblivion.esm	02F874	AugustaCalidia	NPC_	innkeeper+merchant
+actor	Oblivion.esm	034E6A	AvrusAdas	NPC_	merchant
+actor	Oblivion.esm	02D6FB	BatulgraSharob	NPC_	merchant
+actor	Oblivion.esm	00A082	BogrumGroGalash	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0034C4	BorbagraUzgash	NPC_	food merchant
+actor	Oblivion.esm	034EB0	Borissean	NPC_	merchant
+actor	Oblivion.esm	037C33	BugakgroBol	NPC_	merchant
+actor	Oblivion.esm	015EA9	Calindil	NPC_	merchant
+actor	Oblivion.esm	0243C8	CandiceCorgine	NPC_	innkeeper+merchant
+actor	Oblivion.esm	02DC04	ChristopheMarane	NPC_	innkeeper+merchant
+actor	Oblivion.esm	015EAB	ClaudettePerrick	NPC_	food merchant
+actor	Oblivion.esm	00A089	Daenlin	NPC_	merchant
+actor	Oblivion.esm	034E76	DarJee	NPC_	food merchant
+actor	Oblivion.esm	086754	Dark19Murderer2	NPC_	food merchant
+actor	Oblivion.esm	03AB4E	DavelaHlaren	NPC_	innkeeper+merchant
+actor	Oblivion.esm	015EA2	DelosFandas	NPC_	innkeeper+merchant
+actor	Oblivion.esm	02CB2D	DelphineJend	NPC_	merchant
+actor	Oblivion.esm	0034C0	DerveraRomalen	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0293EE	Druja	NPC_	merchant
+actor	Oblivion.esm	015E9D	EdgarVautrine	NPC_	merchant
+actor	Oblivion.esm	02D023	Eilonwy	NPC_	food merchant
+actor	Oblivion.esm	03E183	Elsynia	NPC_	food merchant
+actor	Oblivion.esm	0234B7	Emfrid	NPC_	innkeeper+merchant
+actor	Oblivion.esm	01C150	Engorm	NPC_	food merchant
+actor	Oblivion.esm	036307	Enilroth	NPC_	merchant
+actor	Oblivion.esm	028F90	ErinaJeranus	NPC_	innkeeper+merchant
+actor	Oblivion.esm	01FDCF	ErnestManis	NPC_	food merchant
+actor	Oblivion.esm	0234B0	EstelleRenoit	NPC_	merchant
+actor	Oblivion.esm	0280C7	EtiraMoslin	NPC_	food merchant
+actor	Oblivion.esm	028E73	FalanuHlaalu	NPC_	food merchant
+actor	Oblivion.esm	02BA47	FathisUles	NPC_	food merchant
+actor	Oblivion.esm	02D019	FelenRelas	NPC_	food merchant
+actor	Oblivion.esm	035EB6	Fjotreid	NPC_	merchant
+actor	Oblivion.esm	03AB51	Foroch	NPC_	innkeeper+merchant
+actor	Oblivion.esm	034EB1	GasparStegine	NPC_	merchant
+actor	Oblivion.esm	00A084	Gilgondorin	NPC_	innkeeper+merchant
+actor	Oblivion.esm	034E68	Gundalas	NPC_	food merchant
+actor	Oblivion.esm	028F98	Gunder	NPC_	food merchant
+actor	Oblivion.esm	035EB0	HafidHollowleg	NPC_	innkeeper+merchant
+actor	Oblivion.esm	015EA0	HamlofRedTooth	NPC_	merchant
+actor	Oblivion.esm	035EB7	IsaRaman	NPC_	merchant
+actor	Oblivion.esm	02D01C	ItaRienus	NPC_	merchant
+actor	Oblivion.esm	015EA4	Jensine	NPC_	food merchant
+actor	Oblivion.esm	034EAF	JulienneFanis	NPC_	food merchant
+actor	Oblivion.esm	03E188	Karinnarre	NPC_	food merchant
+actor	Oblivion.esm	01ECD2	Kirsten	NPC_	innkeeper+merchant
+actor	Oblivion.esm	016053	LeyMarillin	NPC_	innkeeper+merchant
+actor	Oblivion.esm	00A10A	LucianaGalena	NPC_	food merchant
+actor	Oblivion.esm	023DE6	LutherBroad	NPC_	innkeeper+merchant
+actor	Oblivion.esm	023FEA	MachNa	NPC_	merchant
+actor	Oblivion.esm	00A27C	Maenlorn	NPC_	food merchant
+actor	Oblivion.esm	03E190	MagragroNaybek	NPC_	food merchant
+actor	Oblivion.esm	03001C	Malene	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0224EE	ManheimMaulhand	NPC_	innkeeper+merchant
+actor	Oblivion.esm	02D01A	MarcGulitte	NPC_	merchant
+actor	Oblivion.esm	0034C2	MarianaAncharia	NPC_	innkeeper+merchant
+actor	Oblivion.esm	015EAC	MaroRufus	NPC_	merchant
+actor	Oblivion.esm	028F8C	MoggraMogakh	NPC_	innkeeper+merchant
+actor	Oblivion.esm	023E35	MraajDar	NPC_	food merchant
+actor	Oblivion.esm	0BB9CB	Nerussa	NPC_	innkeeper+merchant
+actor	Oblivion.esm	00A087	Nilawen	NPC_	food merchant
+actor	Oblivion.esm	035724	NorbertLelles	NPC_	food merchant
+actor	Oblivion.esm	03E17E	Nordinor	NPC_	food merchant
+actor	Oblivion.esm	015E9A	OgierGeorick	NPC_	food merchant
+actor	Oblivion.esm	0034C7	Ohtesse	NPC_	merchant
+actor	Oblivion.esm	035EAC	Olav	NPC_	innkeeper+merchant
+actor	Oblivion.esm	035EB5	Olfand	NPC_	merchant
+actor	Oblivion.esm	035ECA	OngartheWorldWeary	NPC_	food merchant
+actor	Oblivion.esm	0234AE	OraggraBargol	NPC_	merchant
+actor	Oblivion.esm	02D022	Orintur	NPC_	merchant
+actor	Oblivion.esm	00C1D4	Ormil	NPC_	innkeeper+merchant
+actor	Oblivion.esm	00A2A1	Orrin	NPC_	food merchant
+actor	Oblivion.esm	015EA8	Palonirya	NPC_	merchant
+actor	Oblivion.esm	015E9B	Phintias	NPC_	merchant
+actor	Oblivion.esm	034E15	RaminusPolus	NPC_	merchant
+actor	Oblivion.esm	0234AF	Rasheda	NPC_	merchant
+actor	Oblivion.esm	015E9C	Rindir	NPC_	merchant
+actor	Oblivion.esm	01C14C	Rohssan	NPC_	merchant
+actor	Oblivion.esm	0155A0	SEAhjazda	NPC_	merchant
+actor	Oblivion.esm	01207E	SECutter	NPC_	merchant
+actor	Oblivion.esm	011F9F	SEDredhwen	NPC_	innkeeper+merchant
+actor	Oblivion.esm	05FA44	SEDredhwenOrdered	NPC_	innkeeper+merchant
+actor	Oblivion.esm	01559D	SEDumagGraBonk	NPC_	merchant
+actor	Oblivion.esm	01559F	SEEaril	NPC_	food merchant
+actor	Oblivion.esm	016569	SEHorkvirBearArmDementia	NPC_	merchant
+actor	Oblivion.esm	01558F	SEHorkvirBearArmMania	NPC_	merchant
+actor	Oblivion.esm	012086	SERavenBiter	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0155A1	SESicklyBernice	NPC_	innkeeper+merchant
+actor	Oblivion.esm	01559A	SESontaire	NPC_	merchant
+actor	Oblivion.esm	01208A	SETilseAreleth	NPC_	food merchant
+actor	Oblivion.esm	01559B	SEUshnarGroShadborgob	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0234BD	SabineLaul	NPC_	merchant
+actor	Oblivion.esm	0234B8	SeedNeeus	NPC_	food merchant
+actor	Oblivion.esm	02D020	SelenaOrania	NPC_	food merchant
+actor	Oblivion.esm	00A099	SelenaOraniaDead	NPC_	food merchant
+actor	Oblivion.esm	015EA6	SergiusVerus	NPC_	food merchant
+actor	Oblivion.esm	0C45B5	ShadySam	NPC_	merchant
+actor	Oblivion.esm	034E65	Shuravi	NPC_	innkeeper+merchant
+actor	Oblivion.esm	02D701	Sigrid	NPC_	food merchant
+actor	Oblivion.esm	03E92B	Sinderion	NPC_	food merchant
+actor	Oblivion.esm	035EB4	Skjorta	NPC_	merchant
+actor	Oblivion.esm	0897E7	Sthasa	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0293ED	SulinusVassinus	NPC_	merchant
+actor	Oblivion.esm	035EB3	Suurootan	NPC_	food merchant
+actor	Oblivion.esm	00A096	TadroseHelas	NPC_	merchant
+actor	Oblivion.esm	0234B4	Talasma	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0034C5	TertiaViducia	NPC_	merchant
+actor	Oblivion.esm	015EA5	TertullianVerus	NPC_	food merchant
+actor	Oblivion.esm	025266	TestDenyiir	NPC_	food merchant
+actor	Oblivion.esm	04F126	TestToddManHammer	NPC_	food merchant
+actor	Oblivion.esm	04F125	TestToddManNoShield	NPC_	food merchant
+actor	Oblivion.esm	01DB45	TestToddManShield	NPC_	food merchant
+actor	Oblivion.esm	03DB99	TestVampireFoodNPC	NPC_	merchant
+actor	Oblivion.esm	01E4EB	TestVendorNPC	NPC_	merchant
+actor	Oblivion.esm	02D018	Thaurron	NPC_	merchant
+actor	Oblivion.esm	015E9E	Thoronir	NPC_	food merchant
+actor	Oblivion.esm	02D024	TrayvondtheRedguard	NPC_	merchant
+actor	Oblivion.esm	00A285	Trevaia	NPC_	merchant
+actor	Oblivion.esm	028F9D	Tumindil	NPC_	merchant
+actor	Oblivion.esm	034E69	TunZeeus	NPC_	merchant
+actor	Oblivion.esm	00A088	Ungarion	NPC_	food merchant
+actor	Oblivion.esm	00A08A	UravasaOthrelas	NPC_	merchant
+actor	Oblivion.esm	015EAA	UrbulgroOrkulg	NPC_	merchant
+actor	Oblivion.esm	00A283	VarelMorvayn	NPC_	merchant
+actor	Oblivion.esm	015EAD	Varnado	NPC_	merchant
+actor	Oblivion.esm	015EAE	VelusHosidius	NPC_	innkeeper+merchant
+actor	Oblivion.esm	015E9F	ViatorAccius	NPC_	merchant
+actor	Oblivion.esm	0293F3	ViggetheCautious	NPC_	merchant
+actor	Oblivion.esm	0280C8	VlanhonderMoslin	NPC_	innkeeper+merchant
+actor	Oblivion.esm	02D01F	Volanaro	NPC_	merchant
+actor	Oblivion.esm	00A27E	Wilbur	NPC_	innkeeper+merchant
+actor	Oblivion.esm	01D340	Willet	NPC_	innkeeper+merchant
+actor	Oblivion.esm	02C8D8	Witseidutsei	NPC_	innkeeper+merchant
+actor	Oblivion.esm	0CD302	lyndacartertest	NPC_	food merchant
+actor	Oblivion.esm	0245A5	testHEMale	NPC_	merchant

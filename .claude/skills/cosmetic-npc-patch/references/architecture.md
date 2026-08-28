@@ -89,4 +89,5 @@ repeated or tweaked by hand.
   classified. Without it, unresolvable head parts are left in place and counted.
 
 Per-pass knobs that belong to *this* patch rather than to the tools live at the
-top of `pipeline.py`: `OUTFIT_RULES`, `DEFAULT_OUTFITS`, `EXCLUDE_RACES`.
+top of `tools/patch/build_patch.py`: `OUTFIT_RULES`, `OUTFIT_NPC_RULES`,
+`DEFAULT_OUTFITS`, `SOURCE_OUTFITS`, `EXCLUDE_RACES`.

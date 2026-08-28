@@ -34,6 +34,7 @@ Usage:
 
 import argparse
 import hashlib
+import re
 import struct
 import sys
 from collections import Counter, defaultdict
@@ -112,8 +113,11 @@ def main():
                     help='additionally require the RACE record to live in this '
                          'plugin (default: no restriction)')
     ap.add_argument('--exclude-race', action='append', default=[],
-                    metavar='FORMID', help='skip this race (hex FormID in the '
-                                           'source plugin\'s own numbering)')
+                    metavar='RACE',
+                    help='skip every NPC on this race: either its EditorID '
+                         '(ArgonianRace) or an 8-digit hex FormID in the '
+                         'source plugin\'s own numbering; repeatable. An '
+                         'EditorID that resolves to no loaded RACE aborts')
     ap.add_argument('--hdpt-from', action='append', default=[],
                     metavar='PLUGIN',
                     help='extra plugin to read HDPT types (and RACE names) from, '
@@ -228,17 +232,42 @@ def main():
         except ValueError:
             raise SystemExit(f'{src.name} does not list "{args.races_from}" as '
                              'a master, so no race can come from it')
-    excluded = {int(x, 16) for x in args.exclude_race}
+    # A race is named by EditorID or by FormID. The EditorID is what a human
+    # reads in `EXCLUDE_RACES`, and it survives the converter pointing beast
+    # NPCs at a different record; the hex form stays for a race with no name
+    # in any loaded plugin. Eight hex digits is the FormID form, so a race
+    # whose EditorID happens to be hex-shaped is still read as a name.
+    by_name = {name.lower(): pfid for pfid, name in race_names.items() if name}
+    excluded = set()          # source-plugin numbering
+    excluded_patch = set()    # patch numbering, from EditorIDs
+    unresolved = []
+    for value in args.exclude_race:
+        if re.fullmatch(r'[0-9A-Fa-f]{8}', value):
+            excluded.add(int(value, 16))
+        elif value.lower() in by_name:
+            excluded_patch.add(by_name[value.lower()])
+        else:
+            unresolved.append(value)
+    if unresolved:
+        raise SystemExit(
+            '--exclude-race names no RACE in any loaded plugin: '
+            + ', '.join(unresolved)
+            + '. Pass the plugin that defines it with --hdpt-from, or give an '
+              '8-digit FormID instead')
 
     selected = []
     per_race = Counter()
+    skipped_race = Counter()
     rejected = Counter()
     unknown_race = Counter()
     for fid, (_hdr, subs) in src.by_type['NPC_'].items():
         rnam = first(subs, 'RNAM')
         race = struct.unpack('<I', rnam)[0] if rnam else 0
-        if not rnam or race in excluded:
+        if not rnam or race in excluded or (
+                remap_fid(race, mapping) in excluded_patch):
             rejected[race] += 1
+            if rnam:
+                skipped_race[race] += 1
             continue
         if race_master_idx is not None and race >> 24 != race_master_idx:
             rejected[race] += 1
@@ -258,6 +287,11 @@ def main():
         per_race[race] += 1
     selected.sort()
 
+    if skipped_race:
+        print(f'excluded races: {sum(skipped_race.values())} NPCs left alone')
+        for race, count in skipped_race.most_common():
+            print(f'  {race:08X} '
+                  f'{race_names.get(remap_fid(race, mapping), "?"):16} {count}')
     print(f'NPCs on a FaceGen-head race: {len(selected)} '
           f'(skipped {sum(rejected.values())} on races without one)')
     for race, count in per_race.most_common():

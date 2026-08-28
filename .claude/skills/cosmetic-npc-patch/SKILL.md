@@ -163,6 +163,20 @@ remap walks a per-subrecord FormID map (`NPC_FORMID_FIELDS`) and a real VMAD
 property walker. An unknown subrecord signature **aborts the run** rather than
 shipping a stale master index — that guard is the point, do not relax it.
 
+### 🛑 Two patches over one NPC do not merge
+
+The later plugin wins the **whole record**. `MyOwnTamrieliNeedPatch.esp`
+overrides 220 of these same NPCs (every merchant is also somebody this patch
+restyled), and copying them off the converted master meant one of the two
+patches was always thrown away — measured, and the reason merchants shipped
+with no stock. The iNeed patch now reads through `SourceStack` and MASTERS this
+one (`STACK_ON` in `build_patch.py`), so it loads last and carries these
+fields through.
+
+**Consequence: rebuild the iNeed patch after rebuilding this one**, or its copy
+of those 220 actors is stale and wins anyway. Any new patch that touches an NPC
+this one touches needs the same treatment.
+
 ---
 
 ## What each pass currently does
@@ -172,11 +186,30 @@ shipping a stale master index — that guard is the point, do not relax it.
 Every **female** NPC (`ACBS` flags bit 0) gets a random `OTFT` from a list in
 `constants.py`, resolved to the patch's own OTFT records by EditorID.
 
-Which list depends on **where the NPC is placed**: every `ACHR` pointing at the
-NPC contributes its parent cell, and the cell's EditorID/FULL plus its
-worldspace's EditorID/FULL are matched against `--match-outfits` keywords.
-`bruma=BRUMA_OUTFITS_TO_CHOOSE` therefore catches `BrumaWorld` and every
-`Bruma*` interior without naming a single cell.
+Which list depends on two rule families, **who she is** before **where she is**:
+
+* `--match-npc-outfits` matches her own EditorID/FULL and the EditorID/FULL of
+  every FACTION she belongs to. `bandit=FEMALE_BANDITS_OUTFITS` catches
+  `BanditFaction`, `VeyondCaveBandits` and `ANQBanditFaction` without naming an
+  NPC — 43 women in Oblivion.esm, 11 in ElsweyrAnequina.esp (2026-08-28).
+* `--match-outfits` matches where she is placed: every `ACHR` pointing at the
+  NPC contributes its parent cell, and the cell's EditorID/FULL plus its
+  worldspace's EditorID/FULL are matched. `bruma=BRUMA_OUTFITS_TO_CHOOSE`
+  therefore catches `BrumaWorld` and every `Bruma*` interior without naming a
+  single cell.
+
+Identity beats placement, so a bandit camped outside Bruma stays a bandit.
+
+**The class is NOT part of the identity text, on purpose.** An Oblivion class is
+a stat template, not an identity: matching `bandit` against `CNAM` pulled in
+Anequina's 8 Dune Soldiers and 12 tribeswomen (all built on `BanditMissile`)
+plus Rona, a Mephala quest NPC — 21 additions, 21 of them wrong. Faction
+membership is the authored answer to "is she a bandit".
+
+**Factions live in the MASTERS**, so `--names-from` takes every selected
+converted plugin in load order — an ElsweyrAnequina NPC can sit in Oblivion.esm's
+`BanditFaction`, and a source-only index would never see it. This is the
+[master-blindness](../../../CLAUDE.md) trap in its patch-tool form.
 
 ### Hair — `assign_npc_hair.py`
 
@@ -187,6 +220,21 @@ Every NPC on a **FaceGen-head race** gets a random hair from `MALE_HAIRCUTS` or
 The head-part run is rebuilt as `[hair, hairHL, ...everything that was not
 hair]`, which in practice means the eyes survive and the converted Oblivion hair
 is dropped.
+
+**The beast races are excluded** (`EXCLUDE_RACES` in `build_patch.py`, currently
+`['ArgonianRace', 'KhajiitRace']`). Argonians and Khajiit wear their hair as
+part of the head mesh — horns, mane, spines — so a KS Hairdo's style on one is a
+human wig on a lizard. `--exclude-race` takes a RACE **EditorID** or an 8-digit
+FormID, and an EditorID that resolves to no loaded RACE aborts the run rather
+than silently excluding nothing.
+
+Both converted plugins put every beast NPC on the **vanilla Skyrim** race, so
+naming the two vanilla records covers every source plugin — measured 2026-08-28:
+`ArgonianRace 00013740` 121 + 15, `KhajiitRace 00013745` 100 + 130 over
+Oblivion.esm and ElsweyrAnequina.esp, **366 NPCs left alone**. Elsweyr's own
+`TES4ANQ*` races are all creatures and never had a FaceGen head to begin with.
+Those NPCs still appear in the patch — they get outfits and skin tone — they
+just keep the hair the converter gave them.
 
 ### Skin tone — `assign_skin_tone.py`
 
@@ -241,8 +289,8 @@ Track anything unresolved here so the next session does not rediscover it.
   colour. Worth trying if the tone still reads wrong.
 - **Dremora (115 NPCs) currently get KS hairdos.** They carry a FaceGen head so
   they pass the humanoid test, and they are not creatures — but the look may be
-  wrong. Excluded with `--exclude-race 000131F0`, or by adding that FormID to
-  `EXCLUDE_RACES` in `patch_folder/pipeline.py`.
+  wrong. Excluded by adding `DremoraRace` to `EXCLUDE_RACES` in
+  `tools/patch/build_patch.py`, next to the two beast races already there.
 - **`_Elf` hair variants are not used.** KS ships `<name>_Elf` meshes shaped for
   elf head geometry; the passes pick whatever the constants list names, with no
   per-race variant substitution. If elf ears clip, that is the lead.

@@ -181,6 +181,34 @@ class MasterIndex:
                 return fid
         return 0
 
+    def edid_map(self, signature: bytes) -> dict:
+        """EditorID -> FormID for every record of one signature, in ONE pass.
+
+        `find_by_edid` walks the whole offset table per call, which is fine for
+        the handful of well-known records but not for a caller with fifty
+        EditorIDs to resolve -- the converted Oblivion.esm holds over a million
+        records, so fifty scans is minutes. Built once per signature, cached.
+        """
+        cached = getattr(self, '_edid_maps', None)
+        if cached is None:
+            cached = self._edid_maps = {}
+        if signature in cached:
+            return cached[signature]
+        out = {}
+        for fid, (sig, off, size) in self._offsets.items():
+            if sig != signature:
+                continue
+            if struct.unpack_from('<I', self._data, off + 8)[0] & 0x00040000:
+                continue        # compressed body starts with a size, not EDID
+            body = self._data[off + _HEADER_SIZE:off + size]
+            if len(body) < 6 or body[:4] != b'EDID':
+                continue
+            ln = struct.unpack_from('<H', body, 4)[0]
+            name = body[6:6 + ln].rstrip(bytes(1)).decode('ascii', 'replace')
+            out.setdefault(name, fid)
+        cached[signature] = out
+        return out
+
 
 # GRUP types whose 4-byte label is a FormID (the owning record), not a
 # block/sub-block coordinate pair. xEdit wbImplementation: 1=World Children,
@@ -576,6 +604,14 @@ class ChainedMasterIndex:
             if fid:
                 return self._to_child(idx, fid)
         return 0
+
+    def edid_map(self, signature: bytes) -> dict:
+        """EditorID -> FormID over every master, later masters winning."""
+        out = {}
+        for idx in self._indices:
+            for edid, fid in idx.edid_map(signature).items():
+                out[edid] = self._to_child(idx, fid)
+        return out
 
 
 class MissingMasterOutputError(RuntimeError):

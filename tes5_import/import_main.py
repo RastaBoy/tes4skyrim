@@ -1378,10 +1378,15 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
 
     # --- Phase 0c: Create vendor factions for merchant NPCs, plus the
     # trainer faction + per-trainer CLAS clones for the training service ---
+    from .record_types.actors import (create_trainer_records,
+                                      create_vendor_factions)
+    # Vendor factions run for DEPENDENT plugins too -- they adopt the master's
+    # shared factions and marker rather than duplicating them, so the guard the
+    # other Phase-0 generators need does not apply. Skipping it left every
+    # merchant in a plugin-with-masters unable to trade.
+    create_vendor_factions(by_type, writer,
+                           master_index=getattr(ctx, 'master_index', None))
     if not ctx:
-        from .record_types.actors import (create_trainer_records,
-                                          create_vendor_factions)
-        create_vendor_factions(by_type, writer)
         create_trainer_records(by_type, writer)
     _step_done('vendor/trainer records')
 

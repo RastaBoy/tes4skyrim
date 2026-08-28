@@ -36,3 +36,8 @@ MALE_HAIRCUTS: list[str] = [
     "0Victor",
     "0RedRobin",
 ]
+
+FEMALE_BANDITS_OUTFITS: list[str] = [
+    "00SI_Tamriel_OutfitBandit_01",
+    "00SI_Tamriel_OutfitBandit_02",
+]
