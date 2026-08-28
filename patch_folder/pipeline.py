@@ -25,6 +25,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from subprocess_flags import POPEN_FLAGS, std_handles  # noqa: E402
+
 DRIVER = REPO / 'tools' / 'patch' / 'build_patch.py'
 
 
@@ -84,7 +86,8 @@ def main():
         argv.append('--no-zip')
     if args.dry_run:
         argv.append('--dry-run')
-    return subprocess.run(argv, cwd=str(REPO)).returncode
+    return subprocess.run(argv, cwd=str(REPO),
+                          **std_handles(), **POPEN_FLAGS).returncode
 
 
 if __name__ == '__main__':

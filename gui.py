@@ -198,6 +198,15 @@ PATCH_ACTIONS = [
      "vendor faction names, so the receipts were never for sale. This ships "
      "the eight fixed scripts as loose files - no plugin, and no re-deploying "
      "the whole converted mod. Rebuild it after 'Convert scripts'"),
+    ("doors", "Animated doors & sconces", "MyOwnTamrielDoorFix",
+     "animated doors, gates and sconces in their authored pose",
+     "Fixes converted doors that swing through their own hinge into the wall, "
+     "and gates, portcullises, sconces and traps that stand rotated away from "
+     "where they belong. Oblivion splits an animated object's pose between the "
+     "scene graph and the clip, so Skyrim applied it twice. The converter "
+     "already fixes it - this ships the corrected meshes as loose files, so "
+     "you get them without re-deploying a multi-gigabyte BSA. Rebuild it "
+     "after 'Meshes'"),
     ("ship", "Sailable Ship (Cyrodiil route)", "MyOwnTamrielShipPatch.esp",
      "the Cyrodiil sea route lands in OUR Cyrodiil",
      "Needs the Sailable Ship mod. Its 'Cyrodiil Route' was built for Rigmor "
@@ -677,6 +686,11 @@ def _run_process(cmd, log_cb, env=None, cancel_event=None):
     try:
         full_env = os.environ.copy()
         full_env["PYTHONUNBUFFERED"] = "1"
+        # The reader below decodes the pipe as UTF-8, so the children have to
+        # write it. Without this they use the machine's ANSI codepage and any
+        # non-ASCII line -- a translated worldspace or NPC name -- arrives as
+        # replacement characters.
+        full_env["PYTHONIOENCODING"] = "utf-8"
         if env:
             full_env.update(env)
 

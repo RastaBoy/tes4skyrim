@@ -140,6 +140,43 @@ therefore keeps its output and simply has no `# Finished:` footer, which is
 itself the signal that it did not terminate cleanly. Logging never fails a
 conversion: every filesystem step degrades to "no logging" rather than raising.
 
+<a id="pythonw-grandchildren"></a>
+#### A child of a child must be handed our descriptors
+
+**Symptom (fixed 2026-08-28):** the ship patch built fine from a terminal and
+failed from the GUI, with a log that held the driver's own headers and not one
+line from the pass underneath it. Every other patch had the same blank log; only
+`ship` also died of it.
+
+The GUI re-execs itself under `pythonw.exe` so no console window lingers. A
+GUI-subsystem process's standard handles are not marked inheritable, so
+`CreateProcess` gives a child NULL ones unless they are named explicitly. That
+child starts with `sys.stdout is None`, and two things follow:
+
+* `print()` returns early on a None stream — CPython drops the line in silence,
+  which is why the passes logged nothing rather than erroring.
+* anything reading an attribute off the stream raises. `assign_ship_port.py`
+  asked for `sys.stdout.encoding` to fold a translated worldspace name into the
+  console codepage, so it alone exited 1.
+
+`subprocess_flags.std_handles()` returns `{'stdout': fd, 'stderr': fd}` for the
+current process; spread it into any `subprocess` call whose child's output must
+survive:
+
+```python
+subprocess.run(cmd, **std_handles(), **POPEN_FLAGS)
+```
+
+It returns `{}` when there is nothing to hand down (already-None streams, or a
+stream with no descriptor such as pytest's capture), so it is safe everywhere.
+Switching the child to `python.exe` does NOT fix this — a console app with NULL
+handles plus `CREATE_NO_WINDOW` has nowhere to write either. Guarded by
+`tests/test_subprocess_flags.py`.
+
+The GUI also sets `PYTHONIOENCODING=utf-8` for every child, because its pipe
+reader decodes UTF-8; without it children encode to the machine's ANSI codepage
+and any non-ASCII line arrives as replacement characters.
+
 <a id="running-off-windows"></a>
 ### Running off Windows (Linux / Mac, via Wine)
 

@@ -44,6 +44,7 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
 from output_layout import finished_dir                       # noqa: E402
+from subprocess_flags import POPEN_FLAGS, std_handles        # noqa: E402
 from tools.patch.patch_builder import (                      # noqa: E402
     PatchPlugin, locate_plugin, order_masters, remap_record,
 )
@@ -93,6 +94,10 @@ PATCHES = {
     # themselves (see build_house), so what it packages is loose .pex files.
     'house':     ('MyOwnTamrielHousePatch',
                   "house upgrades and Sinderion's stock actually on sale"),
+    # Likewise plugin-less, and for the same reason: the fix is in the mesh
+    # converter, so what it packages is loose NIFs (see build_doors).
+    'doors':     ('MyOwnTamrielDoorFix',
+                  'animated doors, gates and sconces in their authored pose'),
 }
 
 # Patches whose records a later patch has to CARRY THROUGH, in load order.
@@ -167,8 +172,11 @@ def run(step, argv, dry_run):
     print('  ' + ' '.join(f'"{a}"' if ' ' in str(a) else str(a) for a in argv))
     if dry_run:
         argv = list(argv) + ['--dry-run']
+    # std_handles(): under the GUI this driver is pythonw.exe, whose std
+    # handles a child does NOT inherit -- without them the pass runs blind,
+    # prints nothing into the run log, and dies on `sys.stdout.encoding`.
     result = subprocess.run([sys.executable, '-u'] + [str(a) for a in argv],
-                            cwd=str(REPO))
+                            cwd=str(REPO), **std_handles(), **POPEN_FLAGS)
     if result.returncode != 0:
         raise SystemExit(f'{step} failed (exit {result.returncode})')
 
@@ -543,6 +551,161 @@ def build_house(plugins, output_dir, dry_run=False, no_zip=False,
     return 0
 
 
+# ---------------------------------------------------------------------------
+# doors: the accum-root sink, shipped as loose meshes
+# ---------------------------------------------------------------------------
+
+# The name Oblivion's exporter gives the accum root's pose-carrying child.
+# `_sink_accum_root_transform` moves the accum root's authored transform onto
+# it, so "accum root identity AND <name> NonAccum not identity" is the mark the
+# pass leaves in the converted file -- the mesh-side equivalent of
+# OWNED_CONTAINER_MARKER. Nothing is hardcoded: the set is read back off the
+# output tree, so a plugin whose animated objects differ packages correctly
+# without editing this.
+NONACCUM = b' NonAccum'
+
+
+def _is_identity(node):
+    r = node.rotation
+    return (abs(r.m_11 - 1) + abs(r.m_22 - 1) + abs(r.m_33 - 1)
+            + abs(r.m_12) + abs(r.m_13) + abs(r.m_21)
+            + abs(r.m_23) + abs(r.m_31) + abs(r.m_32) < 1e-4
+            and max(abs(node.translation.x), abs(node.translation.y),
+                    abs(node.translation.z)) < 1e-4
+            and abs(node.scale - 1.0) < 1e-4)
+
+
+def _sunk_accum_roots(path):
+    """Names of the accum roots this converted mesh had emptied, or []."""
+    from pyffi.formats.nif import NifFormat
+    data = NifFormat.Data()
+    try:
+        with open(path, 'rb') as fh:
+            data.read(fh)
+    except Exception:
+        return []                      # unreadable here is not this patch's job
+    hits = []
+    for root in data.roots:
+        nodes, mgrs = {}, []
+        for block in root.tree():
+            name = getattr(block, 'name', None)
+            if name is not None and hasattr(block, 'children'):
+                nodes.setdefault(bytes(name), block)
+            if isinstance(block, NifFormat.NiControllerManager):
+                mgrs.append(block)
+        for mgr in mgrs:
+            for seq in mgr.controller_sequences:
+                target = getattr(seq, 'target_name', b'') or b''
+                target = (target.encode('latin-1')
+                          if isinstance(target, str) else bytes(target))
+                node = nodes.get(target)
+                if node is None or not _is_identity(node):
+                    continue
+                for child in (node.children or ()):
+                    if (child is not None
+                            and bytes(getattr(child, 'name', b'') or b'')
+                            == target + NONACCUM
+                            and hasattr(child, 'rotation')
+                            and not _is_identity(child)):
+                        hits.append(target.decode('latin-1'))
+                        break
+    return sorted(set(hits))
+
+
+def build_doors(plugins, output_dir, dry_run=False, no_zip=False):
+    """Package the meshes whose accum-root transform the converter sank.
+
+    This patch ships no plugin, for the same reason the house one does not: the
+    fix is already in the converter, and what the player is missing is the
+    FILES. Oblivion's exporter splits an animated object's pose between the
+    accum root (scene graph) and `<accum> NonAccum` (the clip), so leaving the
+    accum root's transform in the graph applies it twice and the door swings
+    through its own hinge -- see `docs/nif_conversion_notes.md`, "An accum
+    root's transform must be SUNK onto NonAccum".
+
+    A converted mesh reaches the game inside a multi-gigabyte BSA, so a fix to
+    58 files otherwise costs a full re-deploy. Loose files win over a BSA, so
+    this is the whole class of the bug in a few megabytes -- and the fastest way
+    to retest it, which is how the fix was confirmed in game on 2026-08-29.
+
+    The set is DERIVED from the converted meshes (see NONACCUM), never listed,
+    so it tracks whatever the pass actually did on this build. Meshes are zipped
+    straight out of the output tree rather than staged: they are already exactly
+    the bytes the mesh phase wrote.
+    """
+    sys.path.insert(0, str(REPO))
+    from asset_convert import pyffi_monkey_patch  # noqa: F401  (NIF read fixes)
+
+    found, scanned = [], 0
+    seen_roots = set()
+    for plugin in plugins:
+        # find_converted, not plugin_out_root: plugins imported from one mod
+        # archive SHARE an output folder (ElsweyrAnequina.esp lives under
+        # Update_ElsweyrAnequina/), and resolving the name literally reported
+        # every grouped plugin as having no meshes at all.
+        converted = find_converted(str(output_dir), plugin)
+        if converted is None:
+            print(f'  {plugin}: not built in {output_dir} -- skipped')
+            continue
+        root = Path(converted).parent
+        if root in seen_roots:
+            # A shared tree is scanned once; its meshes belong to all of them.
+            print(f'  {plugin}: shares {root.name}/ -- already scanned')
+            continue
+        seen_roots.add(root)
+        meshes = root / 'meshes'
+        if not meshes.is_dir():
+            print(f'  {plugin}: no meshes/ under {root} -- skipped')
+            continue
+        hits = 0
+        for nif in sorted(meshes.rglob('*.nif')):
+            scanned += 1
+            # Cheap gate first: the node name is in the header string table, so
+            # a mesh without it cannot carry an accum split and never gets
+            # parsed. Without this the scan is every converted mesh (13,922 for
+            # Oblivion.esm) instead of the hundred-odd that can qualify.
+            try:
+                if NONACCUM.strip() not in nif.read_bytes():
+                    continue
+            except OSError:
+                continue
+            accums = _sunk_accum_roots(nif)
+            if not accums:
+                continue
+            found.append((nif, nif.relative_to(root).as_posix(), plugin))
+            hits += 1
+        print(f'  {plugin}: {hits} mesh(es) with a sunk accum root')
+
+    if not found:
+        raise SystemExit(
+            'no converted mesh carries a sunk accum root.\n'
+            'Either these plugins have no animated objects of this kind, or '
+            'the meshes predate the fix -- run\n'
+            '  python convert.py -f <plugin> --meshes-only')
+
+    total = sum(p.stat().st_size for p, _rel, _pl in found)
+    print(f'\n  {len(found)} meshes, {total:,} bytes, from {scanned:,} scanned')
+    for _p, rel, _pl in found[:12]:
+        print(f'    {rel}')
+    if len(found) > 12:
+        print(f'    ... and {len(found) - 12} more')
+
+    if dry_run:
+        print('\nDRY RUN -- nothing written')
+        return 0
+    if no_zip:
+        return 0
+
+    target = finished_dir(Path(output_dir)) / 'MyOwnTamrielDoorFix.zip'
+    with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as zf:
+        for path, rel, _plugin in found:
+            zf.write(path, arcname=rel)
+    print(f'\nPackaged -> {target} ({target.stat().st_size:,} bytes)')
+    print('Install it like any other converted mod: the archive root is the '
+          'Data folder. It must WIN over the converted plugin, so give it the '
+          'later position in the mod manager.')
+    return 0
+
 def package(esp_path, out_root, extras=()):
     """Zip the ESP the way every converted mod is zipped: root == Data.
 
@@ -629,6 +792,10 @@ def main():
     if args.patch == 'house':
         return build_house(args.plugins, args.output_dir, args.dry_run,
                            args.no_zip, args.plugin_index)
+
+    if args.patch == 'doors':
+        return build_doors(args.plugins, args.output_dir, args.dry_run,
+                           args.no_zip)
 
     if args.patch == 'cosmetic':
         build_cosmetic(args.plugins, args.output_dir, out_path, args.seed,

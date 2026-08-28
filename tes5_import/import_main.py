@@ -1578,7 +1578,8 @@ def import_plugin(export_dir: str, output_path: str, masters: list = None,
                        for k, r in (ctx.master_export or {}).items()
                        if r.get('Signature') == 'LVLC'}
     register_leveled_bases(_lvlc_fids)
-    n_lvl_achr = build_leveled_actor_shells(by_type, writer)
+    n_lvl_achr = build_leveled_actor_shells(
+        by_type, writer, ctx.master_export if ctx is not None else None)
     print(f"  Leveled creature placements: {n_lvl_achr} REFR -> ACHR "
           f"via generated shell NPCs ({len(_lvlc_fids)} LVLC bases known)")
     _step_done('leveled actor shells')

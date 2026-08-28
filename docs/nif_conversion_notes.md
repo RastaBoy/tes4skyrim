@@ -556,6 +556,10 @@ matched nothing and was dropped.  Creature/actor sounds still correctly use
 
 ### An accum root's transform must be SUNK onto NonAccum (2026-08-28)
 
+**CONFIRMED IN GAME 2026-08-29.**  The user installed the 60 rebuilt
+meshes as loose overrides and the reported doors are correct.  Do not
+re-open this; the pass is the fix.
+
 **Symptom (user report):** in some Oblivion interiors a door swings into the
 wall or stands rotated well away from its frame, while most doors in the same
 cell are fine.  Reported for Five Claws Lodge (Leyawiin) and Olav's Tap and
@@ -613,6 +617,37 @@ i.e. they are the separate, pre-existing billboard axis behaviour.
 
 Rebuild just these with
 `python tools/nif/convert_meshes_subset.py -f <plugin> --list <hits>`.
+
+**THE CLASSIFICATION MUST RUN BEFORE `_process_controller_manager`
+(2026-08-29).**  `_accum_root_mode` tells 'transferred' from 'orphan' by
+reading the NonAccum entry's interpolator, and that pass SENTINELS a data-less
+interpolator's rotation to -FLT_MAX -- after which a NonAccum pose looks like a
+channel carrying nothing and the accum root reads as 'orphan'.  The sink ran
+immediately after it at both call sites, so it saw the sentinelled state:
+measured on Oblivion.esm, **18 of the 58 sinkable meshes were sunk and 40 were
+silently skipped** -- every wall and lamp sconce, `benirusdoor01`, both
+Oblivion gates, the Agnon flames.  Only meshes whose NonAccum entry is a real
+KEY LIST (`doorfulllower02`, the Leyawiin and Bravil doors -- i.e. the three
+the original report named) survived the flip, which is exactly why the fix
+looked complete.  `_transferred_accum_roots()` now runs BEFORE the manager pass
+at both sites and hands the names down; `_sink_accum_root_transform` re-derives
+them only when a caller passes none.  Guarded by the `benirusdoor01` case in
+`TestAccumRootTransformSunk`.
+
+Shipped as a patch: `python tools/patch/build_patch.py --patch doors --plugins
+<plugin>` packages every mesh carrying the mark as LOOSE files
+(`MyOwnTamrielDoorFix.zip`), which is how this class is retested without a BSA
+repack -- and how the 2026-08-29 in-game confirmation was obtained.
+
+The pass reports itself: `batch_convert` prints `Accum roots sunk=N` in its
+`Detailed stats` line (per-mesh `accum_roots_sunk` -> phase `accum_sunk`).  It
+was silent when first shipped, and a silent pass is indistinguishable from one
+that never ran — which is exactly the doubt a full `--meshes-only` then
+raises.  Measured on the 2026-08-28 output tree: the phase applies it
+everywhere it should (architecture 2,654 / dungeons 2,885 / clutter 1,084 /
+rocks 815 / oblivion 461 / the rest — 0 unsunk accum roots except the two
+skinned arena spectators and two `'orphan'` roots), and a fresh phase run of
+the three reference doors is BYTE-IDENTICAL to what shipped.
 
 ### DOOR sound records: SNAM/ANAM must name an SNDR (2026-08-05)
 

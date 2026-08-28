@@ -17,6 +17,14 @@ To fix this everywhere in one place:
     ``multiprocessing.Pool`` is created) so spawned Python workers also inherit
     a hidden console. Safe to call on every platform; no-ops off Windows.
 
+  * ``std_handles()`` — spread into every ``subprocess`` call that runs a
+    child whose OUTPUT we want to keep:
+        subprocess.run(cmd, **std_handles(), **POPEN_FLAGS)
+    Under ``pythonw.exe`` the process's std handles are NOT inheritable, so a
+    child spawned without explicit handles is given NULL ones: its ``print``
+    output vanishes and any ``sys.stdout.<attr>`` raises ``AttributeError``.
+    Passing our own file descriptors down repairs both.
+
   * ``windows_cmd(cmd)`` — wrap a command list before every call that invokes
     one of the bundled Windows tools (BSArch, hkxcmd, LODGen, the mopp bridge,
     the papyrus compiler, xWMAEncode, LipGenerator):
@@ -41,13 +49,43 @@ import shutil
 import subprocess
 import sys
 
-__all__ = ["POPEN_FLAGS", "configure_multiprocessing", "windows_cmd",
-          "to_wine_path"]
+__all__ = ["POPEN_FLAGS", "configure_multiprocessing", "std_handles",
+          "windows_cmd", "to_wine_path"]
 
 # Flags to hide the console window of any subprocess we spawn on Windows.
 POPEN_FLAGS: dict = {}
 if sys.platform == "win32":
     POPEN_FLAGS["creationflags"] = subprocess.CREATE_NO_WINDOW
+
+
+def std_handles() -> dict:
+    """Explicit ``stdout``/``stderr`` for a child, so its output reaches ours.
+
+    ``pythonw.exe`` is a GUI-subsystem binary: the std handles the GUI hands it
+    live in its PEB but are not marked inheritable, so ``CreateProcess`` gives
+    a child NULL ones unless they are named. The child then starts with
+    ``sys.stdout is None`` -- ``print`` silently drops every line (CPython's
+    ``print`` returns early on a None stream) and anything reading an attribute
+    off it, like ``sys.stdout.encoding``, dies with ``AttributeError``. That is
+    why a patch build launched from the GUI logged its driver's headers and not
+    one line from the pass underneath it.
+
+    Handing the child our own descriptors restores both. Returns ``{}`` when
+    there is nothing to hand down (already-NULL streams, or a stream with no
+    descriptor, such as pytest's capture), which leaves the default behaviour.
+    """
+    handles = {}
+    for name in ('stdout', 'stderr'):
+        stream = getattr(sys, name, None)
+        if stream is None:
+            continue
+        try:
+            stream.flush()          # our own buffered text must land FIRST
+            handles[name] = stream.fileno()
+        except (AttributeError, OSError, ValueError):
+            handles.pop(name, None)
+    return handles
+
 
 _mp_configured = False
 

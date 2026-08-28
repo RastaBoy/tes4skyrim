@@ -350,14 +350,22 @@ CLONE_SUCCESSORS = {
 
 
 def load_donors(patch, table, decisions, output_dir):
-    """{race plugin: (ChainedSource, remap)} for every donor the build needs."""
-    need = set()
+    """{race plugin: (ChainedSource, remap)} for every donor the build needs.
+
+    Each donor plugin is checked for actors UP FRONT. A vanilla master that is
+    present but EMPTY -- a header-only stub standing in for the real file, which
+    a broken install or a dummy-ESM generator leaves behind -- otherwise fails
+    much later as `donor <EditorID> is not in <plugin>`, which reads like a
+    wrong FormID in our own table rather than a missing game file.
+    """
+    need = {}
     for d in decisions:
         if d.action != 'swap':
             continue
         creature = table.SKYRIM_CREATURES[d.target]
         if creature.donor:
-            need.add(creature.plugin)
+            need.setdefault(creature.plugin, 0)
+            need[creature.plugin] += 1
     donors = {}
     for plugin in sorted(need):
         path = locate_plugin(plugin, output_dir)
@@ -365,6 +373,17 @@ def load_donors(patch, table, decisions, output_dir):
             raise SystemExit(f'cannot find {plugin}, which the clone needs to '
                              'read its vanilla creatures from')
         src = ChainedSource(path, {'NPC_'})
+        if not src.by_type.get('NPC_'):
+            size = os.path.getsize(path)
+            raise SystemExit(
+                f'{plugin} has NO actor records, so the {need[plugin]} '
+                f'creature(s) that clone from it cannot be built.\n'
+                f'  read from: {path}  ({size:,} bytes)\n'
+                f'  It looks like a header-only stub standing in for '
+                f'the real master, not the game file.\n'
+                f'  Verify the game files (or point tes5DataPath in '
+                f'conversion_config.json at an install that has it) '
+                f'and rebuild.')
         donors[plugin] = (src, patch.remap_from(src))
     return donors
 

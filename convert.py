@@ -82,7 +82,8 @@ _MAX_BATCH_RETRIES = 25
 
 # Suppress console windows when spawned from a console-less parent (pythonw/.pyw)
 from subprocess_flags import (POPEN_FLAGS as _POPEN_FLAGS,
-                              configure_multiprocessing, windows_cmd)
+                              configure_multiprocessing, std_handles,
+                              windows_cmd)
 from process_job import create_pool_job, describe_limit
 from worker_budget import worker_count
 from collision_options import (
@@ -1630,7 +1631,10 @@ def _run_pipeline():
                 str(SCRIPT_DIR / "tools" / "release" / "create_lod.py")]
         if output_dir:
             _cmd += ["--output-dir", str(output_dir)]
-        ok = subprocess.call(_cmd) == 0
+        # std_handles(): launched from the GUI this is pythonw.exe, whose std
+        # handles a child does NOT inherit -- without them create_lod runs
+        # blind and its whole log is lost.
+        ok = subprocess.call(_cmd, **std_handles(), **_POPEN_FLAGS) == 0
         if not ok:
             success = False
         # Recorded once, under the shared key: one artefact covers every

@@ -4314,6 +4314,13 @@ class TestAccumRootTransformSunk:
         ('architecture/leyawiin/leyawindoorlowerint01.nif',
          b'Leyawiin Door L C IINT 01'),
         ('architecture/bravil/bravilloaddoorlowerint01.nif', b'DoorLowerINT01'),
+        # Its NonAccum entry is a data-less POSE, not a key list, so
+        # _process_controller_manager sentinels the rotation the
+        # 'transferred' test reads.  Classifying after that pass called this
+        # accum root 'orphan' and skipped it -- 40 of the 58 sinkable meshes
+        # were lost that way, every wall sconce among them.  Guards the
+        # ordering in _convert_nif / _walk_node, not just the sink itself.
+        ('architecture/anvil/benirusdoor01.nif', b'BenirusDoor01'),
     ]
 
     @staticmethod

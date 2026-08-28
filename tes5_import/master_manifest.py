@@ -228,14 +228,39 @@ class MasterManifest:
             self._records['%08X' % new_key] = {'fid': fid,
                                                'companions': comps}
 
-        # Derive keys are plain strings shared across files (a creature folder
-        # name); only their ids need restating, and they are in the master's
-        # OUTPUT space like `fid` above. A later master wins a key an earlier
-        # one also defines, matching load order.
+        # Derive keys are USUALLY plain strings shared across files (a creature
+        # folder name), and then only their ids need restating -- those are in
+        # the master's OUTPUT space like `fid` above. But 13 sites key on a
+        # converted FormID instead (LVLN_SHELL, OTFT, DLBR, ...), and that int
+        # is in the master's output numbering too, so the KEY has to be
+        # restated as well or a dependent whose index bytes differ from the
+        # master's looks up a key that is never there and silently mints its
+        # own copy. A later master wins a key an earlier one also defines,
+        # matching load order.
         for dkey, dfid in derived.items():
             got = _remap(dfid, out_map)
-            if got:
-                self._derived[dkey] = got
+            if not got:
+                continue
+            self._derived[_remap_derive_key(dkey, out_map)] = got
+
+
+def _remap_derive_key(dkey: str, out_map: dict) -> str:
+    """Restate a derive key that IS a converted FormID into this plugin's space.
+
+    Only a bare-integer key can be one; a folder name or a tuple is shared
+    verbatim across files and must be left alone. An index byte the map does
+    not name belongs to a file this plugin never loads, so the key is kept as
+    it stands -- it can only ever miss, which costs a duplicate, never a wrong
+    record.
+    """
+    site, sep, key = dkey.partition('\x00')
+    if not sep or not key.isdigit():
+        return dkey
+    fid = int(key)
+    mapped = out_map.get((fid >> 24) & 0xFF)
+    if mapped is None:
+        return dkey
+    return f'{site}\x00{(mapped << 24) | (fid & 0x00FFFFFF)}'
 
 
 def load_master_manifests(masters: list, tes4_master_count: int,

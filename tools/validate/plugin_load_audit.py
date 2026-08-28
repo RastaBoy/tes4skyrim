@@ -41,6 +41,14 @@ Checks, per plugin:
      what kept TWMP_ValenwoodImproved from loading. Authority is the real
      Skyrim.esm (168/168 blocks of 0000003C, all 37 worldspaces); never
      census our own output, which carried the same bug.
+ 12. a REFR must not name a leveled actor list (LVLN), and an ACHR's base must
+     be an NPC_. Vanilla census (Skyrim + every DLC, 793,178 placements): 0 of
+     either name an LVLN, and all 11,669 ACHR bases are NPC_. The CK DELETES
+     such a ref and then hangs on a "File in use" retry dialog trying to write
+     the deletion back (docs/ck_file_in_use_stall.md); in game the base
+     dereferences null. Bases in a CONVERTED master are resolved too, because
+     that is where they nearly always live — checking only the file's own
+     records is how 19 of these shipped in ElsweyrAnequina.esp.
 
 Exit status is the number of problems, so it can gate a build.
 
@@ -92,15 +100,17 @@ def plugin_masters(d):
     return out
 
 
-def audit(path, label):
+def audit(path, label, master_sigs=None):
     d = open(path, 'rb').read()
+    master_sigs = master_sigs or {}
     problems = Counter()
     examples = {}
     seen = {}
     tops = []
     owned_groups = Counter()
     achr_bases = {}          # ACHR formid -> its NAME target
-    local_sigs = {}          # formid -> signature, for the ACHR base check
+    refr_bases = {}          # REFR formid -> its NAME target
+    local_sigs = {}          # formid -> signature, for the base-type checks
     cell_lands = {}          # cell formid -> the LAND inside it (max one)
     # (enclosing group id) -> [block labels in file order], for the grid sort
     # Index of Skyrim.esm in this plugin's master list. A record whose own
@@ -227,10 +237,10 @@ def audit(path, label):
                 if not ok:
                     note('regn-area-misordered', f'{fid:08X}')
             local_sigs[fid] = sig
-            if sig == b'ACHR':
+            if sig in (b'ACHR', b'REFR'):
                 for ssig, val in subs(body):
                     if ssig == b'NAME' and len(val) == 4:
-                        achr_bases[fid] = struct.unpack('<I', val)[0]
+                        (achr_bases if sig == b'ACHR' else refr_bases)[fid] =                             struct.unpack('<I', val)[0]
                         break
             i += 24 + size
         check_grid_order(siblings)
@@ -245,13 +255,31 @@ def audit(path, label):
             gt, lbl = key
             note('duplicate-owned-group',
                  f'type {gt} for {struct.unpack("<I", lbl)[0]:08X} x{n}')
-    # An ACHR's base must be an actor. Only bases THIS file defines can be
-    # checked here; a master's is resolved by the caller's own audit of it.
+    # An ACHR's base must be an actor and a REFR's must never be a leveled
+    # actor list. Vanilla census (Skyrim + every DLC, 793,178 placements):
+    # all 11,669 ACHR bases are NPC_, and ZERO placements of either kind name
+    # an LVLN. The CK DELETES a ref whose base does not resolve and then
+    # stalls forever trying to write the deletion back into the plugin
+    # (docs/ck_file_in_use_stall.md); the game loads it as a Character* and
+    # dereferences a null base.
+    #
+    # `master_sigs` is what makes this catch the real case: the base is
+    # usually one of the MASTER'S records, which a single-file scan never
+    # sees -- that blindness is exactly how 19 REFR -> LVLN placements shipped
+    # in ElsweyrAnequina.esp.
+    def base_sig(fid):
+        return local_sigs.get(fid) or master_sigs.get(fid)
+
     for fid, base in achr_bases.items():
-        bsig = local_sigs.get(base)
+        bsig = base_sig(base)
         if bsig is not None and bsig not in (b'NPC_',):
             note('achr-base-is-not-an-actor',
                  f'ACHR {fid:08X} -> {bsig.decode()} {base:08X}')
+    for fid, base in refr_bases.items():
+        bsig = base_sig(base)
+        if bsig in (b'LVLN',):
+            note('refr-base-is-a-leveled-actor',
+                 f'REFR {fid:08X} -> {bsig.decode()} {base:08X}')
 
     print(f'--- {label}: {len(seen)} records, {len(tops)} top groups')
     if not problems:
@@ -287,6 +315,35 @@ def _resolve(output_dir: str, export_dir: str, name: str) -> str:
     return os.path.join(output_dir, name, name)
 
 
+def master_signatures(path: str, output_dir: str, export_dir: str) -> dict:
+    """`{FormID -> signature}` for every record in this plugin's CONVERTED
+    masters, already stated in the plugin's own index space.
+
+    A converted master keeps its own index byte through the conversion, and a
+    dependent names it at the same byte, so the ids need no remapping -- but
+    the master must be READ, or every base a plugin borrows looks unresolvable
+    and no base-type rule can fire. Vanilla masters (Skyrim.esm and friends)
+    are not under output/ and are simply skipped: a base in one of those is
+    never our bug.
+    """
+    sigs = {}
+    for master in plugin_masters(open(path, 'rb').read()):
+        mpath = _resolve(output_dir, export_dir, master)
+        if not os.path.isfile(mpath):
+            continue
+        d = open(mpath, 'rb').read()
+        i, n = 24 + struct.unpack_from('<I', d, 4)[0], len(d)
+        while i + 24 <= n:
+            sig = d[i:i + 4]
+            size = struct.unpack_from('<I', d, i + 4)[0]
+            if sig == b'GRUP':
+                i += 24
+                continue
+            sigs[struct.unpack_from('<I', d, i + 12)[0]] = sig
+            i += 24 + size
+    return sigs
+
+
 def main():
     root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     ap = argparse.ArgumentParser(
@@ -309,7 +366,9 @@ def main():
             print(f'--- {name}: NOT BUILT ({path})')
             missing += 1
             continue
-        total += audit(path, name)
+        total += audit(path, name,
+                       master_signatures(path, args.output_dir,
+                                         args.export_dir))
     print(f'\nTOTAL PROBLEMS: {total}'
           + (f'   ({missing} plugin(s) NOT BUILT - nothing was checked for '
              f'them)' if missing else ''))

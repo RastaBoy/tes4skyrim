@@ -55,6 +55,7 @@ from tools.patch.patch_builder import (              # noqa: E402
     order_masters, remap_chain, remap_record,
 )
 from tools.patch.plugin_patch import vmad_set_properties     # noqa: E402
+from subprocess_flags import POPEN_FLAGS, std_handles        # noqa: E402
 from tools.patch.assign_creatures import find_converted      # noqa: E402
 
 OUT_DIR = os.path.join(REPO, 'patch_folder', 'output')
@@ -424,10 +425,11 @@ def widen_world_bounds(patch, source, mapping, quiet=False):
                     shown = raw.decode('utf-8')
                 except UnicodeDecodeError:
                     shown = raw.decode('cp1252', 'replace')
+                # The console codepage, NOT the file's -- and `sys.stdout`
+                # is None under a console-less parent, so it cannot be asked.
+                codec = getattr(sys.stdout, 'encoding', None) or 'ascii'
                 print(f'           keeping the name {from_plugin} gives it: '
-                      f'"{shown}"'.encode(sys.stdout.encoding or 'ascii',
-                                          'replace')
-                      .decode(sys.stdout.encoding or 'ascii'))
+                      f'"{shown}"'.encode(codec, 'replace').decode(codec))
     return written
 
 
@@ -550,7 +552,7 @@ def patch_utility_script(dest, out_path, dry_run=False):
         argv.append('--dry-run')
     else:
         argv += ['--out', out_path]
-    result = subprocess.run(argv, cwd=REPO)
+    result = subprocess.run(argv, cwd=REPO, **std_handles(), **POPEN_FLAGS)
     os.remove(scratch)
     if result.returncode != 0:
         raise SystemExit('retargeting the compiled script failed')

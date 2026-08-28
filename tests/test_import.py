@@ -6423,6 +6423,77 @@ class TestLeveledActorShellDNAM:
         assert struct.unpack_from('<HHH', body, 36) == (55, 37, 49)
 
 
+class TestPlacedLeveledCreatureFromAMaster:
+    """A dependent plugin placing its MASTER's leveled creature.
+
+    `build_leveled_actor_shells` indexed only `by_type['LVLC']` -- this
+    plugin's own -- so a REFR naming a MASTER's LVLC stayed a REFR pointing at
+    an LVLN. Skyrim has no such placement (measured: 0 of vanilla's 793,178
+    ACHR/REFR name an LVLN, and all 11,669 ACHR bases are NPC_), and the CK
+    deletes each one, which queues the whole file for its end-of-load AUTOEDIT
+    rewrite -- the pass that parks forever on a "File in use" dialog for a path
+    in the game root. 19 of ElsweyrAnequina.esp's placements hit this.
+    See docs/ck_file_in_use_stall.md.
+    """
+
+    def _run(self, master_export, monkeypatch):
+        from tes5_import import leveled_actors
+        from tes5_import.text_reader import set_formid_index_offset
+
+        set_formid_index_offset(1)
+        monkeypatch.setattr(leveled_actors, '_shell_race', lambda *a: 0x13746)
+
+        class Writer:
+            def __init__(self):
+                self.records = []
+                self.shared = {}
+
+            def derive_formid(self, site, key):
+                return 0x02AA0000 | (hash((site, key)) & 0xFFFF)
+
+            def derive_shared(self, site, key):
+                fid = self.shared.get((site, key))
+                return (fid, True) if fid else (self.derive_formid(site, key),
+                                                False)
+
+            def add_record(self, sig, blob):
+                self.records.append(sig)
+
+        writer = Writer()
+        # The master's own run already minted this shell.
+        writer.shared[('LVLN_SHELL', 0x010A31A2)] = 0x0156442E
+        by_type = {'REFR': [{'Signature': 'REFR', 'FormID': '01014F5B',
+                             'NAME': '000A31A2'}]}
+        n = leveled_actors.build_leveled_actor_shells(
+            by_type, writer, master_export)
+        set_formid_index_offset(0)
+        return n, by_type, writer
+
+    def test_a_masters_lvlc_placement_becomes_an_achr(self, monkeypatch):
+        master = {'000A31A2': {'Signature': 'LVLC', 'FormID': '000A31A2',
+                               'EditorID': 'LL1RoadForest'}}
+        n, by_type, _w = self._run(master, monkeypatch)
+        assert n == 1
+        assert by_type['REFR'] == []
+        assert by_type['ACHR'][0]['Signature'] == 'ACHR'
+
+    def test_it_reuses_the_masters_shell_and_writes_nothing(self, monkeypatch):
+        """All 9 LVLCs behind the 19 refs already had a shell in
+        Oblivion.esm's manifest, so the fix costs zero new records."""
+        master = {'000A31A2': {'Signature': 'LVLC', 'FormID': '000A31A2',
+                               'EditorID': 'LL1RoadForest'}}
+        _n, by_type, writer = self._run(master, monkeypatch)
+        # NAME is stored pre-offset, the way convert_ACHR reads it back.
+        assert by_type['ACHR'][0]['NAME'] == '0056442E'
+        assert writer.records == []
+
+    def test_without_the_master_export_it_stays_a_refr(self, monkeypatch):
+        """The defect itself, pinned: no master index, no retarget."""
+        n, by_type, _w = self._run(None, monkeypatch)
+        assert n == 0
+        assert by_type['REFR'][0]['Signature'] == 'REFR'
+
+
 class TestParentRefBecomesLinkedRef:
     """TES4 GetParentRef reads the ENABLE PARENT (XESP); Skyrim's
     GetLinkedRef() reads XLKR.

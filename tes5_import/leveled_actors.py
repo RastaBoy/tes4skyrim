@@ -32,7 +32,7 @@ import struct
 
 from .creature_races import get_creature_race
 from .skyrim_overrides import resolve_creature_race
-from .text_reader import get_formid, get_int, get_str
+from .text_reader import get_formid, get_int, get_str, remap_formid
 from .writer import (pack_formid_subrecord, pack_obnd, pack_record,
                      pack_string_subrecord, pack_subrecord)
 
@@ -172,21 +172,62 @@ def _build_shell(shell_fid: int, lvln_fid: int, race_fid: int,
     return pack_record('NPC_', shell_fid, 0, subs)
 
 
-def build_leveled_actor_shells(by_type: dict, writer) -> int:
+def _index_by_converted_fid(by_type: dict, master_export: dict,
+                            signatures: tuple) -> dict:
+    """`{signature: {converted FormID: record}}` over this plugin AND its masters.
+
+    `master_export` is keyed by raw TES4 FormID; `remap_formid` puts both spaces
+    on the same numbering, which is the one every REFR's NAME resolves into.
+    The plugin's own record wins, because that is the one it overrode.
+
+    ONE pass over `master_export` for all three types: it is the whole master
+    conversion (1.2M records for Oblivion.esm), so a pass per signature is
+    three times the cost for the same answer.
+    """
+    out = {sig: {} for sig in signatures}
+    wanted = set(signatures)
+    for key, rec in (master_export or {}).items():
+        sig = rec.get('Signature')
+        if sig not in wanted:
+            continue
+        try:
+            out[sig][remap_formid(int(key, 16))] = rec
+        except (TypeError, ValueError):
+            continue
+    for sig in signatures:
+        for rec in by_type.get(sig, []):
+            out[sig][get_formid(rec, 'FormID')] = rec
+    return out
+
+
+def build_leveled_actor_shells(by_type: dict, writer,
+                               master_export: dict = None) -> int:
     """Retarget placed leveled creatures onto shell NPC_ records.
 
     Mutates ``by_type``: REFRs whose NAME is an LVLC move to ``by_type['ACHR']``
-    with NAME rewritten to a freshly minted shell.  Returns the number of REFRs
-    converted.
+    with NAME rewritten to the shell.  Returns the number of REFRs converted.
+
+    🛑 The LVLC index MUST include the MASTERS' — see
+    [master blindness](../CLAUDE.md#master-blindness). A dependent plugin
+    routinely places one of its master's leveled creatures at a NEW location,
+    and such a REFR has no master record to inherit a corrected NAME from
+    (`override_builder._places_leveled_actor` only covers overrides), so
+    nothing but this pass can retarget it. Indexing only `by_type['LVLC']` left
+    19 of ElsweyrAnequina.esp's placements as REFR→LVLN, which the CK deletes
+    on load and then stalls trying to write the file back
+    (docs/ck_file_in_use_stall.md).
     """
-    lvlcs = by_type.get('LVLC', [])
     refrs = by_type.get('REFR', [])
-    if not lvlcs or not refrs:
+    if not refrs:
         return 0
 
-    lvlc_by_fid = {get_formid(r, 'FormID'): r for r in lvlcs}
-    crea_by_fid = {get_formid(r, 'FormID'): r for r in by_type.get('CREA', [])}
-    npc_by_fid = {get_formid(r, 'FormID'): r for r in by_type.get('NPC_', [])}
+    index = _index_by_converted_fid(by_type, master_export,
+                                    ('LVLC', 'CREA', 'NPC_'))
+    lvlc_by_fid = index['LVLC']
+    if not lvlc_by_fid:
+        return 0
+    crea_by_fid = index['CREA']
+    npc_by_fid = index['NPC_']
 
     offset = _index_offset()
     shell_by_lvlc = {}
@@ -202,10 +243,16 @@ def build_leveled_actor_shells(by_type: dict, writer) -> int:
         lvln_fid = get_formid(lvlc, 'FormID')
         shell_fid = shell_by_lvlc.get(lvln_fid)
         if shell_fid is None:
-            shell_fid = writer.derive_formid('LVLN_SHELL', lvln_fid)
-            race = _shell_race(lvlc, crea_by_fid, npc_by_fid, lvlc_by_fid)
-            edid = (get_str(lvlc, 'EditorID') or f'LVLN{lvln_fid:08X}') + '_Lvl'
-            writer.add_record('NPC_', _build_shell(shell_fid, lvln_fid, race, edid))
+            # A master that already places this leveled creature has minted the
+            # shell; reuse it rather than shipping a second copy of a record
+            # the load order already has.
+            shell_fid, from_master = writer.derive_shared('LVLN_SHELL', lvln_fid)
+            if not from_master:
+                race = _shell_race(lvlc, crea_by_fid, npc_by_fid, lvlc_by_fid)
+                edid = (get_str(lvlc, 'EditorID')
+                        or f'LVLN{lvln_fid:08X}') + '_Lvl'
+                writer.add_record('NPC_',
+                                  _build_shell(shell_fid, lvln_fid, race, edid))
             shell_by_lvlc[lvln_fid] = shell_fid
 
         # convert_ACHR reads NAME through get_formid(), which re-applies the

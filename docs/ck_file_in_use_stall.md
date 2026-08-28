@@ -1,4 +1,5 @@
-# The CK "File in use" stall on ElsweyrAnequina.esp (2026-08-27)
+# The CK "File in use" stall on ElsweyrAnequina.esp
+(diagnosed 2026-08-27, cause proven and fixed 2026-08-28)
 
 Loading `ElsweyrAnequina.esp` into the Creation Kit looks like a very slow load.
 It is not slow. **The CK stops dead** at the end of the load and waits forever
@@ -82,14 +83,106 @@ loaded file the CK would have parked on Oblivion.esm first — and Oblivion.esm 
 its own has loaded to completion before. The pass therefore only walks files the
 CK decided need rewriting, and ElsweyrAnequina.esp is on that list.
 
-🛑 **What puts it on that list is NOT proven.** The one flag that gates the
+## What puts a file on that list — PROVEN (2026-08-28)
+
+The 2026-08-27 prediction below ("fix the duplicate MOVT/IDLE/VTYP records and
+the stall goes away") was **WRONG**. Those duplicates are gone from the shipped
+build — `temp/movt_dupe_census.py` now reports 0 MNAM shared with Oblivion.esm,
+15 own MOVT — and the CK still parked on `File in use`. The duplicate fix stands
+on its own merits; it was never the gate.
+
+The gate is one container and two log messages. `0x1614e70` starts with
+
+```
+rax = TESDataHandler + 0xD90 ; call IsEmpty ; jne <skip the whole pass>
+```
+
+so a **non-empty `+0xD90` is the entire trigger**, and the loop reopens the file
+of every form in it (`form->GetFile()` at `0x161500c`, opened at `0x16151f8`).
+The forms are filtered to types `0x3D..0x46` (CELL…PBAR) and `0x4C` (DIAL).
+
+The only writer is `0x1626a70`, inside `tesdatahandler.cpp`'s ConstructObject,
+and it is reached from exactly two messages:
+
+```
+Missing base object for ref '%s' (%08X) in cell (%i, %i) in world '%s' (%08X). Ref will be deleted.
+Missing base object for ref '%s' (%08X) in interior cell '%s' (%08X). Ref will be deleted.
+```
+
+**A placed reference whose base object does not resolve is the whole cause.**
+The CK deletes the ref, remembers it, and at end of load tries to write the
+deletion back into the plugin — at the game ROOT, where no `.esp` exists.
+
+Measured from the live log of the 2026-08-28 session (load order `00` Skyrim,
+`04` Dragonborn, `06` Oblivion.esm, `07` Realm of Lorkhan, `08`
+ElsweyrAnequina.esp), 55 such refs:
+
+| refs | file | bases in | ours? |
+|---|---|---|---|
+| 19 | `08` ElsweyrAnequina.esp | `06` Oblivion.esm | **yes — fixed below** |
+| 36 | `07` Realm of Lorkhan | `04` Dragonborn.esm | no |
+
+The 36 are a third-party mod's own placements naming Dragonborn bases that did
+not resolve. **Why they did not is NOT established** — an earlier note here
+blamed the 343-byte `Dragonborn.esm` stub in the Steam Data folder, which is
+wrong: the same log carries 3,149 `DLC2` mentions and reports on real
+Dragonborn records (`DLC2TelMithrynDoor03 (0403CA70)`), so the CK did load
+Dragonborn content, presumably through MO2's VFS rather than that on-disk file.
+Nothing in this repo can fix those 36 either way, and while they exist the
+stall can recur naming *that* plugin.
+
+(That stub is real and does break something else: the patch tools read the
+Steam `Data` path directly, with no VFS, so `--patch creatures` could not read
+its 316 Dragonborn donors. `assign_creatures.load_donors` now checks each donor
+master for actors up front and says so by name.)
+
+### Our 19: REFR → LVLN, master-blind
+
+All 19 named one of 9 Oblivion.esm LVLN records (`LL1RoadForest`,
+`LL1MythicEnemy100`, `OrcAdventurerRandom10`, …). Vanilla census
+(`temp/vanilla_achr_lvln_census.py`, Skyrim + all DLC, 793,178 placements):
+**0 ACHR and 0 REFR name an LVLN**, and all 11,669 ACHR bases are `NPC_`. A
+placement can never name a leveled list.
+
+`tes5_import/leveled_actors.py` already converts `REFR → LVLC` into
+`ACHR → NPC_ shell → TPLT → LVLN`, but `build_leveled_actor_shells` built its
+index from `by_type['LVLC']` alone — this plugin's own. A dependent plugin
+placing a **master's** leveled creature at a NEW location found nothing there
+and kept the REFR. `override_builder._places_leveled_actor` covers only the
+case where the plugin OVERRIDES a master's REFR, which these are not. Textbook
+[master-export blindness](../CLAUDE.md#master-blindness).
+
+**Fix:** the index is now built over the plugin's records *and*
+`ctx.master_export`, and the shell resolves through `writer.derive_shared`, so
+the master's existing shell is reused instead of a second copy being minted.
+All 9 LVLCs already had a shell in Oblivion.esm's manifest, so this cost **0
+new records and moved 0 FormIDs** — the 19 placements keep their ids and only
+change signature.
+
+`master_manifest` also had to restate FormID-shaped derive keys: 13 sites
+(`LVLN_SHELL`, `OTFT`, `DLBR`, …) key on a converted FormID in the *master's*
+output space, and only the values were being remapped. Here the index bytes
+happen to coincide (Oblivion.esm is `01` in both), so it worked by luck; a
+master at a different index would have missed every key and silently minted
+duplicates.
+
+**Measured after the rebuild:** `placements naming a leveled list: 0` across
+ElsweyrAnequina.esp, Oblivion.esm and DLCShiveringIsles.esp; all 12,993 ACHR
+bases are `NPC_`; `plugin_load_audit` and `dangling_ref_check` both CLEAN.
+Regression test: `TestPlacedLeveledCreatureFromAMaster` in `tests/test_import.py`.
+
+---
+
+## The 2026-08-27 investigation (the duplicate theory — superseded)
+
+🛑 **What puts it on that list was NOT proven here.** The one flag that gates the
 "Invalid forms were encountered on load" message (`0x3a9a6c2`, written only by
 `tesform.cpp`'s SetFormID-collision path at `0x16a4771`) was *not* set — no
 `SetFormID bashing` line appears in the log. The container the pass walks
 (`TESDataHandler+0xD90`) did not decode as a plain `BSTArray`. The correlation
 below is strong and the underlying data defect is real and worth fixing on its
 own merits, but "fix the duplicates and the stall goes away" is a prediction,
-not a measurement.
+not a measurement — and it turned out to be false; see above.
 
 ## The real data defect: master-blind generated records
 

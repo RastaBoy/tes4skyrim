@@ -19,7 +19,7 @@ description: >-
 
 # Animated meshes: an accum root's transform is applied twice
 
-**Status: FIXED 2026-08-28, not yet confirmed in game.** Measured against
+**Status: FIXED 2026-08-28, CONFIRMED IN GAME 2026-08-29.** Measured against
 `export/Oblivion.esm/meshes` and `output/Oblivion.esm/meshes/tes4`.
 
 **Symptom (in game):** in some interiors a door is rotated wrongly or drives
@@ -114,6 +114,24 @@ clips go through the behaviour graph, not this path.
 
 ---
 
+## 3b. The ordering trap (found 2026-08-29)
+
+`_accum_root_mode` decides 'transferred' vs 'orphan' from the NonAccum entry's
+interpolator — and `_process_controller_manager` **sentinels a data-less
+interpolator's rotation to −FLT_MAX**. Classify after it and a NonAccum *pose*
+reads as a channel carrying nothing, so the accum root is called 'orphan' and
+skipped.
+
+The sink ran immediately after that pass at both call sites. Measured:
+**18 of 58 sunk, 40 silently skipped** — every sconce, `benirusdoor01`, both
+Oblivion gates. The survivors were the meshes whose NonAccum entry is a real
+KEY LIST: `doorfulllower02` and the Leyawiin/Bravil doors, i.e. precisely the
+three the first report named, which is why the fix looked complete.
+
+`_transferred_accum_roots()` now runs BEFORE `_process_controller_manager` at
+both sites and the names are handed down. If a sweep reports 18 rather than 58,
+the meshes predate this.
+
 ## 4. Measured scope
 
 **92 meshes in Oblivion.esm, of which 58 ship** — the other 34 are `menus/`
@@ -141,8 +159,23 @@ python tools/nif/convert_meshes_subset.py -f Oblivion.esm --list <hits> --dry-ru
 python tools/nif/convert_meshes_subset.py -f Oblivion.esm --list <hits>
 ```
 
+```bash
+# 3. Ship the whole class as LOOSE meshes -- no BSA repack, no re-deploy.
+#    The set is derived from the mark the pass leaves, never listed.
+python tools/patch/build_patch.py --patch doors --plugins Oblivion.esm [--dry-run]
+```
+
 🛑 **A full `--meshes-only` is ~20,000 meshes and many minutes at 100% CPU.**
 This change touches 58. Use the subset tool.
+
+**Did the pass run?** The mesh phase prints it — `Detailed stats: ... Accum
+roots sunk=N` (`stats['accum_sunk']`, rolled up from each mesh's
+`accum_roots_sunk`). Before 2026-08-28 the pass was completely silent, which
+is what makes a run look like it never applied the fix. To audit the SHIPPED
+tree instead of the run, look for any accum root that still has a non-identity
+transform while owning a `<name> NonAccum` child: the only legitimate hits are
+skinned rigs (`arenaspectator*`, excluded on purpose) and `'orphan'` accum
+roots (`clawstandcontainer`, `siegecrawlerdeath`).
 
 Result of the sweep after the fix: **58 pairs compared, 0 regressions.** Eight
 meshes still differ (`seflamesofagnon*` ×5, `oblivioncitadelfirecolumn01`,
@@ -156,7 +189,9 @@ root ships identity and the NonAccum child absorbed its pose.
 
 In game: open a door in Olav's Tap and Tack or Five Claws Lodge, close it,
 leave and come back. The leaf should fill its frame and swing away from the
-wall.
+wall. **Done 2026-08-29 and the doors are correct** — the user installed the
+rebuilt meshes as LOOSE overrides, which is also the quickest way to retest
+this class without waiting on a BSA repack.
 
 ---
 

@@ -2175,7 +2175,42 @@ def _compose_local(child, parent):
     return m, t, Sc * Sp
 
 
-def _sink_accum_root_transform(node, palette, stats=None):
+def _transferred_accum_roots(node, palette):
+    """Names of the accum roots whose transform the CLIP re-applies.
+
+    MUST be called BEFORE `_process_controller_manager`.  That pass sentinels a
+    data-less interpolator's rotation to -FLT_MAX, and that value is exactly
+    the signal `_accum_root_mode` reads to tell 'transferred' from 'orphan':
+    once it is written, a NonAccum entry with a data-less pose looks like a
+    channel that carries nothing, so the accum root reads as 'orphan' and the
+    sink below leaves its transform in the graph -- doubled.
+
+    Measured on Oblivion.esm 2026-08-29: classifying AFTER the pass sinks 18 of
+    the 58 sinkable meshes; classifying before sinks all 58.  The 40 that were
+    lost are the ones whose NonAccum entry is a pose rather than a key list --
+    every wall sconce and lamp sconce, `benirusdoor01`, the Oblivion gates.
+    """
+    mgr = node.controller
+    if not isinstance(mgr, NifFormat.NiControllerManager):
+        return set()
+    if any(isinstance(b, NifFormat.NiSkinInstance) for b in node.tree()):
+        return set()
+    resolve = _make_cb_name_resolver(palette)
+    accums = set()
+    for seq in mgr.controller_sequences:
+        try:
+            if _accum_root_mode(seq, node, resolve) != 'transferred':
+                continue
+        except Exception:
+            continue
+        nm = getattr(seq, 'target_name', b'') or b''
+        nm = nm.encode('latin-1') if isinstance(nm, str) else bytes(nm)
+        if nm:
+            accums.add(nm)
+    return accums
+
+
+def _sink_accum_root_transform(node, palette, stats=None, accums=None):
     """Move an accum root's authored transform DOWN onto its children.
 
     Oblivion's exporter splits an animated object's pose in two: the accum
@@ -2219,20 +2254,12 @@ def _sink_accum_root_transform(node, palette, stats=None):
     mgr = node.controller
     if not isinstance(mgr, NifFormat.NiControllerManager):
         return 0
-    if any(isinstance(b, NifFormat.NiSkinInstance) for b in node.tree()):
-        return 0
-    resolve = _make_cb_name_resolver(palette)
-    accums = set()
-    for seq in mgr.controller_sequences:
-        try:
-            if _accum_root_mode(seq, node, resolve) != 'transferred':
-                continue
-        except Exception:
-            continue
-        nm = getattr(seq, 'target_name', b'') or b''
-        nm = nm.encode('latin-1') if isinstance(nm, str) else bytes(nm)
-        if nm:
-            accums.add(nm)
+    # `accums` MUST come from _transferred_accum_roots called BEFORE
+    # _process_controller_manager -- classifying here reads sentinelled
+    # interpolators and loses 40 of 58 meshes.  The fallback is for callers
+    # that have not run that pass yet (tests).
+    if accums is None:
+        accums = _transferred_accum_roots(node, palette)
     if not accums:
         return 0
 
@@ -4445,10 +4472,13 @@ def _walk_node(parent, node, fix_textures, stats):
                 if isinstance(block, NifFormat.NiStringPalette):
                     palette = block.palette
                     break
+            # Classify BEFORE the manager pass: it sentinels the very
+            # interpolator fields the 'transferred' test reads.
+            accums = _transferred_accum_roots(node, palette)
             _process_controller_manager(node, palette)
             # An accum root's authored transform must not survive into
             # Skyrim -- the clip re-applies it through the NonAccum child.
-            _sink_accum_root_transform(node, palette, stats)
+            _sink_accum_root_transform(node, palette, stats, accums)
 
         # Recurse into children.  Non-root NiBillboardNodes get the Skyrim
         # billboard treatment on the way back up (axis correction, or demotion
@@ -6123,11 +6153,14 @@ def _convert_nif(data, fix_textures=True, src_path='', weight=0,
         # NiMaterialColorController/NiGeomMorpherController, and handles zero-interp data.
         if (root.controller is not None and
                 isinstance(root.controller, NifFormat.NiControllerManager)):
+            # Classify BEFORE the manager pass: it sentinels the very
+            # interpolator fields the 'transferred' test reads.
+            _accums = _transferred_accum_roots(root, None)
             _process_controller_manager(root, None)
             # Must run BEFORE the rotation-wrap pass below: sinking the
             # transform leaves the root identity, so no wrapper is built to
             # re-apply what the clip already carries.
-            _sink_accum_root_transform(root, None, stats)
+            _sink_accum_root_transform(root, None, stats, _accums)
 
         # If root has non-identity rotation (non-skinned), wrap all geometry children
         # in a new inner NiNode that carries the rotation and translation, then zero
@@ -7473,6 +7506,11 @@ def _finish_result(result, stats):
     result['properties_converted'] = stats['properties_converted'] > 0
     result['root_converted'] = stats['root_converted'] > 0
     result['root_rotation_baked'] = stats['root_rotation_baked'] > 0
+    # How many accum roots _sink_accum_root_transform zeroed.  A COUNT, not a
+    # bool, because the phase prints it: it is the only evidence a run gives
+    # that the pass ran at all, and an animated mesh whose pose is wrong for
+    # some other reason looks exactly like one the pass never touched.
+    result['accum_roots_sunk'] = stats.get('accum_roots_sunk', 0)
     result['version_upgraded'] = True
     result['bones_remapped'] = stats['bones_remapped'] > 0
     result['textures_fixed'] = stats['properties_converted'] > 0  # proxy: every property conversion rewrites textures
@@ -7557,6 +7595,7 @@ def batch_convert(mesh_dir, output_dir, *, fix_textures=True,
         'properties': 0,
         'roots': 0,
         'rotations': 0,
+        'accum_sunk': 0,
         'warn_counts': _collections.Counter(),
         # Union of the textures every written mesh references — the pipeline
         # prunes the texture tree against this.
@@ -7592,6 +7631,7 @@ def batch_convert(mesh_dir, output_dir, *, fix_textures=True,
 
     def _update(nif_str, r):
         stats['warn_counts'].update(r.get('warn_counts', {}))
+        stats['accum_sunk'] += r.get('accum_roots_sunk', 0)
         stats['textures_used'].update(r.get('textures', ()))
         stats['parallax'].update(r.get('parallax') or {})
         stats['alpha_opacity_diffuse'].update(
@@ -7694,7 +7734,8 @@ def batch_convert(mesh_dir, output_dir, *, fix_textures=True,
     # plain ASCII: cp1252 consoles/pipes choke on the arrow character
     print(f'\nDetailed stats: Strips->Shape={stats["strips"]}, '
           f'Properties={stats["properties"]}, '
-          f'Roots={stats["roots"]}, Rotations baked={stats["rotations"]}')
+          f'Roots={stats["roots"]}, Rotations baked={stats["rotations"]}, '
+          f'Accum roots sunk={stats["accum_sunk"]}')
 
     return stats
 
